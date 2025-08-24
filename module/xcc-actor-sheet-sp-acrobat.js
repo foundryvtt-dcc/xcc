@@ -42,7 +42,7 @@ class XCCActorSheetSpAcrobat extends DCCActorSheet {
 
     //if (this.actor.system.details.sheetClass !== 'sp-acrobat') {
       await this.actor.update({
-        'system.class.className': game.i18n.localize('XCC.Specialist.Acrobat.ActorSheetAcrobat'),
+        'system.class.className': "acrobat",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Acrobat.ClassLink')),
         'system.details.sheetClass': 'sp-acrobat',
         'system.details.critRange': 20,

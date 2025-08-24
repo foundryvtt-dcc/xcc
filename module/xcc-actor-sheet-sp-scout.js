@@ -42,7 +42,7 @@ class XCCActorSheetSpScout extends DCCActorSheet {
 
     //if (this.actor.system.details.sheetClass !== 'sp-scout') {
       await this.actor.update({
-        'system.class.className': game.i18n.localize('XCC.Specialist.Scout.ActorSheetScout'),
+        'system.class.className': "scout",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Scout.ClassLink')),
         'system.details.sheetClass': 'sp-scout',
         'system.details.critRange': 20,

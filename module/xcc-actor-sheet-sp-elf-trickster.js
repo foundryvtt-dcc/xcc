@@ -42,7 +42,7 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
 
     //if (this.actor.system.details.sheetClass !== 'sp-elf-trickster') {
       await this.actor.update({
-        'system.class.className': game.i18n.localize('XCC.Specialist.ElfTrickster.ActorSheetElfTrickster'),
+        'system.class.className': "elftrickster",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.ElfTrickster.ClassLink')),
         'system.details.sheetClass': 'sp-elf-trickster',
         'system.details.critRange': 20,

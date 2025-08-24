@@ -32,10 +32,12 @@
     "system.class.blasterDie": "Blaster Die",
     "system.class.critEvilRange": "Crit vs. Evil",
     "system.class.scourge": "Scourge",
+    "system.class.turnUndeadDie": "Turn Unholy Die",
     "system.skills.acrobatics.value":"Acrobatics",
     "system.skills.poleVault.value": "Pole Vault",
     "system.skills.leap.value": "Leap",
-    "system.skills.tightropeWalk.value": "Tightrope Walk"
+    "system.skills.tightropeWalk.value": "Tightrope Walk",
+    "system.skills.dangerSense.value": "Danger Sense"
   },
   "XCC":{
     "NotFound": "No result found",

@@ -50,8 +50,8 @@ static CLASS_PARTS = {
 
     if (this.actor.system.details.sheetClass !== 'Jammer') {
       await this.actor.update({
-        'system.class.className': game.i18n.localize('XCC.Jammer.ActorSheetJammer'),
-        'system.details.sheetClass': 'Jammer',
+        'system.class.className': "jammer",
+        'system.details.sheetClass': 'jammer',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,
         'system.config.attackBonusMode': 'flat',

@@ -54,8 +54,8 @@ class XCCActorSheetBlaster extends DCCActorSheet {
 
     if (this.actor.system.details.sheetClass !== 'Blaster') {
       await this.actor.update({
-        'system.class.className': game.i18n.localize('XCC.Blaster.ActorSheetBlaster'),
-        'system.details.sheetClass': 'Blaster',
+        'system.class.className': "blaster",
+        'system.details.sheetClass': 'blaster',
         'system.class.spellCheckAbility': 'per',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,

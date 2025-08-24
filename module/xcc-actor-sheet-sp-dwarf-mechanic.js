@@ -42,7 +42,7 @@ class XCCActorSheetSpDwarfMechanic extends DCCActorSheet {
 
     //if (this.actor.system.details.sheetClass !== 'sp-dwarf-mechanic') {
       await this.actor.update({
-        'system.class.className': game.i18n.localize('XCC.Specialist.DwarfMechanic.ActorSheetDwarfMechanic'),
+        'system.class.className': "dwarfmechanic",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.DwarfMechanic.ClassLink')),
         'system.details.sheetClass': 'sp-dwarf-mechanic',
         'system.details.critRange': 20,

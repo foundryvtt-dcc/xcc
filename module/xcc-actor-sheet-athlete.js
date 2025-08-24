@@ -51,9 +51,9 @@ class XCCActorSheetAthlete extends DCCActorSheet {
         });
         
         this.actor.update({
-            'system.class.className': game.i18n.localize('XCC.Athlete.ActorSheetAthlete'),
+            'system.class.className':"athlete",
+            'system.details.sheetClass': 'athlete',
             'system.config.showSkills' : false,
-            'system.details.sheetClass': 'Athlete',
             'system.config.showSpells': false});
 
         let isArmorTooHeavy = false;

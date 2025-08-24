@@ -42,7 +42,7 @@ class XCCActorSheetSpCommando extends DCCActorSheet {
 
     //if (this.actor.system.details.sheetClass !== 'sp-commando') {
       await this.actor.update({
-        'system.class.className': game.i18n.localize('XCC.Specialist.Commando.ActorSheetCommando'),
+        'system.class.className': "commando",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Commando.ClassLink')),
         'system.details.sheetClass': 'sp-commando',
         'system.details.critRange': 20,

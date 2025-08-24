@@ -42,7 +42,7 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
 
     //if (this.actor.system.details.sheetClass !== 'sp-crypt-raider') {
       await this.actor.update({
-        'system.class.className': game.i18n.localize('XCC.Specialist.CryptRaider.ActorSheetCryptRaider'),
+        'system.class.className': "cryptraider",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.CryptRaider.ClassLink')),
         'system.details.sheetClass': 'sp-crypt-raider',
         'system.details.critRange': 20,

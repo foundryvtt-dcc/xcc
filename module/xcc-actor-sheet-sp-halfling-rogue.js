@@ -42,7 +42,7 @@ class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
 
     //if (this.actor.system.details.sheetClass !== 'sp-halfling-rogue') {
       await this.actor.update({
-        'system.class.className': game.i18n.localize('XCC.Specialist.HalflingRogue.ActorSheetHalflingRogue'),
+        'system.class.className': "halflingrogue",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.HalflingRogue.ClassLink')),
         'system.details.sheetClass': 'sp-halfling-rogue',
         'system.details.critRange': 20,

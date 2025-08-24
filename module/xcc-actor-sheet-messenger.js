@@ -56,8 +56,8 @@ static CLASS_PARTS = {
 
     if (this.actor.system.details.sheetClass !== 'Messenger') {
       await this.actor.update({
-        'system.class.className': game.i18n.localize('XCC.Messenger.ActorSheetMessenger'),
-        'system.details.sheetClass': 'Messenger',
+        'system.class.className': "messenger",
+        'system.details.sheetClass': 'messenger',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,
         'system.config.attackBonusMode': 'flat',

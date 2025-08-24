@@ -48,8 +48,8 @@ static CLASS_PARTS = {
 
     if (this.actor.system.details.sheetClass !== 'Brawler') {
       await this.actor.update({
-        'system.class.className': game.i18n.localize('XCC.Brawler.ActorSheetBrawler'),
-        'system.details.sheetClass': 'Brawler',
+        'system.class.className': "brawler",
+        'system.details.sheetClass': 'brawler',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,
         'system.config.attackBonusMode': 'autoPerAttack',
