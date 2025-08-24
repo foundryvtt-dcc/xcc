@@ -38,9 +38,11 @@
     "system.skills.poleVault.value": "Pole Vault",
     "system.skills.leap.value": "Leap",
     "system.skills.tightropeWalk.value": "Tightrope Walk",
-    "system.skills.dangerSense.value": "Danger Sense"
+    "system.skills.dangerSense.value": "Danger Sense",
+    "system.skills.criminalConnections.value": "Criminal Connections"
   },
   "XCC":{
+    "Actor": "Actor",
     "NotFound": "No result found",
     "ShiftUp": "Shift result up", 
     "ShiftDown": "Shift result down",
