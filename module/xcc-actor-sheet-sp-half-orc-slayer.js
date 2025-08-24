@@ -43,7 +43,7 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
     if (this.actor.system.details.sheetClass !== 'sp-half-orc-slayer') {
       await this.actor.update({
         'system.class.localizationPath':"XCC.Specialist.HalfOrcSlayer",
-        'system.class.className': "orcslayer",
+        'system.class.className': "halforcslayer",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.HalfOrcSlayer.ClassLink')),
         'system.details.sheetClass': 'sp-half-orc-slayer',
         'system.details.critRange': 20,
