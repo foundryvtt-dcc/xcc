@@ -1,0 +1,372 @@
+.scourge-button {
+  background-image: url("images/game-icons-net/skull-crack-grey.svg");
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  grid-row: 1;
+  width: 25px;
+  height: 25px;
+  margin: -1px 0 0 -10px;
+}
+
+.free-attack-button {
+  background-image: url("images/d14grey.svg");
+  background-repeat: no-repeat;
+  background-size: 22px 22px;
+  grid-row: 1;
+  width: 22px;
+  height: 22px;
+  margin: 1px 2px 0 0;
+}
+
+.two-attack-button {
+  background-image: url("images/d16grey.svg");
+  background-repeat: no-repeat;
+  background-size: 22px 22px;
+  grid-row: 1;
+  width: 22px;
+  height: 22px;
+  margin: 1px 2px 0 0;
+}
+
+.compound-damage-left{
+  text-align:right;
+  width: 55%;
+  overflow:visible;
+  padding-right:0px; 
+  padding-left:0.25rem;
+}
+
+.compound-damage-right{
+  text-align: left;
+  width: 45%;
+  overflow:visible;
+  padding-left:1px; 
+  padding-right: 0.25rem;
+}
+
+.box-title .link-floater {
+  float: right;
+  display: block;
+  width: 0;
+  line-height: 16px;
+  .content-link{
+    border:0;
+    float: right;
+    text-shadow: 1px 1px 1px black;
+    }
+}
+
+.grid-chosen-weapon {
+  display: grid;
+  grid-template-columns: max-content 105px 20px;
+  grid-row-gap: 5px;
+}
+
+.dcc .weapon-list.brawler {
+  grid-template-columns: 30px min-content minmax(90px, auto) 50px 55px 60px 97px;
+}
+.dcc .weapon-list.athlete {
+  grid-template-columns: 30px min-content minmax(90px, auto) 97px 60px 150px;
+}
+.dcc .weapon-list.jammer {
+  grid-template-columns: 30px min-content minmax(90px, 25%) min-content minmax(210px, 100%);
+}
+
+/* Frames for reminder blocks */
+.reminder-block {
+  border: var(--system-frame-border);
+  border-top: none;
+  ul {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+.sp-skills .box-border {
+  padding-right: 0;
+  .row-separator{
+    margin-right:5px;
+  }
+}
+.sp-skills input{
+  text-align: right; 
+  width: auto; 
+  margin-right: 8px;
+}
+
+.xcc {
+  .row-separator
+  {
+    margin: 3px 0;
+    border-bottom: 2px dotted var(--system-secondary-color);
+  }
+}
+
+/*Only show rewards tab for PC*/
+a[data-tab='rewards'] {
+    display: none;
+}
+
+.pc a[data-tab='rewards'] {
+    display: inline-block;
+}
+
+/* Lionize result controls styling */
+.xcc-lionize {
+  .table-results {
+    padding: 0;
+
+    .result-range {
+      padding-top: 5px;
+      justify-items: center;
+      margin-right: 3px;
+
+      .lionize-shift-down,
+      .lionize-shift-up {
+        cursor: pointer;
+        color: var(--system-primary-color);
+      }
+    }
+  }
+}
+
+.rewards-grid {
+    display: grid;
+    grid-template-rows: 59px 8px 59px 8px;
+    grid-template-columns: 180px auto;
+    grid-column-gap: 8px;
+}
+
+.rewards-grid .row-separator {
+    border-bottom: 2px dotted var(--system-secondary-color);
+    margin: 3px 0;
+}
+
+.contacts-block {
+    display: grid;
+    grid-template-rows: 19px 107px;
+    grid-row-end: span 3;
+    textarea {
+        text-align: left;
+        height: 107px;
+        border: var(--system-frame-border);
+        border-top: none;
+        resize: none;
+        background-color: transparent;
+        border-radius: 0;
+    }
+}
+
+.rewards-block{
+  display: grid;
+  grid-template-columns: 85px 35px 60px;
+  grid-template-rows: 19px 20px 20px;
+  
+  .box-title {
+    grid-column-end: span 2;
+  }
+  .middle-label {
+    margin: auto 2px;
+    grid-row-end: span 2;
+  }
+  .lower-label {
+    margin: auto 2px;
+  }
+
+  input.base {
+    align-self: center;
+    justify-self: center;
+    font-size: 30px;
+    height: 59px;
+    width: 60px;
+    grid-row-end: span 3;
+    border: var(--system-frame-border);
+  }
+
+  .caret-up,
+  .caret-down {
+    display: inline-block;
+    font-size: 12px;
+  }
+
+  .caret-up::before {
+    font-family: var(--system-icon-font), serif;
+    content: '\f0d8';
+    float: left;
+    font-weight: bold;
+    font-size: 10px;
+    margin-top:2px;
+    margin-left: 2px;
+  }
+
+  .caret-down::before {
+    font-family: var(--system-icon-font), serif;
+    content: '\f0d7';
+    float: left;
+    font-weight: bold;
+    font-size: 10px;
+    margin-top:2px;
+    margin-left: 2px;
+  }
+
+  .info{
+    font-family: var(--system-icon-font), serif;
+    text-align: right;
+    margin-left: 3px;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+}
+
+/* Add icons to tabs */
+a[data-tab='athlete']::before {
+    content: '\f432';
+}
+
+a[data-tab='blaster']::before {
+    content: '\e4e9';
+}
+
+a[data-tab='brawler']::before {
+    content: '\f6de';
+    font-weight: 900;
+}
+
+a[data-tab='jammer']::before {
+    content: '\f8be';
+    font-weight: 900;
+}
+
+a[data-tab='messenger']::before {
+    content: '\e689';
+}
+
+a[data-tab='sp-acrobat']::before {
+    content: '\e546';
+    transform: rotate(170deg);
+    display: inline-block;
+    padding-right: 0;
+    margin-right: 5px;
+    font-weight: 900;
+}
+
+a[data-tab='sp-commando']::before {
+    content: '\f6f5';
+}
+
+a[data-tab='sp-criminal']::before {
+    content: '\e19b';
+}
+
+a[data-tab='sp-scout']::before {
+    content: '\f06e';
+}
+
+a[data-tab='sp-crypt-raider']::before {
+    content: '\f5d8';
+}
+
+a[data-tab='sp-dwarf-mechanic']::before {
+    content: '\f0ad';
+}
+
+a[data-tab='sp-elf-trickster']::before {
+    content: '\e05d';
+}
+
+a[data-tab='sp-half-orc-slayer']::before {
+    content: '\f6c2';
+    font-weight: 900;
+}
+
+a[data-tab='sp-halfling-rogue']::before {
+    content: '\f6cb';
+    transform: rotate(315deg);
+    display: inline-block;
+    padding-right: 0;
+    margin-right: 5px;
+}
+
+a[data-tab='gnome']::before {
+    content: '\f58a';
+}
+
+a[data-tab='half-elf']::before {
+    content: '\f5c0';
+}
+
+a[data-tab='half-orc']::before {
+    content: '\e382';
+}
+
+a[data-tab='dwarf']::before {
+    content: '\e572';
+}
+
+a[data-tab='rewards']::before {
+    content: '\f5a2';
+}
+
+a[data-tab='sponsorship-item']::before {
+    content: '\f53d';
+}
+
+.fa-balance-scale-left::before {
+    content: '\f762';
+}
+
+/* ----------------------------------------- */
+/*  Items                                    */
+/* ----------------------------------------- */
+.dcc .sponsorship {
+  align-items: center;
+  border-bottom: 0.5px solid burlywood;
+  display: grid;
+  font-size: 13px;
+  justify-items: center;
+  grid-template-columns: subgrid;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+.dcc .sponsorship .sponsorship-control {
+  font-size: 14px;
+}
+.dcc .sponsorship:last-child {
+  border-bottom: 0;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+.dcc .sponsorship-heading {
+  border-bottom: var(--system-party-sheet-border);
+  font-family: var(--system-label-font), serif;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+  line-height: 1.2rem;
+  margin: 8px 0 0;
+}
+
+.dcc .sponsorship-list-header {
+  border-bottom: 2px dotted var(--system-secondary-color);
+  display: grid;
+  font-family: var(--system-label-font), serif;
+  font-size: 12px;
+  grid-template-columns: subgrid;
+  margin: 0 0 5px 0;
+  padding: 0 0 5px 0;
+}
+
+.dcc .sponsorship-list {
+  display: grid;
+  font-family: var(--system-data-font), serif;
+  font-size: 12px;
+  grid-template-columns: 30px minmax(100px,100%) 65px 39px;
+  margin: 0 0 8px 0;
+  padding: 5px;
+  text-align: center;
+}
+
+.sponsorship-item .left-label {
+  display: inline-block;
+  min-width: 60px;
+}

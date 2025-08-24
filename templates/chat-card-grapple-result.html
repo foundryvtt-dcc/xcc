@@ -1,0 +1,13 @@
+{{{message.system.attackRollHTML}}}
+{{#if message.system.deedDieRollResult}}
+  <div class="pt-8 deed-result{{#if message.system.deedRollSuccess}} critical{{/if}}">
+    <strong>{{localize "XCC.Athlete.TrainingDie"}}:</strong> {{{message.system.deedDieRollResult}}}
+  </div>
+{{/if}}
+{{#if message.system.damageInlineRoll}}
+  <div class="pt-8"><strong>{{message.system.damagePrompt}}:</strong> {{{message.system.damageInlineRoll}}}</div>
+{{/if}}
+{{#if message.system.critInlineRoll}}
+  <div class="pt-8"><strong>{{message.system.critPrompt}}!</strong> {{{message.system.critInlineRoll}}}</div>
+{{/if}}
+<div>Wolololo</div>

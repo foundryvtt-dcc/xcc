@@ -1,0 +1,26 @@
+<div class="table-draw xcc-lionize" data-table-id="{{ table.id }}" data-table-compendium="{{ table.collection.metadata.id }}" data-duration-text="{{ durationText }}">
+  {{#if emoteMessage}}
+    <div class="lionize-emote">
+        {{{emoteMessage}}}<br>
+    </div>
+  {{/if}}
+  <ol class="table-results">
+    {{#each results}}
+      <li class="table-result" data-result-id="{{ this._id }}">
+        <div class="result-range">
+          {{#if (gt this.range.[0] -99)}}
+            <i class="fas fa-sort-up lionize-shift-down" data-tooltip="{{localize 'XCC.ShiftDown'}}"></i>
+            <p class="lionize-shift-down">{{this.range.[0]}}</p>
+          {{/if}}
+          {{#if (lt this.range.[1] 99)}}
+            <p class="lionize-shift-up">{{this.range.[1]}}</p>
+            <i class="fas fa-sort-down lionize-shift-up" data-tooltip="{{localize 'XCC.ShiftUp'}}"></i>
+          {{/if}}
+        </div>
+        <div class="result-text">
+          {{{../durationText}}}{{{this.description}}}
+        </div>
+      </li>
+    {{/each}}
+  </ol>
+</div>

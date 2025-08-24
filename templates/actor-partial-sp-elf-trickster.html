@@ -1,0 +1,166 @@
+{{!-- Class Tab --}}
+<section class="tab {{tabs.sp-elf-trickster.id}} {{tabs.sp-elf-trickster.cssClass}}"
+    data-tab="{{tabs.sp-elf-trickster.id}}" data-group="{{tabs.sp-elf-trickster.group}}" id="sp-elf-trickster">
+    <div class="grid-container xcc">
+        <div class="grid-col-span-12 box-border reminder-block">
+            <div class="box-title">{{localize "XCC.ClassProperties"}}{{#dccPackExists
+                "xcc-core-book.xcc-core-text"}}<div class="link-floater">{{{system.class.classLink}}}</div>
+                {{/dccPackExists}}</div>
+            <div class="grid-tpl-two grid-row-gap-8 p-5">
+                <div class="grid-tpl-max-25 grid-col-gap-5">
+                    <label class="luck-die rollable" for="system.class.luckDie"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollLuckDie" data-drag="true"
+                        data-drag-action="luckDie">
+                        {{localize "DCC.LuckDie"}}
+                    </label>
+                    <input type="text" id="system.class.luckDie" name="system.class.luckDie"
+                        value="{{system.class.luckDie}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-25 grid-col-gap-5">
+                    <label data-drag="false">
+                        {{localize "XCC.Specialist.DailyLuck"}}
+                    </label>
+                    <input type="text" value="{{system.details.level.value}}" disabled="true" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5">
+                    <label class="skill-check" for="system.skills.tightropeWalk.value">
+                        Max Spell Level
+                    </label>
+                    <input type="text" id="system.skills.tightropeWalk.value" name="system.skills.tightropeWalk.value"
+                        value="{{system.skills.tightropeWalk.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5">
+                    <label class="skill-check" for="system.skills.tightropeWalk.value">
+                        Known Spells
+                    </label>
+                    <input type="text" id="system.skills.tightropeWalk.value" name="system.skills.tightropeWalk.value"
+                        value="{{system.skills.tightropeWalk.value}}" data-dtype="String" />
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-span-12 dark-border sp-skills">
+            <div class="row-separator"></div>
+            <div class="box-title">Elf Trickster Skills</div>
+            <div class="box-border grid-tpl-two grid-row-gap-8 p-5">
+                <div class="grid-tpl-max-auto grid-col-gap-5">
+                    <label class="skill-check" for="system.class.backstab"
+                        title="{{localize 'DCC.ThiefBackstabSkillHint'}}">
+                        {{localize "DCC.Backstab"}}
+                    </label>
+                    <input type="text" id="system.class.backstab" name="system.class.backstab"
+                        value="{{system.class.backstab}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="pickLock">
+                    <label class="skill-check rollable" for="system.skills.pickLock.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.PickLock"}}
+                    </label>
+                    <input type="text" id="system.skills.pickLock.value" name="system.skills.pickLock.value"
+                        value="{{system.skills.pickLock.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="sneakSilently">
+                    <label class="skill-check rollable" for="system.skills.sneakSilently.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.SneakSilently"}}
+                    </label>
+                    <input type="text" id="system.skills.sneakSilently.value" name="system.skills.sneakSilently.value"
+                        value="{{system.skills.sneakSilently.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="findTrap">
+                    <label class="skill-check rollable" for="system.skills.findTrap.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.FindTrap"}}
+                    </label>
+                    <input type="text" id="system.skills.findTrap.value" name="system.skills.findTrap.value"
+                        value="{{system.skills.findTrap.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="hideInShadows">
+                    <label class="skill-check rollable" for="system.skills.hideInShadows.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.HideInShadows"}}
+                    </label>
+                    <input type="text" id="system.skills.hideInShadows.value" name="system.skills.hideInShadows.value"
+                        value="{{system.skills.hideInShadows.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="disableTrap">
+                    <label class="skill-check rollable" for="system.skills.disableTrap.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.DisableTrap"}}
+                    </label>
+                    <input type="text" id="system.skills.disableTrap.value" name="system.skills.disableTrap.value"
+                        value="{{system.skills.disableTrap.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="climbSheerSurfaces">
+                    <label class="skill-check rollable" for="system.skills.climbSheerSurfaces.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.PickPocket"}}
+                    </label>
+                    <input type="text" id="system.skills.climbSheerSurfaces.value"
+                        name="system.skills.climbSheerSurfaces.value" value="{{system.skills.climbSheerSurfaces.value}}"
+                        data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="readLanguages">
+                    <label class="skill-check rollable" for="system.skills.readLanguages.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.ReadLanguages"}}
+                    </label>
+                    <input type="text" id="system.skills.readLanguages.value" name="system.skills.readLanguages.value"
+                        value="{{system.skills.readLanguages.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="climbSheerSurfaces">
+                    <label class="skill-check rollable" for="system.skills.climbSheerSurfaces.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.ClimbSheerSurfaces"}}
+                    </label>
+                    <input type="text" id="system.skills.climbSheerSurfaces.value"
+                        name="system.skills.climbSheerSurfaces.value" value="{{system.skills.climbSheerSurfaces.value}}"
+                        data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="castSpellFromScroll">
+                    <label class="skill-check rollable" for="system.skills.castSpellFromScroll.die"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.CastSpellFromScroll"}}
+                    </label>
+                    <input type="text" id="system.skills.castSpellFromScroll.die"
+                        name="system.skills.castSpellFromScroll.die" value="{{system.skills.castSpellFromScroll.die}}"
+                        data-dtype="String" />
+                </div>
+            </div>
+            <div class="row-separator"></div>
+            <label class="box-title">{{localize "XCC.BenefitsTitle"}}</label>
+            <div class="reminder-block dark-border">
+                <ul>
+                    {{#each (getLocalizedArray "XCC.Specialist.ElfTrickster.Benefits") as |benefit|}}
+                    <li>{{benefit}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="row-separator"></div>
+            <label class="box-title">{{localize "XCC.RestrictionsTitle"}}</label>
+            <div class="reminder-block dark-border">
+                <ul>
+                    {{#each (getLocalizedArray "XCC.Specialist.ElfTrickster.Restrictions") as |restriction|}}
+                    <li>{{restriction}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="row-separator"></div>
+            <label class="box-title">{{localize "XCC.WeaponTrainingTitle"}}</label>
+            <div class="reminder-block dark-border">
+                <ul>
+                    {{#each (getLocalizedArray "XCC.Specialist.ElfTrickster.WeaponTraining") as |training|}}
+                    <li>{{training}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+</section>

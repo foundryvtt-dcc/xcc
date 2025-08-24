@@ -1,0 +1,114 @@
+<section class="tab athlete {{tabs.athlete.cssClass}}" data-tab="{{tabs.athlete.id}}" data-group="{{tabs.athlete.group}}">
+    <input type="hidden" id="system.details.sheetClass" name="system.details.sheetClass" value="Athlete" data-dtype="String"/>
+    <input type="hidden" id="system.details.critRange" name="system.details.critRange" value="20" data-dtype="Number"/>
+    <input type="hidden" id="system.class.spellCheckAbility" name="system.class.spellCheckAbility" value="per">
+    <div class="grid-container">
+        <div class="grid-col-span-12 dark-border reminder-block">
+            <div class="box-title">{{localize "XCC.ClassProperties"}}{{#dccPackExists "dcc-core-book.dcc-core-journals"}}<div class="link-floater">{{{system.class.classLink}}}</div>{{/dccPackExists}}</div>
+            <div class="grid-tpl-two grid-row-gap-8 p-5">
+                <div class="grid-tpl-max-25" data-skill="trainingDie">
+                    <label class="skill-check" for="system.class.trainingDie"
+                           data-action="rollSkillCheck" data-drag="true" data-drag-action="skill">
+                        {{localize "XCC.Athlete.TrainingDie"}}
+                    </label>
+                    <input type="text" id="system.class.trainingDie" name="system.class.trainingDie"
+                           value="{{system.class.trainingDie}}" data-dtype="String"/>
+                </div>
+                <div class="grid-tpl-max-25" data-skill="scramble">
+                    <label class="skill-check" for="system.class.scramble"
+                           data-action="rollSkillCheck" data-drag="true" data-drag-action="skill">
+                        {{localize "XCC.Athlete.Scramble"}}
+                    </label>
+                    <input type="text" id="system.class.scramble"
+                           name="system.class.scramble" value="{{system.class.scramble}}"
+                           data-dtype="String"/>
+                </div>
+                <div class="grid-tpl-max-25" data-skill="grappleCritRange">
+                    <label class="skill-check" for="system.class.grappleCritRange"
+                           data-action="rollSkillCheck" data-drag="true" data-drag-action="skill">
+                        {{localize "XCC.Athlete.GrappleCritRange"}}
+                    </label>
+                    <input type="text" id="system.class.grappleCritRange"
+                           name="system.class.grappleCritRange" value="{{system.class.grappleCritRange}}"
+                           data-dtype="String"/>
+                </div>
+                <div class="grid-tpl-max-25" data-skill="speed">
+                    <label class="skill-check" for="system.class.speed"
+                           data-action="rollSkillCheck" data-drag="true" data-drag-action="skill">
+                        {{localize "XCC.Athlete.Speed"}}
+                    </label>
+                    <input type="text" id="system.class.speed"
+                           name="system.class.speed" value="{{system.class.speed}}"
+                           data-dtype="String"/>
+                </div>
+                <div class="grid-tpl-max-25" data-skill="grappleCritDie">
+                    <label class="skill-check" for="system.class.grappleCritDie"
+                           data-action="rollSkillCheck" data-drag="true" data-drag-action="skill">
+                        {{localize "XCC.Athlete.GrappleCritDie"}}
+                    </label>
+                    <input type="text" id="system.class.grappleCritDie"
+                           name="system.class.grappleCritDie" value="{{system.class.grappleCritDie}}"
+                           data-dtype="String"/>
+                </div>
+                <div class="grid-tpl-max-25" data-skill="athleticDurability">
+                    <label class="skill-check">
+                        {{localize "XCC.Athlete.AthleticDurability"}}
+                    </label>
+                    <input type="text" id="system.class.athleticDurability"
+                           name="system.class.athleticDurability" value="{{system.class.athleticDurability}}"
+                           data-dtype="String"/>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-span-12 dark-border">
+<div class="row-separator"></div>
+        <div class="box-title">{{localize "XCC.Athlete.GrappleCheck"}}</div>
+        <ol class="weapon-list athlete box-border" style="margin-bottom: 0;">
+            <li class="grid-col-span-6 weapon-list-header">
+                <div></div>
+                <div title="{{localize 'DCC.Roll'}}"></div>
+                <div>{{localize "DCC.Name"}}</div>
+                <div>{{localize "DCC.ToHit"}}</div>
+                <div>{{localize "DCC.Damage"}}</div>
+                <div>{{localize "DCC.Notes"}}</div>
+            </li>
+            <li class="grid-col-span-6 weapon grid-col-gap-5" data-item-id="xcc.brawler.offhand" data-item-slot="xcc.brawler.offhand">
+                <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/grab.svg" title="Grapple" alt="Grapple" width="22" height="22">
+                <div class="attack-buttons">
+                    <div class="rollable weapon-button icon-filter" data-action="rollGrapple" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
+                </div>
+                <input class="weapon-name" type="text" name="xcc.brawler.offhand.name" value="{{localize 'XCC.Athlete.Grapple'}}" readonly="">
+                <input class="disabled" type="text" name="xcc.brawler.offhand.tohit" value="{{getGrappleToHit actor}}" readonly="">
+                <input class="weapon-damage disabled" style="width: auto;" type="text" name="xcc.brawler.offhand.damage" value="{{getGrappleDamage actor}}" readonly="">
+                <input class="weapon-notes disabled" type="text" name="xcc.athlete.grappleNotes" value="{{localize 'XCC.Athlete.GrappleNotes'}}" readonly="">
+            </li>
+        </ol>
+<div class="row-separator"></div>
+<label class="box-title">{{localize "XCC.BenefitsTitle"}}</label>
+<div class="reminder-block dark-border">
+    <ul>
+        {{#each (getLocalizedArray "XCC.Athlete.Benefits") as |benefit|}}
+        <li>{{benefit}}</li>
+        {{/each}}
+    </ul>
+</div>
+<div class="row-separator"></div>
+<label class="box-title">{{localize "XCC.RestrictionsTitle"}}</label>
+<div class="reminder-block dark-border">
+    <ul>
+        {{#each (getLocalizedArray "XCC.Athlete.Restrictions") as |restriction|}}
+        <li>{{restriction}}</li>
+        {{/each}}
+    </ul>
+</div>
+<div class="row-separator"></div>
+<label class="box-title">{{localize "XCC.WeaponTrainingTitle"}}</label>
+<div class="reminder-block dark-border">
+    <ul>
+        {{#each (getLocalizedArray "XCC.Athlete.WeaponTraining") as |training|}}
+        <li>{{training}}</li>
+        {{/each}}
+    </ul>
+</div>
+</div>
+</section>
