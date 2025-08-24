@@ -396,7 +396,7 @@
           "You cannot spellburn nor accept corruption for a bonus to your spell check."
         ],
         "Mojo":[
-          " You earn 1–3 Mojo points for battlefield tricks that dupe, delay, divide, or neutralize opponents. The more elaborate and helpful the trick, the more Mojo you earn."
+          "You earn 1–3 Mojo points for battlefield tricks that dupe, delay, divide, or neutralize opponents. The more elaborate and helpful the trick, the more Mojo you earn."
         ]
       },
       "HalfOrcSlayer":{
@@ -429,6 +429,17 @@
         "ActorSheetHalflingRogue": "Halfling Rogue",
         "WeaponTraining": [
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
+        ],
+        "Benefits":[
+          "You can see in the dark up to 30'.",
+          "You can backstab with slings, daggers, and hurled stones from up to short range.",
+          "Your backstab damage is increased: dagger (1d10), hurled stone (1d5), sling (1d8)."
+        ],
+        "Restrictions":[
+           "In public, you are treated as an outcast in halfling society. Privately, you are considered a heroic adventurer."
+        ],
+        "Mojo":[
+          "You earn a Mojo point for downing an opponent with a backstab or successfully disarming a trap."
         ]
       }
     },
