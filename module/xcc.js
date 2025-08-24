@@ -244,7 +244,7 @@ Hooks.once('init', async function () {
     });
 
     Handlebars.registerHelper('getMojoKey', function(actor) {
-      return "XCC."+actor.system.details.sheetClass.capitalize()+".Mojo";
+      return (actor.system.class?.localizationPath||"Undefined")+".Mojo";
     });
 
     Handlebars.registerHelper('positiveOrZero', function(value) {

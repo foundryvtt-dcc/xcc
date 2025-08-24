@@ -40,8 +40,9 @@ class XCCActorSheetSpCriminal extends DCCActorSheet {
   async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
-    //if (this.actor.system.details.sheetClass !== 'sp-criminal') {
+    if (this.actor.system.details.sheetClass !== 'sp-criminal') {
       await this.actor.update({
+        'system.class.localizationPath':"XCC.Specialist.Criminal",
         'system.class.className': "criminal",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Criminal.ClassLink')),
         'system.details.sheetClass': 'sp-criminal',
@@ -51,7 +52,7 @@ class XCCActorSheetSpCriminal extends DCCActorSheet {
         'system.config.showBackstab': true,
         'system.config.addClassLevelToInitiative': false
       })
-    //}
+    }
 
     return context
   }

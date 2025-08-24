@@ -54,8 +54,9 @@ static CLASS_PARTS = {
       'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Messenger.ClassLink'), { relativeTo: this.actor }),
     })
 
-    if (this.actor.system.details.sheetClass !== 'Messenger') {
+    if (this.actor.system.details.sheetClass !== 'messenger') {
       await this.actor.update({
+        'system.class.localizationPath':"XCC.Messenger",
         'system.class.className': "messenger",
         'system.details.sheetClass': 'messenger',
         'system.details.critRange': 20,

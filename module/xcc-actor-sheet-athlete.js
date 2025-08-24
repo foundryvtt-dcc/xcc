@@ -49,12 +49,15 @@ class XCCActorSheetAthlete extends DCCActorSheet {
         await this.actor.update({
             'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Athlete.ClassLink'), { relativeTo: this.actor }),
         });
-        
-        this.actor.update({
+
+        if(this.actor.system.details.sheetClass !== 'athlete') {
+          await this.actor.update({
+            'system.class.localizationPath':"XCC.Athlete",
             'system.class.className':"athlete",
             'system.details.sheetClass': 'athlete',
             'system.config.showSkills' : false,
             'system.config.showSpells': false});
+        }
 
         let isArmorTooHeavy = false;
         for (const armorItem of this.actor.itemTypes.armor) {

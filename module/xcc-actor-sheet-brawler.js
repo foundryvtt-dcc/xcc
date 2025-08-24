@@ -46,8 +46,9 @@ static CLASS_PARTS = {
       'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Brawler.ClassLink'), { relativeTo: this.actor }),
     })
 
-    if (this.actor.system.details.sheetClass !== 'Brawler') {
+    if (this.actor.system.details.sheetClass !== 'brawler') {
       await this.actor.update({
+        'system.class.localizationPath':"XCC.Brawler",
         'system.class.className': "brawler",
         'system.details.sheetClass': 'brawler',
         'system.details.critRange': 20,

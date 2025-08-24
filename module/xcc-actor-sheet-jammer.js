@@ -48,8 +48,9 @@ static CLASS_PARTS = {
       'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Jammer.ClassLink'), { relativeTo: this.actor }),
     })
 
-    if (this.actor.system.details.sheetClass !== 'Jammer') {
+    if (this.actor.system.details.sheetClass !== 'jammer') {
       await this.actor.update({
+        'system.class.localizationPath':"XCC.Jammer",
         'system.class.className': "jammer",
         'system.details.sheetClass': 'jammer',
         'system.details.critRange': 20,

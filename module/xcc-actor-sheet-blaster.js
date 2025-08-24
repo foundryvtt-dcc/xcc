@@ -52,8 +52,9 @@ class XCCActorSheetBlaster extends DCCActorSheet {
       'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Blaster.ClassLink'), { relativeTo: this.actor }),
     })
 
-    if (this.actor.system.details.sheetClass !== 'Blaster') {
+    if (this.actor.system.details.sheetClass !== 'blaster') {
       await this.actor.update({
+        'system.class.localizationPath':"XCC.Blaster",
         'system.class.className': "blaster",
         'system.details.sheetClass': 'blaster',
         'system.class.spellCheckAbility': 'per',

@@ -40,8 +40,9 @@ class XCCActorSheetSpAcrobat extends DCCActorSheet {
   async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
-    //if (this.actor.system.details.sheetClass !== 'sp-acrobat') {
+    if (this.actor.system.details.sheetClass !== 'sp-acrobat') {
       await this.actor.update({
+        'system.class.localizationPath':"XCC.Specialist.Acrobat",
         'system.class.className': "acrobat",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Acrobat.ClassLink')),
         'system.details.sheetClass': 'sp-acrobat',
@@ -51,7 +52,7 @@ class XCCActorSheetSpAcrobat extends DCCActorSheet {
         'system.config.showBackstab': true,
         'system.config.addClassLevelToInitiative': false
       })
-    //}
+    }
 
     return context
   }

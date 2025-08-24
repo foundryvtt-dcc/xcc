@@ -40,9 +40,10 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
   async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
-    //if (this.actor.system.details.sheetClass !== 'sp-half-orc-slayer') {
+    if (this.actor.system.details.sheetClass !== 'sp-half-orc-slayer') {
       await this.actor.update({
-        'system.class.className': "halforcslayer",
+        'system.class.localizationPath':"XCC.Specialist.HalfOrcSlayer",
+        'system.class.className': "orcslayer",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.HalfOrcSlayer.ClassLink')),
         'system.details.sheetClass': 'sp-half-orc-slayer',
         'system.details.critRange': 20,
@@ -51,7 +52,7 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
         'system.config.showBackstab': true,
         'system.config.addClassLevelToInitiative': false
       })
-    //}
+    }
 
     return context
   }

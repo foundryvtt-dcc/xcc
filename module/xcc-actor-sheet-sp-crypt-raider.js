@@ -40,8 +40,9 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
   async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
-    //if (this.actor.system.details.sheetClass !== 'sp-crypt-raider') {
+    if (this.actor.system.details.sheetClass !== 'sp-crypt-raider') {
       await this.actor.update({
+        'system.class.localizationPath':"XCC.Specialist.CryptRaider",
         'system.class.className': "cryptraider",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.CryptRaider.ClassLink')),
         'system.details.sheetClass': 'sp-crypt-raider',
@@ -51,7 +52,7 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
         'system.config.showBackstab': true,
         'system.config.addClassLevelToInitiative': false
       })
-    //}
+    }
 
     return context
   }

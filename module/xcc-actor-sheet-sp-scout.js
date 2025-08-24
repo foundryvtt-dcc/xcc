@@ -40,8 +40,9 @@ class XCCActorSheetSpScout extends DCCActorSheet {
   async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
-    //if (this.actor.system.details.sheetClass !== 'sp-scout') {
+    if (this.actor.system.details.sheetClass !== 'sp-scout') {
       await this.actor.update({
+        'system.class.localizationPath':"XCC.Specialist.Scout",
         'system.class.className': "scout",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Scout.ClassLink')),
         'system.details.sheetClass': 'sp-scout',
@@ -51,7 +52,7 @@ class XCCActorSheetSpScout extends DCCActorSheet {
         'system.config.showBackstab': true,
         'system.config.addClassLevelToInitiative': false
       })
-    //}
+    }
 
     return context
   }

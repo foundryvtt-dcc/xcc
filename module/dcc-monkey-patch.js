@@ -106,7 +106,7 @@ class DCCMonkeyPatch {
         let originalComputeSpellCheck = DCCActor.prototype.computeSpellCheck;
         DCCActor.prototype.computeSpellCheck = function (item, options = {}) {
             originalComputeSpellCheck.call(this, item, options);
-            if (this.system.class.className === 'Blaster') {
+            if (this.system.class.sheetClass === 'blaster') {
                 // Custom logic for Blaster class spell checks
                 let blasterMod = ensurePlus(this.system.class?.blasterDie || '')
                 let abilityMod = ensurePlus(this.system.abilities.per.mod)

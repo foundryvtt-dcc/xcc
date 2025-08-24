@@ -40,8 +40,9 @@ class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
   async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
-    //if (this.actor.system.details.sheetClass !== 'sp-halfling-rogue') {
+    if (this.actor.system.details.sheetClass !== 'sp-halfling-rogue') {
       await this.actor.update({
+        'system.class.localizationPath':"XCC.Specialist.HalflingRogue",
         'system.class.className': "halflingrogue",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.HalflingRogue.ClassLink')),
         'system.details.sheetClass': 'sp-halfling-rogue',
@@ -51,7 +52,7 @@ class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
         'system.config.showBackstab': true,
         'system.config.addClassLevelToInitiative': false
       })
-    //}
+    }
 
     return context
   }

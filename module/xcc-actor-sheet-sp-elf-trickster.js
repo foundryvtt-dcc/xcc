@@ -40,8 +40,9 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
   async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
-    //if (this.actor.system.details.sheetClass !== 'sp-elf-trickster') {
+    if (this.actor.system.details.sheetClass !== 'sp-elf-trickster') {
       await this.actor.update({
+        'system.class.localizationPath':"XCC.Specialist.ElfTrickster",
         'system.class.className': "elftrickster",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.ElfTrickster.ClassLink')),
         'system.details.sheetClass': 'sp-elf-trickster',
@@ -51,7 +52,7 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
         'system.config.showBackstab': true,
         'system.config.addClassLevelToInitiative': false
       })
-    //}
+    }
 
     return context
   }

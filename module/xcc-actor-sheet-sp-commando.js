@@ -40,8 +40,9 @@ class XCCActorSheetSpCommando extends DCCActorSheet {
   async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
-    //if (this.actor.system.details.sheetClass !== 'sp-commando') {
+    if (this.actor.system.details.sheetClass !== 'sp-commando') {
       await this.actor.update({
+        'system.class.localizationPath':"XCC.Specialist.Commando",
         'system.class.className': "commando",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Commando.ClassLink')),
         'system.details.sheetClass': 'sp-commando',
@@ -51,7 +52,7 @@ class XCCActorSheetSpCommando extends DCCActorSheet {
         'system.config.showBackstab': true,
         'system.config.addClassLevelToInitiative': false
       })
-    //}
+    }
 
     return context
   }
