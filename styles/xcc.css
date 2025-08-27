@@ -1,3 +1,57 @@
+/* System Theme Variables */
+:root {
+  --system-header-link-color: #c8d7bd;
+  --system-logo-filter: brightness(89%) opacity(100%) sepia(100%) hue-rotate(51deg) saturate(43%);
+}
+/*Override for dark theme */
+.theme-dark {
+  --system-header-link-color: #d0beaa;
+  --system-logo-filter: brightness(45%) opacity(100%) saturate(0%);
+}
+/* ----------------------------------------- */
+/*  Globals                                  */
+/* ----------------------------------------- */
+@font-face {
+  font-family: "Cooper Black";
+  src: url("fonts/Cooper.otf") format("opentype");
+}
+@font-face {
+  font-family: "DuvallSmallCaps";
+  src: url("fonts/DuvallSmallCaps.otf") format("opentype");
+}
+@font-face {
+  font-family: "DuvallSmallCaps";
+  src: url("fonts/DuvallSmallCapsBold.otf") format("opentype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Duvall";
+  src: url("fonts/Duvall.otf") format("opentype");
+}
+@font-face {
+  font-family: "Duvall";
+  src: url("fonts/DuvallBold.otf") format("opentype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: "DuvallCondensed";
+  src: url("fonts/DuvallCondensed.otf") format("opentype");
+}
+@font-face {
+  font-family: "DuvallCondensed";
+  src: url("fonts/DuvallCondensedBold.otf") format("opentype");
+  font-weight: bold;
+}
+
+.dcc.sheet a[data-tab]{
+  white-space: nowrap;
+  font-family: 'DuvallCondensed';
+}
+
+.box-title .content-link, .box-title .content-link .fa-file-lines {
+  color:var(--system-header-link-color);
+}
+
 .scourge-button {
   background-image: url("images/game-icons-net/skull-crack-grey.svg");
   background-repeat: no-repeat;

@@ -22,6 +22,10 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
     elfTrickster: {
       id: 'sp-elf-trickster',
       template: 'modules/xcrawl-classics/templates/actor-partial-sp-elf-trickster.html'
+    },
+    wizardSpells: {
+      id: 'wizardSpells',
+      template: 'systems/dcc/templates/actor-partial-wizard-spells.html'
     }
   }
 
@@ -31,7 +35,8 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
       tabs: [
         { id: 'character', group: 'sheet', label: 'DCC.Character' },
         { id: 'equipment', group: 'sheet', label: 'DCC.Equipment' },
-        { id: 'sp-elf-trickster', group: 'sheet', label: 'XCC.Specialist.ElfTrickster.ActorSheetElfTrickster' }
+        { id: 'sp-elf-trickster', group: 'sheet', label: 'XCC.Specialist.ElfTrickster.ActorSheetElfTrickster' },
+        { id: 'wizardSpells', group: 'sheet', label: 'DCC.WizardSpells' }
       ]
     }
   }
@@ -50,7 +55,8 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
         'system.class.disapproval': 1,
         'system.config.attackBonusMode': 'flat',
         'system.config.showBackstab': true,
-        'system.config.addClassLevelToInitiative': false
+        'system.config.addClassLevelToInitiative': false,
+        'system.config.showSpells': true
       })
     }
 
