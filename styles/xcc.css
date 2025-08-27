@@ -45,7 +45,6 @@
 
 .dcc.sheet a[data-tab]{
   white-space: nowrap;
-  font-family: 'DuvallCondensed';
 }
 
 .box-title .content-link, .box-title .content-link .fa-file-lines {
