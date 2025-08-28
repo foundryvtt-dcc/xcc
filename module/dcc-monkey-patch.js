@@ -84,6 +84,11 @@ class DCCMonkeyPatch {
             }
         });
 
+        DCCActorSheet.prototype.prepareXCCNotes = async function(){
+            const context = { relativeTo: this.options.document, secrets: this.options.document.isOwner }
+            return await foundry.applications.ux.TextEditor.enrichHTML(this.actor.system.details?.xccnotes||"", context)
+        }
+
         // Override the _prepareContext method to include sponsorships in the context.
         let originalPrepareContext = DCCActorSheet.prototype._prepareContext;
         DCCActorSheet.prototype._prepareContext = async function (options) {
@@ -98,7 +103,7 @@ class DCCMonkeyPatch {
                     sponsorships.push(i);
                 }
             }
-            foundry.utils.mergeObject(context, ...[ {'sponsorships' : sponsorships} ]);
+            foundry.utils.mergeObject(context, ...[ {'sponsorships' : sponsorships}, {'notesXCC' : await this.prepareXCCNotes()} ]);
             return context;
         }
 
@@ -139,6 +144,14 @@ class DCCMonkeyPatch {
                 element = this.parts.character.firstElementChild.querySelector('img[src="systems/dcc/styles/images/dccrpg-logo.png"]');
                 element.src = 'modules/xcrawl-classics/styles/images/xcrawl-logo-color-trimmed.png';
                 element.style="opacity: 1;place-self: center;border: none;filter: var(--system-logo-filter);";
+
+                if(game.settings.get('xcrawl-classics', 'hideNotesTab')) {
+                    // Hide the notes tab
+                    const notesTab = this.element.querySelector('a[data-tab="notes"]');
+                    if (notesTab) {
+                        notesTab.style.display = 'none';
+                    }
+                }
             }
         };
     }

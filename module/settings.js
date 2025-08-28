@@ -7,15 +7,23 @@ export const registerModuleSettings = async function () {
   game.settings.register('xcrawl-classics', 'isDebug', {
     name: "Is Debug?",
     hint: "Enable debug mode for the module.",
-    scope: 'world',
+    scope: 'module',
     config: true,
     default: false,
     type: Boolean
   })
+  game.settings.register('xcrawl-classics', 'hideNotesTab', {
+    name: `XCC.Settings.HideNotesTab`,
+    hint: `XCC.Settings.HideNotesTabHint`,
+    scope: 'user',
+    config: true,
+    default: true,
+    type: Boolean    
+  })
   game.settings.register('xcrawl-classics', 'registerLevelDataPack', {
     name: `XCC.Settings.RegisterLevelDataPack`,
     hint: `XCC.Settings.RegisterLevelDataPackHint`,
-    scope: 'world',
+    scope: 'module',
     config: true,
     default: true,
     type: Boolean

@@ -21,6 +21,7 @@ import * as chat from '/systems/dcc/module/chat.js';
 import {ensurePlus} from '/systems/dcc/module/utilities.js';
 
 const { Actors, Items } = foundry.documents.collections
+const { loadTemplates } = foundry.applications.handlebars
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -104,6 +105,9 @@ Hooks.once('init', async function () {
         types: ['Player'],
         label: 'XCC.Specialist.HalflingRogue.DropdownLabel'
     })
+
+    // Register partial
+    loadTemplates(['modules/xcrawl-classics/templates/actor-partial-common.html']);
 
     // Register custom Handlebars helpers
     Handlebars.registerHelper('getGrappleToHit', function(actor) {
@@ -245,6 +249,10 @@ Hooks.once('init', async function () {
 
     Handlebars.registerHelper('getMojoKey', function(actor) {
       return (actor.system.class?.localizationPath||"Undefined")+".Mojo";
+    });
+
+    Handlebars.registerHelper('getKey', function(actor, name) {
+      return (actor.system.class?.localizationPath||"Undefined")+"."+name;
     });
 
     Handlebars.registerHelper('positiveOrZero', function(value) {
