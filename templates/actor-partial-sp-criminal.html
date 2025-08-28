@@ -1,7 +1,7 @@
 {{!-- Class Tab --}}
-<section class="tab {{tabs.sp-criminal.id}} {{tabs.sp-criminal.cssClass}}" data-tab="{{tabs.sp-criminal.id}}"
+<section class="xcc tab {{tabs.sp-criminal.id}} {{tabs.sp-criminal.cssClass}}" data-tab="{{tabs.sp-criminal.id}}"
     data-group="{{tabs.sp-criminal.group}}" id="sp-criminal">
-    <div class="grid-container xcc">
+    <div class="grid-container">
         <div class="grid-col-span-12 box-border reminder-block">
             <div class="box-title">{{localize "XCC.ClassProperties"}}{{#dccPackExists
                 "xcc-core-book.xcc-core-text"}}<div class="link-floater">{{{system.class.classLink}}}</div>
@@ -23,8 +23,8 @@
                     <input type="text" value="{{system.details.level.value}}" disabled="true" data-dtype="String" />
                 </div>
                 <div class="grid-tpl-max-25 grid-col-gap-5">
-                    <label class="bribery-expert rollable"
-                        title="{{localize 'XCC.Specialist.Criminal.BriberyExpert'}}" data-action="rollBriberyExpert" data-drag="false">
+                    <label class="bribery-expert rollable" title="{{localize 'XCC.Specialist.Criminal.BriberyExpert'}}"
+                        data-action="rollBriberyExpert" data-drag="false">
                         {{localize "XCC.Specialist.Criminal.BriberyExpert"}}
                     </label>
                     <input type="text" value="0" data-dtype="String" />
@@ -127,32 +127,7 @@
                         value="{{system.skills.pickLock.value}}" data-dtype="String" />
                 </div>
             </div>
-            <div class="row-separator"></div>
-            <label class="box-title">{{localize "XCC.BenefitsTitle"}}</label>
-            <div class="reminder-block dark-border">
-                <ul>
-                    {{#each (getLocalizedArray "XCC.Specialist.Criminal.Benefits") as |benefit|}}
-                    <li>{{benefit}}</li>
-                    {{/each}}
-                </ul>
-            </div>
-            <div class="row-separator"></div>
-            <label class="box-title">{{localize "XCC.RestrictionsTitle"}}</label>
-            <div class="reminder-block dark-border">
-                <ul>
-                    {{#each (getLocalizedArray "XCC.Specialist.Criminal.Restrictions") as |restriction|}}
-                    <li>{{restriction}}</li>
-                    {{/each}}
-                </ul>
-            </div>
-            <div class="row-separator"></div>
-            <label class="box-title">{{localize "XCC.WeaponTrainingTitle"}}</label>
-            <div class="reminder-block dark-border">
-                <ul>
-                    {{#each (getLocalizedArray "XCC.Specialist.Criminal.WeaponTraining") as |training|}}
-                    <li>{{training}}</li>
-                    {{/each}}
-                </ul>
-            </div>
         </div>
+    </div>
+    {{> modules/xcrawl-classics/templates/actor-partial-common.html }}
 </section>

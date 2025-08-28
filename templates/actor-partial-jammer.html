@@ -1,122 +1,118 @@
-<section class="tab jammer {{tabs.jammer.cssClass}}" data-tab="{{tabs.jammer.id}}" data-group="{{tabs.jammer.group}}">
-    <input type="hidden" id="system.details.sheetClass" name="system.details.sheetClass" value="Jammer" data-dtype="String"/>
+<section class="xcc tab jammer {{tabs.jammer.cssClass}}" data-tab="{{tabs.jammer.id}}"
+    data-group="{{tabs.jammer.group}}">
+    <input type="hidden" id="system.details.sheetClass" name="system.details.sheetClass" value="Jammer"
+        data-dtype="String" />
     <div class="grid-container">
         <div class="grid-col-span-12 dark-border reminder-block">
-            <div class="box-title">{{localize "XCC.ClassProperties"}}{{#dccPackExists "dcc-core-book.dcc-core-journals"}}<div class="link-floater">{{{system.class.classLink}}}</div>{{/dccPackExists}}</div>
+            <div class="box-title">{{localize "XCC.ClassProperties"}}{{#dccPackExists
+                "dcc-core-book.dcc-core-journals"}}<div class="link-floater">{{{system.class.classLink}}}</div>
+                {{/dccPackExists}}</div>
             <div class="grid-tpl-two grid-row-gap-8 p-5">
                 <div class="grid-tpl-max-25" data-skill="trainingDie">
                     <label class="skill-check rollable" data-action="rollPerformanceCheck" data-drag="false">
                         {{localize "XCC.Jammer.PerformanceCheck"}}
                     </label>
-                    <input type="text" value="{{getJammerPerformanceBonus this}}" data-dtype="String" disabled=""/>
+                    <input type="text" value="{{getJammerPerformanceBonus this}}" data-dtype="String" disabled="" />
                 </div>
                 <div class="grid-tpl-max-25">
-                 <label class="skill-check" data-drag="false">
+                    <label class="skill-check" data-drag="false">
                         {{localize "XCC.Jammer.ACBonus"}}
                     </label>
-                    <input type="text" value="{{getJammerACBonus this}}" data-dtype="String" disabled=""/>   
+                    <input type="text" value="{{getJammerACBonus this}}" data-dtype="String" disabled="" />
                 </div>
                 <div class="grid-tpl-max-25" data-skill="system.class.devastatingAttack">
                     <label class="rollable" for="system.class.devastatingAttack"
-                           data-action="rollDevastatingAttackDamage" data-drag="false">
+                        data-action="rollDevastatingAttackDamage" data-drag="false">
                         {{localize "XCC.Jammer.DevastatingAttack"}}
                     </label>
-                    <input type="text" id="system.class.devastatingAttack"
-                           name="system.class.devastatingAttack" value="{{system.class.devastatingAttack}}"
-                           data-dtype="String"/>
+                    <input type="text" id="system.class.devastatingAttack" name="system.class.devastatingAttack"
+                        value="{{system.class.devastatingAttack}}" data-dtype="String" />
                 </div>
                 <div class="grid-tpl-max-25" data-skill="system.class.disrespectPenalty">
-                    <label class="skill-check" for="system.class.disrespectPenalty"
-                           data-action="rollSkillCheck" data-drag="false">
+                    <label class="skill-check" for="system.class.disrespectPenalty" data-action="rollSkillCheck"
+                        data-drag="false">
                         {{localize "XCC.Jammer.DisrespectPenalty"}}
                     </label>
-                    <input type="text" id="system.class.disrespectPenalty"
-                           name="system.class.disrespectPenalty" value="{{system.class.disrespectPenalty}}"
-                           data-dtype="String"/>
+                    <input type="text" id="system.class.disrespectPenalty" name="system.class.disrespectPenalty"
+                        value="{{system.class.disrespectPenalty}}" data-dtype="String" />
                 </div>
                 <div class="grid-tpl-max-25" data-skill="system.class.chosenWeapon">
                     <label class="skill-check" for="system.class.chosenWeapon" data-drag="false">
                         {{localize "XCC.Jammer.ChosenWeapon"}}
                     </label>
-                    <select id="system.class.chosenWeapon" name="system.class.chosenWeapon" style="width: 100px; font-size: 12px; height: 17px;">
-                        <option value="longsword" {{#if (eq system.class.chosenWeapon "longsword")}}selected="selected"{{/if}}>longsword</option>
-                        <option value="short sword" {{#if (eq system.class.chosenWeapon "short sword")}}selected="selected"{{/if}}>short sword</option>
-                        <option value="rapier" {{#if (eq system.class.chosenWeapon "rapier")}}selected="selected"{{/if}}>rapier</option>
-                        <option value="hand axe" {{#if (eq system.class.chosenWeapon "hand axe")}}selected="selected"{{/if}}>hand axe</option>
-                        <option value="dagger" {{#if (eq system.class.chosenWeapon "dagger")}}selected="selected"{{/if}}>dagger</option>
-                        <option value="spear" {{#if (eq system.class.chosenWeapon "spear")}}selected="selected"{{/if}}>spear</option>
-                        <option value="longbow" {{#if (eq system.class.chosenWeapon "longbow")}}selected="selected"{{/if}}>longbow</option>
+                    <select id="system.class.chosenWeapon" name="system.class.chosenWeapon"
+                        style="width: 100px; font-size: 12px; height: 17px;">
+                        <option value="longsword" {{#if (eq system.class.chosenWeapon "longsword" )}}selected="selected"
+                            {{/if}}>longsword</option>
+                        <option value="short sword" {{#if (eq system.class.chosenWeapon "short sword"
+                            )}}selected="selected" {{/if}}>short sword</option>
+                        <option value="rapier" {{#if (eq system.class.chosenWeapon "rapier" )}}selected="selected"
+                            {{/if}}>rapier</option>
+                        <option value="hand axe" {{#if (eq system.class.chosenWeapon "hand axe" )}}selected="selected"
+                            {{/if}}>hand axe</option>
+                        <option value="dagger" {{#if (eq system.class.chosenWeapon "dagger" )}}selected="selected"
+                            {{/if}}>dagger</option>
+                        <option value="spear" {{#if (eq system.class.chosenWeapon "spear" )}}selected="selected"
+                            {{/if}}>spear</option>
+                        <option value="longbow" {{#if (eq system.class.chosenWeapon "longbow" )}}selected="selected"
+                            {{/if}}>longbow</option>
                     </select>
                 </div>
                 <div class="grid-tpl-max-25">
                     <label for="system.class.chosenWeaponEquipped">{{localize "XCC.Jammer.Equipped"}}</label>
-                    <input type="checkbox" data-dtype="Boolean" id="system.class.chosenWeaponEquipped" name="system.class.chosenWeaponEquipped" {{#if system.class.chosenWeaponEquipped}}checked{{/if}} style="margin:0">
+                    <input type="checkbox" data-dtype="Boolean" id="system.class.chosenWeaponEquipped"
+                        name="system.class.chosenWeaponEquipped" {{#if system.class.chosenWeaponEquipped}}checked{{/if}}
+                        style="margin:0">
                 </div>
             </div>
         </div>
         <div class="grid-col-span-12 dark-border">
             <div class="row-separator"></div>
-        <div class="box-title">{{localize "XCC.Jammer.Performance"}}</div>
-        <ol class="weapon-list jammer box-border" style="margin-bottom: 0;">
-            <li class="grid-col-span-6 weapon-list-header">
-                <div></div>
-                <div title="{{localize 'DCC.Roll'}}"></div>
-                <div>{{localize "DCC.Name"}}</div>
-                <div>{{localize "DCC.Bonus"}}</div>
-                <div>{{localize "DCC.Notes"}}</div>
-            </li>
-            <li class="grid-col-span-6 weapon grid-col-gap-5">
-                <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/tongue.svg" title="{{localize 'XCC.Jammer.Disrespect'}}" alt="{{localize 'XCC.Jammer.Disrespect'}}" width="22" height="22">
-                <div class="attack-buttons">
-                    <div class="rollable weapon-button icon-filter" data-action="rollDisrespect" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
-                </div>
-                <input class="weapon-name" type="text" value="{{localize 'XCC.Jammer.Disrespect'}}" readonly="">
-                <input class="disabled" type="text" value="{{getJammerPerformanceBonus this}}" readonly="">
-                <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Jammer.DisrespectNotes'}}" readonly="">
-            </li>
-            <li class="grid-col-span-6 weapon grid-col-gap-5">
-                <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/heart-inside.svg" title="{{localize 'XCC.Jammer.Lionize'}}" alt="{{localize 'XCC.Jammer.Lionize'}}" width="22" height="22">
-                <div class="attack-buttons">
-                    <div class="rollable weapon-button icon-filter" data-action="rollLionize" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
-                </div>
-                <input class="weapon-name" type="text" value="{{localize 'XCC.Jammer.Lionize'}}" readonly="">
-                <input class="disabled" type="text" value="{{getJammerPerformanceBonus this}}" readonly="">
-                <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Jammer.LionizeNotes'}}" readonly="">
-            </li>
-        </ol>
-<div class="row-separator"></div>
-<div class="box-border">
-        <label for="system.class.performanceSpecialties" class="box-title">{{localize "XCC.Jammer.PerformanceSpecialties"}}</label>
-        <textarea id="system.class.performanceSpecialties" rows="1" name="system.class.performanceSpecialties"
-                  style="background: none; border: none; min-height: 20px; padding:2px 0 0 6px; resize:none"
-                  data-dtype="String">{{system.class.performanceSpecialties}}</textarea>
-      </div>
-<div class="row-separator"></div>
-<label class="box-title">{{localize "XCC.BenefitsTitle"}}</label>
-<div class="reminder-block dark-border">
-    <ul>
-        {{#each (getLocalizedArray "XCC.Jammer.Benefits") as |benefit|}}
-        <li>{{benefit}}</li>
-        {{/each}}
-    </ul>
-</div>
-<div class="row-separator"></div>
-<label class="box-title">{{localize "XCC.RestrictionsTitle"}}</label>
-<div class="reminder-block dark-border">
-    <ul>
-        {{#each (getLocalizedArray "XCC.Jammer.Restrictions") as |restriction|}}
-        <li>{{restriction}}</li>
-        {{/each}}
-    </ul>
-</div>
-<div class="row-separator"></div>
-<label class="box-title">{{localize "XCC.WeaponTrainingTitle"}}</label>
-<div class="reminder-block dark-border">
-    <ul>
-        {{#each (getLocalizedArray "XCC.Jammer.WeaponTraining") as |training|}}
-        <li>{{training}}</li>
-        {{/each}}
-    </ul>
-</div>
-</div>
+            <div class="box-title">{{localize "XCC.Jammer.Performance"}}</div>
+            <ol class="weapon-list jammer box-border" style="margin-bottom: 0;">
+                <li class="grid-col-span-6 weapon-list-header">
+                    <div></div>
+                    <div title="{{localize 'DCC.Roll'}}"></div>
+                    <div>{{localize "DCC.Name"}}</div>
+                    <div>{{localize "DCC.Bonus"}}</div>
+                    <div>{{localize "DCC.Notes"}}</div>
+                </li>
+                <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/tongue.svg"
+                        title="{{localize 'XCC.Jammer.Disrespect'}}" alt="{{localize 'XCC.Jammer.Disrespect'}}"
+                        width="22" height="22">
+                    <div class="attack-buttons">
+                        <div class="rollable weapon-button icon-filter" data-action="rollDisrespect" data-drag="false"
+                            title="Roll" draggable="false">&nbsp;</div>
+                    </div>
+                    <input class="weapon-name" type="text" value="{{localize 'XCC.Jammer.Disrespect'}}" readonly="">
+                    <input class="disabled" type="text" value="{{getJammerPerformanceBonus this}}" readonly="">
+                    <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Jammer.DisrespectNotes'}}"
+                        readonly="">
+                </li>
+                <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/heart-inside.svg"
+                        title="{{localize 'XCC.Jammer.Lionize'}}" alt="{{localize 'XCC.Jammer.Lionize'}}" width="22"
+                        height="22">
+                    <div class="attack-buttons">
+                        <div class="rollable weapon-button icon-filter" data-action="rollLionize" data-drag="false"
+                            title="Roll" draggable="false">&nbsp;</div>
+                    </div>
+                    <input class="weapon-name" type="text" value="{{localize 'XCC.Jammer.Lionize'}}" readonly="">
+                    <input class="disabled" type="text" value="{{getJammerPerformanceBonus this}}" readonly="">
+                    <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Jammer.LionizeNotes'}}"
+                        readonly="">
+                </li>
+            </ol>
+            <div class="row-separator"></div>
+            <div class="box-border">
+                <label for="system.class.performanceSpecialties" class="box-title">{{localize
+                    "XCC.Jammer.PerformanceSpecialties"}}</label>
+                <textarea id="system.class.performanceSpecialties" rows="1" name="system.class.performanceSpecialties"
+                    style="background: none; border: none; min-height: 20px; padding:2px 0 0 6px; resize:none"
+                    data-dtype="String">{{system.class.performanceSpecialties}}</textarea>
+            </div>
+        </div>
+    </div>
+    {{> modules/xcrawl-classics/templates/actor-partial-common.html }}
 </section>

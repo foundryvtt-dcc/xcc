@@ -1,4 +1,4 @@
-<section class="tab messenger {{tabs.messenger.cssClass}}" data-tab="{{tabs.messenger.id}}"
+<section class="xcc tab messenger {{tabs.messenger.cssClass}}" data-tab="{{tabs.messenger.id}}"
     data-group="{{tabs.messenger.group}}">
     <input type="hidden" id="system.details.sheetClass" name="system.details.sheetClass" value="Messenger"
         data-dtype="String" />
@@ -14,7 +14,8 @@
                     <label class="skill-check rollable" data-action="rollHolyAct" data-drag="false">
                         {{localize "XCC.Messenger.HolyAct"}}
                     </label>
-                    <input type="text" value="{{getMessengerHolyActBonus this false}}" data-dtype="String" disabled="" />
+                    <input type="text" value="{{getMessengerHolyActBonus this false}}" data-dtype="String"
+                        disabled="" />
                 </div>
 
                 <!-- Disapproval Range -->
@@ -84,49 +85,71 @@
                     <div>{{localize "DCC.Notes"}}</div>
                 </li>
                 <li class="grid-col-span-6 weapon grid-col-gap-5">
-                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/hand-heal.svg" title="{{localize 'XCC.Messenger.LayOnHands'}}" alt="{{localize 'XCC.Messenger.LayOnHands'}}" width="22" height="22">
+                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/hand-heal.svg"
+                        title="{{localize 'XCC.Messenger.LayOnHands'}}" alt="{{localize 'XCC.Messenger.LayOnHands'}}"
+                        width="22" height="22">
                     <div class="attack-buttons">
-                        <div class="rollable weapon-button icon-filter" data-action="rollLayOnHands" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
+                        <div class="rollable weapon-button icon-filter" data-action="rollLayOnHands" data-drag="false"
+                            title="Roll" draggable="false">&nbsp;</div>
                     </div>
                     <input class="weapon-name" type="text" value="{{localize 'XCC.Messenger.LayOnHands'}}" readonly="">
                     <input class="disabled" type="text" value="{{getMessengerHolyActBonus this true}}" readonly="">
-                    <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Messenger.LayOnHandsNotes'}}" readonly="">
+                    <input class="weapon-notes disabled" type="text"
+                        value="{{localize 'XCC.Messenger.LayOnHandsNotes'}}" readonly="">
                 </li>
                 <li class="grid-col-span-6 weapon grid-col-gap-5">
-                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/stoned-skull.svg" title="{{localize 'XCC.Messenger.TurnUnholy'}}" alt="{{localize 'XCC.Messenger.TurnUnholy'}}" width="22" height="22">
+                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/stoned-skull.svg"
+                        title="{{localize 'XCC.Messenger.TurnUnholy'}}" alt="{{localize 'XCC.Messenger.TurnUnholy'}}"
+                        width="22" height="22">
                     <div class="attack-buttons">
-                        <div class="rollable weapon-button icon-filter" data-action="rollTurnUnholy" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
+                        <div class="rollable weapon-button icon-filter" data-action="rollTurnUnholy" data-drag="false"
+                            title="Roll" draggable="false">&nbsp;</div>
                     </div>
                     <input class="weapon-name" type="text" value="{{localize 'XCC.Messenger.TurnUnholy'}}" readonly="">
                     <input class="disabled" type="text" value="{{getMessengerHolyActBonus this false}}" readonly="">
-                    <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Messenger.TurnUnholyNotes'}}" readonly="">
+                    <input class="weapon-notes disabled" type="text"
+                        value="{{localize 'XCC.Messenger.TurnUnholyNotes'}}" readonly="">
                 </li>
                 <li class="grid-col-span-6 weapon grid-col-gap-5">
-                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/embrassed-energy.svg" title="{{localize 'XCC.Messenger.Bless'}}" alt="{{localize 'XCC.Messenger.Bless'}}" width="22" height="22">
+                    <img class="icon-filter"
+                        src="modules/xcrawl-classics/styles/images/game-icons-net/embrassed-energy.svg"
+                        title="{{localize 'XCC.Messenger.Bless'}}" alt="{{localize 'XCC.Messenger.Bless'}}" width="22"
+                        height="22">
                     <div class="attack-buttons">
-                        <div class="rollable weapon-button icon-filter" data-action="rollBless" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
+                        <div class="rollable weapon-button icon-filter" data-action="rollBless" data-drag="false"
+                            title="Roll" draggable="false">&nbsp;</div>
                     </div>
                     <input class="weapon-name" type="text" value="{{localize 'XCC.Messenger.Bless'}}" readonly="">
                     <input class="disabled" type="text" value="{{getMessengerHolyActBonus this false}}" readonly="">
-                    <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Messenger.BlessNotes'}}" readonly="">
+                    <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Messenger.BlessNotes'}}"
+                        readonly="">
                 </li>
                 <li class="grid-col-span-6 weapon grid-col-gap-5">
-                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/winged-sword.svg" title="{{localize 'XCC.Messenger.SummonWeapon'}}" alt="{{localize 'XCC.Messenger.SummonWeapon'}}" width="22" height="22">
+                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/winged-sword.svg"
+                        title="{{localize 'XCC.Messenger.SummonWeapon'}}"
+                        alt="{{localize 'XCC.Messenger.SummonWeapon'}}" width="22" height="22">
                     <div class="attack-buttons">
-                        <div class="rollable weapon-button icon-filter" data-action="rollSummonWeapon" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
+                        <div class="rollable weapon-button icon-filter" data-action="rollSummonWeapon" data-drag="false"
+                            title="Roll" draggable="false">&nbsp;</div>
                     </div>
-                    <input class="weapon-name" type="text" value="{{localize 'XCC.Messenger.SummonWeapon'}}" readonly="">
+                    <input class="weapon-name" type="text" value="{{localize 'XCC.Messenger.SummonWeapon'}}"
+                        readonly="">
                     <input class="disabled" type="text" value="{{getMessengerHolyActBonus this false}}" readonly="">
-                    <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Messenger.SummonWeaponNotes'}}" readonly="">
+                    <input class="weapon-notes disabled" type="text"
+                        value="{{localize 'XCC.Messenger.SummonWeaponNotes'}}" readonly="">
                 </li>
                 <li class="grid-col-span-6 weapon grid-col-gap-5">
-                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/hand-of-god.svg" title="{{localize 'XCC.Messenger.DivineAid'}}" alt="{{localize 'XCC.Messenger.DivineAid'}}" width="22" height="22">
+                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/hand-of-god.svg"
+                        title="{{localize 'XCC.Messenger.DivineAid'}}" alt="{{localize 'XCC.Messenger.DivineAid'}}"
+                        width="22" height="22">
                     <div class="attack-buttons">
-                        <div class="rollable weapon-button icon-filter" data-action="rollDivineAid" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
+                        <div class="rollable weapon-button icon-filter" data-action="rollDivineAid" data-drag="false"
+                            title="Roll" draggable="false">&nbsp;</div>
                     </div>
                     <input class="weapon-name" type="text" value="{{localize 'XCC.Messenger.DivineAid'}}" readonly="">
                     <input class="disabled" type="text" value="{{getMessengerHolyActBonus this false}}" readonly="">
-                    <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Messenger.DivineAidNotes'}}" readonly="">
+                    <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Messenger.DivineAidNotes'}}"
+                        readonly="">
                 </li>
             </ol>
             <div class="row-separator"></div>
@@ -145,36 +168,7 @@
                     {{/if}}
                 </ul>
             </div>
-            <div class="row-separator"></div>
-
-<label class="box-title">{{localize "XCC.BenefitsTitle"}}</label>
-<div class="reminder-block dark-border">
-    <ul>
-        {{#each (getLocalizedArray "XCC.Messenger.Benefits") as |benefit|}}
-        <li>{{benefit}}</li>
-        {{/each}}
-    </ul>
-</div>
-<div class="row-separator"></div>
-<label class="box-title">{{localize "XCC.RestrictionsTitle"}}</label>
-<div class="reminder-block dark-border">
-    <ul>
-        {{#each (getLocalizedArray "XCC.Messenger.Restrictions") as |restriction|}}
-        <li>{{restriction}}</li>
-        {{/each}}
-    </ul>
-</div>
-<div class="row-separator"></div>
-<label class="box-title">{{localize "XCC.WeaponTrainingTitle"}}</label>
-<div class="reminder-block dark-border">
-    <ul>
-        {{#each (getLocalizedArray "XCC.Messenger.WeaponTraining") as |training|}}
-        <li>{{training}}</li>
-        {{/each}}
-    </ul>
-</div>
-
-
         </div>
     </div>
+    {{> modules/xcrawl-classics/templates/actor-partial-common.html }}
 </section>

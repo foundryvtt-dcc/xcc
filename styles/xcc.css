@@ -358,7 +358,13 @@ a[data-tab='dwarf']::before {
 }
 
 a[data-tab='rewards']::before {
-    content: '\f5a2';
+    /* content: '\f5a2'; */
+    content: '\f066';
+    transform: rotate(45deg);
+    display: inline-block;
+    padding-right: 0;
+    margin-right: 5px;
+    font-weight: bold;
 }
 
 a[data-tab='sponsorship-item']::before {
@@ -405,7 +411,7 @@ a[data-tab='sponsorship-item']::before {
   font-family: var(--system-label-font), serif;
   font-size: 12px;
   grid-template-columns: subgrid;
-  margin: 0 0 5px 0;
+  margin: 0;
   padding: 0 0 5px 0;
 }
 
@@ -417,9 +423,23 @@ a[data-tab='sponsorship-item']::before {
   margin: 0 0 8px 0;
   padding: 5px;
   text-align: center;
+  max-height: 150px;
+  overflow: auto;
+}
+
+.dcc .sponsorship-list.sticky {
+  padding-bottom: 0;
+  margin-bottom:0;
 }
 
 .sponsorship-item .left-label {
   display: inline-block;
   min-width: 60px;
+}
+
+.xcc-notes textarea{
+  min-height: 180px;
+  max-height: 100%;
+  background-color: transparent;
+  border-radius: 0;
 }
