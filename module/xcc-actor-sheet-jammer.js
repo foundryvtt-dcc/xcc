@@ -1,7 +1,7 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
 
 class XCCActorSheetJammer extends DCCActorSheet {
-    static DEFAULT_OPTIONS = {
+  static DEFAULT_OPTIONS = {
     position: {
       height: 650
     },
@@ -14,7 +14,7 @@ class XCCActorSheetJammer extends DCCActorSheet {
   }
 
   /** @inheritDoc */
-static CLASS_PARTS = {
+  static CLASS_PARTS = {
     character: {
       id: 'character',
       template: 'systems/dcc/templates/actor-partial-pc-common.html'
@@ -27,7 +27,7 @@ static CLASS_PARTS = {
       id: 'jammer',
       template: 'modules/xcrawl-classics/templates/actor-partial-jammer.html'
     }
-}
+  }
 
   /** @inheritDoc */
   static CLASS_TABS = {
@@ -40,8 +40,67 @@ static CLASS_PARTS = {
     }
   }
 
-    /** @inheritDoc */
-  async _prepareContext (options) {
+  static addHooksAndHelpers() {
+    Handlebars.registerHelper('getJammerACBonus', function (actor) {
+      let bonus = 0;
+
+      // Add luck modifier if positive
+      const luckMod = actor.system?.abilities?.lck?.mod || 0;
+      if (luckMod > 0) {
+        bonus += luckMod;
+      }
+
+      // Add current level if chosen weapon is equipped
+      if (actor.system?.class?.chosenWeaponEquipped) {
+        const level = actor.system?.details?.level.value || 0;
+        bonus += level;
+      }
+
+      return "+" + bonus;
+    });
+
+    Handlebars.registerHelper('getJammerPerformanceBonus', function (actor) {
+      let bonus = 0;
+
+      // Add personality modifier
+      const perMod = actor.system?.abilities?.per?.mod || 0;
+      bonus += perMod;
+
+      // Add class level
+      const level = actor.system?.details?.level?.value || 0;
+      bonus += level;
+
+      return bonus >= 0 ? "+" + bonus : bonus;
+    });
+
+    // Handle special grapple chat message
+    Hooks.on('renderChatMessageHTML', (message, html, data) => {
+      // Only for GMs to avoid shenanigans
+      if (!game.user.isGM) {
+        console.log('Not GM, skipping');
+        return;
+      }
+
+      // Check if it's a lionize check
+      if (message.getFlag('dcc', 'isLionizeCheck')) {
+        // Add event delegation for the arrows
+        const lionizeTable = html.querySelector('.xcc-lionize');
+        if (lionizeTable) {
+          console.log('Found lionize table, adding event listeners');
+          lionizeTable.addEventListener('click', (event) => {
+            if (event.target.classList.contains('lionize-shift-up')) {
+              XCCActorSheetJammer._onNextLionizeResult.call(message, event);
+            } else if (event.target.classList.contains('lionize-shift-down')) {
+              XCCActorSheetJammer._onPreviousLionizeResult.call(message, event);
+            }
+          });
+        }
+      }
+    })
+  }
+
+  /** @inheritDoc */
+  async _prepareContext(options) {
     const context = await super._prepareContext(options)
 
     await this.actor.update({
@@ -50,7 +109,7 @@ static CLASS_PARTS = {
 
     if (this.actor.system.details.sheetClass !== 'jammer') {
       await this.actor.update({
-        'system.class.localizationPath':"XCC.Jammer",
+        'system.class.localizationPath': "XCC.Jammer",
         'system.class.className': "jammer",
         'system.details.sheetClass': 'jammer',
         'system.details.critRange': 20,
@@ -66,10 +125,10 @@ static CLASS_PARTS = {
 
   static async rollDevastatingAttackDamage(event, target) {
     event.preventDefault();
-    
+
     // Get the devastating attack damage formula from the actor
     const damageFormula = this.actor.system.class?.devastatingAttack;
-    
+
     if (!damageFormula || !Roll.validate(damageFormula)) {
       ui.notifications.warn("Invalid devastating attack damage formula");
       return;
@@ -77,7 +136,7 @@ static CLASS_PARTS = {
 
     // Create the damage roll
     const damageRoll = await new Roll(damageFormula, this.actor.getRollData()).evaluate();
-    
+
     // Ensure minimum 1 damage
     if (damageRoll.total < 1) {
       damageRoll._total = 1;
@@ -86,7 +145,7 @@ static CLASS_PARTS = {
     // Create the chat message
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const flavor = `${this.actor.name} - Devastating Attack Damage`;
-    
+
     const messageData = {
       user: game.user.id,
       speaker,
@@ -101,20 +160,20 @@ static CLASS_PARTS = {
 
     // Send to chat
     await ChatMessage.create(messageData);
-    
+
     return damageRoll;
   }
 
   static async rollPerformanceCheck(event, target) {
     event.preventDefault();
-    
+
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event);
-    
+
     // Calculate base bonus
     let bonus = this.actor.system?.abilities?.per?.mod || 0;
     bonus += this.actor.system?.details?.level?.value || 0;
-    
+
     // Create terms for the DCC roll system
     const terms = [
       {
@@ -146,7 +205,7 @@ static CLASS_PARTS = {
       'dcc.isPerformanceCheck': true,
       'dcc.RollType': 'SkillCheck'
     };
-    
+
     // Update with fleeting luck flags
     game.dcc.FleetingLuck.updateFlags(flags, roll);
 
@@ -156,20 +215,20 @@ static CLASS_PARTS = {
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Jammer.PerformanceCheck')}`,
       flags
     });
-    
+
     return roll;
   }
 
   static async rollLionize(event, target) {
     event.preventDefault();
-    
+
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event);
-    
+
     // Calculate performance check bonus
     let bonus = this.actor.system?.abilities?.per?.mod || 0;
     bonus += this.actor.system?.details?.level?.value || 0;
-    
+
     // Create terms for the DCC roll system
     const terms = [
       {
@@ -200,7 +259,7 @@ static CLASS_PARTS = {
     let tableResult = 'No table result found';
     let rollTable = null;
     let tableResults = [];
-    
+
     const lionizeTableName = "Table 1-10: Jammer Lionization";
     const lionizePackName = 'xcc-core-book.xcc-core-tables';
     const pack = game.packs.get(lionizePackName);
@@ -215,7 +274,7 @@ static CLASS_PARTS = {
         }
       }
     }
-    
+
     if (lionizeResult) {
       const tableText = await foundry.applications.ux.TextEditor.enrichHTML(lionizeResult);
       tableResult = tableText;
@@ -226,7 +285,7 @@ static CLASS_PARTS = {
       'dcc.isLionizeCheck': true,
       'dcc.RollType': 'LionizeCheck'
     };
-    
+
     // Update with fleeting luck flags
     game.dcc.FleetingLuck.updateFlags(flags, roll);
 
@@ -241,11 +300,11 @@ static CLASS_PARTS = {
     };
 
     let messageContent = '';
-    
+
     // If we have table results, use the lionize template
     if (rollTable && tableResults.length > 0) {
       const emoteMessage = game.i18n.format(
-        'XCC.Jammer.LionizeEmote', 
+        'XCC.Jammer.LionizeEmote',
         {
           actorName: this.actor.name,
           rollHTML: roll.toAnchor().outerHTML,
@@ -267,7 +326,7 @@ static CLASS_PARTS = {
         durationText: lionizeDuration
       });
     }
-    
+
     messageData.content = messageContent;
     const chatMessage = await ChatMessage.create(messageData);
     return roll;
@@ -275,14 +334,14 @@ static CLASS_PARTS = {
 
   static async rollDisrespect(event, target) {
     event.preventDefault();
-    
+
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event);
-    
+
     // Calculate performance check bonus
     let bonus = this.actor.system?.abilities?.per?.mod || 0;
     bonus += this.actor.system?.details?.level?.value || 0;
-    
+
     // Create terms for the DCC roll system
     const terms = [
       {
@@ -313,13 +372,13 @@ static CLASS_PARTS = {
     const level = this.actor.system?.details?.level?.value || 1;
     const perMod = this.actor.system?.abilities?.per?.mod || 0;
     const duration = Math.max(1, level + perMod);
-    
+
     // Calculate disrespect penalty (assuming -1d for now, can be made configurable)
     const disrespectPenalty = this.actor.system.class?.disrespectPenalty || 0;
 
     // Create the disrespect message
     const disrespectMessage = game.i18n.format(
-      'XCC.Jammer.DisrespectMessage', 
+      'XCC.Jammer.DisrespectMessage',
       {
         actorName: this.actor.name,
         rollResult: roll.total,
@@ -335,7 +394,7 @@ static CLASS_PARTS = {
       'dcc.RollType': 'DisrespectCheck',
       'dcc.isNoHeader': true
     };
-    
+
     // Update with fleeting luck flags
     game.dcc.FleetingLuck.updateFlags(flags, roll);
 
@@ -351,7 +410,7 @@ static CLASS_PARTS = {
     };
 
     const chatMessage = await ChatMessage.create(messageData);
-    
+
     return roll;
   }
 
@@ -359,7 +418,7 @@ static CLASS_PARTS = {
    * Event handler for adjusting a lionize result down
    * @param {Object} event      The originating click event
    */
-  static async _onPreviousLionizeResult (event) {
+  static async _onPreviousLionizeResult(event) {
     XCCActorSheetJammer._adjustLionizeResult.bind(this)(event, -1);
   }
 
@@ -367,7 +426,7 @@ static CLASS_PARTS = {
    * Event handler for adjusting a lionize result up
    * @param {Object} event      The originating click event
    */
-  static async _onNextLionizeResult (event) {
+  static async _onNextLionizeResult(event) {
     XCCActorSheetJammer._adjustLionizeResult.bind(this)(event, +1);
   }
 
@@ -376,7 +435,7 @@ static CLASS_PARTS = {
    * @param {Object} event      The originating click event
    * @param {Object} direction  Adjust up (+1) or down (-1)
    */
-  static async _adjustLionizeResult (event, direction) {
+  static async _adjustLionizeResult(event, direction) {
     // Pull out the relevant data from the existing HTML
     const tableId = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-table-id');
     const tableCompendium = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-table-compendium');
@@ -400,16 +459,16 @@ static CLASS_PARTS = {
       const entry = rollTable.results.get(resultId);
       const newResultRoll = (direction > 0) ? (entry.range[1]) + 1 : (entry.range[0] - 1);
       const newResults = rollTable.getResultsForRoll(newResultRoll);
-      
+
       if (newResults && newResults.length > 0) {
         // Extract the existing emote message from the current HTML to preserve it
         const lionizeContainer = event.target.closest('.xcc-lionize');
         const existingEmoteElement = lionizeContainer.querySelector('.lionize-emote');
         const existingEmoteMessage = existingEmoteElement ? existingEmoteElement.innerHTML : null;
-        
+
         // Extract the existing duration values from the data attributes to preserve them
         const existingDurationText = lionizeContainer.getAttribute('data-duration-text');
-        
+
         const newContent = await foundry.applications.handlebars.renderTemplate('modules/xcrawl-classics/templates/chat-card-lionize-result.html', {
           results: newResults.map(r => foundry.utils.duplicate(r)),
           rollHTML: rollTable.displayRoll ? await this.rolls[0].render() : null,
@@ -422,35 +481,5 @@ static CLASS_PARTS = {
       }
     }
   }
-
-  /**
-   * Process lionize chat messages and add up/down arrow handlers
-   * @param {Object} message  The ChatMessage entity
-   * @param {Object} html     The HTML content of the message
-   */
-  static async processLionizeChatMessage (message, html) {
-    // Only for GMs to avoid shenanigans
-    if (!game.user.isGM) { 
-      console.log('Not GM, skipping');
-      return; 
-    }
-
-    // Check if it's a lionize check
-    if (message.getFlag('dcc', 'isLionizeCheck')) {
-      // Add event delegation for the arrows
-      const lionizeTable = html.querySelector('.xcc-lionize');
-      if (lionizeTable) {
-        console.log('Found lionize table, adding event listeners');
-        lionizeTable.addEventListener('click', (event) => {
-          if (event.target.classList.contains('lionize-shift-up')) {
-            XCCActorSheetJammer._onNextLionizeResult.call(message, event);
-          } else if (event.target.classList.contains('lionize-shift-down')) {
-            XCCActorSheetJammer._onPreviousLionizeResult.call(message, event);
-          }
-        });
-      }
-    }
-  }
-
 }
 export default XCCActorSheetJammer;

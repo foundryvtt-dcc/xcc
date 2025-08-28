@@ -23,24 +23,23 @@
                     <input type="text" value="{{system.details.level.value}}" disabled="true" data-dtype="String" />
                 </div>
                 <div class="grid-tpl-max-auto grid-col-gap-5">
-                    <label class="skill-check" for="system.skills.tightropeWalk.value">
+                    <label class="skill-check rollable" for="system.class.turnUndeadDie">
                         {{localize "XCC.Specialist.CryptRaider.TurnUnholy"}}
                     </label>
                     <input type="text" id="system.class.turnUndeadDie" name="system.class.turnUndeadDie"
                         value="{{system.class.turnUndeadDie}}" data-dtype="String" />
                 </div>
                 <div class="grid-tpl-max-auto grid-col-gap-5">
-                    <label class="skill-check" for="system.skills.tightropeWalk.value">
+                    <label class="skill-check rollable">
                         {{localize "XCC.Specialist.CryptRaider.DarkKnowledge"}}
                     </label>
-                    <input type="text" id="system.class.turnUndeadDie" name="system.class.turnUndeadDie"
-                        value="{{system.class.turnUndeadDie}}" data-dtype="String" />
+                    <input type="text" disabled="true" value="{{getDarkKnowledge actor}}" data-dtype="String" />
                 </div>
             </div>
         </div>
         <div class="grid-col-span-12 dark-border sp-skills">
             <div class="row-separator"></div>
-            <div class="box-title">Crypt Raider Skills</div>
+            <div class="box-title">{{localize "XCC.Specialist.Skills"}}</div>
             <div class="box-border grid-tpl-two grid-row-gap-8 p-5">
                 <div class="grid-tpl-max-auto grid-col-gap-5">
                     <label class="skill-check" for="system.class.backstab"

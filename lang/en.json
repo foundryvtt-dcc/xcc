@@ -42,13 +42,13 @@
     "system.skills.criminalConnections.value": "Criminal Connections"
   },
   "XCC":{
+    "ErrorNoEntries": "No entries",
     "Actor": "Actor",
     "NotFound": "No result found",
     "ShiftUp": "Shift result up", 
     "ShiftDown": "Shift result down",
     "RollFumbleTwoWeapons": "Roll Fumble (only if both attacks fumbled)",
     "FumbleTwoWeapons": "Fumble (only if both attacks fumbled)",
-    "DefaultMojoTip": "This class has no additional means of earning extra Mojo.",
     "BenefitsTitle": "Features",
     "RestrictionsTitle": "Limitations",
     "WeaponTrainingTitle": "Weapon Training",
@@ -314,7 +314,6 @@
         "DropdownLabel": "XCC Specialist - Scout",
         "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#scout]{Scout}",
         "ActorSheetScout": "Scout",
-        "DangerSense": "Danger Sense",
         "WeaponTraining": [
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
         ],

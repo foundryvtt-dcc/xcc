@@ -2,7 +2,7 @@ import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
 import { ensurePlus, getCritTableResult, getFumbleTableResult, getFumbleTableNameFromCritTableName, getNPCFumbleTableResult } from "/systems/dcc/module/utilities.js";
 
 class XCCActorSheetSpCryptRaider extends DCCActorSheet {
-    /** @inheritDoc */
+  /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
       height: 640
@@ -36,13 +36,19 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
     }
   }
 
+  static addHooksAndHelpers() {
+    Handlebars.registerHelper('getDarkKnowledge', function (actor) {
+      return "d24" + ensurePlus(actor.system.abilities.int.mod);
+    });
+  }
+
   /** @override */
-  async _prepareContext (options) {
+  async _prepareContext(options) {
     const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'sp-crypt-raider') {
       await this.actor.update({
-        'system.class.localizationPath':"XCC.Specialist.CryptRaider",
+        'system.class.localizationPath': "XCC.Specialist.CryptRaider",
         'system.class.className': "cryptraider",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.CryptRaider.ClassLink')),
         'system.details.sheetClass': 'sp-crypt-raider',

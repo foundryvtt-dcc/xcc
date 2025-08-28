@@ -84,6 +84,9 @@ class DCCMonkeyPatch {
             }
         });
 
+        //Add parent helper function
+        DCCActorSheet.addHooksAndHelpers = function(){};
+
         DCCActorSheet.prototype.prepareXCCNotes = async function(){
             const context = { relativeTo: this.options.document, secrets: this.options.document.isOwner }
             return await foundry.applications.ux.TextEditor.enrichHTML(this.actor.system.details?.xccnotes||"", context)

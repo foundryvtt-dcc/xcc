@@ -2,7 +2,7 @@ import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
 import { ensurePlus, getCritTableResult, getFumbleTableResult, getFumbleTableNameFromCritTableName, getNPCFumbleTableResult } from "/systems/dcc/module/utilities.js";
 
 class XCCActorSheetMessenger extends DCCActorSheet {
-    static DEFAULT_OPTIONS = {
+  static DEFAULT_OPTIONS = {
     position: {
       height: 650
     },
@@ -20,7 +20,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
   }
 
   /** @inheritDoc */
-static CLASS_PARTS = {
+  static CLASS_PARTS = {
     character: {
       id: 'character',
       template: 'systems/dcc/templates/actor-partial-pc-common.html'
@@ -33,7 +33,7 @@ static CLASS_PARTS = {
       id: 'messenger',
       template: 'modules/xcrawl-classics/templates/actor-partial-messenger.html'
     }
-}
+  }
 
   /** @inheritDoc */
   static CLASS_TABS = {
@@ -46,8 +46,30 @@ static CLASS_PARTS = {
     }
   }
 
-    /** @inheritDoc */
-  async _prepareContext (options) {
+  static addHooksAndHelpers() {
+    Handlebars.registerHelper('getMessengerHolyActBonus', function (actor, luckModified = false) {
+      let bonus = 0;
+
+      // Add personality modifier
+      const perMod = actor.system?.abilities?.per?.mod || 0;
+      bonus += perMod;
+
+      // Add luck modifier if applicable
+      if (luckModified) {
+        const luckMod = actor.system?.abilities?.lck?.mod || 0;
+        bonus += luckMod;
+      }
+
+      // Add class level
+      const level = actor.system?.details?.level?.value || 0;
+      bonus += level;
+
+      return bonus >= 0 ? "+" + bonus : bonus;
+    });
+  }
+
+  /** @inheritDoc */
+  async _prepareContext(options) {
     const context = await super._prepareContext(options)
 
     await this.actor.update({
@@ -56,7 +78,7 @@ static CLASS_PARTS = {
 
     if (this.actor.system.details.sheetClass !== 'messenger') {
       await this.actor.update({
-        'system.class.localizationPath':"XCC.Messenger",
+        'system.class.localizationPath': "XCC.Messenger",
         'system.class.className': "messenger",
         'system.details.sheetClass': 'messenger',
         'system.details.critRange': 20,
@@ -75,7 +97,7 @@ static CLASS_PARTS = {
     let lck = this.actor.system.abilities.lck.mod || 0;
     let str = this.actor.system.abilities.str.mod || 0;
     let ab = parseInt(this.actor.system.details.attackBonus) || 0;
-    return ensurePlus(ab+str+lck);
+    return ensurePlus(ab + str + lck);
   }
 
   getFreeAttackDamage() {
@@ -87,15 +109,15 @@ static CLASS_PARTS = {
     // Check for disapproval
     const automate = game.settings.get('xcrawl-classics', 'automateMessengerDisapproval');
     const naturalRoll = roll.terms[0].results[0].result;
-    if(automate){
+    if (automate) {
       if (naturalRoll <= this.actor.system.class.disapproval) {
         // Trigger disapproval and return without checking the result
         await this.showDiapproval(roll);
         await this.actor.rollDisapproval(naturalRoll)
         await this.actor.applyDisapproval()
         return true; // Indicates disapproval triggered, should return early
-      } 
-      else if(roll.total<=11 && automate){
+      }
+      else if (roll.total <= 11 && automate) {
         // Increase disapproval range and continue with the result
         await this.actor.applyDisapproval()
         return false; // Continue processing
@@ -104,19 +126,19 @@ static CLASS_PARTS = {
     return false; // No disapproval, continue processing
   }
 
-  async showDiapproval(roll){
+  async showDiapproval(roll) {
     // Add DCC flags
     const flags = {
       'dcc.isTurnUnholyCheck': true,
       'dcc.RollType': 'Disapproval',
-      'dcc.isNoHeader':true
+      'dcc.isNoHeader': true
     };
 
     // Create message data
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: game.i18n.format('XCC.Messenger.DisapprovalFlavor', { actor: this.actor.name, roll: roll.terms[0].results[0].result}),
+      content: game.i18n.format('XCC.Messenger.DisapprovalFlavor', { actor: this.actor.name, roll: roll.terms[0].results[0].result }),
       rolls: [roll],
       sound: null,
       flags
@@ -124,18 +146,18 @@ static CLASS_PARTS = {
 
     // Create the chat message
     await ChatMessage.create(messageData);
-  }  
+  }
 
   static async rollHolyAct(event, target) {
     event.preventDefault();
-    
+
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event);
-    
+
     // Calculate holy act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0;
     bonus += this.actor.system?.details?.level?.value || 0;
-    
+
     // Create terms for the DCC roll system
     const terms = [
       {
@@ -173,7 +195,7 @@ static CLASS_PARTS = {
       'dcc.RollType': 'HolyActCheck',
       'dcc.isNoHeader': true
     };
-    
+
     // Update with fleeting luck flags
     game.dcc.FleetingLuck.updateFlags(flags, roll);
 
@@ -183,20 +205,20 @@ static CLASS_PARTS = {
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Messenger.HolyAct')}`,
       flags
     });
-    
+
     return roll;
   }
 
   static async rollDivineAid(event, target) {
     event.preventDefault();
-    
+
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event);
-    
+
     // Calculate holy act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0;
     bonus += this.actor.system?.details?.level?.value || 0;
-    
+
     // Create terms for the DCC roll system
     const terms = [
       {
@@ -270,7 +292,7 @@ static CLASS_PARTS = {
       'dcc.RollType': 'DivineAidCheck',
       'dcc.isNoHeader': true
     };
-    
+
     // Update with fleeting luck flags
     game.dcc.FleetingLuck.updateFlags(flags, roll);
 
@@ -283,10 +305,10 @@ static CLASS_PARTS = {
       sound: CONFIG.sounds.dice,
       flags
     };
-    
+
     // Apply disapproval increase of 10 after rolling Divine Aid
     await this.actor.applyDisapproval(10);
-    
+
     // Create the chat message
     await ChatMessage.create(messageData);
     return roll;
@@ -294,10 +316,10 @@ static CLASS_PARTS = {
 
   static async rollLayOnHands(event, target) {
     event.preventDefault();
-    
+
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event);
-    
+
     // Calculate holy act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0;
     bonus += this.actor.system?.details?.level?.value || 0;
@@ -338,7 +360,7 @@ static CLASS_PARTS = {
     let tableResult = 'No table result found';
     let rollTable = null;
     let tableResults = [];
-    
+
     const layOnHandsTableName = "Table 1-12: Lay on Hands";
     const messengerPackName = 'xcc-core-book.xcc-core-tables';
     console.log(`Looking for pack: ${messengerPackName}`);
@@ -352,12 +374,12 @@ static CLASS_PARTS = {
         const results = rollTable.getResultsForRoll(roll.total)
         if (results && results.length > 0) {
           tableResults = results;
-          layOnHandsResult = results[0].description+game.i18n.localize('XCC.Messenger.LayOnHandsAlternate');
+          layOnHandsResult = results[0].description + game.i18n.localize('XCC.Messenger.LayOnHandsAlternate');
           console.log(`Lay on hands result found: ${layOnHandsResult}`);
         }
       }
     }
-    
+
     if (layOnHandsResult) {
       const tableText = await foundry.applications.ux.TextEditor.enrichHTML(layOnHandsResult);
       tableResult = tableText;
@@ -369,7 +391,7 @@ static CLASS_PARTS = {
       'dcc.RollType': 'LayOnHandsCheck',
       'dcc.isNoHeader': true
     };
-    
+
     // Update with fleeting luck flags
     game.dcc.FleetingLuck.updateFlags(flags, roll);
 
@@ -385,20 +407,20 @@ static CLASS_PARTS = {
     };
 
     const chatMessage = await ChatMessage.create(messageData);
-    
+
     return roll;
   }
 
   static async rollBless(event, target) {
     event.preventDefault();
-    
+
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event);
-    
+
     // Calculate Holy Act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0;
     bonus += this.actor.system?.details?.level?.value || 0;
-    
+
     // Create terms
     const terms = [
       {
@@ -425,7 +447,7 @@ static CLASS_PARTS = {
     const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions);
     roll.lowerThreshold = this.actor.system.class.disapproval;
     await roll.evaluate();
-    
+
     // Check for disapproval - if it returns true, we should return early
     if (await this.checkDisapprovalAndHandle(roll)) {
       return;
@@ -452,9 +474,9 @@ static CLASS_PARTS = {
     const flags = {
       'dcc.isBlessingCheck': true,
       'dcc.RollType': 'BlessingCheck',
-      'dcc.isNoHeader':true
+      'dcc.isNoHeader': true
     };
-    
+
     // Update with fleeting luck flags
     game.dcc.FleetingLuck.updateFlags(flags, roll);
 
@@ -473,14 +495,14 @@ static CLASS_PARTS = {
 
   static async rollSummonWeapon(event, target) {
     event.preventDefault();
-    
+
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event);
-    
+
     // Calculate Holy Act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0;
     bonus += this.actor.system?.details?.level?.value || 0;
-    
+
     // Create terms
     const terms = [
       {
@@ -507,7 +529,7 @@ static CLASS_PARTS = {
     const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions);
     roll.lowerThreshold = this.actor.system.class.disapproval;
     await roll.evaluate();
-    
+
     // Check for disapproval - if it returns true, we should return early
     if (await this.checkDisapprovalAndHandle(roll)) {
       return;
@@ -534,9 +556,9 @@ static CLASS_PARTS = {
     const flags = {
       'dcc.isSummonWeaponCheck': true,
       'dcc.RollType': 'SummonWeaponCheck',
-      'dcc.isNoHeader':true
+      'dcc.isNoHeader': true
     };
-    
+
     // Update with fleeting luck flags
     game.dcc.FleetingLuck.updateFlags(flags, roll);
 
@@ -555,14 +577,14 @@ static CLASS_PARTS = {
 
   static async rollTurnUnholy(event, target) {
     event.preventDefault();
-    
+
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event);
-    
+
     // Calculate Holy Act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0;
     bonus += this.actor.system?.details?.level?.value || 0;
-    
+
     // Create terms
     const terms = [
       {
@@ -589,7 +611,7 @@ static CLASS_PARTS = {
     const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions);
     roll.lowerThreshold = this.actor.system.class.disapproval;
     await roll.evaluate();
-    
+
     // Check for disapproval - if it returns true, we should return early
     if (await this.checkDisapprovalAndHandle(roll)) {
       return;
@@ -616,9 +638,9 @@ static CLASS_PARTS = {
     const flags = {
       'dcc.isTurnUnholyCheck': true,
       'dcc.RollType': 'TurnUnholyCheck',
-      'dcc.isNoHeader':true
+      'dcc.isNoHeader': true
     };
-    
+
     // Update with fleeting luck flags
     game.dcc.FleetingLuck.updateFlags(flags, roll);
 
@@ -638,13 +660,13 @@ static CLASS_PARTS = {
   static async rollWeaponAttackWithScourge(event, target) {
     const itemId = DCCActorSheet.findDataset(target, 'itemId')
     const weapon = this.actor.items.find(i => i.id === itemId);
-    if(weapon){
+    if (weapon) {
       const scourgeAmount = this.actor.system.class.scourge || 0
       const evilCritRange = this.actor.system.class.critEvilRange || 20
       const oldDamage = weapon.system.damage;
       const oldCrit = weapon.system.critRange;
       // Adjust crit range
-      weapon.system.critRange = Math.min(evilCritRange,weapon.system.critRange);
+      weapon.system.critRange = Math.min(evilCritRange, weapon.system.critRange);
       // Add scourge damage to the formula
       weapon.system.damage = weapon.system.damage ? `${weapon.system.damage}+${scourgeAmount}` : `${scourgeAmount}`;
       // Add hook to restore original weapon data
@@ -671,7 +693,7 @@ static CLASS_PARTS = {
         name: game.i18n.localize('XCC.Messenger.FreeAttack').toLowerCase(),
         system: {
           actionDie: '1d14',
-          damage: this.getFreeAttackDamage()+ensurePlus(this.actor.system.class.scourge || 0),
+          damage: this.getFreeAttackDamage() + ensurePlus(this.actor.system.class.scourge || 0),
           critRange: this.actor.system.class.critEvilRange || 20,
           toHit: this.getFreeAttackToHit()
         },
@@ -684,7 +706,7 @@ static CLASS_PARTS = {
     // Pass the fake weapon
     await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target);
     // Remove the fake weapon from items after we're done
-    this.actor.items.delete(weapon.id, {modifySource: false});
+    this.actor.items.delete(weapon.id, { modifySource: false });
   }
 
   static async rollFreeAttack(event, target) {
@@ -709,10 +731,10 @@ static CLASS_PARTS = {
     // Pass the fake weapon
     await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target);
     // Remove the fake weapon from items after we're done
-    this.actor.items.delete(weapon.id, {modifySource: false});
+    this.actor.items.delete(weapon.id, { modifySource: false });
   }
 
-  _onRender (context, options) {
+  _onRender(context, options) {
     // Add another rollable div to each attack-buttons section
     let attackButtonsElements = this.parts.equipment.querySelectorAll('.attack-buttons');
     attackButtonsElements.forEach(attackButtons => {

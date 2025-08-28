@@ -2,7 +2,7 @@
 <label class="box-title">{{localize "XCC.BenefitsTitle"}}</label>
 <div class="reminder-block dark-border">
     <ul>
-        {{#each (getLocalizedArray (localize (getKey actor "Benefits"))) as |benefit|}}
+        {{#each (getLocalizedArray (localize (getLocalizationKey actor "Benefits"))) as |benefit|}}
         <li>{{benefit}}</li>
         {{/each}}
     </ul>
@@ -11,7 +11,7 @@
 <label class="box-title">{{localize "XCC.RestrictionsTitle"}}</label>
 <div class="reminder-block dark-border">
     <ul>
-        {{#each (getLocalizedArray (localize (getKey actor "Restrictions"))) as |restriction|}}
+        {{#each (getLocalizedArray (localize (getLocalizationKey actor "Restrictions"))) as |restriction|}}
         <li>{{restriction}}</li>
         {{/each}}
     </ul>
@@ -20,7 +20,7 @@
 <label class="box-title">{{localize "XCC.MojoTitle"}}</label>
 <div class="reminder-block dark-border">
     <ul>
-        {{#each (getLocalizedArray (localize (getKey actor "Mojo"))) as |mojo|}}
+        {{#each (getLocalizedArray (localize (getLocalizationKey actor "Mojo"))) as |mojo|}}
         <li>{{mojo}}</li>
         {{/each}}
     </ul>
@@ -29,7 +29,7 @@
 <label class="box-title">{{localize "XCC.WeaponTrainingTitle"}}</label>
 <div class="reminder-block dark-border">
     <ul>
-        {{#each (getLocalizedArray (localize (getKey actor "WeaponTraining"))) as |training|}}
+        {{#each (getLocalizedArray (localize (getLocalizationKey actor "WeaponTraining"))) as |training|}}
         <li>{{training}}</li>
         {{/each}}
     </ul>
