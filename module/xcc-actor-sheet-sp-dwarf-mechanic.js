@@ -1,5 +1,4 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
-import { ensurePlus, getCritTableResult, getFumbleTableResult, getFumbleTableNameFromCritTableName, getNPCFumbleTableResult } from "/systems/dcc/module/utilities.js";
 
 class XCCActorSheetSpDwarfMechanic extends DCCActorSheet {
     /** @inheritDoc */
@@ -36,6 +35,18 @@ class XCCActorSheetSpDwarfMechanic extends DCCActorSheet {
     }
   }
 
+  setSpecialistSkills() {
+        //DCC System had a bug with pickPocket skill, we're setting a custom one for now
+        if (this.actor.system.skills.pickPocket) {
+            this.actor.system.skills.pickPocket.ability = 'agl';
+            this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value';
+        }
+        //XCC uses int for forge document skill
+        if (this.actor.system.skills.forgeDocument) {
+            this.actor.system.skills.forgeDocument.ability = 'int';
+        }
+    }
+
   /** @override */
   async _prepareContext (options) {
     const context = await super._prepareContext(options)
@@ -53,7 +64,7 @@ class XCCActorSheetSpDwarfMechanic extends DCCActorSheet {
         'system.config.addClassLevelToInitiative': false
       })
     }
-
+    this.setSpecialistSkills();
     return context
   }
 }

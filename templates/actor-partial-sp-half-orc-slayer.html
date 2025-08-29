@@ -55,8 +55,10 @@
                     <input type="text" id="system.skills.sneakSilently.value" name="system.skills.sneakSilently.value"
                         value="{{system.skills.sneakSilently.value}}" data-dtype="String" />
                 </div>
-                <div class="grid-tpl-max-auto grid-col-gap-5">
-                    <label class="skill-check rollable" for="system.skills.handlePoison.value">
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="handlePoison">
+                    <label class="skill-check rollable" for="system.skills.handlePoison.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
                         {{localize "DCC.HandlePoison"}}
                     </label>
                     <input type="text" id="system.skills.handlePoison.value" name="system.skills.handlePoison.value"

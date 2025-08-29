@@ -23,19 +23,80 @@
                     <input type="text" value="{{system.details.level.value}}" disabled="true" data-dtype="String" />
                 </div>
                 <div class="grid-tpl-max-auto grid-col-gap-5">
-                    <label class="skill-check rollable" for="system.class.turnUndeadDie">
-                        {{localize "XCC.Specialist.CryptRaider.TurnUnholy"}}
+                    <label class="skill-check rollable" for="system.class.turnUndeadDie" data-action="rollTurnUnholy">
+                        {{localize "XCC.Specialist.CryptRaider.TurnUnholyDie"}}
                     </label>
                     <input type="text" id="system.class.turnUndeadDie" name="system.class.turnUndeadDie"
                         value="{{system.class.turnUndeadDie}}" data-dtype="String" />
                 </div>
-                <div class="grid-tpl-max-auto grid-col-gap-5">
-                    <label class="skill-check rollable">
-                        {{localize "XCC.Specialist.CryptRaider.DarkKnowledge"}}
+                <!-- Disapproval Range -->
+                <div class="grid-tpl-max-25 grid-col-gap-5">
+                    <label class="disapproval-range" for="system.class.disapproval"
+                        title="{{localize 'DCC.DisapprovalRangeHint'}}" data-drag="false">
+                        {{localize "DCC.DisapprovalRange"}}
                     </label>
-                    <input type="text" disabled="true" value="{{getDarkKnowledge actor}}" data-dtype="String" />
+                    <select class="number" name="system.class.disapproval" id="system.class.disapproval">
+                        {{selectOptions config.disapprovalRanges selected=system.class.disapproval localize=true}}
+                    </select>
                 </div>
             </div>
+        </div>
+        <div class="grid-col-span-12 dark-border">
+            <!-- Holy Acts -->
+            <div class="row-separator"></div>
+            <div class="box-title">{{localize "XCC.ClassAbilities"}}</div>
+            <ol class="weapon-list sp-crypt-raider box-border" style="margin-bottom: 0;">
+                <li class="grid-col-span-6 weapon-list-header">
+                    <div></div>
+                    <div title="{{localize 'DCC.Roll'}}"></div>
+                    <div>{{localize "DCC.Name"}}</div>
+                    <div>{{localize "DCC.Die"}}</div>
+                    <div>{{localize "DCC.Bonus"}}</div>
+                    <div>{{localize "DCC.Notes"}}</div>
+                </li>
+                <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/stoned-skull.svg"
+                        title="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}" alt="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}"
+                        width="22" height="22">
+                    <div class="attack-buttons">
+                        <div class="rollable weapon-button icon-filter" data-action="rollTurnUnholy" data-drag="false"
+                            title="Roll" draggable="false"></div>
+                    </div>
+                    <input class="weapon-name" type="text" value="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}" readonly="">
+                    <input class="disabled" type="text" value="{{system.class.turnUndeadDie}}" readonly="">
+                    <input class="disabled" type="text" value="{{system.abilities.per.mod}}" readonly="">
+                    <input class="weapon-notes disabled" type="text"
+                        value="{{localize 'XCC.Messenger.TurnUnholyNotes'}}" readonly="">
+                </li>
+                <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/stoned-skull.svg"
+                        title="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}" alt="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}"
+                        width="22" height="22">
+                    <div class="attack-buttons" data-skill="darkKnowledge">
+                        <div class="rollable weapon-button icon-filter" data-action="rollSkillCheck" data-drag="false"
+                            title="Roll" draggable="false"></div>
+                    </div>
+                    <input class="weapon-name" type="text" value="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}" readonly="">
+                    <input class="disabled" type="text" value="d24" readonly="">
+                    <input class="disabled" type="text" value="{{system.abilities.int.mod}}" readonly="">
+                    <input class="weapon-notes disabled" type="text"
+                        value="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledgeNotes'}}" readonly="">
+                </li>
+                <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/stoned-skull.svg"
+                        title="{{localize 'XCC.DetectSecretDoors'}}" alt="{{localize 'XCC.DetectSecretDoors'}}"
+                        width="22" height="22">
+                    <div class="attack-buttons" data-skill="detectSecretDoors">
+                        <div class="rollable weapon-button icon-filter" data-action="rollSkillCheck" data-drag="false"
+                            title="Roll" draggable="false"></div>
+                    </div>
+                    <input class="weapon-name" type="text" value="{{localize 'XCC.DetectSecretDoors'}}" readonly="">
+                    <input class="disabled" type="text" value="d20" readonly="">
+                    <input class="disabled" type="text" value="{{system.details.level.value}}" readonly="">
+                    <input class="weapon-notes disabled" type="text"
+                        value="{{localize 'XCC.Specialist.CryptRaider.DetectSecretDoorsNotes'}}" readonly="">
+                </li>
+            </ol>
         </div>
         <div class="grid-col-span-12 dark-border sp-skills">
             <div class="row-separator"></div>

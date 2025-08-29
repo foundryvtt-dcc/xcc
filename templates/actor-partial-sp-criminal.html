@@ -79,8 +79,10 @@
                     <input type="text" id="system.skills.hideInShadows.value" name="system.skills.hideInShadows.value"
                         value="{{system.skills.hideInShadows.value}}" data-dtype="String" />
                 </div>
-                <div class="grid-tpl-max-auto grid-col-gap-5">
-                    <label class="skill-check rollable" for="system.skills.forgeDocument.value">
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="forgeDocument">
+                    <label class="skill-check rollable" for="system.skills.forgeDocument.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
                         {{localize "DCC.ForgeDocument"}}
                     </label>
                     <input type="text" id="system.skills.forgeDocument.value" name="system.skills.forgeDocument.value"
@@ -92,26 +94,32 @@
                         data-drag-action="skill">
                         {{localize "DCC.PickPocket"}}
                     </label>
-                    <input type="text" id="system.skills.pickPocket.value"
-                        name="system.skills.pickPocket.value" value="{{system.skills.pickPocket.value}}"
-                        data-dtype="String" />
+                    <input type="text" id="system.skills.pickPocket.value" name="system.skills.pickPocket.value"
+                        value="{{system.skills.pickPocket.value}}" data-dtype="String" />
                 </div>
-                <div class="grid-tpl-max-auto grid-col-gap-5">
-                    <label class="skill-check rollable" for="system.skills.disguiseSelf.value">
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="disguiseSelf">
+                    <label class="skill-check rollable" for="system.skills.disguiseSelf.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
                         {{localize "DCC.DisguiseSelf"}}
                     </label>
                     <input type="text" id="system.skills.disguiseSelf.value" name="system.skills.disguiseSelf.value"
                         value="{{system.skills.disguiseSelf.value}}" data-dtype="String" />
                 </div>
-                <div class="grid-tpl-max-auto grid-col-gap-5">
-                    <label class="skill-check rollable" for="system.skills.criminalConnections.value">
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="criminalConnections">
+                    <label class="skill-check rollable" for="system.skills.criminalConnections.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
                         {{localize "DCC.system.skills.criminalConnections.value"}}
                     </label>
-                    <input type="text" id="system.skills.criminalConnections.value" name="system.skills.criminalConnections.value"
+                    <input type="text" id="system.skills.criminalConnections.value"
+                        name="system.skills.criminalConnections.value"
                         value="{{system.skills.criminalConnections.value}}" data-dtype="String" />
                 </div>
-                <div class="grid-tpl-max-auto grid-col-gap-5">
-                    <label class="skill-check rollable" for="system.skills.handlePoison.value">
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="handlePoison">
+                    <label class="skill-check rollable" for="system.skills.handlePoison.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
                         {{localize "DCC.HandlePoison"}}
                     </label>
                     <input type="text" id="system.skills.handlePoison.value" name="system.skills.handlePoison.value"

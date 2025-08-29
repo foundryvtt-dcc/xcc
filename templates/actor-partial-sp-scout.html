@@ -88,8 +88,10 @@
           <input type="text" id="system.skills.climbSheerSurfaces.value" name="system.skills.climbSheerSurfaces.value"
             value="{{system.skills.climbSheerSurfaces.value}}" data-dtype="String" />
         </div>
-        <div class="grid-tpl-max-auto grid-col-gap-5">
-          <label class="skill-check rollable" for="system.skills.dangerSense.value">
+        <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="dangerSense">
+          <label class="skill-check rollable" for="system.skills.dangerSense.value"
+            title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+            data-drag-action="skill">
             {{localize "DCC.system.skills.dangerSense.value"}}
           </label>
           <input type="text" id="system.skills.dangerSense.value" name="system.skills.dangerSense.value"

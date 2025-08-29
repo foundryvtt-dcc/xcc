@@ -124,6 +124,9 @@
 .dcc .weapon-list.jammer {
   grid-template-columns: 30px min-content minmax(90px, 25%) min-content minmax(210px, 100%);
 }
+.dcc .weapon-list.sp-crypt-raider {
+  grid-template-columns: 30px min-content minmax(110px, 25%) 40px 40px minmax(210px, 100%);
+}
 
 /* Frames for reminder blocks */
 .reminder-block {

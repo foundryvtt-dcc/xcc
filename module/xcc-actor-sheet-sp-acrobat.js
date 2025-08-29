@@ -1,5 +1,4 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
-import { ensurePlus, getCritTableResult, getFumbleTableResult, getFumbleTableNameFromCritTableName, getNPCFumbleTableResult } from "/systems/dcc/module/utilities.js";
 
 class XCCActorSheetSpAcrobat extends DCCActorSheet {
     /** @inheritDoc */
@@ -36,17 +35,37 @@ class XCCActorSheetSpAcrobat extends DCCActorSheet {
     }
   }
 
-  constructor (options = {}) {
-    super(options)
-    this.actor.system.skills.acrobatics.ability = 'agl';
-    this.actor.system.skills.acrobatics.label = 'DCC.system.skills.acrobatics.value';
-    this.actor.system.skills.tightropeWalk.ability = 'agl';
-    this.actor.system.skills.tightropeWalk.label = 'DCC.system.skills.tightropeWalk.value';
-    this.actor.system.skills.leap.ability = 'str';
-    this.actor.system.skills.leap.label = 'DCC.system.skills.leap.value';
-    this.actor.system.skills.poleVault.ability = 'str';
-    this.actor.system.skills.poleVault.label = 'DCC.system.skills.poleVault.value';
-  }
+setSpecialistSkills() {
+        //DCC System had a bug with pickPocket skill, we're setting a custom one for now
+        if (this.actor.system.skills.pickPocket) {
+            this.actor.system.skills.pickPocket.ability = 'agl';
+            this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value';
+        }
+        //XCC uses int for forge document skill
+        if (this.actor.system.skills.forgeDocument) {
+            this.actor.system.skills.forgeDocument.ability = 'int';
+        }
+        //Acrobat: Acrobatics
+        if (this.actor.system.skills.acrobatics) {
+            this.actor.system.skills.acrobatics.ability = 'agl';
+            this.actor.system.skills.acrobatics.label = 'DCC.system.skills.acrobatics.value';
+        }
+        //Acrobat: Tightrope walk
+        if (this.actor.system.skills.tightropeWalk) {
+            this.actor.system.skills.tightropeWalk.ability = 'agl';
+            this.actor.system.skills.tightropeWalk.label = 'DCC.system.skills.tightropeWalk.value';
+        }
+        //Acrobat: Leap skill
+        if (this.actor.system.skills.leap) {
+            this.actor.system.skills.leap.ability = 'str';
+            this.actor.system.skills.leap.label = 'DCC.system.skills.leap.value';
+        }
+        //Acrobat: Pole vault skill
+        if (this.actor.system.skills.poleVault) {
+            this.actor.system.skills.poleVault.ability = 'str';
+            this.actor.system.skills.poleVault.label = 'DCC.system.skills.poleVault.value';
+        }
+    }
 
   /** @override */
   async _prepareContext (options) {
@@ -65,7 +84,7 @@ class XCCActorSheetSpAcrobat extends DCCActorSheet {
         'system.config.addClassLevelToInitiative': false
       })
     }
-
+    this.setSpecialistSkills();
     return context
   }
 }

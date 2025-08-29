@@ -42,6 +42,7 @@
     "system.skills.criminalConnections.value": "Criminal connections"
   },
   "XCC":{
+    "DetectSecretDoors": "Detect Secret Doors",
     "Acrobatics": "Acrobatics",
     "PoleVault": "Pole Vault",
     "Leap": "Leap", 
@@ -60,6 +61,7 @@
     "GrappleRoll": "Grapple Roll",
     "GrappleRollEmote": "{actorName} attempts a DC{rollHTML} grapple {deedRollHTML}.<br/><br/>The target must make an attack check. If the roll is below {rollHTML}, the grapple deals {damageRollHTML} damage.<br/><br/>If {actorName} started the round grappling, instead of dealing damage, they can drag the target 5'.<br/><br/>The drag distance increases by 5’ for every 4 points the check failed by.<br/><br/>At DC{rollHTML} extra 5' applies at: {rollResult2}, {rollResult3}, {rollResult4}, etc.{crit}",
     "ClassProperties": "Class Properties",
+    "ClassAbilities": "Abilities",
     "Settings":{
       "IncludeGrappleInWeapons": "Athlete's Grapple Weapon",
       "IncludeGrappleInWeaponsHint": "Include grapple check as a weapon in Athlete's equipment tab for ease of access.",
@@ -335,23 +337,25 @@
         ]
       },
       "CryptRaider":{
+        "Abilities":"Crypt Raider Abilities",
         "DropdownLabel": "XCC Specialist - Crypt Raider",
         "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#crypt-raider]{Crypt Raider}",
         "ActorSheetCryptRaider": "Crypt Raider",
         "TurnUnholy": "Turn Unholy",
+        "TurnUnholyDie": "Turn Unholy Die",
         "DarkKnowledge": "Dark Knowledge",
+        "DarkKnowledgeNotes": "Identify un-dead / demons",
+        "DisapprovalFlavor": "{actor} fails the Turn Unholy check and must spend <b style='color:var(--system-accent-color)'>{roll} hours</b> in prayer and meditation before attempting to Turn Unholy again!",
+        "DetectSecretDoorsNotes":"Auto-check when in 10’ range",
         "WeaponTraining": [
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
         ],
         "Benefits":[
           "You learn spoken and written Latin.",
-          "You get a free and automatic Find Secret Doors check just for passing within 10’ of one. You add your level to the check.",
-          "You roll a +1d for knowledge checks to identify un-dead and demons, including forensic checks to determine if a slain creature was a victim of un-dead creatures.",
           "You increase your Luck Die by +2d when you spend luck to turn, attack, damage or save against un-dead or demons.",
           "You can backstab with holy water hurled as a ranged attack within 10’."
         ],
         "Restrictions":[
-          "If Turn Unholy roll falls under your current disapproval range, the check fails and you must spend a number of hours equal to your disapproval score in prayer and meditation before you can attempt to Turn Unholy again.",
           "You roll -1d on all Grandstanding checks."
         ],
         "Mojo":[
