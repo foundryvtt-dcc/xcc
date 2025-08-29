@@ -37,7 +37,6 @@ class XCCActorSheetSpAcrobat extends DCCActorSheet {
   }
 
   constructor (options = {}) {
-    console.log("XCCActorSheetSpAcrobat constructor")
     super(options)
     this.actor.system.skills.acrobatics.ability = 'agl';
     this.actor.system.skills.acrobatics.label = 'DCC.system.skills.acrobatics.value';
