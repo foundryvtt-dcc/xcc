@@ -36,6 +36,19 @@ class XCCActorSheetSpAcrobat extends DCCActorSheet {
     }
   }
 
+  constructor (options = {}) {
+    console.log("XCCActorSheetSpAcrobat constructor")
+    super(options)
+    this.actor.system.skills.acrobatics.ability = 'agl';
+    this.actor.system.skills.acrobatics.label = 'DCC.system.skills.acrobatics.value';
+    this.actor.system.skills.tightropeWalk.ability = 'agl';
+    this.actor.system.skills.tightropeWalk.label = 'DCC.system.skills.tightropeWalk.value';
+    this.actor.system.skills.leap.ability = 'str';
+    this.actor.system.skills.leap.label = 'DCC.system.skills.leap.value';
+    this.actor.system.skills.poleVault.ability = 'str';
+    this.actor.system.skills.poleVault.label = 'DCC.system.skills.poleVault.value';
+  }
+
   /** @override */
   async _prepareContext (options) {
     const context = await super._prepareContext(options)
