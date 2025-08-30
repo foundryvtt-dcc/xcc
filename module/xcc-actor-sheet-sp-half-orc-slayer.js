@@ -1,7 +1,7 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
 
 class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
-    /** @inheritDoc */
+  /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
       height: 640
@@ -39,19 +39,19 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
   }
 
   setSpecialistSkills() {
-        //DCC System had a bug with pickPocket skill, we're setting a custom one for now
-        if (this.actor.system.skills.pickPocket) {
-            this.actor.system.skills.pickPocket.ability = 'agl';
-            this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value';
-        }
-        //XCC uses int for forge document skill
-        if (this.actor.system.skills.forgeDocument) {
-            this.actor.system.skills.forgeDocument.ability = 'int';
-        }
+    //DCC System had a bug with pickPocket skill, we're setting a custom one for now
+    if (this.actor.system.skills.pickPocket) {
+      this.actor.system.skills.pickPocket.ability = 'agl';
+      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value';
     }
+    //XCC uses int for forge document skill
+    if (this.actor.system.skills.forgeDocument) {
+      this.actor.system.skills.forgeDocument.ability = 'int';
+    }
+  }
 
   /** @override */
-  async _prepareContext (options) {
+  async _prepareContext(options) {
     // Half-Orc Slayer adds Reflex to initiative
     if (this.actor.isPC && this.actor._getConfig().computeInitiative) {
       await this.actor.update({
@@ -63,7 +63,7 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
 
     if (this.actor.system.details.sheetClass !== 'sp-half-orc-slayer') {
       await this.actor.update({
-        'system.class.localizationPath':"XCC.Specialist.HalfOrcSlayer",
+        'system.class.localizationPath': "XCC.Specialist.HalfOrcSlayer",
         'system.class.className': "halforcslayer",
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.HalfOrcSlayer.ClassLink')),
         'system.details.sheetClass': 'sp-half-orc-slayer',
@@ -78,24 +78,33 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
     return context
   }
 
-  static async rollModifiedWeaponAttack (event, target) {
+  static async rollModifiedWeaponAttack(event, target) {
     event.preventDefault()
     const itemId = DCCActorSheet.findDataset(target, 'itemId')
     const options = DCCActorSheet.fillRollOptions(event)
     Object.assign(options, {
       backstab: target.classList.contains('backstab-button')
     })
-    // If backstab is active, we bump the damage die up if backstabDamage is not already set
-    if(options.backstab){
-      const weapon = this.actor.items.find(i => i.id === itemId)
-      if (weapon && weapon.system.melee) {
-        if(weapon.system.backstabDamage === "") {
+    const weapon = this.actor.items.find(i => i.id === itemId)
+    let oldTable = "";
+    if (options.backstab) {
+      if (weapon) {
+        // Set critTable to III
+        oldTable = weapon.system?.critTable || "";
+        weapon.system.critTable = "III"
+        // If backstab is active, we bump the damage die up if backstabDamage is not already set
+        if (weapon.system.melee && weapon.system.backstabDamage === "") {
           weapon.system.backstabDamage = game.dcc.DiceChain.bumpDie(weapon.system.damageWeapon, 1);
         }
       }
     }
     // Continue attack
-    this.actor.rollWeaponAttack(itemId, options)
+    await this.actor.rollWeaponAttack(itemId, options)
+
+    // Restore regular critTable
+    if (options.backstab && weapon) {
+      weapon.system.critTable = oldTable;
+    }
   }
 }
 

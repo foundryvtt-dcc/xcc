@@ -347,6 +347,9 @@
         "DarkKnowledgeNotes": "Identify un-dead / demons",
         "DisapprovalFlavor": "{actor} fails the Turn Unholy check and must spend <b style='color:var(--system-accent-color)'>{roll} hours</b> in prayer and meditation before attempting to Turn Unholy again!",
         "DetectSecretDoorsNotes":"Auto-check when in 10’ range",
+        "UnholyCritical": "Crit Table Roll",
+        "UnholyCriticalNotes": "Better crits vs. un-dead / demons",
+        "UnholyCriticalTitle": "Unholy Criticals",
         "WeaponTraining": [
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
         ],

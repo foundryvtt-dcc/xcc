@@ -130,6 +130,11 @@
 .dcc .weapon-list.sp-elf-trickster {
   grid-template-columns: 30px min-content minmax(110px, 35%) 40px minmax(210px, 100%);
 }
+
+.dcc .weapon-list.sp-crypt-raider-critical {
+  grid-template-columns: 30px min-content minmax(110px, 25%) 80px minmax(210px, 100%);
+}
+
 /* Frames for reminder blocks */
 .reminder-block {
   border: var(--system-frame-border);

@@ -22,8 +22,9 @@
                     </label>
                     <input type="text" value="{{system.details.level.value}}" disabled="true" data-dtype="String" />
                 </div>
-                <div class="grid-tpl-max-auto grid-col-gap-5">
-                    <label class="skill-check rollable" for="system.class.turnUndeadDie" data-action="rollTurnUnholy">
+                <!-- Turn Unholy Die -->
+                <div class="grid-tpl-max-25 grid-col-gap-5">
+                    <label class="skill-check" for="system.class.turnUndeadDie">
                         {{localize "XCC.Specialist.CryptRaider.TurnUnholyDie"}}
                     </label>
                     <input type="text" id="system.class.turnUndeadDie" name="system.class.turnUndeadDie"
@@ -56,13 +57,14 @@
                 </li>
                 <li class="grid-col-span-6 weapon grid-col-gap-5">
                     <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/stoned-skull.svg"
-                        title="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}" alt="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}"
-                        width="22" height="22">
+                        title="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}"
+                        alt="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}" width="22" height="22">
                     <div class="attack-buttons">
                         <div class="rollable weapon-button icon-filter" data-action="rollTurnUnholy" data-drag="false"
                             title="Roll" draggable="false"></div>
                     </div>
-                    <input class="weapon-name" type="text" value="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}" readonly="">
+                    <input class="weapon-name" type="text" value="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}"
+                        readonly="">
                     <input class="disabled" type="text" value="{{system.class.turnUndeadDie}}" readonly="">
                     <input class="disabled" type="text" value="{{system.abilities.per.mod}}" readonly="">
                     <input class="weapon-notes disabled" type="text"
@@ -70,13 +72,14 @@
                 </li>
                 <li class="grid-col-span-6 weapon grid-col-gap-5">
                     <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/evil-book.svg"
-                        title="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}" alt="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}"
-                        width="22" height="22">
+                        title="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}"
+                        alt="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}" width="22" height="22">
                     <div class="attack-buttons" data-skill="darkKnowledge">
                         <div class="rollable weapon-button icon-filter" data-action="rollSkillCheck" data-drag="false"
                             title="Roll" draggable="false"></div>
                     </div>
-                    <input class="weapon-name" type="text" value="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}" readonly="">
+                    <input class="weapon-name" type="text"
+                        value="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}" readonly="">
                     <input class="disabled" type="text" value="d24" readonly="">
                     <input class="disabled" type="text" value="{{system.abilities.int.mod}}" readonly="">
                     <input class="weapon-notes disabled" type="text"
@@ -95,6 +98,28 @@
                     <input class="disabled" type="text" value="{{system.details.level.value}}" readonly="">
                     <input class="weapon-notes disabled" type="text"
                         value="{{localize 'XCC.Specialist.CryptRaider.DetectSecretDoorsNotes'}}" readonly="">
+                </li>
+            </ol>
+        </div>
+        <div class="grid-col-span-12 dark-border">
+            <div class="row-separator"></div>
+            <div class="box-title">{{localize "XCC.Specialist.CryptRaider.UnholyCriticalTitle"}}</div>
+            <ol class="weapon-list sp-crypt-raider-critical box-border" style="margin-bottom: 0;">
+                    <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <div class="attack-buttons" style="margin-left: 4px;" data-skill="detectSecretDoors">
+                        <div class="rollable weapon-button icon-filter" data-action="rollUnholyCritical" data-drag="false"
+                            title="Roll" draggable="false"></div>
+                    </div>
+                    <div class="attack-buttons" data-skill="detectSecretDoors">
+                        <div class="rollable backstab-button icon-filter" data-action="rollUnholyCriticalBackstab" data-drag="false"
+                            title="Roll" draggable="false"></div>
+                    </div>
+                    <input class="weapon-name" type="text"
+                        value="{{localize 'XCC.Specialist.CryptRaider.UnholyCritical'}}" readonly="">
+                    <input class="disabled" type="text"
+                        value="{{system.attributes.critical.die}}/{{getUnholyCritDie actor}}" readonly="">
+                    <input class="weapon-notes disabled" type="text"
+                        value="{{localize 'XCC.Specialist.CryptRaider.UnholyCriticalNotes'}}" readonly="">
                 </li>
             </ol>
         </div>

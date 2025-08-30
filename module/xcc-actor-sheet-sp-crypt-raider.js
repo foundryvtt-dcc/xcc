@@ -8,7 +8,9 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
       height: 640
     },
     actions: {
-      rollTurnUnholy: this.rollTurnUnholy
+      rollTurnUnholy: this.rollTurnUnholy,
+      rollUnholyCritical: this.rollUnholyCritical,
+      rollUnholyCriticalBackstab: this.rollUnholyCriticalBackstab
     }
   }
 
@@ -40,35 +42,38 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
   }
 
   setSpecialistSkills() {
-        //DCC System had a bug with pickPocket skill, we're setting a custom one for now
-        if (this.actor.system.skills.pickPocket) {
-            this.actor.system.skills.pickPocket.ability = 'agl';
-            this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value';
-        }
-        //XCC uses int for forge document skill
-        if (this.actor.system.skills.forgeDocument) {
-            this.actor.system.skills.forgeDocument.ability = 'int';
-        }
-        //Crypt Raider: Dark knowledge and Detect secret doors skill
-        if (this.actor.system.class.className == 'cryptraider') {
-            this.actor.system.skills.darkKnowledge = {
-                value: this.actor.system.abilities.int.mod,
-                label: 'XCC.Specialist.CryptRaider.DarkKnowledge',
-                die: 'd24'
-            };
-            console.log("SETTING Crypt Raider SECRET DOORS")
-            this.actor.system.skills.detectSecretDoors = {
-                value: this.actor.system.details.level.value,
-                ability: 'int',
-                label: 'XCC.DetectSecretDoors',
-                die: 'd20'
-            };
-        }
+    //DCC System had a bug with pickPocket skill, we're setting a custom one for now
+    if (this.actor.system.skills.pickPocket) {
+      this.actor.system.skills.pickPocket.ability = 'agl';
+      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value';
     }
+    //XCC uses int for forge document skill
+    if (this.actor.system.skills.forgeDocument) {
+      this.actor.system.skills.forgeDocument.ability = 'int';
+    }
+    //Crypt Raider: Dark knowledge and Detect secret doors skill
+    if (this.actor.system.class.className == 'cryptraider') {
+      this.actor.system.skills.darkKnowledge = {
+        value: this.actor.system.abilities.int.mod,
+        label: 'XCC.Specialist.CryptRaider.DarkKnowledge',
+        die: 'd24'
+      };
+      console.log("SETTING Crypt Raider SECRET DOORS")
+      this.actor.system.skills.detectSecretDoors = {
+        value: this.actor.system.details.level.value,
+        ability: 'int',
+        label: 'XCC.DetectSecretDoors',
+        die: 'd20'
+      };
+    }
+  }
 
   static addHooksAndHelpers() {
     Handlebars.registerHelper('getDarkKnowledge', function (actor) {
       return "d24" + ensurePlus(actor.system.abilities.int.mod);
+    });
+    Handlebars.registerHelper('getUnholyCritDie', function (actor) {
+      return game.dcc.DiceChain.bumpDie(actor.system.attributes.critical.die, 1);
     });
   }
 
@@ -215,6 +220,27 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
 
     // Create the chat message
     await ChatMessage.create(messageData);
+  }
+
+  static async rollUnholyCritical(event, target) {
+    await XCCActorSheetSpCryptRaider.rollCritDieModified(event, target, this, false);
+  }
+
+  static async rollUnholyCriticalBackstab(event, target) {
+    await XCCActorSheetSpCryptRaider.rollCritDieModified(event, target, this, true);
+  }
+
+  static async rollCritDieModified(event, target, sheet, isBackstab) {
+    const options = DCCActorSheet.fillRollOptions(event);
+    const oldDie = sheet.actor.system.attributes.critical.die;
+    const oldTable = sheet.actor.system.attributes.critical.table;
+    if (isBackstab) {
+      sheet.actor.system.attributes.critical.die = game.dcc.DiceChain.bumpDie(oldDie, 1);
+    }
+    sheet.actor.system.attributes.critical.table = "III";
+    await sheet.actor.rollCritical(options);
+    sheet.actor.system.attributes.critical.die = oldDie;
+    sheet.actor.system.attributes.critical.table = oldTable;
   }
 }
 
