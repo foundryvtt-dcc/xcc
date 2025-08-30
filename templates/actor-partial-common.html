@@ -1,3 +1,4 @@
+{{#if (hasLocalizedEntries actor "Benefits")}}
 <div class="row-separator"></div>
 <label class="box-title">{{localize "XCC.BenefitsTitle"}}</label>
 <div class="reminder-block dark-border">
@@ -7,6 +8,8 @@
         {{/each}}
     </ul>
 </div>
+{{/if}}
+{{#if (hasLocalizedEntries actor "Restrictions")}}
 <div class="row-separator"></div>
 <label class="box-title">{{localize "XCC.RestrictionsTitle"}}</label>
 <div class="reminder-block dark-border">
@@ -16,6 +19,8 @@
         {{/each}}
     </ul>
 </div>
+{{/if}}
+{{#if (hasLocalizedEntries actor "Mojo")}}
 <div class="row-separator"></div>
 <label class="box-title">{{localize "XCC.MojoTitle"}}</label>
 <div class="reminder-block dark-border">
@@ -25,6 +30,8 @@
         {{/each}}
     </ul>
 </div>
+{{/if}}
+{{#if (hasLocalizedEntries actor "WeaponTraining")}}
 <div class="row-separator"></div>
 <label class="box-title">{{localize "XCC.WeaponTrainingTitle"}}</label>
 <div class="reminder-block dark-border">
@@ -34,3 +41,4 @@
         {{/each}}
     </ul>
 </div>
+{{/if}}

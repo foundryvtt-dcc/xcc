@@ -400,8 +400,7 @@
           "You are immune to magical sleep and paralysis.",
           "You automatically pick Cantrip as your first known spell.",
           "Your Cantrip effect lasts for up to 10 rounds, and you can always choose a lesser effect if it better suits your purposes.",
-          "On a Cantrip spell check of 18 or better the kinetic effect, allows you to pick locks, disarm traps, pick pockets, or affect other complicated operations at range.",
-          "!!You add your luck modifier to your spell checks."
+          "On a Cantrip spell check of 18 or better the kinetic effect, allows you to pick locks, disarm traps, pick pockets, or affect other complicated operations at range."
         ],
         "Restrictions":[
           "Direct contact of iron with your skin does 1 point of damage per day of exposure.",
