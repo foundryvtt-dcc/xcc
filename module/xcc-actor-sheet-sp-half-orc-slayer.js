@@ -5,6 +5,9 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
   static DEFAULT_OPTIONS = {
     position: {
       height: 640
+    },
+    actions: {
+      rollWeaponAttack: this.rollModifiedWeaponAttack
     }
   }
 
@@ -49,6 +52,13 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
 
   /** @override */
   async _prepareContext (options) {
+    // Half-Orc Slayer adds Reflex to initiative
+    if (this.actor.isPC && this.actor._getConfig().computeInitiative) {
+      await this.actor.update({
+        'system.attributes.init.otherMod': this.actor.system.saves.ref.value,
+      });
+    }
+
     const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'sp-half-orc-slayer') {
@@ -66,6 +76,26 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
     }
     this.setSpecialistSkills();
     return context
+  }
+
+  static async rollModifiedWeaponAttack (event, target) {
+    event.preventDefault()
+    const itemId = DCCActorSheet.findDataset(target, 'itemId')
+    const options = DCCActorSheet.fillRollOptions(event)
+    Object.assign(options, {
+      backstab: target.classList.contains('backstab-button')
+    })
+    // If backstab is active, we bump the damage die up if backstabDamage is not already set
+    if(options.backstab){
+      const weapon = this.actor.items.find(i => i.id === itemId)
+      if (weapon && weapon.system.melee) {
+        if(weapon.system.backstabDamage === "") {
+          weapon.system.backstabDamage = game.dcc.DiceChain.bumpDie(weapon.system.damageWeapon, 1);
+        }
+      }
+    }
+    // Continue attack
+    this.actor.rollWeaponAttack(itemId, options)
   }
 }
 

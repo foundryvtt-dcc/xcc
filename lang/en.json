@@ -421,14 +421,12 @@
           "You can see in the dark up to 30'.",
           "You make saving throws against disease and poison effects at +1d.",
           "You heal two hit points and two physical ability points per night of rest (three with a full day of care and bed rest).",
-          "You gain a bonus on your initiative checks equal to your base Reflex save.",
-          "Your weapon damage is increased by +1d with any melee weapon you use to backstab (daggers still do 1d10).",
           "If you spend Luck on damage, your Luck die increases by +1d on the chain.",
           "You can always backstab prone targets."
         ],
         "Restrictions":[
           "You take a -1d penalty to Personality checks other than intimidation and Grandstanding.",
-          "You begin the game as non-citizens of the NAE."
+          "You begin the game as a non-citizen of the NAE."
         ],
         "Mojo":[
           "You earn a Mojo point for every creature you single-handedly kill."
