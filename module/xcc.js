@@ -18,6 +18,8 @@ import XCCActorSheetSpHalfOrcSlayer from './xcc-actor-sheet-sp-half-orc-slayer.j
 import XCCActorSheetSpHalflingRogue from './xcc-actor-sheet-sp-halfling-rogue.js';
 import DCCMonkeyPatch from './dcc-monkey-patch.js';
 
+import { ensurePlus } from '/systems/dcc/module/utilities.js';
+
 const { Actors } = foundry.documents.collections
 const { loadTemplates } = foundry.applications.handlebars
 
@@ -229,6 +231,14 @@ Hooks.once('init', async function () {
 
     Handlebars.registerHelper('getLocalizationKey', function(actor, name) {
       return (actor.system.class?.localizationPath||"Undefined")+"."+name;
+    });
+
+    Handlebars.registerHelper('ensurePlus', function(value) {
+      return ensurePlus(value);
+    });
+    
+    Handlebars.registerHelper('sum', function(a,b) {
+      return parseInt(a) + parseInt(b);
     });
 });
 

@@ -370,17 +370,19 @@
           "You are trained in hand axes, short swords, daggers, slings, shortbows, hand crossbows."
         ],
         "Benefits":[
-          "You get +1d to Find and Disable Trap checks that involve pits, moving stonework, sliding walls, and structural deadfalls.",
           "You can see in the dark up to 60'.",
+          "You always know your approximate depth underground.",
           "You speak a secret Dwarf Mechanic cant - The Shale.",
-          "When underground, you add your character level to checks to detect sloping passageways, secret doors involving shifting walls, and new construction.",
-          "You always know your approximate depth underground."
+          "You get +1d to Find and Disable Trap checks that involve pits, moving stonework, sliding walls, and structural deadfalls.",
+          "When underground, you add your character level to checks to detect sloping passageways, secret doors involving shifting walls, and new construction."
+          
         ],
         "Restrictions":[
-          "You receive -2d on all social rolls involving your dwarven kin, and never receive sponsorship from dwarven companies or nobility. Penalty is reduced to -1d at 3rd level, and goes away at level 4."
+          "You get -2d to social checks vs. dwarves. Becomes -1d at 3rd level, negated at 4th.",
+          "You never receive sponsorship from dwarven companies or nobility."
         ],
         "Mojo":[
-          "You earn two Mojo points for turning to the camera and making disparaging remarks about the trap maker after successfully disarming a trap on your first attempt. Extra Mojo points for particularly witty or cutting comments.",
+          "You earn two Mojo points when you disarm a trap on the first attempt and then grill its maker on the camera. Extra Mojo for particularly witty or cutting comments.",
           "You earn a Mojo point for every giant, troll, or ogre you help your team destroy."
         ]
       },
@@ -388,17 +390,18 @@
         "DropdownLabel": "XCC Specialist - Elf Trickster",
         "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#elf-trickster]{Elf Trickster}",
         "ActorSheetElfTrickster": "Elf Trickster",
+        "DetectSecretDoorsNotes":"Auto-check when in 10’ range",
+        "SpellCheckNotes":"No spellburn allowed",
         "WeaponTraining": [
           "You are trained in short swords, daggers, staff, and shortbows."
         ],
         "Benefits":[
           "You can see in the dark up to 60'.",
           "You are immune to magical sleep and paralysis.",
-          "You get a free and automatic Find Secret Doors check just for passing within 10’ of one. You receive +4 bonus to this check.",
           "You automatically pick Cantrip as your first known spell.",
           "Your Cantrip effect lasts for up to 10 rounds, and you can always choose a lesser effect if it better suits your purposes.",
           "On a Cantrip spell check of 18 or better the kinetic effect, allows you to pick locks, disarm traps, pick pockets, or affect other complicated operations at range.",
-          "You add your luck modifier to your spell checks."
+          "!!You add your luck modifier to your spell checks."
         ],
         "Restrictions":[
           "Direct contact of iron with your skin does 1 point of damage per day of exposure.",

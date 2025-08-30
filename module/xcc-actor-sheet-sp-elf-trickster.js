@@ -51,11 +51,17 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
             this.actor.system.skills.forgeDocument.ability = 'int';
         }
          //Elf Trickster: Detect secret doors skill
-        if (this.actor.system.class.className == 'elftickster') {
+        if (this.actor.system.class.className == 'elftrickster') {
             this.actor.system.skills.detectSecretDoors = {
                 value: 4,
                 ability: 'int',
                 label: 'XCC.DetectSecretDoors',
+                die: 'd20'
+            };
+            this.actor.system.skills.spellCheck = {
+                value: this.actor.system.abilities.lck.mod+this.actor.system.details.level.value,
+                ability: 'per',
+                label: 'DCC.Spell',
                 die: 'd20'
             };
         }
@@ -76,8 +82,16 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
         'system.config.attackBonusMode': 'flat',
         'system.config.showBackstab': true,
         'system.config.addClassLevelToInitiative': false,
+        'system.class.spellCheckAbility': 'per',
+        'system.class.spellCheckOtherMod': this.actor.system.abilities.lck.mod,
         'system.config.showSpells': true
       })
+    }
+    else {
+      await this.actor.update({
+        'system.class.spellCheckAbility': 'per',
+        'system.class.spellCheckOtherMod': this.actor.system.abilities.lck.mod
+      });
     }
     this.setSpecialistSkills();
     return context
