@@ -3,11 +3,65 @@
   --system-header-link-color: #c8d7bd;
   --system-logo-filter: brightness(89%) opacity(100%) sepia(100%) hue-rotate(51deg) saturate(43%);
 }
+
 /*Override for dark theme */
 .theme-dark {
   --system-header-link-color: #d0beaa;
   --system-logo-filter: brightness(45%) opacity(100%) saturate(0%);
 }
+
+#pause img.small {
+  background-image: url("/modules/xcrawl-classics/styles/images/frame_small.png"), url("/modules/xcrawl-classics/styles/images/noise_small.png?v=5"), url("/modules/xcrawl-classics/styles/images/tv_small.png");
+  animation-name: noise-small;
+  animation-duration: 0.1s;
+  background-repeat: no-repeat;
+  mask-image: url("/modules/xcrawl-classics/styles/images/mask_small.png");
+  content:url("/modules/xcrawl-classics/styles/images/fake.png");
+  width: 288px;
+  height: 224px;
+  margin-top:32px;
+}
+
+#pause img {
+  background-image: url("/modules/xcrawl-classics/styles/images/frame_big.png?v=13"), url("/modules/xcrawl-classics/styles/images/noise_big.png?v=5"), url("/modules/xcrawl-classics/styles/images/tv_big.png");
+  animation-name: noise-big;
+  animation-duration: 0.2s;
+  background-repeat: no-repeat;
+  mask-image: url("/modules/xcrawl-classics/styles/images/mask_big.png");
+  content:url("/modules/xcrawl-classics/styles/images/fake.png");
+  width: 576px;
+  height: 448px;
+  margin-top:32px;
+}
+
+@keyframes noise-small {
+    0% { background-position: top left, top 0 left 0, top 16px left 16px; }
+    10% { background-position: top left, top -5% left -5%, top 16px left 16px; }
+    20% { background-position: top left, top -10% left 5%, top 16px left 16px; }
+    30% { background-position: top left, top 5% left -10%, top 16px left 16px; }
+    40% { background-position: top left, top -5% left 15%, top 16px left 16px; }
+    50% { background-position: top left, top -10% left 5%, top 16px left 16px; }
+    60% { background-position: top left, top 15% left 0, top 16px left 16px; }
+    70% { background-position: top left, top 0 left 10%, top 16px left 16px; }
+    80% { background-position: top left, top -15% left 0, top 16px left 16px; }
+    90% { background-position: top left, top 10% left 5%, top 16px left 16px; }
+    100% { background-position: top left, top 5% left 0, top 16px left 16px; }
+}
+
+@keyframes noise-big {
+    0% { background-position: top left, top 0 left 0, top 32px left 32px; }
+    10% { background-position: top left, top -5% left -5%, top 32px left 32px; }
+    20% { background-position: top left, top -10% left 5%, top 32px left 32px; }
+    30% { background-position: top left, top 5% left -10%, top 32px left 32px; }
+    40% { background-position: top left, top -5% left 15%, top 32px left 32px; }
+    50% { background-position: top left, top -10% left 5%, top 32px left 32px; }
+    60% { background-position: top left, top 15% left 0, top 32px left 32px; }
+    70% { background-position: top left, top 0 left 10%, top 32px left 32px; }
+    80% { background-position: top left, top -15% left 0, top 32px left 32px; }
+    90% { background-position: top left, top 10% left 5%, top 32px left 32px; }
+    100% { background-position: top left, top 5% left 0, top 32px left 32px; }
+}
+
 /* ----------------------------------------- */
 /*  Globals                                  */
 /* ----------------------------------------- */
@@ -15,40 +69,47 @@
   font-family: "Cooper Black";
   src: url("fonts/Cooper.otf") format("opentype");
 }
+
 @font-face {
   font-family: "DuvallSmallCaps";
   src: url("fonts/DuvallSmallCaps.otf") format("opentype");
 }
+
 @font-face {
   font-family: "DuvallSmallCaps";
   src: url("fonts/DuvallSmallCapsBold.otf") format("opentype");
   font-weight: bold;
 }
+
 @font-face {
   font-family: "Duvall";
   src: url("fonts/Duvall.otf") format("opentype");
 }
+
 @font-face {
   font-family: "Duvall";
   src: url("fonts/DuvallBold.otf") format("opentype");
   font-weight: bold;
 }
+
 @font-face {
   font-family: "DuvallCondensed";
   src: url("fonts/DuvallCondensed.otf") format("opentype");
 }
+
 @font-face {
   font-family: "DuvallCondensed";
   src: url("fonts/DuvallCondensedBold.otf") format("opentype");
   font-weight: bold;
 }
 
-.dcc.sheet a[data-tab]{
+.dcc.sheet a[data-tab] {
   white-space: nowrap;
 }
 
-.box-title .content-link, .box-title .content-link .fa-file-lines {
-  color:var(--system-header-link-color);
+.box-title .content-link,
+.box-title .content-link .fa-file-lines {
+  color: var(--system-header-link-color);
 }
 
 .scourge-button {
@@ -81,19 +142,19 @@
   margin: 1px 2px 0 0;
 }
 
-.compound-damage-left{
-  text-align:right;
+.compound-damage-left {
+  text-align: right;
   width: 55%;
-  overflow:visible;
-  padding-right:0px; 
-  padding-left:0.25rem;
+  overflow: visible;
+  padding-right: 0px;
+  padding-left: 0.25rem;
 }
 
-.compound-damage-right{
+.compound-damage-right {
   text-align: left;
   width: 45%;
-  overflow:visible;
-  padding-left:1px; 
+  overflow: visible;
+  padding-left: 1px;
   padding-right: 0.25rem;
 }
 
@@ -102,11 +163,12 @@
   display: block;
   width: 0;
   line-height: 16px;
-  .content-link{
-    border:0;
+
+  .content-link {
+    border: 0;
     float: right;
     text-shadow: 1px 1px 1px black;
-    }
+  }
 }
 
 .grid-chosen-weapon {
@@ -118,15 +180,19 @@
 .dcc .weapon-list.brawler {
   grid-template-columns: 30px min-content minmax(90px, auto) 50px 55px 60px 97px;
 }
+
 .dcc .weapon-list.athlete {
   grid-template-columns: 30px min-content minmax(90px, auto) 97px 60px 150px;
 }
+
 .dcc .weapon-list.jammer {
   grid-template-columns: 30px min-content minmax(90px, 25%) min-content minmax(210px, 100%);
 }
+
 .dcc .weapon-list.sp-crypt-raider {
   grid-template-columns: 30px min-content minmax(110px, 25%) 40px 40px minmax(210px, 100%);
 }
+
 .dcc .weapon-list.sp-elf-trickster {
   grid-template-columns: 30px min-content minmax(110px, 35%) 40px minmax(210px, 100%);
 }
@@ -139,6 +205,7 @@
 .reminder-block {
   border: var(--system-frame-border);
   border-top: none;
+
   ul {
     margin-top: 0;
     margin-bottom: 0;
@@ -146,21 +213,23 @@
     padding-bottom: 8px;
   }
 }
+
 .sp-skills .box-border {
   padding-right: 0;
-  .row-separator{
-    margin-right:5px;
+
+  .row-separator {
+    margin-right: 5px;
   }
 }
-.sp-skills input{
-  text-align: right; 
-  width: auto; 
+
+.sp-skills input {
+  text-align: right;
+  width: auto;
   margin-right: 8px;
 }
 
 .xcc {
-  .row-separator
-  {
+  .row-separator {
     margin: 3px 0;
     border-bottom: 2px dotted var(--system-secondary-color);
   }
@@ -168,11 +237,11 @@
 
 /*Only show rewards tab for PC*/
 a[data-tab='rewards'] {
-    display: none;
+  display: none;
 }
 
 .pc a[data-tab='rewards'] {
-    display: inline-block;
+  display: inline-block;
 }
 
 /* Lionize result controls styling */
@@ -195,44 +264,47 @@ a[data-tab='rewards'] {
 }
 
 .rewards-grid {
-    display: grid;
-    grid-template-rows: 59px 8px 59px 8px;
-    grid-template-columns: 180px auto;
-    grid-column-gap: 8px;
+  display: grid;
+  grid-template-rows: 59px 8px 59px 8px;
+  grid-template-columns: 180px auto;
+  grid-column-gap: 8px;
 }
 
 .rewards-grid .row-separator {
-    border-bottom: 2px dotted var(--system-secondary-color);
-    margin: 3px 0;
+  border-bottom: 2px dotted var(--system-secondary-color);
+  margin: 3px 0;
 }
 
 .contacts-block {
-    display: grid;
-    grid-template-rows: 19px 107px;
-    grid-row-end: span 3;
-    textarea {
-        text-align: left;
-        height: 107px;
-        border: var(--system-frame-border);
-        border-top: none;
-        resize: none;
-        background-color: transparent;
-        border-radius: 0;
-    }
+  display: grid;
+  grid-template-rows: 19px 107px;
+  grid-row-end: span 3;
+
+  textarea {
+    text-align: left;
+    height: 107px;
+    border: var(--system-frame-border);
+    border-top: none;
+    resize: none;
+    background-color: transparent;
+    border-radius: 0;
+  }
 }
 
-.rewards-block{
+.rewards-block {
   display: grid;
   grid-template-columns: 85px 35px 60px;
   grid-template-rows: 19px 20px 20px;
-  
+
   .box-title {
     grid-column-end: span 2;
   }
+
   .middle-label {
     margin: auto 2px;
     grid-row-end: span 2;
   }
+
   .lower-label {
     margin: auto 2px;
   }
@@ -259,7 +331,7 @@ a[data-tab='rewards'] {
     float: left;
     font-weight: bold;
     font-size: 10px;
-    margin-top:2px;
+    margin-top: 2px;
     margin-left: 2px;
   }
 
@@ -269,11 +341,11 @@ a[data-tab='rewards'] {
     float: left;
     font-weight: bold;
     font-size: 10px;
-    margin-top:2px;
+    margin-top: 2px;
     margin-left: 2px;
   }
 
-  .info{
+  .info {
     font-family: var(--system-icon-font), serif;
     text-align: right;
     margin-left: 3px;
@@ -284,105 +356,110 @@ a[data-tab='rewards'] {
 
 /* Add icons to tabs */
 a[data-tab='athlete']::before {
-    content: '\f432';
+  content: '\f432';
 }
 
 a[data-tab='blaster']::before {
-    content: '\e4e9';
+  content: '\e4e9';
 }
 
 a[data-tab='brawler']::before {
-    content: '\f6de';
-    font-weight: 900;
+  content: '\f6de';
+  font-weight: 900;
 }
 
 a[data-tab='jammer']::before {
-    content: '\f8be';
-    font-weight: 900;
+  content: '\f8be';
+  font-weight: 900;
 }
 
 a[data-tab='messenger']::before {
-    content: '\e689';
+  content: '\e689';
 }
 
 a[data-tab='sp-acrobat']::before {
-    content: '\e546';
-    transform: rotate(170deg);
-    display: inline-block;
-    padding-right: 0;
-    margin-right: 5px;
-    font-weight: 900;
+  content: '\e546';
+  transform: rotate(170deg);
+  display: inline-block;
+  padding-right: 0;
+  margin-right: 5px;
+  font-weight: 900;
 }
 
 a[data-tab='sp-commando']::before {
-    content: '\f6f5';
+  content: '\f6f5';
 }
 
 a[data-tab='sp-criminal']::before {
-    content: '\e19b';
+  content: '\e19b';
 }
 
 a[data-tab='sp-scout']::before {
-    content: '\f06e';
+  content: '\f06e';
 }
 
 a[data-tab='sp-crypt-raider']::before {
-    content: '\f5d8';
+  content: '\f5d8';
 }
 
 a[data-tab='sp-dwarf-mechanic']::before {
-    content: '\f0ad';
+  content: '\f0ad';
 }
 
 a[data-tab='sp-elf-trickster']::before {
-    content: '\e05d';
+  content: '\e05d';
 }
 
 a[data-tab='sp-half-orc-slayer']::before {
-    content: '\f6c2';
-    font-weight: 900;
+  content: '\f6c2';
+  font-weight: 900;
 }
 
 a[data-tab='sp-halfling-rogue']::before {
-    content: '\f6cb';
-    transform: rotate(315deg);
-    display: inline-block;
-    padding-right: 0;
-    margin-right: 5px;
+  content: '\f6cb';
+  transform: rotate(315deg);
+  display: inline-block;
+  padding-right: 0;
+  margin-right: 5px;
 }
 
 a[data-tab='gnome']::before {
-    content: '\f58a';
+  content: '\e139';
+  transform: rotate(-15deg);
+  display: inline-block;
+  padding-right: 0;
+  margin-right: 5px;
+  font-weight: bold;
 }
 
 a[data-tab='half-elf']::before {
-    content: '\f5c0';
+  content: '\f5c0';
 }
 
 a[data-tab='half-orc']::before {
-    content: '\e382';
+  content: '\e382';
 }
 
-a[data-tab='dwarf']::before {
-    content: '\e572';
+a[data-tab='xcc-dwarf']::before {
+  content: '\e572';
 }
 
 a[data-tab='rewards']::before {
-    /* content: '\f5a2'; */
-    content: '\f066';
-    transform: rotate(45deg);
-    display: inline-block;
-    padding-right: 0;
-    margin-right: 5px;
-    font-weight: bold;
+  /* content: '\f5a2'; */
+  content: '\f066';
+  transform: rotate(45deg);
+  display: inline-block;
+  padding-right: 0;
+  margin-right: 5px;
+  font-weight: bold;
 }
 
 a[data-tab='sponsorship-item']::before {
-    content: '\f53d';
+  content: '\f53d';
 }
 
 .fa-balance-scale-left::before {
-    content: '\f762';
+  content: '\f762';
 }
 
 /* ----------------------------------------- */
@@ -398,14 +475,17 @@ a[data-tab='sponsorship-item']::before {
   padding-bottom: 2px;
   margin-bottom: 2px;
 }
+
 .dcc .sponsorship .sponsorship-control {
   font-size: 14px;
 }
+
 .dcc .sponsorship:last-child {
   border-bottom: 0;
   padding-bottom: 2px;
   margin-bottom: 2px;
 }
+
 .dcc .sponsorship-heading {
   border-bottom: var(--system-party-sheet-border);
   font-family: var(--system-label-font), serif;
@@ -429,7 +509,7 @@ a[data-tab='sponsorship-item']::before {
   display: grid;
   font-family: var(--system-data-font), serif;
   font-size: 12px;
-  grid-template-columns: 30px minmax(100px,100%) 65px 39px;
+  grid-template-columns: 30px minmax(100px, 100%) 65px 39px;
   margin: 0 0 8px 0;
   padding: 5px;
   text-align: center;
@@ -439,7 +519,7 @@ a[data-tab='sponsorship-item']::before {
 
 .dcc .sponsorship-list.sticky {
   padding-bottom: 0;
-  margin-bottom:0;
+  margin-bottom: 0;
 }
 
 .sponsorship-item .left-label {
@@ -447,7 +527,7 @@ a[data-tab='sponsorship-item']::before {
   min-width: 60px;
 }
 
-.xcc-notes textarea{
+.xcc-notes textarea {
   min-height: 180px;
   max-height: 100%;
   background-color: transparent;
