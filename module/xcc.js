@@ -16,6 +16,10 @@ import XCCActorSheetSpDwarfMechanic from './xcc-actor-sheet-sp-dwarf-mechanic.js
 import XCCActorSheetSpElfTrickster from './xcc-actor-sheet-sp-elf-trickster.js';
 import XCCActorSheetSpHalfOrcSlayer from './xcc-actor-sheet-sp-half-orc-slayer.js';
 import XCCActorSheetSpHalflingRogue from './xcc-actor-sheet-sp-halfling-rogue.js';
+import XCCActorSheetHalfOrc from './xcc-actor-sheet-half-orc.js';
+import XCCActorSheetHalfElf from './xcc-actor-sheet-half-elf.js';
+import XCCActorSheetGnome from './xcc-actor-sheet-gnome.js';
+import XCCActorSheetDwarf from './xcc-actor-sheet-dwarf.js';
 import DCCMonkeyPatch from './dcc-monkey-patch.js';
 
 import { ensurePlus } from '/systems/dcc/module/utilities.js';
@@ -119,6 +123,30 @@ Hooks.once('init', async function () {
     label: 'XCC.Specialist.HalflingRogue.DropdownLabel'
   })
   XCCActorSheetSpHalflingRogue.addHooksAndHelpers();
+
+  Actors.registerSheet('xcc-half-orc', XCCActorSheetHalfOrc, {
+    types: ['Player'],
+    label: 'XCC.HalfOrc.DropdownLabel'
+  })
+  XCCActorSheetHalfOrc.addHooksAndHelpers();
+
+  Actors.registerSheet('xcc-half-elf', XCCActorSheetHalfElf, {
+    types: ['Player'],
+    label: 'XCC.HalfElf.DropdownLabel'
+  })
+  XCCActorSheetHalfElf.addHooksAndHelpers();
+
+  Actors.registerSheet('xcc-dwarf', XCCActorSheetDwarf, {
+    types: ['Player'],
+    label: 'XCC.Dwarf.DropdownLabel'
+  })
+  XCCActorSheetDwarf.addHooksAndHelpers();
+
+  Actors.registerSheet('xcc-gnome', XCCActorSheetGnome, {
+    types: ['Player'],
+    label: 'XCC.Gnome.DropdownLabel'
+  })
+  XCCActorSheetGnome.addHooksAndHelpers();
 
   // Register partial templates
   loadTemplates(['modules/xcrawl-classics/templates/actor-partial-common.html']);

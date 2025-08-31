@@ -1,6 +1,5 @@
 {
-  "DCC":{
-    "Halfling":"Niziołek",
+  "DCC": {
     "FleetingLuck": "Mojo",
     "FleetingLuckClearButtonTitle": "Take all Mojo from all users",
     "FleetingLuckClearMessage": "All Mojo lost!",
@@ -34,23 +33,23 @@
     "system.class.critEvilRange": "Crit vs. Evil",
     "system.class.scourge": "Scourge",
     "system.class.turnUndeadDie": "Turn Unholy Die",
-    "system.skills.acrobatics.value":"Acrobatics",
+    "system.skills.acrobatics.value": "Acrobatics",
     "system.skills.poleVault.value": "Pole vault",
     "system.skills.leap.value": "Leap",
     "system.skills.tightropeWalk.value": "Tightrope walk",
     "system.skills.dangerSense.value": "Danger sense",
     "system.skills.criminalConnections.value": "Criminal connections"
   },
-  "XCC":{
+  "XCC": {
     "DetectSecretDoors": "Detect Secret Doors",
     "Acrobatics": "Acrobatics",
     "PoleVault": "Pole Vault",
-    "Leap": "Leap", 
+    "Leap": "Leap",
     "TightropeWalk": "Tightrope Walk",
     "ErrorNoEntries": "No entries",
     "Actor": "Actor",
     "NotFound": "No result found",
-    "ShiftUp": "Shift result up", 
+    "ShiftUp": "Shift result up",
     "ShiftDown": "Shift result down",
     "RollFumbleTwoWeapons": "Roll Fumble (only if both attacks fumbled)",
     "FumbleTwoWeapons": "Fumble (only if both attacks fumbled)",
@@ -62,7 +61,7 @@
     "GrappleRollEmote": "{actorName} attempts a DC{rollHTML} grapple {deedRollHTML}.<br/><br/>The target must make an attack check. If the roll is below {rollHTML}, the grapple deals {damageRollHTML} damage.<br/><br/>If {actorName} started the round grappling, instead of dealing damage, they can drag the target 5'.<br/><br/>The drag distance increases by 5’ for every 4 points the check failed by.<br/><br/>At DC{rollHTML} extra 5' applies at: {rollResult2}, {rollResult3}, {rollResult4}, etc.{crit}",
     "ClassProperties": "Class Properties",
     "ClassAbilities": "Abilities",
-    "Settings":{
+    "Settings": {
       "IncludeGrappleInWeapons": "Athlete's Grapple Weapon",
       "IncludeGrappleInWeaponsHint": "Include grapple check as a weapon in Athlete's equipment tab for ease of access.",
       "IncludeUnarmedInWeapons": "Brawler's Unarmed Weapons",
@@ -74,8 +73,8 @@
       "HideNotesTab": "Hide Notes Tab",
       "HideNotesTabHint": "Hide notes tab in the actor sheet. This compensates for the additional Xcrawl tab and keeps the sheet width manageable. You can find a smaller replacement notes field in the Xcrawl tab."
     },
-    "Athlete":{
-      "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#athlete]{Athlete}",
+    "Athlete": {
+      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#athlete]{Athlete}",
       "DropdownLabel": "XCC Athlete",
       "GrappleRollTrainingEmoteSegment": "with a training roll of {deed}",
       "GrappleRollTrainingSuccess": " (wrestling technique succeeds)",
@@ -116,7 +115,7 @@
     },
     "Blaster": {
       "DropdownLabel": "XCC Blaster",
-      "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#blaster]{Blaster}",
+      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#blaster]{Blaster}",
       "ActorSheetBlaster": "Blaster",
       "BlasterDie": "Blaster Die",
       "WeaponTraining": [
@@ -135,7 +134,7 @@
     },
     "Brawler": {
       "DropdownLabel": "XCC Brawler",
-      "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#brawler]{Brawler}",
+      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#brawler]{Brawler}",
       "ActorSheetBrawler": "Brawler",
       "Toughness": "Toughness",
       "UnarmedDamage": "Unarmed Damage Die",
@@ -167,7 +166,7 @@
     },
     "Jammer": {
       "DropdownLabel": "XCC Jammer",
-      "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#jammer]{Jammer}",
+      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#jammer]{Jammer}",
       "ActorSheetJammer": "Jammer",
       "PerformanceCheck": "Performance Check",
       "Performance": "Performance",
@@ -181,7 +180,7 @@
       "Equipped": "Chosen Equipped?",
       "LionizeEmote": "{actorName} lionizes their ally with a {rollHTML} performance check!",
       "LionizeDuration": "<b>Effect</b> (lasts for {duration} rounds):",
-      "DisrespectNotes":"Full round action",
+      "DisrespectNotes": "Full round action",
       "LionizeNotes": "Single action",
       "DisrespectMessage": "{actorName} disrespects their opponent with a {rollHTML} performance check!<br><br>Target must make a DC {rollResult} Willpower save or be disrespected for {duration} rounds.<br><br>Disrespected target suffers a {disrespectPenalty} penalty to their attack rolls, spell checks, damage rolls, and Willpower saves.",
       "WeaponTraining": [
@@ -202,7 +201,7 @@
     "Messenger": {
       "DropdownLabel": "XCC Messenger",
       "ActorSheetMessenger": "Messenger",
-      "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#messenger]{Messenger}",
+      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#messenger]{Messenger}",
       "HolyAct": "Holy Act",
       "LayOnHands": "Lay on Hands",
       "LayOnHandsNotes": "Free d14 melee attack modified by luck",
@@ -231,8 +230,8 @@
       "ScourgeDamage": "Scourge",
       "ScourgeTip": "Roll with Scourge",
       "NoAlignment": "Choose an alignment to display unholy creatures.",
-      "LayOnHandsFlavor":"lays on hands with a result of",
-      "LayOnHandsAlternate":"<b>If declared before the roll, HD can heal a condition instead of hit points:</b><ul><li>1HD - Broken limbs</li><li>2HD - Disease, organ damage</li><li>3HD - Paralysis, poison</li><li>4HD - Blindness/Deafness</li></ul>",
+      "LayOnHandsFlavor": "lays on hands with a result of",
+      "LayOnHandsAlternate": "<b>If declared before the roll, HD can heal a condition instead of hit points:</b><ul><li>1HD - Broken limbs</li><li>2HD - Disease, organ damage</li><li>3HD - Paralysis, poison</li><li>4HD - Blindness/Deafness</li></ul>",
       "DisapprovalFlavor": "{actor} fails the Holy Act check with a natural roll of <b style='color:var(--system-accent-color)'>{roll}</b> and <b style='color:var(--system-accent-color)'>incurs the disapproval of their deity!</b>",
       "DivineAidFlavor": "{actor} calls upon their deity for aid!<br/>The deity grants requests of DC{roll} and lower.</br></br><b>Example effects:</b>",
       "DeityRequest": "<b>If the request is granted, the deity will request a specific act in return.</b>",
@@ -249,17 +248,85 @@
         "You earn a Mojo point healing a downed (0hp) ally, and for successful Turn Unholy."
       ]
     },
-    "Specialist":{
-      "Skills":"Skills",
-      "DailyLuck":"Daily Luck Recovery",
-      "Acrobat":{
+    "HalfElf": {
+      "DropdownLabel": "XCC Half-Elf",
+      "ActorSheetHalfElf": "Half-Elf",
+      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#half-elf]{Half-Elf}",
+      "WeaponTraining": [
+        "TODO"
+      ],
+      "Benefits": [
+        "TODO"
+      ],
+      "Restrictions": [
+        "TODO"
+      ],
+      "Mojo": [
+        "TODO"
+      ]
+    },
+    "Dwarf": {
+      "DropdownLabel": "XCC Dwarf",
+      "ActorSheetDwarf": "Dwarf",
+      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#dwarf]{Dwarf}",
+      "WeaponTraining": [
+        "TODO"
+      ],
+      "Benefits": [
+        "TODO"
+      ],
+      "Restrictions": [
+        "TODO"
+      ],
+      "Mojo": [
+        "TODO"
+      ]
+    },
+    "Gnome": {
+      "DropdownLabel": "XCC Gnome",
+      "ActorSheetGnome": "Gnome",
+      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#gnome]{Gnome}",
+      "WeaponTraining": [
+        "TODO"
+      ],
+      "Benefits": [
+        "TODO"
+      ],
+      "Restrictions": [
+        "TODO"
+      ],
+      "Mojo": [
+        "TODO"
+      ]
+    },
+    "HalfOrc": {
+      "DropdownLabel": "XCC Half-Orc",
+      "ActorSheetHalfOrc": "Half-Orc",
+      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#half-orc]{Half-Orc}",
+      "WeaponTraining": [
+        "TODO"
+      ],
+      "Benefits": [
+        "TODO"
+      ],
+      "Restrictions": [
+        "TODO"
+      ],
+      "Mojo": [
+        "TODO"
+      ]
+    },
+    "Specialist": {
+      "Skills": "Skills",
+      "DailyLuck": "Daily Luck Recovery",
+      "Acrobat": {
         "DropdownLabel": "XCC Specialist - Acrobat",
-        "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#acrobat]{Acrobat}",
+        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#acrobat]{Acrobat}",
         "ActorSheetAcrobat": "Acrobat",
         "WeaponTraining": [
           "You are trained in  crossbow, dagger, dart, short sword, sling, and staff."
         ],
-        "Benefits":[
+        "Benefits": [
           "You can spend your move action to make an Acrobatics check. You can still move half your movement rate (full at lvl 5+) as a part of this check.",
           "Acrobatics check lets you dodge enemies (1 ranged - DC10, 2+ ranged OR 1 melee - DC15, 2+ melee - DC20). On a success add your Reflex Save to your AC.",
           "Acrobatics check lets you withdraw from combat without giving your opponent a free attack (single opponent - DC 15, multiple opponents - DC 20).",
@@ -268,7 +335,7 @@
           "You can make a Tightrope Walk check to move across narrow beam (DC10) / archaic rope (DC15) / climbing rope (DC20). Single check per rope/beam traversal.",
           "You add your Leap bonus to jump checks (including running jump, and high jump)."
         ],
-        "Restrictions":[
+        "Restrictions": [
           "You need to have a pole as high as the barrier to make a Pole Vault check.",
           "Pole Vault doesn't prevent falling damage (you can still make an Acrobatics check).",
           "When you fail a Tightrope Walk check by 1-5: Make a Reflex save. On success, you drop held items and hold onto the rope. On failure, you fall.",
@@ -276,192 +343,191 @@
           "During Tightrope Walk you move 10' per full action. Make the check with a penalty to move faster: -5 for 20', -10 for full movement, -20 for double movement.",
           "Tightrope Walk DC mods: moderate wind +5, strong wind +10, 20' balance pole -5, 40' balance pole -8, being hit 10+dmg DC. Roll a new check on sudden changes."
         ],
-        "Mojo":[
+        "Mojo": [
           "You earn a Mojo point for slaying an opponent you strike after a successful acrobatics check on the same round."
         ]
       },
-      "Commando":{
+      "Commando": {
         "DropdownLabel": "XCC Specialist - Commando",
-        "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#commando]{Commando}",
+        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#commando]{Commando}",
         "ActorSheetCommando": "Commando",
         "WeaponTraining": [
           "You are trained in blackjack, blowgun, crossbow, dagger, dart, garrote, hand axe, longsword, short sword, and sling."
         ],
-        "Benefits":[
+        "Benefits": [
           "You can backstab with a sling or hurled dagger at targets up to medium range, or an alchemist charge at short range.",
           "If you spend Luck on damage, your Luck die increases by +1d on the chain."
         ],
-        "Mojo":[
+        "Mojo": [
           "You earn a Mojo point for every opponent you put down with a backstab."
         ]
       },
-      "Criminal":{
+      "Criminal": {
         "BriberyExpert": "Bribery Expert",
         "DropdownLabel": "XCC Specialist - Criminal",
-        "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#criminal]{Criminal}",
+        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#criminal]{Criminal}",
         "ActorSheetCriminal": "Criminal",
         "WeaponTraining": [
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows, pistols and revolvers."
         ],
-        "Benefits":[
+        "Benefits": [
           "You can make Criminal Connections check to seek help from your associates in the area (home turf DC 5, major city DC 10, small city DC 15, small town DC 20).",
           "You can make a Disguise Self check to: DC 5 - resemble someone of the same species and dimensions. DC 10 - change significant facial features. DC 15 - Change mannerisms, height, etc. DC 20 - Fool someone close to the target.",
           "Bribery Expert check lets you know if target would be receptive to a bribe, and how much it would take to bribe them for a given task. Home turf DC 10, Location with criminal connections DC 15, completely strange locale DC 20."
         ],
-        "Restrictions":[
+        "Restrictions": [
           "Criminal Connections can’t normally be used in the wilderness, at sea, etc.",
           "Forging official documents requires 100 gp worth of equipment and costs 100-600 gp in bribes per year to keep stamps, seals, and licensing information current."
         ],
-        "Mojo":[
+        "Mojo": [
           "You earn a Mojo point for Xcrawl rule breaking. The transgression must be helpful, and not get you into trouble. Particularly sweet score should increase the Mojo bonus up to 1d6 points."
         ]
       },
-      "Scout":{
+      "Scout": {
         "DropdownLabel": "XCC Specialist - Scout",
-        "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#scout]{Scout}",
+        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#scout]{Scout}",
         "ActorSheetScout": "Scout",
         "WeaponTraining": [
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
         ],
-        "Benefits":[
+        "Benefits": [
           "You can make a Danger Sense check to detect concealed enemies and their approximate location in 60' range. DC 10 for simple concealment, DC 15 for camouflaged or careful concealment, and a DC 20 against invisible creatures.",
           "Shortbow backstab damage increases to 1d8 and Sling backstab damage to 1d6."
         ],
-        "Restrictions":[
+        "Restrictions": [
           "Danger Sense works against creatures, not traps (even if they hold creatures).",
           "Danger Sense doesn't tell you precisely what the threat is.",
           "You may only backstab with a shortbow or sling at short range."
         ],
-        "Mojo":[
+        "Mojo": [
           "You earn a Mojo point for successfully spotting an ambush, or for finding and disarming a trap."
         ]
       },
-      "CryptRaider":{
-        "Abilities":"Crypt Raider Abilities",
+      "CryptRaider": {
+        "Abilities": "Crypt Raider Abilities",
         "DropdownLabel": "XCC Specialist - Crypt Raider",
-        "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#crypt-raider]{Crypt Raider}",
+        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#crypt-raider]{Crypt Raider}",
         "ActorSheetCryptRaider": "Crypt Raider",
         "TurnUnholy": "Turn Unholy",
         "TurnUnholyDie": "Turn Unholy Die",
         "DarkKnowledge": "Dark Knowledge",
         "DarkKnowledgeNotes": "Identify un-dead / demons",
         "DisapprovalFlavor": "{actor} fails the Turn Unholy check and must spend <b style='color:var(--system-accent-color)'>{roll} hours</b> in prayer and meditation before attempting to Turn Unholy again!",
-        "DetectSecretDoorsNotes":"Auto-check when in 10’ range",
+        "DetectSecretDoorsNotes": "Auto-check when in 10’ range",
         "UnholyCritical": "Crit Table Roll",
         "UnholyCriticalNotes": "Better crits vs. un-dead / demons",
         "UnholyCriticalTitle": "Unholy Criticals",
         "WeaponTraining": [
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
         ],
-        "Benefits":[
+        "Benefits": [
           "You learn spoken and written Latin.",
           "You increase your Luck Die by +2d when you spend luck to turn, attack, damage or save against un-dead or demons.",
           "You can backstab with holy water hurled as a ranged attack within 10’."
         ],
-        "Restrictions":[
+        "Restrictions": [
           "You roll -1d on all Grandstanding checks."
         ],
-        "Mojo":[
+        "Mojo": [
           "You earn a Mojo point for successful Turn Unholy checks you make, as well as for every un-dead creature and demon you directly participate in destroying."
         ]
       },
-      "DwarfMechanic":{
+      "DwarfMechanic": {
         "DropdownLabel": "XCC Specialist - Dwarf Mechanic",
-        "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#dwarf-mechanic]{Dwarf Mechanic}",
+        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#dwarf-mechanic]{Dwarf Mechanic}",
         "ActorSheetDwarfMechanic": "Dwarf Mechanic",
         "WeaponTraining": [
           "You are trained in hand axes, short swords, daggers, slings, shortbows, hand crossbows."
         ],
-        "Benefits":[
+        "Benefits": [
           "You can see in the dark up to 60'.",
           "You always know your approximate depth underground.",
           "You speak a secret Dwarf Mechanic cant - The Shale.",
           "You get +1d to Find and Disable Trap checks that involve pits, moving stonework, sliding walls, and structural deadfalls.",
           "When underground, you add your character level to checks to detect sloping passageways, secret doors involving shifting walls, and new construction."
-          
         ],
-        "Restrictions":[
+        "Restrictions": [
           "You get -2d to social checks vs. dwarves. Becomes -1d at 3rd level, negated at 4th.",
           "You never receive sponsorship from dwarven companies or nobility."
         ],
-        "Mojo":[
+        "Mojo": [
           "You earn two Mojo points when you disarm a trap on the first attempt and then grill its maker on the camera. Extra Mojo for particularly witty or cutting comments.",
           "You earn a Mojo point for every giant, troll, or ogre you help your team destroy."
         ]
       },
-      "ElfTrickster":{
+      "ElfTrickster": {
         "DropdownLabel": "XCC Specialist - Elf Trickster",
-        "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#elf-trickster]{Elf Trickster}",
+        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#elf-trickster]{Elf Trickster}",
         "ActorSheetElfTrickster": "Elf Trickster",
-        "DetectSecretDoorsNotes":"Auto-check when in 10’ range",
-        "SpellCheckNotes":"No spellburn allowed",
+        "DetectSecretDoorsNotes": "Auto-check when in 10’ range",
+        "SpellCheckNotes": "No spellburn allowed",
         "WeaponTraining": [
           "You are trained in short swords, daggers, staff, and shortbows."
         ],
-        "Benefits":[
+        "Benefits": [
           "You can see in the dark up to 60'.",
           "You are immune to magical sleep and paralysis.",
           "You automatically pick Cantrip as your first known spell.",
           "Your Cantrip effect lasts for up to 10 rounds, and you can always choose a lesser effect if it better suits your purposes.",
           "On a Cantrip spell check of 18 or better the kinetic effect, allows you to pick locks, disarm traps, pick pockets, or affect other complicated operations at range."
         ],
-        "Restrictions":[
+        "Restrictions": [
           "Direct contact of iron with your skin does 1 point of damage per day of exposure.",
           "You cannot spellburn nor accept corruption for a bonus to your spell check."
         ],
-        "Mojo":[
+        "Mojo": [
           "You earn 1–3 Mojo points for battlefield tricks that dupe, delay, divide, or neutralize opponents. The more elaborate and helpful the trick, the more Mojo you earn."
         ]
       },
-      "HalfOrcSlayer":{
+      "HalfOrcSlayer": {
         "DropdownLabel": "XCC Specialist - Half-Orc Slayer",
-        "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#half-orc-slayer]{Half-Orc Slayer}",
+        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#half-orc-slayer]{Half-Orc Slayer}",
         "ActorSheetHalfOrcSlayer": "Half-Orc Slayer",
         "WeaponTraining": [
           "You are trained in the use of the battleaxe, club, crossbow, dagger, dart, flail, hand axe, javelin, longsword, shortbow, sling, spear, and two-handed sword."
         ],
-        "Benefits":[
+        "Benefits": [
           "You can see in the dark up to 30'.",
           "You make saving throws against disease and poison effects at +1d.",
           "You heal two hit points and two physical ability points per night of rest (three with a full day of care and bed rest).",
           "If you spend Luck on damage, your Luck die increases by +1d on the chain.",
           "You can always backstab prone targets."
         ],
-        "Restrictions":[
-          "You take a -1d penalty to Personality checks other than intimidation and Grandstanding.",
+        "Restrictions": [
+          "You take a -1d penalty on Personality checks other than intimidation and Grandstanding.",
           "You begin the game as a non-citizen of the NAE."
         ],
-        "Mojo":[
+        "Mojo": [
           "You earn a Mojo point for every creature you single-handedly kill."
         ]
       },
-      "HalflingRogue":{
+      "HalflingRogue": {
         "DropdownLabel": "XCC Specialist - Halfling Rogue",
-        "ClassLink":"@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#halfling-rogue]{Halfling Rogue}",
+        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#halfling-rogue]{Halfling Rogue}",
         "ActorSheetHalflingRogue": "Halfling Rogue",
         "WeaponTraining": [
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
         ],
-        "Benefits":[
+        "Benefits": [
           "You can see in the dark up to 30'.",
           "You can backstab with slings, daggers, and hurled stones from up to short range.",
           "Your backstab damage is increased: dagger (1d10), hurled stone (1d5), sling (1d8)."
         ],
-        "Restrictions":[
-           "In public, you are treated as an outcast in halfling society. Privately, you are considered a heroic adventurer."
+        "Restrictions": [
+          "In public, you are treated as an outcast in halfling society. Privately, you are considered a heroic adventurer."
         ],
-        "Mojo":[
+        "Mojo": [
           "You earn a Mojo point for downing an opponent with a backstab or successfully disarming a trap."
         ]
       }
     },
-    "Rewards":{
+    "Rewards": {
       "RewardsTitle": "Xcrawl",
       "SponsorshipTitle": "Sponsorship",
       "Fame": "Fame",
       "Wealth": "Wealth",
-      "XCrawl" : "Xcrawl",
-      "Contacts" : "Contacts",
+      "XCrawl": "Xcrawl",
+      "Contacts": "Contacts",
       "Sponsorship": "Sponsorship Offers",
       "Offer": "Offer",
       "Benefit": "Benefit",
