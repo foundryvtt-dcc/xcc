@@ -24,14 +24,33 @@
 
 #pause img {
   background-image: url("/modules/xcrawl-classics/styles/images/frame_big.png?v=13"), url("/modules/xcrawl-classics/styles/images/noise_big.png?v=5"), url("/modules/xcrawl-classics/styles/images/tv_big.png");
-  animation-name: noise-big;
-  animation-duration: 0.2s;
+  animation-name: noise-big, tilt, float;
+  animation-duration: 0.2s, 7s, 5s, 2s;
+  animation-timing-function: linear, ease-in-out, ease-in-out;
+  animation-direction: normal, alternate, normal, alternate;
   background-repeat: no-repeat;
   mask-image: url("/modules/xcrawl-classics/styles/images/mask_big.png");
   content:url("/modules/xcrawl-classics/styles/images/fake.png");
   width: 576px;
   height: 448px;
   margin-top:32px;
+}
+
+#pause.paused {
+  animation-name: none;
+}
+
+@keyframes float {
+  0% { translate: 0 0; }
+  25% { translate: 0 -0.5%; }
+  50% { translate: 0 0; }
+  75% { translate: 0 -1%; }
+  100% { translate: 0 0; }
+}
+
+@keyframes tilt {
+  0% { transform: rotate(0.5deg); }
+  100% { transform: rotate(-1deg); }
 }
 
 @keyframes noise-small {
