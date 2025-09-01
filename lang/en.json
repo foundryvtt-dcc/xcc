@@ -41,6 +41,7 @@
     "system.skills.criminalConnections.value": "Criminal connections"
   },
   "XCC": {
+    "Paused": "⏵We will return shortly!⏴",
     "DetectSecretDoors": "Detect Secret Doors",
     "Acrobatics": "Acrobatics",
     "PoleVault": "Pole Vault",
@@ -71,7 +72,6 @@
       "RegisterCritTablesPack": "Register Crit Data Pack",
       "RegisterCritTablesPackHint": "Automatically register the XCC Critical Hit Tables with the system.",
       "HideNotesTab": "Hide Notes Tab",
-      "HideNotesTabHint": "Hide notes tab in the actor sheet. This compensates for the additional Xcrawl tab and keeps the sheet width manageable. You can find a smaller replacement notes field in the Xcrawl tab."
     },
     "Athlete": {
       "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#athlete]{Athlete}",
@@ -304,10 +304,8 @@
       "ActorSheetHalfOrc": "Half-Orc",
       "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#half-orc]{Half-Orc}",
       "WeaponTraining": [
-        "TODO"
       ],
       "Benefits": [
-        "TODO"
       ],
       "Restrictions": [
         "TODO"

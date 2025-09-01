@@ -334,3 +334,9 @@ Hooks.on('renderChatMessageHTML', (message, html, data) => {
     }
   }
 });
+
+Hooks.on("renderApplicationV2", (app, html, context, options) => {
+  // Translate pause text
+  const caption = $("#pause > figcaption");
+  caption.text(game.i18n.localize('XCC.Paused'));
+});

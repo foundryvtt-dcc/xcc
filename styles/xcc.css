@@ -16,69 +16,232 @@
   animation-duration: 0.1s;
   background-repeat: no-repeat;
   mask-image: url("/modules/xcrawl-classics/styles/images/mask_small.png");
-  content:url("/modules/xcrawl-classics/styles/images/fake.png");
+  content: url("/modules/xcrawl-classics/styles/images/fake.png");
   width: 288px;
   height: 224px;
-  margin-top:32px;
+  margin-top: 32px;
 }
 
 #pause img {
   background-image: url("/modules/xcrawl-classics/styles/images/frame_big.png?v=13"), url("/modules/xcrawl-classics/styles/images/noise_big.png?v=5"), url("/modules/xcrawl-classics/styles/images/tv_big.png");
-  animation-name: noise-big, tilt, float;
-  animation-duration: 0.2s, 7s, 5s, 2s;
-  animation-timing-function: linear, ease-in-out, ease-in-out;
-  animation-direction: normal, alternate, normal, alternate;
+  animation-name: noise-big, tilt, float, floatin;
+  animation-duration: 0.2s, 7s, 5s, 1s;
+  animation-timing-function: linear, ease-in-out, ease-in-out, cubic-bezier(0.0, 1, 0.2, 1.1);
+  animation-direction: normal, alternate, normal, normal;
+  animation-iteration-count: infinite, infinite, infinite, 1;
   background-repeat: no-repeat;
   mask-image: url("/modules/xcrawl-classics/styles/images/mask_big.png");
-  content:url("/modules/xcrawl-classics/styles/images/fake.png");
+  content: url("/modules/xcrawl-classics/styles/images/fake.png");
   width: 576px;
   height: 448px;
-  margin-top:32px;
+  margin-top: 32px;
 }
 
 #pause.paused {
   animation-name: none;
+  background: none;
+
+  figcaption {
+    text-shadow: #08d9ff 0 0 3px;
+    animation: floatin, glow;
+    animation-timing-function: cubic-bezier(0.0, 1, 0.2, 1.1),ease-in-out;
+    animation-iteration-count: 1, infinite;
+    animation-duration: 1s;
+    color: #30dfff;
+    filter: grayscale(0);
+  }
+}
+
+/*#pause.paused figcaption::after {
+  content: "XCrawl will return shortly!";
+  color: var(--system-primary-color);
+  text-shadow: black 0 0 3px;
+  animation: floatin;
+  animation-duration: 2.5s;
+  font-size: 1.5rem;
+  display: block;
+  filter: grayscale(0.8);
+}*/
+
+#pause.paused::before {
+  display: block;
+  content: " ";
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  animation-name: desaturate;
+  animation-iteration-count: 1;
+  animation-duration: 1s;
+  /* backdrop-filter: sepia(0.66) hue-rotate(20deg) saturate(1.2); */
+  backdrop-filter: grayscale(0.8);
+}
+
+@keyframes glow {
+  0% {
+    color: #30dfff;
+    text-shadow: #08d9ff 0 0 3px;
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    color: #fff;
+    text-shadow: #03dfff 0 0 6px;
+    transform: scale(1.01);
+    opacity: 1;
+  }
+  100% {
+    color: #30dfff;
+    text-shadow: #08d9ff 0 0 3px;
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes desaturate {
+
+  /*0% { backdrop-filter: sepia(0) hue-rotate(0) saturate(1); }*/
+  0% {
+    backdrop-filter: grayscale(0);
+  }
+
+  /*100% { backdrop-filter: sepia(0.66) hue-rotate(20deg) saturate(1.2); }*/
+  100% {
+    backdrop-filter: grayscale(0.8);
+  }
 }
 
 @keyframes float {
-  0% { translate: 0 0; }
-  25% { translate: 0 -0.5%; }
-  50% { translate: 0 0; }
-  75% { translate: 0 -1%; }
-  100% { translate: 0 0; }
+  0% {
+    translate: 0 0;
+  }
+
+  25% {
+    translate: 0 -0.5%;
+  }
+
+  50% {
+    translate: 0 0;
+  }
+
+  75% {
+    translate: 0 -1%;
+  }
+
+  100% {
+    translate: 0 0;
+  }
 }
 
 @keyframes tilt {
-  0% { transform: rotate(0.5deg); }
-  100% { transform: rotate(-1deg); }
+  0% {
+    transform: rotate(0.5deg);
+  }
+
+  100% {
+    transform: rotate(-1deg);
+  }
+}
+
+@keyframes floatin {
+  0% {
+    translate: 0% 100vh;
+  }
+
+  100% {
+    translate: 0% 0%;
+  }
 }
 
 @keyframes noise-small {
-    0% { background-position: top left, top 0 left 0, top 16px left 16px; }
-    10% { background-position: top left, top -5% left -5%, top 16px left 16px; }
-    20% { background-position: top left, top -10% left 5%, top 16px left 16px; }
-    30% { background-position: top left, top 5% left -10%, top 16px left 16px; }
-    40% { background-position: top left, top -5% left 15%, top 16px left 16px; }
-    50% { background-position: top left, top -10% left 5%, top 16px left 16px; }
-    60% { background-position: top left, top 15% left 0, top 16px left 16px; }
-    70% { background-position: top left, top 0 left 10%, top 16px left 16px; }
-    80% { background-position: top left, top -15% left 0, top 16px left 16px; }
-    90% { background-position: top left, top 10% left 5%, top 16px left 16px; }
-    100% { background-position: top left, top 5% left 0, top 16px left 16px; }
+  0% {
+    background-position: top left, top 0 left 0, top 16px left 16px;
+  }
+
+  10% {
+    background-position: top left, top -5% left -5%, top 16px left 16px;
+  }
+
+  20% {
+    background-position: top left, top -10% left 5%, top 16px left 16px;
+  }
+
+  30% {
+    background-position: top left, top 5% left -10%, top 16px left 16px;
+  }
+
+  40% {
+    background-position: top left, top -5% left 15%, top 16px left 16px;
+  }
+
+  50% {
+    background-position: top left, top -10% left 5%, top 16px left 16px;
+  }
+
+  60% {
+    background-position: top left, top 15% left 0, top 16px left 16px;
+  }
+
+  70% {
+    background-position: top left, top 0 left 10%, top 16px left 16px;
+  }
+
+  80% {
+    background-position: top left, top -15% left 0, top 16px left 16px;
+  }
+
+  90% {
+    background-position: top left, top 10% left 5%, top 16px left 16px;
+  }
+
+  100% {
+    background-position: top left, top 5% left 0, top 16px left 16px;
+  }
 }
 
 @keyframes noise-big {
-    0% { background-position: top left, top 0 left 0, top 32px left 32px; }
-    10% { background-position: top left, top -5% left -5%, top 32px left 32px; }
-    20% { background-position: top left, top -10% left 5%, top 32px left 32px; }
-    30% { background-position: top left, top 5% left -10%, top 32px left 32px; }
-    40% { background-position: top left, top -5% left 15%, top 32px left 32px; }
-    50% { background-position: top left, top -10% left 5%, top 32px left 32px; }
-    60% { background-position: top left, top 15% left 0, top 32px left 32px; }
-    70% { background-position: top left, top 0 left 10%, top 32px left 32px; }
-    80% { background-position: top left, top -15% left 0, top 32px left 32px; }
-    90% { background-position: top left, top 10% left 5%, top 32px left 32px; }
-    100% { background-position: top left, top 5% left 0, top 32px left 32px; }
+  0% {
+    background-position: top left, top 0 left 0, top 32px left 32px;
+  }
+
+  10% {
+    background-position: top left, top -5% left -5%, top 32px left 32px;
+  }
+
+  20% {
+    background-position: top left, top -10% left 5%, top 32px left 32px;
+  }
+
+  30% {
+    background-position: top left, top 5% left -10%, top 32px left 32px;
+  }
+
+  40% {
+    background-position: top left, top -5% left 15%, top 32px left 32px;
+  }
+
+  50% {
+    background-position: top left, top -10% left 5%, top 32px left 32px;
+  }
+
+  60% {
+    background-position: top left, top 15% left 0, top 32px left 32px;
+  }
+
+  70% {
+    background-position: top left, top 0 left 10%, top 32px left 32px;
+  }
+
+  80% {
+    background-position: top left, top -15% left 0, top 32px left 32px;
+  }
+
+  90% {
+    background-position: top left, top 10% left 5%, top 32px left 32px;
+  }
+
+  100% {
+    background-position: top left, top 5% left 0, top 32px left 32px;
+  }
 }
 
 /* ----------------------------------------- */
