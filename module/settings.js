@@ -12,6 +12,22 @@ export const registerModuleSettings = async function () {
     default: false,
     type: Boolean
   })
+  game.settings.register('xcrawl-classics', 'smallerPause', {
+    name: "XCC.Settings.SmallerPause",
+    hint: "XCC.Settings.SmallerPauseHint",
+    scope: 'user',
+    config: true,
+    default: false, 
+    type: Boolean
+  })
+  game.settings.register('xcrawl-classics', 'useSameDeedHalfOrc', {
+    name: `XCC.Settings.UseSameDeedHalfOrc`,
+    hint: `XCC.Settings.UseSameDeedHalfOrcHint`,
+    scope: 'module',
+    config: true,
+    default: true,
+    type: Boolean    
+  })
   game.settings.register('xcrawl-classics', 'hideNotesTab', {
     name: `XCC.Settings.HideNotesTab`,
     hint: `XCC.Settings.HideNotesTabHint`,
