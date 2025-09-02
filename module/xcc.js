@@ -303,6 +303,18 @@ Hooks.once('dcc.ready', async function () {
   }
   // Force fleeting luck to refresh and become Mojo
   game.dcc.FleetingLuck.init();
+
+  // Setup pause
+  Hooks.on("renderApplicationV2", (app, html, context, options) => {
+    const caption = $("#pause > figcaption");
+    if (game.settings.get('xcrawl-classics', 'smallerPause'))
+      $("#pause").addClass("small");
+    else
+      $("#pause").removeClass("small");
+    // This won't be necessary after new pause screen is implemented into the base DCC system
+    caption.text(game.i18n.localize('DCC.FancyPause'));
+
+  });
 });
 
 // Debug logs
@@ -333,10 +345,4 @@ Hooks.on('renderChatMessageHTML', (message, html, data) => {
       header.remove()
     }
   }
-});
-
-Hooks.on("renderApplicationV2", (app, html, context, options) => {
-  // Translate pause text
-  const caption = $("#pause > figcaption");
-  caption.text(game.i18n.localize('XCC.Paused'));
 });

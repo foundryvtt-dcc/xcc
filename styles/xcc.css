@@ -10,10 +10,13 @@
   --system-logo-filter: brightness(45%) opacity(100%) saturate(0%);
 }
 
-#pause img.small {
+#pause.small img {
   background-image: url("/modules/xcrawl-classics/styles/images/frame_small.png"), url("/modules/xcrawl-classics/styles/images/noise_small.png?v=5"), url("/modules/xcrawl-classics/styles/images/tv_small.png");
-  animation-name: noise-small;
-  animation-duration: 0.1s;
+  animation-name: noise-small, tilt, float, floatin;
+  animation-duration: 0.1s, 7s, 5s, 1s;
+  animation-timing-function: linear, ease-in-out, ease-in-out, cubic-bezier(0.0, 1, 0.2, 1.1);
+  animation-direction: normal, alternate, normal, normal;
+  animation-iteration-count: infinite, infinite, infinite, 1;
   background-repeat: no-repeat;
   mask-image: url("/modules/xcrawl-classics/styles/images/mask_small.png");
   content: url("/modules/xcrawl-classics/styles/images/fake.png");
@@ -52,16 +55,9 @@
   }
 }
 
-/*#pause.paused figcaption::after {
-  content: "XCrawl will return shortly!";
-  color: var(--system-primary-color);
-  text-shadow: black 0 0 3px;
-  animation: floatin;
-  animation-duration: 2.5s;
-  font-size: 1.5rem;
-  display: block;
-  filter: grayscale(0.8);
-}*/
+#pause.paused.small figcaption{
+  font-size: 16px;
+}
 
 #pause.paused::before {
   display: block;
@@ -75,6 +71,11 @@
   /* backdrop-filter: sepia(0.66) hue-rotate(20deg) saturate(1.2); */
   margin-top:-12px;
   backdrop-filter: grayscale(0.8);
+}
+
+#pause.paused.small::before{
+  backdrop-filter: none;
+  animation-name: none;
 }
 
 @keyframes glow {

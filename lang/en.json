@@ -1,5 +1,6 @@
 {
   "DCC": {
+    "FancyPause": "⏵We will return shortly!⏴",
     "FleetingLuck": "Mojo",
     "FleetingLuckClearButtonTitle": "Take all Mojo from all users",
     "FleetingLuckClearMessage": "All Mojo lost!",
@@ -41,7 +42,6 @@
     "system.skills.criminalConnections.value": "Criminal connections"
   },
   "XCC": {
-    "Paused": "⏵We will return shortly!⏴",
     "DetectSecretDoors": "Detect Secret Doors",
     "Acrobatics": "Acrobatics",
     "PoleVault": "Pole Vault",
@@ -72,6 +72,11 @@
       "RegisterCritTablesPack": "Register Crit Data Pack",
       "RegisterCritTablesPackHint": "Automatically register the XCC Critical Hit Tables with the system.",
       "HideNotesTab": "Hide Notes Tab",
+      "HideNotesTabHint": "Hide notes tab in the actor sheet. This compensates for the additional Xcrawl tab and keeps the sheet width manageable. You can find a smaller replacement notes field in the Xcrawl tab.",
+      "UseSameDeedHalfOrc": "Half-Orc Keeps Deed Die",
+      "UseSameDeedHalfOrcHint":"Use the Deed Die result from the last attack for Half-Orc's Wild Attack (instead of re-rolling the Deed Die).",
+      "SmallerPause": "Smaller Pause",
+      "SmallerPauseHint": "Enable smaller and less intrusive pause animation."
     },
     "Athlete": {
       "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#athlete]{Athlete}",
@@ -303,15 +308,31 @@
       "DropdownLabel": "XCC Half-Orc",
       "ActorSheetHalfOrc": "Half-Orc",
       "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#half-orc]{Half-Orc}",
+      "WildAttack": "Wild Attack",
+      "WildAttackNote": "Provokes enemy attack",
       "WeaponTraining": [
+        "You are trained in the use of axes (all), bows (all), crossbows, daggers, javelins, lances, polearms, spears, swords (all), and warhammers."
       ],
       "Benefits": [
+        "You can see in the dark up to 60'.",
+        "You make saving throws against disease and poison effects at +1d.",
+        "You heal two hit points and two physical ability points per night of rest (three with a full day of care and bed rest).",
+        "+1d on Personality skill checks to frighten, bully, or intimidate.",
+        "Deed Die result treated as 1 higher for calculating effects of intimidation Deeds.",
+        "*You provoke a free attack, which gives you a chance to do a Wild Attack.",
+        "*Half-orcs may choose to add their Luck modifier to both the attack roll and damage of their wild attack."
       ],
       "Restrictions": [
-        "TODO"
+        "Wild Attack works only in melee and allows only melee strikes.",
+        "Opponents unable to attack in melee may never be targeted by a wild attack.",
+        "Opponents targeted by a wild attack must use the same attack as their last.",
+        "You can only make one wild attack per round and only at the end of a regular attack.",
+        "Intelligent opponents may forgo their free attack to avoid the wild attack.",
+        "-1d on Personality checks vs. mistrusting citizens. Negated at 3rd level.",
+        "You begin the game as a non-citizen of the NAE."
       ],
       "Mojo": [
-        "TODO"
+        "You earn a Mojo point for every solo kill (all damage must come from you)."
       ]
     },
     "Specialist": {
