@@ -73,6 +73,7 @@
   animation-iteration-count: 1;
   animation-duration: 1s;
   /* backdrop-filter: sepia(0.66) hue-rotate(20deg) saturate(1.2); */
+  margin-top:-12px;
   backdrop-filter: grayscale(0.8);
 }
 
