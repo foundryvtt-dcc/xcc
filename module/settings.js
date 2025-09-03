@@ -68,6 +68,14 @@ export const registerModuleSettings = async function () {
     default: true,
     type: Boolean
   })
+  game.settings.register('xcrawl-classics', 'includeShieldBashInWeapons', {
+    name: `XCC.Settings.IncludeShieldBashInWeapons`,
+    hint: `XCC.Settings.IncludeShieldBashInWeaponsHint`,
+    scope: 'module',
+    config: true,
+    default: true,
+    type: Boolean
+  })
   game.settings.register('xcrawl-classics', 'includeGrappleInWeapons', {
     name: `XCC.Settings.IncludeGrappleInWeapons`,
     hint: `XCC.Settings.IncludeGrappleInWeaponsHint`,

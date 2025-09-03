@@ -1,4 +1,70 @@
 <section class="xcc tab xcc-dwarf {{tabs.xcc-dwarf.cssClass}}" data-tab="{{tabs.xcc-dwarf.id}}"
     data-group="{{tabs.xcc-dwarf.group}}">
+    <div class="grid-col-span-12 dark-border reminder-block">
+        <div class="box-title">{{localize "XCC.ClassProperties"}}{{#dccPackExists
+            "dcc-core-book.dcc-core-journals"}}<div class="link-floater">{{{system.class.classLink}}}</div>
+            {{/dccPackExists}}</div>
+        <div class="grid-tpl-two grid-row-gap-8 p-5">
+            <div class="grid-tpl-max-25" data-skill="attackBonus">
+                <label>{{localize "DCC.DeedDie"}}</label>
+                <input type="text" value="{{system.details.attackBonus}}" data-dtype="String" disabled="" />
+            </div>
+            <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="system.class.favoredWeapon">
+                <label class="skill-check" for="system.class.favoredWeapon" data-drag="false">
+                    {{localize "DCC.LuckyWeapon"}}
+                </label>
+                <input type="text" id="system.class.favoredWeapon" name="system.class.favoredWeapon"
+                    value="{{system.class.favoredWeapon}}" data-dtype="String" />
+            </div>
+<!--
+            <div class="grid-tpl-max-25 grid-col-gap-5">
+                <label for="system.class.shieldBashBonus" data-drag="false">
+                    {{localize "XCC.Dwarf.ShieldBashBonus"}}
+                </label>
+                <input type="text" id="system.class.shieldBashBonus" name="system.class.shieldBashBonus"
+                    value="{{system.class.shieldBashBonus}}" data-dtype="String" />
+            </div>
+            <div class="grid-tpl-max-25 grid-col-gap-5">
+                <label for="system.class.shieldBashDamage" data-drag="false">
+                    {{localize "XCC.Dwarf.ShieldBashDamage"}}
+                </label>
+                <input type="text" id="system.class.shieldBashDamage" name="system.class.shieldBashDamage"
+                    value="{{system.class.shieldBashDamage}}" data-dtype="String" />
+            </div>
+!-->
+        </div>
+    </div>
+<!--
+    <div class="row-separator"></div>
+    <div class="box-title">{{localize "XCC.Abilities"}}</div>
+    <ol class="weapon-list athlete box-border" style="margin-bottom: 0;">
+        <li class="grid-col-span-6 weapon-list-header">
+            <div></div>
+            <div title="{{localize 'DCC.Roll'}}"></div>
+            <div>{{localize "DCC.Name"}}</div>
+            <div>{{localize "DCC.ToHit"}}</div>
+            <div>{{localize "DCC.Damage"}}</div>
+            <div>{{localize "DCC.Notes"}}</div>
+        </li>
+        <li class="grid-col-span-6 weapon grid-col-gap-5" data-item-id="xcc.dwarf.bash"
+            data-item-slot="xcc.dwarf.bash">
+            <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/shield-bash.svg"
+                title="{{localize 'XCC.Dwarf.ShieldBash'}}" alt="{{localize 'XCC.Dwarf.ShieldBash'}}" width="22"
+                height="22">
+            <div class="attack-buttons">
+                <div class="rollable free-attack-button icon-filter" data-action="rollShieldBashAttack" data-drag="false"
+                    title="Roll" draggable="false">&nbsp;</div>
+            </div>
+            <input class="weapon-name" type="text" name="xcc.dwarf.bash.name"
+                value="{{localize 'XCC.Dwarf.ShieldBash'}}" readonly="">
+            <input class="disabled" type="text" name="xcc.dwarf.bash.bonus" value="{{getShieldBashBonus actor}}"
+                readonly="">
+            <input class="weapon-damage disabled" style="width: auto;" type="text" name="xcc.dwarf.bash.damage"
+                value="{{getShieldBashDamage actor}}" readonly="">
+            <input class="weapon-notes disabled" type="text" name="xcc.dwarf.bash.notes"
+                value="{{localize 'XCC.Dwarf.ShieldBashNote'}}" readonly="">
+        </li>
+    </ol>
+!-->
     {{> modules/xcrawl-classics/templates/actor-partial-common.html }}
 </section>

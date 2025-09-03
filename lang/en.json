@@ -274,17 +274,26 @@
       "DropdownLabel": "XCC Dwarf",
       "ActorSheetDwarf": "Dwarf",
       "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#dwarf]{Dwarf}",
+      "ShieldBash": "Shield Bash",
+      "ShieldBashNote": "",
+      "ShieldBashDamage": "Shield Damage",
+      "ShieldBashBonus": "Shield Attack Bonus",
       "WeaponTraining": [
-        "TODO"
+        "You are trained with battleaxe, hand axe, longsword, mace, short sword, spear, two-handed sword, warhammer, crossbow, javelin, shortbow, and sling."
       ],
       "Benefits": [
-        "TODO"
+        "You can see in the dark up to 60'.",
+        "Armor does not reduce your base movement speed.",
+        "You can smell gold/gems within 100’ (single coin/gem within 40' when focused).",
+        "You add your initial Luck modifier to all attack rolls made with your lucky weapon.",
+        "When underground, you add your character level to checks to detect traps, slanting passages, shifting walls, and new construction."     
       ],
       "Restrictions": [
-        "TODO"
+        "You receive only one Shield Bash and one Mighty Deed attempt each round.",
+        "You have a base movement speed of 20’."
       ],
       "Mojo": [
-        "TODO"
+        "You earn a Mojo point for the defeat of every ogre, giant, or troll you participate in."
       ]
     },
     "Gnome": {
