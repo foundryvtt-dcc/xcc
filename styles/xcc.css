@@ -13,8 +13,8 @@
   --system-header-link-color: #d0beaa;
   --system-logo-filter: brightness(45%) opacity(100%) saturate(0%);
   --icon-wild: url("images/wildattack-gray.svg");
-  --icon-d14: url("images/d14gray.svg");
-  --icon-d16: url("images/d16gray.svg");
+  --icon-d14: url("images/d14grey.svg");
+  --icon-d16: url("images/d16grey.svg");
   --icon-scourge: url("images/skull-crack-gray.svg");
 }
 
