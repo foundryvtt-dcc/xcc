@@ -2,12 +2,25 @@
 :root {
   --system-header-link-color: #c8d7bd;
   --system-logo-filter: brightness(89%) opacity(100%) sepia(100%) hue-rotate(51deg) saturate(43%);
+  --icon-wild: url("images/wildattack-black.svg");
+  --icon-d14: url("images/d14black.svg");
+  --icon-d16: url("images/d16black.svg");
+  --icon-scourge: url("images/skull-crack-black.svg");
 }
 
 /*Override for dark theme */
 .theme-dark {
   --system-header-link-color: #d0beaa;
   --system-logo-filter: brightness(45%) opacity(100%) saturate(0%);
+  --icon-wild: url("images/wildattack-gray.svg");
+  --icon-d14: url("images/d14gray.svg");
+  --icon-d16: url("images/d16gray.svg");
+  --icon-scourge: url("images/skull-crack-gray.svg");
+}
+
+.dcc select option {
+  color: var(--input-text-color);
+  background-color: var(--input-background-color);
 }
 
 #pause.small img {
@@ -296,8 +309,18 @@
   color: var(--system-header-link-color);
 }
 
+.wild-button {
+  background-image: var(--icon-wild);
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  grid-row: 1;
+  width: 25px;
+  height: 25px;
+  margin: -1px 0 0 -10px;
+}
+
 .scourge-button {
-  background-image: url("images/game-icons-net/skull-crack-grey.svg");
+  background-image: var(--icon-scourge);
   background-repeat: no-repeat;
   background-size: 25px 25px;
   grid-row: 1;
@@ -307,7 +330,7 @@
 }
 
 .free-attack-button {
-  background-image: url("images/d14grey.svg");
+  background-image: var(--icon-d14);
   background-repeat: no-repeat;
   background-size: 22px 22px;
   grid-row: 1;
@@ -317,7 +340,7 @@
 }
 
 .two-attack-button {
-  background-image: url("images/d16grey.svg");
+  background-image: var(--icon-d16);
   background-repeat: no-repeat;
   background-size: 22px 22px;
   grid-row: 1;
@@ -621,7 +644,16 @@ a[data-tab='half-elf']::before {
 }
 
 a[data-tab='half-orc']::before {
-  content: '\e382';
+  content: '\22';
+  display: inline-block;
+  padding-right: 0;
+  margin-right: 5px;
+  rotate: 180deg;
+  line-height: 0;
+  margin-top:-12px;
+  font-size: 24px;
+  font-weight: 300;
+  padding-top:1px;  
 }
 
 a[data-tab='xcc-dwarf']::before {
