@@ -310,25 +310,24 @@
       "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#half-orc]{Half-Orc}",
       "WildAttack": "Wild Attack",
       "WildAttackNote": "Provokes enemy attack",
+      "WildAttackThreatRange": "Wild Crit Range",
       "WeaponTraining": [
         "You are trained in the use of axes (all), bows (all), crossbows, daggers, javelins, lances, polearms, spears, swords (all), and warhammers."
       ],
       "Benefits": [
         "You can see in the dark up to 60'.",
         "You make saving throws against disease and poison effects at +1d.",
-        "You heal two hit points and two physical ability points per night of rest (three with a full day of care and bed rest).",
+        "You heal 2 hit points and 2 physical ability points per night of rest (3 per full day).",
         "+1d on Personality skill checks to frighten, bully, or intimidate.",
         "Deed Die result treated as 1 higher for calculating effects of intimidation Deeds.",
-        "*You provoke a free attack, which gives you a chance to do a Wild Attack.",
-        "*Half-orcs may choose to add their Luck modifier to both the attack roll and damage of their wild attack."
+        "You make a Wild Attack if you provoked a free attack after your regular strike."
       ],
       "Restrictions": [
-        "Wild Attack works only in melee and allows only melee strikes.",
+        "You can Wild Attack only once per round and only with a melee weapon in melee.",
         "Opponents unable to attack in melee may never be targeted by a wild attack.",
         "Opponents targeted by a wild attack must use the same attack as their last.",
-        "You can only make one wild attack per round and only at the end of a regular attack.",
         "Intelligent opponents may forgo their free attack to avoid the wild attack.",
-        "-1d on Personality checks vs. mistrusting citizens. Negated at 3rd level.",
+        "You get -1d on Personality checks vs. mistrusting citizens. Negated at 3rd level.",
         "You begin the game as a non-citizen of the NAE."
       ],
       "Mojo": [
