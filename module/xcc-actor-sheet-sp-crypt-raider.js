@@ -112,7 +112,7 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
     const terms = [
       {
         type: 'Die',
-        label: game.i18n.localize('DCC.RollD20'),
+        label: game.i18n.localize('DCC.ActionDie'),
         formula: this.actor.system.class?.turnUndeadDie || 'd20'
       },
       {

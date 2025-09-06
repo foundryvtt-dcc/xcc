@@ -233,7 +233,7 @@ class XCCActorSheetJammer extends DCCActorSheet {
     const terms = [
       {
         type: 'Die',
-        label: game.i18n.localize('DCC.RollD20'),
+        label: game.i18n.localize('DCC.ActionDie'),
         formula: '1d20'
       },
       {
@@ -346,7 +346,7 @@ class XCCActorSheetJammer extends DCCActorSheet {
     const terms = [
       {
         type: 'Die',
-        label: game.i18n.localize('DCC.RollD20'),
+        label: game.i18n.localize('DCC.ActionDie'),
         formula: '1d20'
       },
       {
