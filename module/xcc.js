@@ -317,6 +317,22 @@ Hooks.once('dcc.ready', async function () {
   });
 });
 
+// Register Dynamic Token Rings
+Hooks.on("initializeDynamicTokenRingConfig", ringConfig => {
+  const myCustomRings = new foundry.canvas.placeables.tokens.DynamicRingData({
+    label: "XCC Token Rings",
+    effects: {
+      RING_PULSE: "TOKEN.RING.EFFECTS.RING_PULSE",
+      RING_GRADIENT: "TOKEN.RING.EFFECTS.RING_GRADIENT",
+      BKG_WAVE: "TOKEN.RING.EFFECTS.BKG_WAVE",
+      INVISIBILITY: "TOKEN.RING.EFFECTS.INVISIBILITY",
+      COLOR_OVER_SUBJECT: "TOKEN.RING.EFFECTS.COLOR_OVER_SUBJECT"
+    },
+    spritesheet: "/modules/xcrawl-classics/styles/dynamic-token-ring/dynamic-xcc-spritesheet.json"
+  });
+  ringConfig.addConfig("myCustomRings", myCustomRings);
+});
+
 // Debug logs
 Hooks.on('dcc.update', async function (actor, data) {
   if (game.settings.get('xcrawl-classics', 'isDebug')) {
