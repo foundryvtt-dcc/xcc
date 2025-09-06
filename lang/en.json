@@ -80,7 +80,7 @@
       "SmallerPauseHint": "Enable smaller and less intrusive pause animation."
     },
     "Athlete": {
-      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#athlete]{Athlete}",
+      "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.y0SDAP95YwfgH9ds]{Athlete}",
       "DropdownLabel": "XCC Athlete",
       "GrappleRollTrainingEmoteSegment": "with a training roll of {deed}",
       "GrappleRollTrainingSuccess": " (wrestling technique succeeds)",
@@ -121,7 +121,7 @@
     },
     "Blaster": {
       "DropdownLabel": "XCC Blaster",
-      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#blaster]{Blaster}",
+      "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.GCypDSSEQkqkh5sG]{Blaster}",
       "ActorSheetBlaster": "Blaster",
       "BlasterDie": "Blaster Die",
       "WeaponTraining": [
@@ -140,7 +140,7 @@
     },
     "Brawler": {
       "DropdownLabel": "XCC Brawler",
-      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#brawler]{Brawler}",
+      "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.BmWDuqUERMN2B4Op]{Brawler}",
       "ActorSheetBrawler": "Brawler",
       "Toughness": "Toughness",
       "UnarmedDamage": "Unarmed Damage Die",
@@ -172,7 +172,7 @@
     },
     "Jammer": {
       "DropdownLabel": "XCC Jammer",
-      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#jammer]{Jammer}",
+      "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.RWqWbvdwzzpEneRj]{Jammer}",
       "ActorSheetJammer": "Jammer",
       "PerformanceCheck": "Performance Check",
       "Performance": "Performance",
@@ -207,7 +207,7 @@
     "Messenger": {
       "DropdownLabel": "XCC Messenger",
       "ActorSheetMessenger": "Messenger",
-      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#messenger]{Messenger}",
+      "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.6aXZsPLCtjMf9FnY]{Messenger}",
       "HolyAct": "Holy Act",
       "LayOnHands": "Lay on Hands",
       "LayOnHandsNotes": "Free d14 melee attack modified by luck",
@@ -257,7 +257,7 @@
     "HalfElf": {
       "DropdownLabel": "XCC Half-Elf",
       "ActorSheetHalfElf": "Half-Elf",
-      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#half-elf]{Half-Elf}",
+      "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.AVwGT67DLPu81Yuh]{Half-Elf}",
       "WeaponTraining": [
         "TODO"
       ],
@@ -274,7 +274,7 @@
     "Dwarf": {
       "DropdownLabel": "XCC Dwarf",
       "ActorSheetDwarf": "Dwarf",
-      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#dwarf]{Dwarf}",
+      "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.TdyE3ayeMeJdSAMK]{Dwarf}",
       "ShieldBash": "Shield Bash",
       "ShieldBashNote": "",
       "ShieldBashDamage": "Shield Damage",
@@ -300,7 +300,7 @@
     "Gnome": {
       "DropdownLabel": "XCC Gnome",
       "ActorSheetGnome": "Gnome",
-      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#gnome]{Gnome}",
+      "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.MP4twPDVeq2lQZfL]{Gnome}",
       "SpellCheckNotes": "",
       "DrawAgro": "Draw Agro",
       "DrawAgroNotes": "60' range",
@@ -325,7 +325,7 @@
     "HalfOrc": {
       "DropdownLabel": "XCC Half-Orc",
       "ActorSheetHalfOrc": "Half-Orc",
-      "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#half-orc]{Half-Orc}",
+      "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.qiVSRENtrguXugry]{Half-Orc}",
       "WildAttack": "Wild Attack",
       "WildAttackNote": "Provokes enemy attack",
       "WildAttackThreatRange": "Wild Crit Range",
@@ -357,7 +357,7 @@
       "DailyLuck": "Daily Luck Recovery",
       "Acrobat": {
         "DropdownLabel": "XCC Specialist - Acrobat",
-        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#acrobat]{Acrobat}",
+        "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.jktmKjBzTkCjOmBi]{Acrobat}",
         "ActorSheetAcrobat": "Acrobat",
         "WeaponTraining": [
           "You are trained in  crossbow, dagger, dart, short sword, sling, and staff."
@@ -385,7 +385,7 @@
       },
       "Commando": {
         "DropdownLabel": "XCC Specialist - Commando",
-        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#commando]{Commando}",
+        "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.SfMpHoHOLF3c4iw8]{Commando}",
         "ActorSheetCommando": "Commando",
         "WeaponTraining": [
           "You are trained in blackjack, blowgun, crossbow, dagger, dart, garrote, hand axe, longsword, short sword, and sling."
@@ -401,7 +401,7 @@
       "Criminal": {
         "BriberyExpert": "Bribery Expert",
         "DropdownLabel": "XCC Specialist - Criminal",
-        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#criminal]{Criminal}",
+        "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.OMNVlgPya2Hcb8Gj]{Criminal}",
         "ActorSheetCriminal": "Criminal",
         "WeaponTraining": [
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows, pistols and revolvers."
@@ -421,7 +421,7 @@
       },
       "Scout": {
         "DropdownLabel": "XCC Specialist - Scout",
-        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#scout]{Scout}",
+        "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.UqJ9cVYEMVHtq4Je]{Scout}",
         "ActorSheetScout": "Scout",
         "WeaponTraining": [
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
@@ -442,7 +442,7 @@
       "CryptRaider": {
         "Abilities": "Crypt Raider Abilities",
         "DropdownLabel": "XCC Specialist - Crypt Raider",
-        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#crypt-raider]{Crypt Raider}",
+        "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.w87RdoBv9knZ9bvl]{Crypt Raider}",
         "ActorSheetCryptRaider": "Crypt Raider",
         "TurnUnholy": "Turn Unholy",
         "TurnUnholyDie": "Turn Unholy Die",
@@ -470,7 +470,7 @@
       },
       "DwarfMechanic": {
         "DropdownLabel": "XCC Specialist - Dwarf Mechanic",
-        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#dwarf-mechanic]{Dwarf Mechanic}",
+        "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH]{Dwarf Mechanic}",
         "ActorSheetDwarfMechanic": "Dwarf Mechanic",
         "WeaponTraining": [
           "You are trained in hand axes, short swords, daggers, slings, shortbows, hand crossbows."
@@ -493,7 +493,7 @@
       },
       "ElfTrickster": {
         "DropdownLabel": "XCC Specialist - Elf Trickster",
-        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#elf-trickster]{Elf Trickster}",
+        "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.Lk2Q7w8ymsSe7oU7]{Elf Trickster}",
         "ActorSheetElfTrickster": "Elf Trickster",
         "DetectSecretDoorsNotes": "Auto-check when in 10’ range",
         "SpellCheckNotes": "No spellburn allowed",
@@ -517,7 +517,7 @@
       },
       "HalfOrcSlayer": {
         "DropdownLabel": "XCC Specialist - Half-Orc Slayer",
-        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#half-orc-slayer]{Half-Orc Slayer}",
+        "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.pDFofckaMC0FJUst]{Half-Orc Slayer}",
         "ActorSheetHalfOrcSlayer": "Half-Orc Slayer",
         "WeaponTraining": [
           "You are trained in the use of the battleaxe, club, crossbow, dagger, dart, flail, hand axe, javelin, longsword, shortbow, sling, spear, and two-handed sword."
@@ -539,7 +539,7 @@
       },
       "HalflingRogue": {
         "DropdownLabel": "XCC Specialist - Halfling Rogue",
-        "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#halfling-rogue]{Halfling Rogue}",
+        "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.elLhoqixqOcYstPC]{Halfling Rogue}",
         "ActorSheetHalflingRogue": "Halfling Rogue",
         "WeaponTraining": [
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
