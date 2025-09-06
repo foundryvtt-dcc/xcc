@@ -1,4 +1,97 @@
-<section class="xcc tab gnome {{tabs.gnome.cssClass}}" data-tab="{{tabs.gnome.id}}"
-    data-group="{{tabs.gnome.group}}">
+<section class="xcc tab gnome {{tabs.gnome.cssClass}}" data-tab="{{tabs.gnome.id}}" data-group="{{tabs.gnome.group}}">
+    <div class="grid-col-span-12 box-border reminder-block">
+        <div class="box-title">{{localize "XCC.ClassProperties"}}{{#dccPackExists
+            "xcc-core-book.xcc-core-text"}}<div class="link-floater">{{{system.class.classLink}}}</div>
+            {{/dccPackExists}}</div>
+        <div class="grid-tpl-two grid-row-gap-8 p-5">
+            <div class="grid-tpl-max-25 grid-col-gap-5">
+                <label class="skill-check" for="system.class.knownSpells">
+                    {{localize "DCC.system.class.knownSpells"}}
+                </label>
+                <input type="text" id="system.class.knownSpells" name="system.class.knownSpells"
+                    value="{{system.class.knownSpells}}" data-dtype="String" />
+            </div>
+            <div class="grid-tpl-max-25 grid-col-gap-5">
+                <label class="skill-check rollable" for="system.class.teamMascotDie" data-action="rollTeamMascotDie">
+                    {{localize "DCC.system.class.teamMascotDie"}}
+                </label>
+                <input type="text" id="system.class.teamMascotDie" name="system.class.teamMascotDie"
+                    value="{{system.class.teamMascotDie}}" data-dtype="String" />
+            </div>
+        </div>
+    </div>
+    <div class="grid-col-span-12 dark-border">
+        <div class="row-separator"></div>
+        <div class="box-title">{{localize "XCC.ClassAbilities"}}</div>
+        <ol class="weapon-list sp-elf-trickster box-border" style="margin-bottom: 0;">
+            <li class="grid-col-span-6 weapon-list-header">
+                <div></div>
+                <div title="{{localize 'DCC.Roll'}}"></div>
+                <div>{{localize "DCC.Name"}}</div>
+                <div>{{localize "DCC.Bonus"}}</div>
+                <div>{{localize "DCC.Notes"}}</div>
+            </li>
+            <li class="grid-col-span-6 weapon grid-col-gap-5">
+                <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/agro.svg"
+                    title="{{localize 'XCC.Gnome.DrawAgro'}}" alt="{{localize 'XCC.Gnome.DrawAgro'}}" width="22"
+                    height="22">
+                <div class="attack-buttons" data-skill="drawAgro">
+                    <div class="rollable weapon-button icon-filter" data-action="rollDrawAgro" data-drag="false"
+                        title="Roll" draggable="false"></div>
+                </div>
+                <input class="weapon-name" type="text" value="{{localize 'XCC.Gnome.DrawAgro'}}" readonly="">
+                <input class="disabled" type="text" value="{{ensurePlus (getDrawAgroBonus actor)}}" readonly="">
+                <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Gnome.DrawAgroNotes'}}"
+                    readonly="">
+            </li>
+            <li class="grid-col-span-6 weapon grid-col-gap-5">
+                <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/sparkles.svg"
+                    title="{{localize 'XCC.SpellCheck'}}" alt="{{localize 'XCC.SpellCheck'}}" width="22" height="22">
+                <div class="attack-buttons" data-skill="spellCheck">
+                    <div class="rollable weapon-button icon-filter" data-action="rollSkillCheck" data-drag="false"
+                        title="Roll" draggable="false"></div>
+                </div>
+                <input class="weapon-name" type="text" value="{{localize 'DCC.SpellCheck'}}" readonly="">
+                <input class="disabled" type="text"
+                    value="{{ensurePlus (sum system.abilities.per.mod system.details.level.value)}}" readonly="">
+                <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Gnome.SpellCheckNotes'}}"
+                    readonly="">
+            </li>
+        </ol>
+    </div>
+    <div class="grid-col-span-12 dark-border sp-skills">
+        <!-- Abilities -->
+        <div class="row-separator"></div>
+        <div class="box-title">{{localize "XCC.Specialist.Skills"}}</div>
+        <div class="box-border grid-tpl-two grid-row-gap-8 p-5">
+            <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="sneakSilently">
+                <label class="skill-check rollable" for="system.skills.sneakSilently.value"
+                    title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                    data-drag-action="skill">
+                    {{localize "DCC.SneakSilently"}}
+                </label>
+                <input type="text" id="system.skills.sneakSilently.value" name="system.skills.sneakSilently.value"
+                    value="{{system.skills.sneakSilently.value}}" data-dtype="String" />
+            </div>
+            <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="hideInShadows">
+                <label class="skill-check rollable" for="system.skills.hideInShadows.value"
+                    title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                    data-drag-action="skill">
+                    {{localize "DCC.HideInShadows"}}
+                </label>
+                <input type="text" id="system.skills.hideInShadows.value" name="system.skills.hideInShadows.value"
+                    value="{{system.skills.hideInShadows.value}}" data-dtype="String" />
+            </div>
+            <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="pickPocket">
+                <label class="skill-check rollable" for="system.skills.pickPocket.value"
+                    title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                    data-drag-action="skill">
+                    {{localize "DCC.PickPocket"}}
+                </label>
+                <input type="text" id="system.skills.pickPocket.value" name="system.skills.pickPocket.value"
+                    value="{{system.skills.pickPocket.value}}" data-dtype="String" />
+            </div>
+        </div>
+    </div>
     {{> modules/xcrawl-classics/templates/actor-partial-common.html }}
 </section>

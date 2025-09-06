@@ -34,6 +34,7 @@
     "system.class.critEvilRange": "Crit vs. Evil",
     "system.class.scourge": "Scourge",
     "system.class.turnUndeadDie": "Turn Unholy Die",
+    "system.class.teamMascotDie": "Team Mascot Die",
     "system.skills.acrobatics.value": "Acrobatics",
     "system.skills.poleVault.value": "Pole vault",
     "system.skills.leap.value": "Leap",
@@ -300,17 +301,25 @@
       "DropdownLabel": "XCC Gnome",
       "ActorSheetGnome": "Gnome",
       "ClassLink": "@UUID[Compendium.dcc-core-book.dcc-core-text.JournalEntry.n5gqDCyFO09A3GAJ.JournalEntryPage.b6z6C71VnO8qW2gC#gnome]{Gnome}",
+      "SpellCheckNotes": "",
+      "DrawAgro": "Draw Agro",
+      "DrawAgroNotes": "60' range",
+      "DrawAgroMessage": "{actorName} attempts to draw agro with a {rollHTML} check!<br><br>The target must make a <b style='color:var(--system-accent-color)'>DC {rollResult} Willpower save</b> or spend their next action attacking {actorName}.<br><br>The target may choose to resist this effect, but in doing so they take a <b style='color:var(--system-accent-color)'>{penalty} penalty</b> to all combat actions on their turn.",
+      "TeamMascotDieMessage": "{actorName} rolls their Mascot Die and gains {rollHTML} Mojo points!",
       "WeaponTraining": [
-        "TODO"
+        "You are trained in short sword, dagger, crossbow, shortbow and quarterstaff."
       ],
       "Benefits": [
-        "TODO"
+        "You are small. You are 3½ to 4½ feet (100-140cm) tall, and weigh between 40 and 90 pounds (20-40kg)."
       ],
       "Restrictions": [
-        "TODO"
+        "You have a base movement speed of 25’.",
+        "Draw Agro works only on sentient targets that can see and hear you."
       ],
       "Mojo": [
-        "TODO"
+        "Result of natural 20 on an attack roll or a spell checks earns you a number of Mojo Points determined by the roll of your Team Mascot Die.",
+        "You earn a Mojo Point after the whole team loses Mojo due to a roll of natural 1.",
+        "You earn a Mojo point for every victim of your draw agro that changes their target to you."
       ]
     },
     "HalfOrc": {
