@@ -1,4 +1,121 @@
 <section class="xcc tab half-elf {{tabs.half-elf.cssClass}}" data-tab="{{tabs.half-elf.id}}"
     data-group="{{tabs.half-elf.group}}">
+    <div class="grid-container">
+        <div class="grid-col-span-12 box-border reminder-block">
+            <div class="box-title">{{localize "XCC.ClassProperties"}}{{#dccPackExists
+                "xcc-core-book.xcc-core-text"}}<div class="link-floater">{{{system.class.classLink}}}</div>
+                {{/dccPackExists}}</div>
+            <div class="grid-tpl-two grid-row-gap-8 p-5">
+                <div class="grid-tpl-max-25 grid-col-gap-5">
+                    <label class="skill-check" for="system.class.maxSpellLevel">
+                        {{localize "DCC.system.class.maxSpellLevel"}}
+                    </label>
+                    <input type="text" id="system.class.maxSpellLevel" name="system.class.maxSpellLevel"
+                        value="{{system.class.maxSpellLevel}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-25 grid-col-gap-5">
+                    <label class="skill-check" for="system.class.knownSpells">
+                        {{localize "DCC.system.class.knownSpells"}}
+                    </label>
+                    <input type="text" id="system.class.knownSpells" name="system.class.knownSpells"
+                        value="{{system.class.knownSpells}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-25 grid-col-gap-5">
+                    <label class="skill-check rollable" for="system.class.charismaDie" data-action="rollCharismaDie">
+                        {{localize "DCC.system.class.charismaDie"}}
+                    </label>
+                    <input type="text" id="system.class.charismaDie" name="system.class.charismaDie"
+                        value="{{system.class.charismaDie}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-25 grid-col-gap-5">
+                    <label class="skill-check" for="system.class.saveBonus">
+                        {{localize "DCC.system.class.saveBonus"}}
+                    </label>
+                    <input type="text" id="system.class.saveBonus" name="system.class.saveBonus"
+                        value="{{ensurePlus system.class.saveBonus}}" data-dtype="String" />
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-span-12 dark-border">
+            <div class="row-separator"></div>
+            <div class="box-title">{{localize "XCC.ClassAbilities"}}</div>
+            <ol class="weapon-list sp-elf-trickster box-border" style="margin-bottom: 0;">
+                <li class="grid-col-span-6 weapon-list-header">
+                    <div></div>
+                    <div title="{{localize 'DCC.Roll'}}"></div>
+                    <div>{{localize "DCC.Name"}}</div>
+                    <div>{{localize "DCC.Bonus"}}</div>
+                    <div>{{localize "DCC.Notes"}}</div>
+                </li>
+                <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/sparkles.svg"
+                        title="{{localize 'XCC.SpellCheck'}}" alt="{{localize 'XCC.SpellCheck'}}" width="22"
+                        height="22">
+                    <div class="attack-buttons" data-skill="spellCheck">
+                        <div class="rollable weapon-button icon-filter" data-action="rollSkillCheck" data-drag="false"
+                            title="Roll" draggable="false"></div>
+                    </div>
+                    <input class="weapon-name" type="text" value="{{localize 'DCC.SpellCheck'}}" readonly="">
+                    <input class="disabled" type="text"
+                        value="{{ensurePlus (sum system.abilities.per.mod system.details.level.value)}}"
+                        readonly="">
+                    <input class="weapon-notes disabled" type="text"
+                        value="{{localize 'XCC.HalfElf.SpellCheckNotes'}}" readonly="">
+                </li>
+            </ol>
+        </div>
+        <div class="grid-col-span-12 dark-border sp-skills">
+            <!-- Abilities -->
+            <div class="row-separator"></div>
+            <div class="box-title">{{localize "XCC.Specialist.Skills"}}</div>
+            <div class="box-border grid-tpl-two grid-row-gap-8 p-5">
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="acrobatics">
+                    <label class="skill-check rollable" for="system.skills.acrobatics.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "XCC.Acrobatics"}}
+                    </label>
+                    <input type="text" id="system.skills.acrobatics.value" name="system.skills.acrobatics.value"
+                        value="{{system.skills.acrobatics.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="hideInShadows">
+                    <label class="skill-check rollable" for="system.skills.hideInShadows.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.HideInShadows"}}
+                    </label>
+                    <input type="text" id="system.skills.hideInShadows.value" name="system.skills.hideInShadows.value"
+                        value="{{system.skills.hideInShadows.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5">
+                    <label class="skill-check" for="system.class.backstab"
+                        title="{{localize 'DCC.ThiefBackstabSkillHint'}}">
+                        {{localize "DCC.Backstab"}}
+                    </label>
+                    <input type="text" id="system.class.backstab" name="system.class.backstab"
+                        value="{{system.class.backstab}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="climbSheerSurfaces">
+                    <label class="skill-check rollable" for="system.skills.climbSheerSurfaces.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.ClimbSheerSurfaces"}}
+                    </label>
+                    <input type="text" id="system.skills.climbSheerSurfaces.value"
+                        name="system.skills.climbSheerSurfaces.value" value="{{system.skills.climbSheerSurfaces.value}}"
+                        data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="sneakSilently">
+                    <label class="skill-check rollable" for="system.skills.sneakSilently.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.SneakSilently"}}
+                    </label>
+                    <input type="text" id="system.skills.sneakSilently.value" name="system.skills.sneakSilently.value"
+                        value="{{system.skills.sneakSilently.value}}" data-dtype="String" />
+                </div>
+            </div>
+        </div>
+    </div>
     {{> modules/xcrawl-classics/templates/actor-partial-common.html }}
 </section>

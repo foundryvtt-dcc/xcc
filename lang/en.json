@@ -34,7 +34,9 @@
     "system.class.critEvilRange": "Crit vs. Evil",
     "system.class.scourge": "Scourge",
     "system.class.turnUndeadDie": "Turn Unholy Die",
+    "system.class.charismaDie": "Charisma Die",
     "system.class.teamMascotDie": "Team Mascot Die",
+    "system.class.saveBonus": "Saving Throw Bonus",
     "system.skills.acrobatics.value": "Acrobatics",
     "system.skills.poleVault.value": "Pole vault",
     "system.skills.leap.value": "Leap",
@@ -99,7 +101,7 @@
       "GrappleCritRange": "Grapple Crit Range",
       "GrappleCritDie": "Grapple Crit Die",
       "Grapple": "Grapple",
-      "GrappleNotes": "no shield",
+      "GrappleNotes": "No shield",
       "ArmorWarning": "<br/><p class='emote-alert fumble'>Armor too heavy - grapple crits disabled.</p>",
       "Benefits": [
         "You can add your Training Die to athletics skill checks (SHIFT-click ability label),",
@@ -257,19 +259,27 @@
     "HalfElf": {
       "DropdownLabel": "XCC Half-Elf",
       "ActorSheetHalfElf": "Half-Elf",
+      "SpellCheckNotes": "Armor penalty applies",
       "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.AVwGT67DLPu81Yuh]{Half-Elf}",
-      "WeaponTraining": [
-        "TODO"
-      ],
-      "Benefits": [
-        "TODO"
-      ],
-      "Restrictions": [
-        "TODO"
-      ],
-      "Mojo": [
-        "TODO"
-      ]
+        "WeaponTraining": [
+          "You are trained in long sword, short sword, longbow, shortbow, and dagger."
+        ],
+        "Benefits": [
+          "You roll +1d for saving throws against magical sleep and paralysis effects",
+          "You automatically pick Cantrip as your first known spell.",
+          "You roll and add your Charisma Die to all Grandstanding checks and to Personality checks like negotiation, deception, etc.",
+          "You can spend your move action to make an Acrobatics check. You can still move half your movement rate (full at lvl 5+) as a part of this check.",
+          "Acrobatics check lets you dodge enemies (1 ranged - DC10, 2+ ranged OR 1 melee - DC15, 2+ melee - DC20). On a success add your Reflex Save to your AC.",
+          "Acrobatics check lets you withdraw from combat without giving your opponent a free attack (single opponent - DC 15, multiple opponents - DC 20).",
+          "You make an automatic Acrobatics check to mitigate falling damage. 1d6 - DC10, 2d6 - DC15, 3d6 - DC20. On levels 6+: 4d6 - DC25, 5d6 - DC30."
+        ],
+        "Restrictions": [
+          "-1 to hit when using cold-iron weapons, and -1 AC when wearing cold-iron armor.",
+          "When you choose a new spell make a Luck check. On success you get the spell, on failure you get a random spell of the same level."
+        ],
+        "Mojo": [
+          "You earn a Mojo point for every point of Fame you earn."
+        ]
     },
     "Dwarf": {
       "DropdownLabel": "XCC Dwarf",
@@ -301,7 +311,7 @@
       "DropdownLabel": "XCC Gnome",
       "ActorSheetGnome": "Gnome",
       "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.MP4twPDVeq2lQZfL]{Gnome}",
-      "SpellCheckNotes": "",
+      "SpellCheckNotes": "Armor penalty applies",
       "DrawAgro": "Draw Agro",
       "DrawAgroNotes": "60' range",
       "DrawAgroMessage": "{actorName} attempts to draw agro with a {rollHTML} check!<br><br>The target must make a <b style='color:var(--system-accent-color)'>DC {rollResult} Willpower save</b> or spend their next action attacking {actorName}.<br><br>The target may choose to resist this effect, but in doing so they take a <b style='color:var(--system-accent-color)'>{penalty} penalty</b> to all combat actions on their turn.",
@@ -496,7 +506,7 @@
         "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.Lk2Q7w8ymsSe7oU7]{Elf Trickster}",
         "ActorSheetElfTrickster": "Elf Trickster",
         "DetectSecretDoorsNotes": "Auto-check when in 10’ range",
-        "SpellCheckNotes": "No spellburn allowed",
+        "SpellCheckNotes": "No spellburn, armor penalty applies",
         "WeaponTraining": [
           "You are trained in short swords, daggers, staff, and shortbows."
         ],
