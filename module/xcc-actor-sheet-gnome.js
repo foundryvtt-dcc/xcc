@@ -62,6 +62,13 @@ class XCCActorSheetGnome extends DCCActorSheet {
 
   /** @override */
   async _prepareContext(options) {
+    // Set base speed
+    if (this.actor.system.details.sheetClass !== 'gnome') {
+      await this.actor.update({
+        'system.attributes.speed.base': 25
+      })
+    }
+
     const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'gnome') {

@@ -50,6 +50,13 @@ class XCCActorSheetDwarf extends DCCActorSheet {
 
   /** @override */
   async _prepareContext(options) {
+    // Set base speed
+    if (this.actor.system.details.sheetClass !== 'xcc-dwarf') {
+      await this.actor.update({
+        'system.attributes.speed.base': 20
+      })
+    }
+
     const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'xcc-dwarf') {
@@ -104,7 +111,7 @@ class XCCActorSheetDwarf extends DCCActorSheet {
   }
 
   getShieldBashDamage() {
-    return this.actor.system.class.shieldBashDamage + ensurePlus(this.actor.system.details.attackBonus)+ensurePlus(parseInt(this.actor.system.abilities.str.mod || 0) );
+    return this.actor.system.class.shieldBashDamage + ensurePlus(this.actor.system.details.attackBonus) + ensurePlus(parseInt(this.actor.system.abilities.str.mod || 0));
   }
 
   static async rollShieldBashAttack(event, target) {
