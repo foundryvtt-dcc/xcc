@@ -57,14 +57,5 @@
       "path": "lang/en.json",
       "flags": {}
     }
-  ],
-  "packs": [
-
-  ],
-  "documentTypes": {
-    "Item": {
-      "sponsorship": {
-      }
-    }
-  }
+  ]
 }
