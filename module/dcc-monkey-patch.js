@@ -133,8 +133,6 @@ class DCCMonkeyPatch {
             originalOnRender.call(this, app, html, data);
             // Replace the title field with the actor's name if it's a XCC sheet
             if(app.actor.system.class.localizationPath) {
-                console.log("Patching title field to actor name", app,html,data,this);
-                
                 let element = this.parts.character.firstElementChild.querySelector('label[for="system.details.title.value"]');
                 element.textContent = game.i18n.localize('XCC.Actor');
                 element.for='system.details.casting';

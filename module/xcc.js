@@ -279,11 +279,13 @@ Hooks.once('init', async function () {
   });
 
   Handlebars.registerHelper('ensurePlus', function (value) {
-    return ensurePlus(value);
+    if(value < 0) return ensurePlus(value);
+    else return '+0';
   });
 
   Handlebars.registerHelper('sum', function (a, b) {
-    return parseInt(a) + parseInt(b);
+    if(a && b) return parseInt(a) + parseInt(b);
+    else return a || b || 0;
   });
 });
 

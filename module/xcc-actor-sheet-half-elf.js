@@ -462,8 +462,8 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
         element = this.parts.character.firstElementChild.querySelector('input[id="system.saves.wil.value"]');
         element.value = ensurePlus(parseInt(this.actor.system.saves.wil.value) + parseInt(this.actor.system.class.saveBonus));
       }
-      super._onRender(context, options);
     }
+    super._onRender(context, options);
   }
 }
 export default XCCActorSheetHalfElf;
