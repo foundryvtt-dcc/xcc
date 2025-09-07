@@ -39,6 +39,7 @@ setSpecialistSkills() {
         //DCC System had a bug with pickPocket skill, we're setting a custom one for now
         if (this.actor.system.skills.pickPocket) {
             this.actor.system.skills.pickPocket.ability = 'agl';
+            this.actor.system.skills.pickPocket.config = { applyCheckPenalty: true };
             this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value';
         }
         //XCC uses int for forge document skill
@@ -48,21 +49,25 @@ setSpecialistSkills() {
         //Acrobat: Acrobatics
         if (this.actor.system.skills.acrobatics) {
             this.actor.system.skills.acrobatics.ability = 'agl';
+            this.actor.system.skills.acrobatics.config = { applyCheckPenalty: true };
             this.actor.system.skills.acrobatics.label = 'DCC.system.skills.acrobatics.value';
         }
         //Acrobat: Tightrope walk
         if (this.actor.system.skills.tightropeWalk) {
             this.actor.system.skills.tightropeWalk.ability = 'agl';
+            this.actor.system.skills.tightropeWalk.config = { applyCheckPenalty: true };
             this.actor.system.skills.tightropeWalk.label = 'DCC.system.skills.tightropeWalk.value';
         }
         //Acrobat: Leap skill
         if (this.actor.system.skills.leap) {
             this.actor.system.skills.leap.ability = 'str';
+            this.actor.system.skills.leap.config = { applyCheckPenalty: true };
             this.actor.system.skills.leap.label = 'DCC.system.skills.leap.value';
         }
         //Acrobat: Pole vault skill
         if (this.actor.system.skills.poleVault) {
             this.actor.system.skills.poleVault.ability = 'str';
+            this.actor.system.skills.poleVault.config = { applyCheckPenalty: true };
             this.actor.system.skills.poleVault.label = 'DCC.system.skills.poleVault.value';
         }
     }

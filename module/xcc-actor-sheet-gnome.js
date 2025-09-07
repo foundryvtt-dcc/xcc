@@ -81,6 +81,9 @@ class XCCActorSheetGnome extends DCCActorSheet {
 
     this.actor.system.skills.spellCheck = {
       value: this.actor.system.details.level.value,
+      config: {
+        applyCheckPenalty: true
+      },
       ability: 'per',
       label: 'DCC.Spell',
       die: 'd20'
