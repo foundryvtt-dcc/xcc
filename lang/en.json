@@ -77,7 +77,7 @@
       "HideNotesTab": "Hide Notes Tab",
       "HideNotesTabHint": "Hide notes tab in the actor sheet. This compensates for the additional Xcrawl tab and keeps the sheet width manageable. You can find a smaller replacement notes field in the Xcrawl tab.",
       "UseSameDeedHalfOrc": "Half-Orc Keeps Deed Die",
-      "UseSameDeedHalfOrcHint":"Use the Deed Die result from the last attack for Half-Orc's Wild Attack (instead of re-rolling the Deed Die).",
+      "UseSameDeedHalfOrcHint": "Use the Deed Die result from the last attack for Half-Orc's Wild Attack (instead of re-rolling the Deed Die).",
       "SmallerPause": "Smaller Pause",
       "SmallerPauseHint": "Enable smaller and less intrusive pause animation."
     },
@@ -103,6 +103,9 @@
       "Grapple": "Grapple",
       "GrappleNotes": "No shield",
       "ArmorWarning": "<br/><p class='emote-alert fumble'>Armor too heavy - grapple crits disabled.</p>",
+      "WeaponTraining": [
+        "You are trained with spear, club, dagger, quarterstaff, javelin, and sports equipment."
+      ],
       "Benefits": [
         "You can add your Training Die to athletics skill checks (SHIFT-click ability label),",
         "Fast Movement increases your climbing and swimming movement rates by 50%,",
@@ -114,9 +117,6 @@
         "You must choose the Wrestling Technique BEFORE making the grapple check,",
         "Athletic Durability only negates subdual damage."
       ],
-      "WeaponTraining": [
-        "You are trained with spear, club, dagger, quarterstaff, javelin, and sports equipment."
-      ],
       "Mojo": [
         "You earn a Mojo point for any creature defeated with nothing but grapple damage."
       ]
@@ -127,14 +127,15 @@
       "ActorSheetBlaster": "Blaster",
       "BlasterDie": "Blaster Die",
       "WeaponTraining": [
-        "You are trained with longsword, short sword, spear, club, dagger, and crossbow. Armor penalty affects your ability to cast spells."
+        "You are trained with longsword, short sword, spear, club, dagger, and crossbow."
       ],
       "Benefits": [
         "You automatically pick Spellweaver Blast as your first known spell."
       ],
       "Restrictions": [
         "You cannot scribe scrolls (but you can still use them),",
-        "You can never summon permanent familiars nor create permanent magic items (even when using scrolls)."
+        "You can never summon permanent familiars nor create permanent magic items (even when using scrolls).",
+        "Your second action die can only be used for spell checks."
       ],
       "Mojo": [
         "You earn a Mojo point for participating in defeating a magic user."
@@ -161,8 +162,7 @@
       "Benefits": [
         "When armed, and attacking in melee, you get a free unarmed attack [d14],",
         "When unarmed, you make two unarmed attacks [d16] instead of one,",
-        "When unarmed, you crit on roll results of 16 and fumble on double 1s,",
-        "You can add your Luck Modifier to unarmed attack and damage rolls."
+        "When unarmed, you crit on roll results of 16 and fumble on double 1s."
       ],
       "Restrictions": [
         "Toughness reduces only melee damage,",
@@ -261,25 +261,25 @@
       "ActorSheetHalfElf": "Half-Elf",
       "SpellCheckNotes": "Armor penalty applies",
       "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.AVwGT67DLPu81Yuh]{Half-Elf}",
-        "WeaponTraining": [
-          "You are trained in long sword, short sword, longbow, shortbow, and dagger."
-        ],
-        "Benefits": [
-          "You roll +1d for saving throws against magical sleep and paralysis effects",
-          "You automatically pick Cantrip as your first known spell.",
-          "You roll and add your Charisma Die to all Grandstanding checks and to Personality checks like negotiation, deception, etc.",
-          "You can spend your move action to make an Acrobatics check. You can still move half your movement rate (full at lvl 5+) as a part of this check.",
-          "Acrobatics check lets you dodge enemies (1 ranged - DC10, 2+ ranged OR 1 melee - DC15, 2+ melee - DC20). On a success add your Reflex Save to your AC.",
-          "Acrobatics check lets you withdraw from combat without giving your opponent a free attack (single opponent - DC 15, multiple opponents - DC 20).",
-          "You make an automatic Acrobatics check to mitigate falling damage. 1d6 - DC10, 2d6 - DC15, 3d6 - DC20. On levels 6+: 4d6 - DC25, 5d6 - DC30."
-        ],
-        "Restrictions": [
-          "-1 to hit when using cold-iron weapons, and -1 AC when wearing cold-iron armor.",
-          "When you choose a new spell make a Luck check. On success you get the spell, on failure you get a random spell of the same level."
-        ],
-        "Mojo": [
-          "You earn a Mojo point for every point of Fame you earn."
-        ]
+      "WeaponTraining": [
+        "You are trained in long sword, short sword, longbow, shortbow, and dagger."
+      ],
+      "Benefits": [
+        "You roll +1d for saving throws against magical sleep and paralysis effects",
+        "You automatically pick Cantrip as your first known spell.",
+        "You roll and add your Charisma Die to all Grandstanding checks and to Personality checks like negotiation, deception, etc.",
+        "You can spend your move action to make an Acrobatics check. You can still move half your movement rate (full at lvl 5+) as a part of this check.",
+        "*Acrobatics check lets you dodge enemies (1 ranged - DC10, 2+ ranged OR 1 melee - DC15, 2+ melee - DC20). On a success add your Reflex Save to your AC.",
+        "*Acrobatics check lets you withdraw from combat without giving your opponent a free attack (single opponent - DC 15, multiple opponents - DC 20).",
+        "*You make an automatic Acrobatics check to mitigate falling damage. 1d6 - DC10, 2d6 - DC15, 3d6 - DC20. On levels 6+: 4d6 - DC25, 5d6 - DC30."
+      ],
+      "Restrictions": [
+        "-1 to hit when using cold-iron weapons, and -1 AC when wearing cold-iron armor.",
+        "When you choose a new spell make a Luck check. On success you get the spell, on failure you get a random spell of the same level."
+      ],
+      "Mojo": [
+        "You earn a Mojo point for every point of Fame you earn."
+      ]
     },
     "Dwarf": {
       "DropdownLabel": "XCC Dwarf",
@@ -297,7 +297,7 @@
         "Armor does not reduce your base movement speed.",
         "You can smell gold/gems within 100’ (single coin/gem within 40' when focused).",
         "You add your initial Luck modifier to all attack rolls made with your lucky weapon.",
-        "When underground, you add your character level to checks to detect traps, slanting passages, shifting walls, and new construction."     
+        "When underground, you add your character level to checks to detect traps, slanting passages, shifting walls, and new construction."
       ],
       "Restrictions": [
         "You receive only one Shield Bash and one Mighty Deed attempt each round.",
