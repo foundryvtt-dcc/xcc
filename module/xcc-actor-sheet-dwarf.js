@@ -53,7 +53,10 @@ class XCCActorSheetDwarf extends DCCActorSheet {
     // Set base speed
     if (this.actor.system.details.sheetClass !== 'xcc-dwarf') {
       await this.actor.update({
-        'system.attributes.speed.base': 20
+        'system.attributes.speed.base': 20,
+        'system.attributes.speed.value': 20,
+        // we don't want armor to reduce dwarf speed, but the user can still turn on this option
+        'system.config.computeSpeed': false
       })
     }
 
@@ -72,6 +75,7 @@ class XCCActorSheetDwarf extends DCCActorSheet {
         'system.config.showSpells': false
       })
     }
+    // Never used when _onRender is commented out, but left in case we want to re-enable skill-based shield bash
     if (!this.actor.system.class?.shieldBashDamage) {
       await this.actor.update({
         'system.class.shieldBashDamage': "1d3"
@@ -86,6 +90,7 @@ class XCCActorSheetDwarf extends DCCActorSheet {
   }
 
   _onRender(context, options) {
+    // Backup of shield bash code, in case we want to re-enable it instead of using an item
     /*if (game.settings.get('xcrawl-classics', 'includeShieldBashInWeapons')) {
       // Add the Grapple item to the equipment section
       let items = this.parts.equipment.querySelector('.weapon-list-header').outerHTML +=

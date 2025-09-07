@@ -65,7 +65,8 @@ class XCCActorSheetGnome extends DCCActorSheet {
     // Set base speed
     if (this.actor.system.details.sheetClass !== 'gnome') {
       await this.actor.update({
-        'system.attributes.speed.base': 25
+        'system.attributes.speed.base': 25,
+        'system.attributes.speed.value': 25
       })
     }
 

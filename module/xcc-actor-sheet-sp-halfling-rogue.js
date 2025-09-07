@@ -52,7 +52,8 @@ class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
     // Set base speed
     if (this.actor.system.details.sheetClass !== 'sp-halfling-rogue') {
       await this.actor.update({
-        'system.attributes.speed.base': 20
+        'system.attributes.speed.base': 20,
+        'system.attributes.speed.value': 20
       })
     }
 

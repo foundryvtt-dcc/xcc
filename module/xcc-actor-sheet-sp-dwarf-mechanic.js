@@ -52,7 +52,8 @@ class XCCActorSheetSpDwarfMechanic extends DCCActorSheet {
     // Set base speed
     if (this.actor.system.details.sheetClass !== 'sp-dwarf-mechanic') {
       await this.actor.update({
-        'system.attributes.speed.base': 20
+        'system.attributes.speed.base': 20,
+        'system.attributes.speed.value': 20
       })
     }
 
