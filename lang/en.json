@@ -42,7 +42,8 @@
     "system.skills.leap.value": "Leap",
     "system.skills.tightropeWalk.value": "Tightrope walk",
     "system.skills.dangerSense.value": "Danger sense",
-    "system.skills.criminalConnections.value": "Criminal connections"
+    "system.skills.criminalConnections.value": "Criminal connections",
+    "system.details.wildCritRange": "Wild Crit Range"
   },
   "XCC": {
     "DetectSecretDoors": "Detect Secret Doors",
@@ -338,7 +339,6 @@
       "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.qiVSRENtrguXugry]{Half-Orc}",
       "WildAttack": "Wild Attack",
       "WildAttackNote": "Provokes enemy attack",
-      "WildAttackThreatRange": "Wild Crit Range",
       "WeaponTraining": [
         "You are trained in the use of axes (all), bows (all), crossbows, daggers, javelins, lances, polearms, spears, swords (all), and warhammers."
       ],
