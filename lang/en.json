@@ -270,9 +270,7 @@
         "You automatically pick Cantrip as your first known spell.",
         "You roll and add your Charisma Die to all Grandstanding checks and to Personality checks like negotiation, deception, etc.",
         "You can spend your move action to make an Acrobatics check. You can still move half your movement rate (full at lvl 5+) as a part of this check.",
-        "*Acrobatics check lets you dodge enemies (1 ranged - DC10, 2+ ranged OR 1 melee - DC15, 2+ melee - DC20). On a success add your Reflex Save to your AC.",
-        "*Acrobatics check lets you withdraw from combat without giving your opponent a free attack (single opponent - DC 15, multiple opponents - DC 20).",
-        "*You make an automatic Acrobatics check to mitigate falling damage. 1d6 - DC10, 2d6 - DC15, 3d6 - DC20. On levels 6+: 4d6 - DC25, 5d6 - DC30."
+        "Acrobatics check lets you DODGE incoming attacks, WITHDRAW from combat without provoking attacks, and MITIGATE fall damage (free check)."
       ],
       "Restrictions": [
         "-1 to hit when using cold-iron weapons, and -1 AC when wearing cold-iron armor.",
@@ -369,25 +367,29 @@
         "DropdownLabel": "XCC Specialist - Acrobat",
         "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.jktmKjBzTkCjOmBi]{Acrobat}",
         "ActorSheetAcrobat": "Acrobat",
+        "AcrobaticsMessage": "<b>Dodge:</b> {reflex} AC against {enemies}<br/><br/><b>Withdraw:</b> {withdraw}<br/><br/><b>Mitigate:</b> Reduce fall damage by <a class='inline-roll roll' data-mode='roll' data-formula='{fall}' data-tooltip-text='{fall}'><i class='fa-solid fa-dice-d6' inert=''></i>{fall}</a>.",
+        "PoleVaultMessage": "<b>Max barrier height:</b> {height}’ (DC {dc}).<br/><br>Doesn't prevent potential falling damage (must roll to mitigate).",
+        "TightRopeMessage":"<b>Success:</b> They cross the gap safely (10' per full round by default). Reroll the check only if conditions change (moving faster, strong wind, being hit, etc).<br/><br/><b>Failure by 1-5:</b> They need to make a Reflex save against the same DC.<ul><li>Success: They drop held items and hold onto the rope.</li><li>Failure: They fall.</li></ul><br/><b>Failure by 5+:</b> They fall.<br/><br/><b>Fumble:</b> They fall and may not mitigate falling damage.",
+        "TightRopeFootnotes":"<br/>DC modifiers: <div class='dc-modifiers-grid'><div class='modifier-item'><span class='dc-condition'>moderate wind</span><span class='dc-modifier'>+5</span></div><div class='modifier-item'><span class='dc-condition'>strong wind</span><span class='dc-modifier'>+10</span></div><div class='modifier-item'><span class='dc-condition'>20' balance pole</span><span class='dc-modifier'>-5</span></div><div class='modifier-item'><span class='dc-condition'>40' balance pole</span><span class='dc-modifier'>-8</span></div><div class='modifier-item'><span class='dc-condition'>being hit</span><span class='dc-modifier'>DC 10+dmg</span></div></div>Roll a new check on sudden changes.",
+        "WithdrawFailure": "Provoke free attacks normally (failure).",
+        "WithdrawMultiple": "Withdraw from combat with multiple opponents without provoking any attacks.",
+        "WithdrawSingle": "Withdraw from combat with a single opponent without provoking any attacks.",
+        "DodgeFailure":"no attacks (failure).",
+        "DodgeSingle":"a single ranged attack until next action.",
+        "DodgeMultiple":"multiple ranged attacks, or a single opponent in melee, until next action.",
+        "DodgeAll":"all attacks until next action.",
         "WeaponTraining": [
           "You are trained in  crossbow, dagger, dart, short sword, sling, and staff."
         ],
         "Benefits": [
           "You can spend your move action to make an Acrobatics check. You can still move half your movement rate (full at lvl 5+) as a part of this check.",
-          "Acrobatics check lets you dodge enemies (1 ranged - DC10, 2+ ranged OR 1 melee - DC15, 2+ melee - DC20). On a success add your Reflex Save to your AC.",
-          "Acrobatics check lets you withdraw from combat without giving your opponent a free attack (single opponent - DC 15, multiple opponents - DC 20).",
-          "You make an automatic Acrobatics check to mitigate falling damage. 1d6 - DC10, 2d6 - DC15, 3d6 - DC20. On levels 6+: 4d6 - DC25, 5d6 - DC30.",
-          "You can jump over barriers by making a Pole Vault check (5’ - DC10, 10’ - DC15, 15’ - DC20, 20’ - DC25).",
-          "You can make a Tightrope Walk check to move across narrow beam (DC10) / archaic rope (DC15) / climbing rope (DC20). Single check per rope/beam traversal.",
+          "Acrobatics check lets you DODGE incoming attacks, WITHDRAW from combat without provoking attacks, and MITIGATE fall damage (free check).",
+          "Pole Vault check lets you jump over barriers as tall as your pole (up to 25’).",
+          "You can make a Tightrope walk check to move across narrow beams (DC 10), thick ropes (DC 15), and thin ropes (DC 20).",
           "You add your Leap bonus to jump checks (including running jump, and high jump)."
         ],
         "Restrictions": [
-          "You need to have a pole as high as the barrier to make a Pole Vault check.",
-          "Pole Vault doesn't prevent falling damage (you can still make an Acrobatics check).",
-          "When you fail a Tightrope Walk check by 1-5: Make a Reflex save. On success, you drop held items and hold onto the rope. On failure, you fall.",
-          "When you fail a Tightrope Walk check by 5+: You fall. On a roll of natural 1 you cannot mitigate falling damage.",
-          "During Tightrope Walk you move 10' per full action. Make the check with a penalty to move faster: -5 for 20', -10 for full movement, -20 for double movement.",
-          "Tightrope Walk DC mods: moderate wind +5, strong wind +10, 20' balance pole -5, 40' balance pole -8, being hit 10+dmg DC. Roll a new check on sudden changes."
+          "Tightrope walk DC mods: moderate wind (DC+5), strong wind (DC+10), 2/3 speed (DC+5), full speed (DC+10), double speed (DC+20), 20' balance pole (DC-5), 40' balance pole (DC-8), being hit (DC becomes 10+dmg)."
         ],
         "Mojo": [
           "You earn a Mojo point for slaying an opponent you strike after a successful acrobatics check on the same round."

@@ -749,3 +749,29 @@ a[data-tab='sponsorship-item']::before {
   background-color: transparent;
   border-radius: 0;
 }
+
+.dc-modifiers-grid {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 3px;
+  padding:3px;
+  background: rgba(0,0,0,0.5);
+}
+
+.modifier-item {
+  display: contents;
+  span{
+    padding: 2px;
+  background: var(--system-background);
+  }
+}
+
+.dc-condition {
+  text-align: left;
+}
+
+.dc-modifier {
+  text-align: right;
+  font-weight: bold;
+
+}

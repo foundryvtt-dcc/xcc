@@ -44,6 +44,78 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
     }
   }
 
+  static addHooksAndHelpers() {
+    Hooks.on('renderChatMessageHTML', (message, html, data) => {
+      if(message.speakerActor?.system?.details?.sheetClass !== 'half-elf') return;
+      if ((message.system?.skillId || '') === 'acrobatics') {
+        // Dodge message
+        let reflex = data.speakerActor?.system?.saves.ref.value || 0;
+        let enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeFailure');
+        if ((message.rolls[0]?.total || 0) >= 20) {
+          enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeAll');
+        }
+        else if ((message.rolls[0]?.total || 0) >= 15) {
+          enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeMultiple');
+        }
+        else if ((message.rolls[0]?.total || 0) >= 10) {
+          enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeSingle');
+        }
+        // Withdraw message
+        let withdraw = game.i18n.localize('XCC.Specialist.Acrobat.WithdrawFailure');
+        if ((message.rolls[0]?.total || 0) >= 20) {
+          withdraw = game.i18n.localize('XCC.Specialist.Acrobat.WithdrawMultiple');
+        }
+        else if ((message.rolls[0]?.total || 0) >= 15) {
+          withdraw = game.i18n.localize('XCC.Specialist.Acrobat.WithdrawSingle');
+        }
+        // Fall damage mitigation
+        let fall = '0';
+        if ((message.rolls[0]?.total || 0) >= 30) {
+          fall = '5d6';
+        }
+        else if ((message.rolls[0]?.total || 0) >= 25) {
+          fall = '4d6';
+        }
+        else if ((message.rolls[0]?.total || 0) >= 20) {
+          fall = '3d6';
+        }
+        else if ((message.rolls[0]?.total || 0) >= 15) {
+          fall = '2d6';
+        }
+        else if ((message.rolls[0]?.total || 0) >= 10) {
+          fall = '1d6';
+        }
+        html.innerHTML += "<div class='message-content'><br/>" + game.i18n.format('XCC.Specialist.Acrobat.AcrobaticsMessage', { enemies, reflex, withdraw, fall }) + "</div>"
+      }
+      // Pole vault message
+      else if ((message.system?.skillId || '') === 'poleVault') {
+        let height = 0;
+        let dc = 0
+        if ((message.rolls[0]?.total || 0) >= 25) {
+          height = 20;
+          dc = 25;
+        }
+        else if ((message.rolls[0]?.total || 0) >= 20) {
+          height = 15;
+          dc = 20;
+        }
+        else if ((message.rolls[0]?.total || 0) >= 15) {
+          height = 10;
+          dc = 15;
+        }
+        else if ((message.rolls[0]?.total || 0) >= 10) {
+          height = 5;
+          dc = 10;
+        }
+        html.innerHTML += "<div class='message-content'><br/>" + game.i18n.format('XCC.Specialist.Acrobat.PoleVaultMessage', { height, dc }) + "</div>"
+      }
+      // Tightrope walk message
+      else if ((message.system?.skillId || '') === 'tightropeWalk') {
+        html.innerHTML += "<div class='message-content tightrope'><br/>" + game.i18n.format('XCC.Specialist.Acrobat.TightRopeMessage') + "</div>"
+      }
+    });
+  }
+
   setSpecialistSkills() {
     //DCC System had a bug with pickPocket skill, we're setting a custom one for now
     if (this.actor.system.skills.pickPocket) {
