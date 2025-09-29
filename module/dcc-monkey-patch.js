@@ -114,9 +114,9 @@ class DCCMonkeyPatch {
         let originalComputeSpellCheck = DCCActor.prototype.computeSpellCheck;
         DCCActor.prototype.computeSpellCheck = function (item, options = {}) {
             originalComputeSpellCheck.call(this, item, options);
-            if (this.system.class.sheetClass === 'blaster') {
+            if (this.system.details.sheetClass === 'blaster') {
                 // Custom logic for Blaster class spell checks
-                let blasterMod = ensurePlus(this.system.class?.blasterDie || '')
+                let blasterMod = ensurePlus(this.system.class?.blasterDie || 'd3')
                 let abilityMod = ensurePlus(this.system.abilities.per.mod)
                 let otherMod = this.system.class.spellCheckOtherMod ? ensurePlus(this.system.class.spellCheckOtherMod) : '';
                 this.system.class.spellCheck = ensurePlus(blasterMod + abilityMod + otherMod)
