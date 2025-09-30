@@ -9,6 +9,8 @@ jobs:
   update_foundry_website_post_release:
     runs-on: ubuntu-latest
     name: Foundry Website Update
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4

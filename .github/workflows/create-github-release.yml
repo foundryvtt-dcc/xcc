@@ -13,6 +13,8 @@ jobs:
   create_github_release:
     runs-on: ubuntu-latest
     name: Foundry Release
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v5
