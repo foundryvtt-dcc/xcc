@@ -1,12 +1,12 @@
 {
   "id": "xcc-system",
-  "title": "XCrawl Classics",
-  "version": "0.1.0",
+  "title": "XCrawl Classics System",
+  "version": "0.2.0",
   "compatibility": {
     "minimum": "13",
     "verified": "13"
   },
-  "description": "<p>Adds XCrawl classics support to the Dungeon Crawl Classics game system</p>",
+  "description": "<p>Adds XCrawl Classics support to the Dungeon Crawl Classics game system</p>",
   "authors": [
     {
       "name": "Blaze Sanecki",
