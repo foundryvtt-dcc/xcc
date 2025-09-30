@@ -24,7 +24,7 @@ class XCCActorSheetBlaster extends DCCActorSheet {
     },
     blaster: {
       id: 'blaster',
-      template: 'modules/xcrawl-classics/templates/actor-partial-blaster.html'
+      template: 'modules/xcc-system/templates/actor-partial-blaster.html'
     },
     wizardSpells: {
       id: 'wizardSpells',

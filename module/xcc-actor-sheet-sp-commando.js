@@ -23,7 +23,7 @@ class XCCActorSheetSpCommando extends DCCActorSheet {
     },
     commando: {
       id: 'sp-commando',
-      template: 'modules/xcrawl-classics/templates/actor-partial-sp-commando.html'
+      template: 'modules/xcc-system/templates/actor-partial-sp-commando.html'
     }
   }
 

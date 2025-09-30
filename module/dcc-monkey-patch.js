@@ -16,7 +16,7 @@ class DCCMonkeyPatch {
         DCCActorSheet.PARTS = foundry.utils.mergeObject(DCCActorSheet.PARTS, {
             rewards: {
                 id: 'rewards',
-                template: 'modules/xcrawl-classics/templates/actor-partial-rewards.html'
+                template: 'modules/xcc-system/templates/actor-partial-rewards.html'
             }
         });
 
@@ -64,7 +64,7 @@ class DCCMonkeyPatch {
 
             const itemData = {
                 name,
-                img: 'modules/xcrawl-classics/styles/images/game-icons-net/money-stack.svg',
+                img: 'modules/xcc-system/styles/images/game-icons-net/money-stack.svg',
                 type,
                 system
             }
@@ -101,7 +101,7 @@ class DCCMonkeyPatch {
             for (const i of inventory) {
                 if (i.type === 'xcc-core-book.sponsorship') {
                     if( !i.img) {
-                        i.img = 'modules/xcrawl-classics/styles/images/game-icons-net/money-stack.svg';
+                        i.img = 'modules/xcc-system/styles/images/game-icons-net/money-stack.svg';
                     }
                     sponsorships.push(i);
                 }
@@ -143,10 +143,10 @@ class DCCMonkeyPatch {
 
                 // Patch Xcrawl Classics Logo
                 element = this.parts.character.firstElementChild.querySelector('img[src="systems/dcc/styles/images/dccrpg-logo.png"]');
-                element.src = 'modules/xcrawl-classics/styles/images/xcrawl-logo-color-trimmed.png';
+                element.src = 'modules/xcc-system/styles/images/xcrawl-logo-color-trimmed.png';
                 element.style="opacity: 1;place-self: center;border: none;filter: var(--system-logo-filter);";
 
-                if(game.settings.get('xcrawl-classics', 'hideNotesTab')) {
+                if(game.settings.get('xcc-system', 'hideNotesTab')) {
                     // Hide the notes tab
                     const notesTab = this.element.querySelector('a[data-tab="notes"]');
                     if (notesTab) {

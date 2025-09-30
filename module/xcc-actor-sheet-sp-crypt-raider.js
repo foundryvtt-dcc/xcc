@@ -26,7 +26,7 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
     },
     cryptRaider: {
       id: 'sp-crypt-raider',
-      template: 'modules/xcrawl-classics/templates/actor-partial-sp-crypt-raider.html'
+      template: 'modules/xcc-system/templates/actor-partial-sp-crypt-raider.html'
     }
   }
 
@@ -182,7 +182,7 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
 
   async checkDisapprovalAndHandle(roll) {
     // Check for disapproval
-    const automate = game.settings.get('xcrawl-classics', 'automateMessengerDisapproval');
+    const automate = game.settings.get('xcc-system', 'automateMessengerDisapproval');
     const naturalRoll = roll.terms[0].results[0].result;
     if (automate) {
       if (naturalRoll <= this.actor.system.class.disapproval) {

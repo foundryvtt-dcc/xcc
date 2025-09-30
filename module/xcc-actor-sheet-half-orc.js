@@ -24,7 +24,7 @@ class XCCActorSheetHalfOrc extends DCCActorSheet {
     },
     halforc: {
       id: 'half-orc',
-      template: 'modules/xcrawl-classics/templates/actor-partial-half-orc.html'
+      template: 'modules/xcc-system/templates/actor-partial-half-orc.html'
     }
   }
 

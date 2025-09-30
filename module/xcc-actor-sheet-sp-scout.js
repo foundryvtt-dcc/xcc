@@ -20,7 +20,7 @@ class XCCActorSheetSpScout extends DCCActorSheet {
     },
     scout: {
       id: 'sp-scout',
-      template: 'modules/xcrawl-classics/templates/actor-partial-sp-scout.html'
+      template: 'modules/xcc-system/templates/actor-partial-sp-scout.html'
     }
   }
 

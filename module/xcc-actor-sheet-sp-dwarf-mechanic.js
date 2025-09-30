@@ -20,7 +20,7 @@ class XCCActorSheetSpDwarfMechanic extends DCCActorSheet {
     },
     dwarfMechanic: {
       id: 'sp-dwarf-mechanic',
-      template: 'modules/xcrawl-classics/templates/actor-partial-sp-dwarf-mechanic.html'
+      template: 'modules/xcc-system/templates/actor-partial-sp-dwarf-mechanic.html'
     }
   }
 

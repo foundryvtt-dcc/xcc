@@ -20,7 +20,7 @@ class XCCActorSheetSpCriminal extends DCCActorSheet {
     },
     criminal: {
       id: 'sp-criminal',
-      template: 'modules/xcrawl-classics/templates/actor-partial-sp-criminal.html'
+      template: 'modules/xcc-system/templates/actor-partial-sp-criminal.html'
     }
   }
 

@@ -20,7 +20,7 @@ class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
     },
     halflingRogue: {
       id: 'sp-halfling-rogue',
-      template: 'modules/xcrawl-classics/templates/actor-partial-sp-halfling-rogue.html'
+      template: 'modules/xcc-system/templates/actor-partial-sp-halfling-rogue.html'
     }
   }
 

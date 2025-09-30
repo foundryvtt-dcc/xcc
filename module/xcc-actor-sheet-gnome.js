@@ -24,7 +24,7 @@ class XCCActorSheetGnome extends DCCActorSheet {
     },
     gnome: {
       id: 'gnome',
-      template: 'modules/xcrawl-classics/templates/actor-partial-gnome.html'
+      template: 'modules/xcc-system/templates/actor-partial-gnome.html'
     },
     wizardSpells: {
       id: 'wizardSpells',

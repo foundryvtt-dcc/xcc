@@ -23,7 +23,7 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
     },
     halfOrcSlayer: {
       id: 'sp-half-orc-slayer',
-      template: 'modules/xcrawl-classics/templates/actor-partial-sp-half-orc-slayer.html'
+      template: 'modules/xcc-system/templates/actor-partial-sp-half-orc-slayer.html'
     }
   }
 

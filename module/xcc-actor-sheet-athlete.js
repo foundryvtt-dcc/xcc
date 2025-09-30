@@ -39,7 +39,7 @@ class XCCActorSheetAthlete extends DCCActorSheet {
     },
     athlete: {
       id: 'athlete',
-      template: 'modules/xcrawl-classics/templates/actor-partial-athlete.html'
+      template: 'modules/xcc-system/templates/actor-partial-athlete.html'
     }
   }
 
@@ -166,12 +166,12 @@ class XCCActorSheetAthlete extends DCCActorSheet {
     this.parts.character.firstElementChild.querySelector('div#str.ability-box').firstElementChild.title = game.i18n.localize('XCC.Athlete.RollStrengthCheckHint');
     this.parts.character.firstElementChild.querySelector('div#agl.ability-box').firstElementChild.title = game.i18n.localize('XCC.Athlete.RollAgilityCheckHint');
     this.parts.character.firstElementChild.querySelector('div#sta.ability-box').firstElementChild.title = game.i18n.localize('XCC.Athlete.RollStaminaCheckHint');
-    if (game.settings.get('xcrawl-classics', 'includeGrappleInWeapons')) {
+    if (game.settings.get('xcc-system', 'includeGrappleInWeapons')) {
       // Add the Grapple item to the equipment section
       let items = this.parts.equipment.querySelector('.weapon-list-header').outerHTML +=
         `<li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.athlete.grapple">
             <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
-            <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/grab.svg" title="Grapple" alt="Grapple" width="22" height="22">
+            <img class="icon-filter" src="modules/xcc-system/styles/images/game-icons-net/grab.svg" title="Grapple" alt="Grapple" width="22" height="22">
             <div class="attack-buttons">
                 <div class="rollable weapon-button icon-filter" data-action="rollGrapple" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
             </div>

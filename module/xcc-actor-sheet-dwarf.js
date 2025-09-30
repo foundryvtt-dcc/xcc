@@ -24,7 +24,7 @@ class XCCActorSheetDwarf extends DCCActorSheet {
     },
     xccdwarf: {
       id: 'xcc-dwarf',
-      template: 'modules/xcrawl-classics/templates/actor-partial-dwarf.html'
+      template: 'modules/xcc-system/templates/actor-partial-dwarf.html'
     }
   }
 
@@ -91,12 +91,12 @@ class XCCActorSheetDwarf extends DCCActorSheet {
 
   _onRender(context, options) {
     // Backup of shield bash code, in case we want to re-enable it instead of using an item
-    /*if (game.settings.get('xcrawl-classics', 'includeShieldBashInWeapons')) {
+    /*if (game.settings.get('xcc-system', 'includeShieldBashInWeapons')) {
       // Add the Grapple item to the equipment section
       let items = this.parts.equipment.querySelector('.weapon-list-header').outerHTML +=
         `<li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.brawler.unarmedRegular">
               <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
-              <img class="icon-filter" src="modules/xcrawl-classics/styles/images/game-icons-net/shield-bash.svg" title="`+ game.i18n.localize("XCC.Dwarf.ShieldBash") + `" alt="` + game.i18n.localize("XCC.Dwarf.ShieldBash") + `" width="22" height="22">
+              <img class="icon-filter" src="modules/xcc-system/styles/images/game-icons-net/shield-bash.svg" title="`+ game.i18n.localize("XCC.Dwarf.ShieldBash") + `" alt="` + game.i18n.localize("XCC.Dwarf.ShieldBash") + `" width="22" height="22">
               <div class="attack-buttons">
                   <div class="rollable free-attack-button icon-filter" data-action="rollShieldBashAttack" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
               </div>

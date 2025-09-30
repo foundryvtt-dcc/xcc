@@ -149,11 +149,11 @@ Hooks.once('init', async function () {
   XCCActorSheetGnome.addHooksAndHelpers();
 
   // Register partial templates
-  loadTemplates(['modules/xcrawl-classics/templates/actor-partial-common.html']);
+  loadTemplates(['modules/xcc-system/templates/actor-partial-common.html']);
 
   // Register debug helper
   Handlebars.registerHelper('debugItem', function (item) {
-    if (game.settings.get('xcrawl-classics', 'isDebug')) {
+    if (game.settings.get('xcc-system', 'isDebug')) {
       console.log("Debugging item:", item);
     }
   });
@@ -297,11 +297,11 @@ Hooks.once('dcc.ready', async function () {
   await registerModuleSettings();
 
   // Register our packs
-  if (game.settings.get('xcrawl-classics', 'registerLevelDataPack')) {
-    Hooks.callAll('dcc.registerLevelDataPack', 'xcrawl-classics.xcc-class-level-data');
+  if (game.settings.get('xcc-system', 'registerLevelDataPack')) {
+    Hooks.callAll('dcc.registerLevelDataPack', 'xcc-system.xcc-class-level-data');
   }
-  if (game.settings.get('xcrawl-classics', 'registerDisapprovalPack')) {
-    Hooks.callAll('dcc.registerDisapprovalPack', 'xcrawl-classics.xcc-disapproval')
+  if (game.settings.get('xcc-system', 'registerDisapprovalPack')) {
+    Hooks.callAll('dcc.registerDisapprovalPack', 'xcc-system.xcc-disapproval')
   }
   // Force fleeting luck to refresh and become Mojo
   game.dcc.FleetingLuck.init();
@@ -309,7 +309,7 @@ Hooks.once('dcc.ready', async function () {
   // Setup pause
   Hooks.on("renderApplicationV2", (app, html, context, options) => {
     const caption = $("#pause > figcaption");
-    if (game.settings.get('xcrawl-classics', 'smallerPause'))
+    if (game.settings.get('xcc-system', 'smallerPause'))
       $("#pause").addClass("small");
     else
       $("#pause").removeClass("small");
@@ -330,26 +330,26 @@ Hooks.on("initializeDynamicTokenRingConfig", ringConfig => {
       INVISIBILITY: "TOKEN.RING.EFFECTS.INVISIBILITY",
       COLOR_OVER_SUBJECT: "TOKEN.RING.EFFECTS.COLOR_OVER_SUBJECT"
     },
-    spritesheet: "/modules/xcrawl-classics/styles/dynamic-token-ring/dynamic-xcc-spritesheet.json"
+    spritesheet: "/modules/xcc-system/styles/dynamic-token-ring/dynamic-xcc-spritesheet.json"
   });
   ringConfig.addConfig("myCustomRings", myCustomRings);
 });
 
 // Debug logs
 Hooks.on('dcc.update', async function (actor, data) {
-  if (game.settings.get('xcrawl-classics', 'isDebug')) {
+  if (game.settings.get('xcc-system', 'isDebug')) {
     console.log(`XCC: update hook triggered for actor: ${actor.name}`);
   }
 });
 
 Hooks.on("updateActor", (actor, data, action, userId) => {
-  if (game.settings.get('xcrawl-classics', 'isDebug')) {
+  if (game.settings.get('xcc-system', 'isDebug')) {
     console.log("XCC: actor updated:", actor.name, "Data:", data, "Action:", action, "User ID:", userId);
   }
 });
 
 Hooks.on("updateItem", (actor, data, action, userId) => {
-  if (game.settings.get('xcrawl-classics', 'isDebug')) {
+  if (game.settings.get('xcc-system', 'isDebug')) {
     console.log("XCC: item updated:", actor.name, "Data:", data, "Action:", action, "User ID:", userId);
   }
 });

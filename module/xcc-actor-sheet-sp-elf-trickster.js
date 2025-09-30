@@ -20,7 +20,7 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
     },
     elfTrickster: {
       id: 'sp-elf-trickster',
-      template: 'modules/xcrawl-classics/templates/actor-partial-sp-elf-trickster.html'
+      template: 'modules/xcc-system/templates/actor-partial-sp-elf-trickster.html'
     },
     wizardSpells: {
       id: 'wizardSpells',

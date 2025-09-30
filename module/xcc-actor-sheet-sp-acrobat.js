@@ -20,7 +20,7 @@ class XCCActorSheetSpAcrobat extends DCCActorSheet {
     },
     thief: {
       id: 'sp-acrobat',
-      template: 'modules/xcrawl-classics/templates/actor-partial-sp-acrobat.html'
+      template: 'modules/xcc-system/templates/actor-partial-sp-acrobat.html'
     }
   }
 

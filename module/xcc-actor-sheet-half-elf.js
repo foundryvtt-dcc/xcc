@@ -24,7 +24,7 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
     },
     halfelf: {
       id: 'half-elf',
-      template: 'modules/xcrawl-classics/templates/actor-partial-half-elf.html'
+      template: 'modules/xcc-system/templates/actor-partial-half-elf.html'
     },
     wizardSpells: {
       id: 'wizardSpells',
