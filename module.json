@@ -60,7 +60,7 @@
   ],
   "url": "https://github.com/foundryvtt-dcc/xcc",
   "manifest": "https://raw.githubusercontent.com/foundryvtt-dcc/dcc-content/main/xcc/v0.2.0/module.json",
-  "download": "",
+  "download": "https://github.com/foundryvtt-dcc/xcc/releases/download/v0.2.0/xcc.zip",
   "protected": false,
   "bugs": "https://github.com/foundryvtt-dcc/xcc/issues",
 }
