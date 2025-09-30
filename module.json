@@ -28,9 +28,6 @@
   "esmodules": [
     "module/xcc.js"
   ],
-  "scripts": [
-    "scripts/xcctest.js"
-  ],
   "flags": {
     "hotReload": {
       "extensions": [
@@ -63,5 +60,5 @@
   "manifest": "https://github.com/foundryvtt-dcc/xcc/releases/download/v0.2.3/module.json",
   "download": "https://github.com/foundryvtt-dcc/xcc/releases/download/v0.2.3/xcc.zip",
   "protected": false,
-  "bugs": "https://github.com/foundryvtt-dcc/xcc/issues",
+  "bugs": "https://github.com/foundryvtt-dcc/xcc/issues"
 }
