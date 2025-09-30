@@ -1,0 +1,38 @@
+{
+  "name": "xcc",
+  "version": "0.2.0",
+  "description": "XCrawl Classics Support for the Dungeon Crawl Classics System",
+  "scripts": {
+    "format": "standard --fix",
+    "todb": "node module/compilePacks.js",
+    "tojson": "node module/extractPacks.js"
+  },
+  "engines": {
+    "npm": ">=10.0.0",
+    "node": ">=20.0.0"
+  },
+  "standard": {
+    "ignore": [
+      "assets/",
+      "metadata/",
+      "packs/"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foundryvtt-dcc/xcc.git"
+  },
+  "author": "DCC Foundry Volunteer Team (https://discord.gg/2PR9YH9)",
+  "contributors": [
+    {
+      "name": "Blaze Sanecki"
+    }
+  ],
+  "homepage": "https://github.com/foundryvtt-dcc/xcc#readme",
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^3.0.0",
+    "eslint": "^9.36.0",
+    "standard": "^17.1.2"
+  },
+  "type": "module"
+}

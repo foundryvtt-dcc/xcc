@@ -1,1 +1,35 @@
-packs/** binary
+# git files
+.gitattributes export-ignore
+.gitignore export-ignore
+.github export-ignore
+
+
+# NPM package
+package.json export-ignore
+package-lock.json export-ignore
+
+# Scripts
+scripts export-ignore
+
+# Entity Metadata
+metadata export-ignore
+
+# Jetbrains stuff
+.idea export-ignore
+
+# Foundry module lockfile
+.lock export-ignore
+
+# JSON of Character Level Data
+assets/json* export-ignore
+
+# JSON of Packs
+packs/**/src/*.json export-ignore
+
+# Other ignores
+.editorconfig export-ignore
+.stylelintrc export-ignore
+version.txt export-ignore
+
+# Don't Mess with Line Endings
+* text=auto eol=lf
