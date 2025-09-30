@@ -25,4 +25,4 @@ jobs:
         with:
           actionToken: ${{ secrets.GITHUB_TOKEN }}
           manifestFileName: 'module.json'
-          manifestProtectedTrue: true
+          manifestProtectedTrue: false
