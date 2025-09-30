@@ -22,6 +22,6 @@ jobs:
         id: foundry-manifest-update
         uses: foundryvtt-dcc/foundry-manifest-update-action@main
         with:
-          actionToken: ${{ secrets.FOUNDRY_PUBLISHER_TOKEN }}
+          actionToken: ${{ secrets.GITHUB_TOKEN }}
           manifestFileName: 'module.json'
           manifestProtectedTrue: false
