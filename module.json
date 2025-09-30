@@ -4,6 +4,7 @@
   "version": "0.2.1",
   "compatibility": {
     "minimum": "13",
+    "maximum": "13",
     "verified": "13"
   },
   "description": "<p>Adds XCrawl Classics support to the Dungeon Crawl Classics system</p>",
@@ -60,7 +61,7 @@
   ],
   "url": "https://github.com/foundryvtt-dcc/xcc",
   "manifest": "https://raw.githubusercontent.com/foundryvtt-dcc/dcc-content/main/xcc/v0.2.1/module.json",
-  "download": "",
+  "download": "https://raw.githubusercontent.com/foundryvtt-dcc/dcc-content/main/xcc/v0.2.1/xcc.zip",
   "protected": false,
   "bugs": "https://github.com/foundryvtt-dcc/xcc/issues",
 }
