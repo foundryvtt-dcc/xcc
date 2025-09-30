@@ -57,5 +57,10 @@
       "path": "lang/en.json",
       "flags": {}
     }
-  ]
+  ],
+  "url": "https://github.com/foundryvtt-dcc/xcc",
+  "manifest": "https://github.com/foundryvtt-dcc/xcc/releases/download/v0.1.0/module.json",
+  "download": "https://github.com/foundryvtt-dcc/xcc/releases/download/v0.1.0/xcc.zip",
+  "protected": false,
+  "bugs": "https://github.com/foundryvtt-dcc/xcc/issues",
 }
