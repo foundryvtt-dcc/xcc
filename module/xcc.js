@@ -1,3 +1,4 @@
+/* eslint-disable import/no-absolute-path */
 import XCCActorSheetAthlete from './xcc-actor-sheet-athlete.js'
 import XCCActorSheetBlaster from './xcc-actor-sheet-blaster.js'
 import XCCActorSheetBrawler from './xcc-actor-sheet-brawler.js'
@@ -308,10 +309,10 @@ Hooks.once('dcc.ready', async function () {
 
   // Setup pause
   Hooks.on('renderApplicationV2', (app, html, context, options) => {
-    const caption = $('#pause > figcaption')
+    const caption = document.querySelector('#pause > figcaption')
     document.getElementById('pause')?.classList.toggle('small', game.settings.get(globals.id, 'smallerPause'))
     // This won't be necessary after new pause screen is implemented into the base DCC system
-    caption.text(game.i18n.localize('DCC.FancyPause'))
+    if (caption) caption.textContent = game.i18n.localize('DCC.FancyPause')
   })
 })
 

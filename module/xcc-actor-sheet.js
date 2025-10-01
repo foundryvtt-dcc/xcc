@@ -1,3 +1,4 @@
+/* eslint-disable import/no-absolute-path */
 import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
 
 export class XCCActorSheet extends DCCActorSheet {
