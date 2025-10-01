@@ -1,3 +1,4 @@
+/* eslint-disable import/no-absolute-path */
 import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
 import DCCActor from '/systems/dcc/module/actor.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'

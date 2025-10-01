@@ -1,3 +1,4 @@
+/* eslint-disable import/no-absolute-path */
 import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
 import { ensurePlus, getCritTableResult } from '/systems/dcc/module/utilities.js'
 import * as chat from '/systems/dcc/module/chat.js'
