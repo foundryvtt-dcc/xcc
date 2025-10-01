@@ -1,4 +1,5 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetSpDwarfMechanic extends DCCActorSheet {
   /** @inheritDoc */
@@ -20,7 +21,7 @@ class XCCActorSheetSpDwarfMechanic extends DCCActorSheet {
     },
     dwarfMechanic: {
       id: 'sp-dwarf-mechanic',
-      template: 'modules/xcc-system/templates/actor-partial-sp-dwarf-mechanic.html'
+      template: globals.templatesPath + 'actor-partial-sp-dwarf-mechanic.html'
     }
   }
 

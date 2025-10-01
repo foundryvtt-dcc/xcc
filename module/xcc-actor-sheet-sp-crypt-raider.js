@@ -1,5 +1,6 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
 import { ensurePlus } from '/systems/dcc/module/utilities.js';
+import { globals } from './settings.js';
 
 class XCCActorSheetSpCryptRaider extends DCCActorSheet {
   /** @inheritDoc */
@@ -26,7 +27,7 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
     },
     cryptRaider: {
       id: 'sp-crypt-raider',
-      template: 'modules/xcc-system/templates/actor-partial-sp-crypt-raider.html'
+      template: globals.templatesPath + 'actor-partial-sp-crypt-raider.html'
     }
   }
 
@@ -182,7 +183,7 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
 
   async checkDisapprovalAndHandle(roll) {
     // Check for disapproval
-    const automate = game.settings.get('xcc-system', 'automateMessengerDisapproval');
+    const automate = game.settings.get(globals.id, 'automateMessengerDisapproval');
     const naturalRoll = roll.terms[0].results[0].result;
     if (automate) {
       if (naturalRoll <= this.actor.system.class.disapproval) {

@@ -1,5 +1,6 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
-import { ensurePlus, getCritTableResult, getFumbleTableResult, getFumbleTableNameFromCritTableName, getNPCFumbleTableResult } from "/systems/dcc/module/utilities.js";
+import { ensurePlus } from "/systems/dcc/module/utilities.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetMessenger extends DCCActorSheet {
   static DEFAULT_OPTIONS = {
@@ -31,7 +32,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
     },
     messenger: {
       id: 'messenger',
-      template: 'modules/xcc-system/templates/actor-partial-messenger.html'
+      template: globals.templatesPath + 'actor-partial-messenger.html'
     }
   }
 
@@ -107,7 +108,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
 
   async checkDisapprovalAndHandle(roll) {
     // Check for disapproval
-    const automate = game.settings.get('xcc-system', 'automateMessengerDisapproval');
+    const automate = game.settings.get(globals.id, 'automateMessengerDisapproval');
     const naturalRoll = roll.terms[0].results[0].result;
     if (automate) {
       if (naturalRoll <= this.actor.system.class.disapproval) {
@@ -754,7 +755,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
       weaponListHeader.outerHTML += `
         <li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.messenger.divineStrike">
             <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
-            <img class="icon-filter" src="modules/xcc-system/styles/images/game-icons-net/zeus-sword.svg" title="${game.i18n.localize('XCC.Messenger.FreeAttack')}" alt="${game.i18n.localize('XCC.Messenger.FreeAttack')}" width="22" height="22">
+            <img class="icon-filter" src="`+globals.imagesPath + `game-icons-net/zeus-sword.svg" title="${game.i18n.localize('XCC.Messenger.FreeAttack')}" alt="${game.i18n.localize('XCC.Messenger.FreeAttack')}" width="22" height="22">
             <div class="attack-buttons">
                 <div class="rollable free-attack-button icon-filter" data-action="rollFreeAttack" data-drag="false" title="${game.i18n.localize('DCC.Roll')}" draggable="false">&nbsp;</div>
                 <div class="rollable scourge-button icon-filter" data-action="rollFreeAttackWithScourge" data-drag="false" title="${game.i18n.localize('XCC.Messenger.ScourgeTip')}" draggable="false">&nbsp;</div>

@@ -1,4 +1,5 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetSpAcrobat extends DCCActorSheet {
   /** @inheritDoc */
@@ -20,7 +21,7 @@ class XCCActorSheetSpAcrobat extends DCCActorSheet {
     },
     thief: {
       id: 'sp-acrobat',
-      template: 'modules/xcc-system/templates/actor-partial-sp-acrobat.html'
+      template: globals.templatesPath + 'actor-partial-sp-acrobat.html'
     }
   }
 

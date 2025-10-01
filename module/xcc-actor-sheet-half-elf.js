@@ -1,5 +1,7 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
 import { ensurePlus, getCritTableResult, getFumbleTableResult } from "/systems/dcc/module/utilities.js";
+import { globals } from './settings.js';
+
 class XCCActorSheetHalfElf extends DCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
@@ -24,7 +26,7 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
     },
     halfelf: {
       id: 'half-elf',
-      template: 'modules/xcc-system/templates/actor-partial-half-elf.html'
+      template: globals.templatesPath + 'actor-partial-half-elf.html'
     },
     wizardSpells: {
       id: 'wizardSpells',

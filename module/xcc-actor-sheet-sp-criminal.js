@@ -1,4 +1,5 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetSpCriminal extends DCCActorSheet {
     /** @inheritDoc */
@@ -20,7 +21,7 @@ class XCCActorSheetSpCriminal extends DCCActorSheet {
     },
     criminal: {
       id: 'sp-criminal',
-      template: 'modules/xcc-system/templates/actor-partial-sp-criminal.html'
+      template: globals.templatesPath + 'actor-partial-sp-criminal.html'
     }
   }
 

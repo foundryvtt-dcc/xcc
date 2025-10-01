@@ -1,4 +1,5 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
   /** @inheritDoc */
@@ -23,7 +24,7 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
     },
     halfOrcSlayer: {
       id: 'sp-half-orc-slayer',
-      template: 'modules/xcc-system/templates/actor-partial-sp-half-orc-slayer.html'
+      template: globals.templatesPath + 'actor-partial-sp-half-orc-slayer.html'
     }
   }
 

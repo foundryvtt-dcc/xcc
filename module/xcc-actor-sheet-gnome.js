@@ -1,4 +1,5 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetGnome extends DCCActorSheet {
   /** @inheritDoc */
@@ -24,7 +25,7 @@ class XCCActorSheetGnome extends DCCActorSheet {
     },
     gnome: {
       id: 'gnome',
-      template: 'modules/xcc-system/templates/actor-partial-gnome.html'
+      template: globals.templatesPath + 'actor-partial-gnome.html'
     },
     wizardSpells: {
       id: 'wizardSpells',

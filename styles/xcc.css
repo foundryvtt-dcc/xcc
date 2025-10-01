@@ -24,30 +24,30 @@
 }
 
 #pause.small img {
-  background-image: url("/modules/xcc-system/styles/images/frame_small.png"), url("/modules/xcc-system/styles/images/noise_small.png?v=5"), url("/modules/xcc-system/styles/images/tv_small.png");
+  background-image: url("images/frame_small.png"), url("images/noise_small.png?v=5"), url("images/tv_small.png");
   animation-name: noise-small, tilt, float, floatin;
   animation-duration: 0.1s, 7s, 5s, 1s;
   animation-timing-function: linear, ease-in-out, ease-in-out, cubic-bezier(0.0, 1, 0.2, 1.1);
   animation-direction: normal, alternate, normal, normal;
   animation-iteration-count: infinite, infinite, infinite, 1;
   background-repeat: no-repeat;
-  mask-image: url("/modules/xcc-system/styles/images/mask_small.png");
-  content: url("/modules/xcc-system/styles/images/fake.png");
+  mask-image: url("images/mask_small.png");
+  content: url("images/fake.png");
   width: 288px;
   height: 224px;
   margin-top: 32px;
 }
 
 #pause img {
-  background-image: url("/modules/xcc-system/styles/images/frame_big.png?v=13"), url("/modules/xcc-system/styles/images/noise_big.png?v=5"), url("/modules/xcc-system/styles/images/tv_big.png");
+  background-image: url("images/frame_big.png?v=13"), url("images/noise_big.png?v=5"), url("images/tv_big.png");
   animation-name: noise-big, tilt, float, floatin;
   animation-duration: 0.2s, 7s, 5s, 1s;
   animation-timing-function: linear, ease-in-out, ease-in-out, cubic-bezier(0.0, 1, 0.2, 1.1);
   animation-direction: normal, alternate, normal, normal;
   animation-iteration-count: infinite, infinite, infinite, 1;
   background-repeat: no-repeat;
-  mask-image: url("/modules/xcc-system/styles/images/mask_big.png");
-  content: url("/modules/xcc-system/styles/images/fake.png");
+  mask-image: url("images/mask_big.png");
+  content: url("images/fake.png");
   width: 576px;
   height: 448px;
   margin-top: 32px;

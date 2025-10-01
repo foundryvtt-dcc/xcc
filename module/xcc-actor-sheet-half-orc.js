@@ -1,5 +1,6 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
 import { ensurePlus } from "/systems/dcc/module/utilities.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetHalfOrc extends DCCActorSheet {
   /** @inheritDoc */
@@ -24,7 +25,7 @@ class XCCActorSheetHalfOrc extends DCCActorSheet {
     },
     halforc: {
       id: 'half-orc',
-      template: 'modules/xcc-system/templates/actor-partial-half-orc.html'
+      template: globals.templatesPath + 'actor-partial-half-orc.html'
     }
   }
 

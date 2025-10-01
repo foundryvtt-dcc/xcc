@@ -1,4 +1,5 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetSpScout extends DCCActorSheet {
     /** @inheritDoc */
@@ -20,7 +21,7 @@ class XCCActorSheetSpScout extends DCCActorSheet {
     },
     scout: {
       id: 'sp-scout',
-      template: 'modules/xcc-system/templates/actor-partial-sp-scout.html'
+      template: globals.templatesPath + 'actor-partial-sp-scout.html'
     }
   }
 

@@ -1,4 +1,5 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
   /** @inheritDoc */
@@ -20,7 +21,7 @@ class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
     },
     halflingRogue: {
       id: 'sp-halfling-rogue',
-      template: 'modules/xcc-system/templates/actor-partial-sp-halfling-rogue.html'
+      template: globals.templatesPath + 'actor-partial-sp-halfling-rogue.html'
     }
   }
 

@@ -1,5 +1,6 @@
 import DCCActorSheet from '/systems/dcc/module/actor-sheet.js';
 import { ensurePlus, getCritTableResult, getFumbleTableResult, getNPCFumbleTableResult, getFumbleTableNameFromCritTableName } from '/systems/dcc/module/utilities.js';
+import { globals } from './settings.js';
 
 class XCCActorSheetBrawler extends DCCActorSheet {
   static DEFAULT_OPTIONS = {
@@ -23,7 +24,7 @@ class XCCActorSheetBrawler extends DCCActorSheet {
     },
     brawler: {
       id: 'brawler',
-      template: 'modules/xcc-system/templates/actor-partial-brawler.html'
+      template: globals.templatesPath + 'actor-partial-brawler.html'
     }
   }
 
@@ -405,12 +406,12 @@ class XCCActorSheetBrawler extends DCCActorSheet {
 
 
   _onRender(context, options) {
-    if (game.settings.get('xcc-system', 'includeUnarmedInWeapons')) {
+    if (game.settings.get(globals.id, 'includeUnarmedInWeapons')) {
       // Add the Grapple item to the equipment section
       let items = this.parts.equipment.querySelector('.weapon-list-header').outerHTML +=
         `<li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.brawler.unarmedRegular">
               <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
-              <img class="icon-filter" src="modules/xcc-system/styles/images/game-icons-net/rock.svg" title="`+ game.i18n.localize("XCC.Brawler.UnarmedRegularShort") + `" alt="` + game.i18n.localize("XCC.Brawler.UnarmedRegularShort") + `" width="22" height="22">
+              <img class="icon-filter" src="`+globals.imagesPath + `game-icons-net/rock.svg" title="`+ game.i18n.localize("XCC.Brawler.UnarmedRegularShort") + `" alt="` + game.i18n.localize("XCC.Brawler.UnarmedRegularShort") + `" width="22" height="22">
               <div class="attack-buttons">
                   <div class="rollable two-attack-button icon-filter" data-action="rollUnarmedAttack" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
               </div>
@@ -423,7 +424,7 @@ class XCCActorSheetBrawler extends DCCActorSheet {
           </li>
           <li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.brawler.unarmedFree">
               <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
-              <img class="icon-filter" src="modules/xcc-system/styles/images/game-icons-net/rock.svg" title="`+ game.i18n.localize("XCC.Brawler.UnarmedFreeShort") + `" alt="` + game.i18n.localize("XCC.Brawler.UnarmedFreeShort") + `" width="22" height="22">
+              <img class="icon-filter" src="`+globals.imagesPath + `game-icons-net/rock.svg" title="`+ game.i18n.localize("XCC.Brawler.UnarmedFreeShort") + `" alt="` + game.i18n.localize("XCC.Brawler.UnarmedFreeShort") + `" width="22" height="22">
               <div class="attack-buttons">
                   <div class="rollable free-attack-button icon-filter" data-action="rollUnarmedAttack" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
               </div>

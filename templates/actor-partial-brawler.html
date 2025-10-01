@@ -51,7 +51,7 @@
                     <div>{{localize "DCC.Notes"}}</div>
                 </li>
                 <li class="grid-col-span-7 weapon grid-col-gap-5" data-item-id="xcc.brawler.unarmedRegular">
-                    <img class="icon-filter" src="modules/xcc-system/styles/images/game-icons-net/rock.svg"
+                    <img class="icon-filter" src="{{getGameImage 'rock.svg'}}"
                         title="{{localize 'XCC.Brawler.UnarmedRegular'}}"
                         alt="{{localize 'XCC.Brawler.UnarmedRegular'}}" width="22" height="22">
                     <div class="attack-buttons">
@@ -68,7 +68,7 @@
                         value="{{localize 'XCC.Brawler.UnarmedRegularNote'}}" readonly="">
                 </li>
                 <li class="grid-col-span-7 weapon grid-col-gap-5" data-item-id="xcc.brawler.unarmedFree">
-                    <img class="icon-filter" src="modules/xcc-system/styles/images/game-icons-net/rock.svg"
+                    <img class="icon-filter" src="{{getGameImage 'rock.svg'}}"
                         title="{{localize 'XCC.Brawler.UnarmedFree'}}" alt="{{localize 'XCC.Brawler.UnarmedFree'}}"
                         width="22" height="22">
                     <div class="attack-buttons">
@@ -87,5 +87,5 @@
             </ol>
         </div>
     </div>
-    {{> modules/xcc-system/templates/actor-partial-common.html }}
+    {{> modules/xcc/templates/actor-partial-common.html }}
 </section>

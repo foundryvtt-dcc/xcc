@@ -1,4 +1,5 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetSpElfTrickster extends DCCActorSheet {
   /** @inheritDoc */
@@ -20,7 +21,7 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
     },
     elfTrickster: {
       id: 'sp-elf-trickster',
-      template: 'modules/xcc-system/templates/actor-partial-sp-elf-trickster.html'
+      template: globals.templatesPath + 'actor-partial-sp-elf-trickster.html'
     },
     wizardSpells: {
       id: 'wizardSpells',

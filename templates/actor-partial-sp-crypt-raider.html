@@ -56,7 +56,7 @@
                     <div>{{localize "DCC.Notes"}}</div>
                 </li>
                 <li class="grid-col-span-6 weapon grid-col-gap-5">
-                    <img class="icon-filter" src="modules/xcc-system/styles/images/game-icons-net/stoned-skull.svg"
+                    <img class="icon-filter" src="{{getGameImage 'stoned-skull.svg'}}"
                         title="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}"
                         alt="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}" width="22" height="22">
                     <div class="attack-buttons">
@@ -71,7 +71,7 @@
                         value="{{localize 'XCC.Messenger.TurnUnholyNotes'}}" readonly="">
                 </li>
                 <li class="grid-col-span-6 weapon grid-col-gap-5">
-                    <img class="icon-filter" src="modules/xcc-system/styles/images/game-icons-net/evil-book.svg"
+                    <img class="icon-filter" src="{{getGameImage 'evil-book.svg'}}"
                         title="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}"
                         alt="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}" width="22" height="22">
                     <div class="attack-buttons" data-skill="darkKnowledge">
@@ -86,7 +86,7 @@
                         value="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledgeNotes'}}" readonly="">
                 </li>
                 <li class="grid-col-span-6 weapon grid-col-gap-5">
-                    <img class="icon-filter" src="modules/xcc-system/styles/images/game-icons-net/secret-door.svg"
+                    <img class="icon-filter" src="{{getGameImage 'secret-door.svg'}}"
                         title="{{localize 'XCC.DetectSecretDoors'}}" alt="{{localize 'XCC.DetectSecretDoors'}}"
                         width="22" height="22">
                     <div class="attack-buttons" data-skill="detectSecretDoors">
@@ -202,5 +202,5 @@
             </div>
         </div>
     </div>
-    {{> modules/xcc-system/templates/actor-partial-common.html }}
+    {{> modules/xcc/templates/actor-partial-common.html }}
 </section>

@@ -23,6 +23,7 @@ import XCCActorSheetDwarf from './xcc-actor-sheet-dwarf.js';
 import DCCMonkeyPatch from './dcc-monkey-patch.js';
 
 import { ensurePlus } from '/systems/dcc/module/utilities.js';
+import { globals } from './settings.js';
 
 const { Actors } = foundry.documents.collections
 const { loadTemplates } = foundry.applications.handlebars
@@ -149,11 +150,11 @@ Hooks.once('init', async function () {
   XCCActorSheetGnome.addHooksAndHelpers();
 
   // Register partial templates
-  loadTemplates(['modules/xcc-system/templates/actor-partial-common.html']);
+  loadTemplates([globals.templatesPath + 'actor-partial-common.html']);
 
   // Register debug helper
   Handlebars.registerHelper('debugItem', function (item) {
-    if (game.settings.get('xcc-system', 'isDebug')) {
+    if (game.settings.get(globals.id, 'isDebug')) {
       console.log("Debugging item:", item);
     }
   });
@@ -278,6 +279,7 @@ Hooks.once('init', async function () {
     return Array.isArray(current);
   });
 
+  // Register math helpers
   Handlebars.registerHelper('ensurePlus', function (value) {
     if(value < 0) return ensurePlus(value);
     else return '+0';
@@ -286,6 +288,11 @@ Hooks.once('init', async function () {
   Handlebars.registerHelper('sum', function (a, b) {
     if(a && b) return parseInt(a) + parseInt(b);
     else return a || b || 0;
+  });
+
+  // Register path helper
+  Handlebars.registerHelper('getGameImage', function (partial) {
+    return globals.imagesPath + "game-icons-net/" + partial;
   });
 });
 
@@ -297,11 +304,11 @@ Hooks.once('dcc.ready', async function () {
   await registerModuleSettings();
 
   // Register our packs
-  if (game.settings.get('xcc-system', 'registerLevelDataPack')) {
-    Hooks.callAll('dcc.registerLevelDataPack', 'xcc-system.xcc-class-level-data');
+  if (game.settings.get(globals.id, 'registerLevelDataPack')) {
+    Hooks.callAll('dcc.registerLevelDataPack', globals.id + '.xcc-class-level-data');
   }
-  if (game.settings.get('xcc-system', 'registerDisapprovalPack')) {
-    Hooks.callAll('dcc.registerDisapprovalPack', 'xcc-system.xcc-disapproval')
+  if (game.settings.get(globals.id, 'registerDisapprovalPack')) {
+    Hooks.callAll('dcc.registerDisapprovalPack', globals.id + '.xcc-disapproval')
   }
   // Force fleeting luck to refresh and become Mojo
   game.dcc.FleetingLuck.init();
@@ -309,7 +316,7 @@ Hooks.once('dcc.ready', async function () {
   // Setup pause
   Hooks.on("renderApplicationV2", (app, html, context, options) => {
     const caption = $("#pause > figcaption");
-    if (game.settings.get('xcc-system', 'smallerPause'))
+    if (game.settings.get(globals.id, 'smallerPause'))
       $("#pause").addClass("small");
     else
       $("#pause").removeClass("small");
@@ -330,26 +337,26 @@ Hooks.on("initializeDynamicTokenRingConfig", ringConfig => {
       INVISIBILITY: "TOKEN.RING.EFFECTS.INVISIBILITY",
       COLOR_OVER_SUBJECT: "TOKEN.RING.EFFECTS.COLOR_OVER_SUBJECT"
     },
-    spritesheet: "/modules/xcc-system/styles/dynamic-token-ring/dynamic-xcc-spritesheet.json"
+    spritesheet: "/modules/xcc/styles/dynamic-token-ring/dynamic-xcc-spritesheet.json" // TODO: replace path with variable
   });
   ringConfig.addConfig("myCustomRings", myCustomRings);
 });
 
 // Debug logs
 Hooks.on('dcc.update', async function (actor, data) {
-  if (game.settings.get('xcc-system', 'isDebug')) {
+  if (game.settings.get(globals.id, 'isDebug')) {
     console.log(`XCC: update hook triggered for actor: ${actor.name}`);
   }
 });
 
 Hooks.on("updateActor", (actor, data, action, userId) => {
-  if (game.settings.get('xcc-system', 'isDebug')) {
+  if (game.settings.get(globals.id, 'isDebug')) {
     console.log("XCC: actor updated:", actor.name, "Data:", data, "Action:", action, "User ID:", userId);
   }
 });
 
 Hooks.on("updateItem", (actor, data, action, userId) => {
-  if (game.settings.get('xcc-system', 'isDebug')) {
+  if (game.settings.get(globals.id, 'isDebug')) {
     console.log("XCC: item updated:", actor.name, "Data:", data, "Action:", action, "User ID:", userId);
   }
 });

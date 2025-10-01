@@ -73,7 +73,7 @@
                 </li>
                 <li class="grid-col-span-6 weapon grid-col-gap-5" data-item-id="xcc.brawler.offhand"
                     data-item-slot="xcc.brawler.offhand">
-                    <img class="icon-filter" src="modules/xcc-system/styles/images/game-icons-net/grab.svg"
+                    <img class="icon-filter" src="{{getGameImage 'grab.svg'}}"
                         title="Grapple" alt="Grapple" width="22" height="22">
                     <div class="attack-buttons">
                         <div class="rollable weapon-button icon-filter" data-action="rollGrapple" data-drag="false"
@@ -89,6 +89,6 @@
                         value="{{localize 'XCC.Athlete.GrappleNotes'}}" readonly="">
                 </li>
             </ol>
-            {{> modules/xcc-system/templates/actor-partial-common.html }}
+            {{> modules/xcc/templates/actor-partial-common.html }}
         </div>
 </section>

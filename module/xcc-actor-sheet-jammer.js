@@ -1,4 +1,5 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetJammer extends DCCActorSheet {
   static DEFAULT_OPTIONS = {
@@ -25,7 +26,7 @@ class XCCActorSheetJammer extends DCCActorSheet {
     },
     jammer: {
       id: 'jammer',
-      template: 'modules/xcc-system/templates/actor-partial-jammer.html'
+      template: globals.templatesPath + 'actor-partial-jammer.html'
     }
   }
 
@@ -318,7 +319,7 @@ class XCCActorSheetJammer extends DCCActorSheet {
         }
       );
 
-      messageContent = await foundry.applications.handlebars.renderTemplate('modules/xcc-system/templates/chat-card-lionize-result.html', {
+      messageContent = await foundry.applications.handlebars.renderTemplate(globals.templatesPath + 'chat-card-lionize-result.html', {
         results: tableResults.map(r => foundry.utils.duplicate(r)),
         table: rollTable,
         actorName: this.actor.name,
@@ -469,7 +470,7 @@ class XCCActorSheetJammer extends DCCActorSheet {
         // Extract the existing duration values from the data attributes to preserve them
         const existingDurationText = lionizeContainer.getAttribute('data-duration-text');
 
-        const newContent = await foundry.applications.handlebars.renderTemplate('modules/xcc-system/templates/chat-card-lionize-result.html', {
+        const newContent = await foundry.applications.handlebars.renderTemplate(globals.templatesPath + 'chat-card-lionize-result.html', {
           results: newResults.map(r => foundry.utils.duplicate(r)),
           rollHTML: rollTable.displayRoll ? await this.rolls[0].render() : null,
           table: rollTable,

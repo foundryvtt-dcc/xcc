@@ -1,5 +1,6 @@
 import DCCActorSheet from '/systems/dcc/module/actor-sheet.js';
 import { ensurePlus } from '/systems/dcc/module/utilities.js';
+import { globals } from './settings.js';
 
 class XCCActorSheetBlaster extends DCCActorSheet {
   /** @inheritDoc */
@@ -24,7 +25,7 @@ class XCCActorSheetBlaster extends DCCActorSheet {
     },
     blaster: {
       id: 'blaster',
-      template: 'modules/xcc-system/templates/actor-partial-blaster.html'
+      template: globals.templatesPath + 'actor-partial-blaster.html'
     },
     wizardSpells: {
       id: 'wizardSpells',

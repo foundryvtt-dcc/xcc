@@ -1,4 +1,5 @@
 import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
+import { globals } from './settings.js';
 
 class XCCActorSheetSpCommando extends DCCActorSheet {
   /** @inheritDoc */
@@ -23,7 +24,7 @@ class XCCActorSheetSpCommando extends DCCActorSheet {
     },
     commando: {
       id: 'sp-commando',
-      template: 'modules/xcc-system/templates/actor-partial-sp-commando.html'
+      template: globals.templatesPath + 'actor-partial-sp-commando.html'
     }
   }
 
