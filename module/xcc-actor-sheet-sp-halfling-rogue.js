@@ -1,5 +1,5 @@
-import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
-import { globals } from './settings.js';
+import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import { globals } from './settings.js'
 
 class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
   /** @inheritDoc */
@@ -36,20 +36,20 @@ class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
     }
   }
 
-  setSpecialistSkills() {
-    //DCC System had a bug with pickPocket skill, we're setting a custom one for now
+  setSpecialistSkills () {
+    // DCC System had a bug with pickPocket skill, we're setting a custom one for now
     if (this.actor.system.skills.pickPocket) {
-      this.actor.system.skills.pickPocket.ability = 'agl';
-      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value';
+      this.actor.system.skills.pickPocket.ability = 'agl'
+      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value'
     }
-    //XCC uses int for forge document skill
+    // XCC uses int for forge document skill
     if (this.actor.system.skills.forgeDocument) {
-      this.actor.system.skills.forgeDocument.ability = 'int';
+      this.actor.system.skills.forgeDocument.ability = 'int'
     }
   }
 
   /** @override */
-  async _prepareContext(options) {
+  async _prepareContext (options) {
     // Set base speed
     if (this.actor.system.details.sheetClass !== 'sp-halfling-rogue') {
       await this.actor.update({
@@ -62,8 +62,8 @@ class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
 
     if (this.actor.system.details.sheetClass !== 'sp-halfling-rogue') {
       await this.actor.update({
-        'system.class.localizationPath': "XCC.Specialist.HalflingRogue",
-        'system.class.className': "halflingrogue",
+        'system.class.localizationPath': 'XCC.Specialist.HalflingRogue',
+        'system.class.className': 'halflingrogue',
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.HalflingRogue.ClassLink')),
         'system.details.sheetClass': 'sp-halfling-rogue',
         'system.details.critRange': 20,
@@ -73,9 +73,9 @@ class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
         'system.config.addClassLevelToInitiative': false
       })
     }
-    this.setSpecialistSkills();
+    this.setSpecialistSkills()
     return context
   }
 }
 
-export default XCCActorSheetSpHalflingRogue;
+export default XCCActorSheetSpHalflingRogue

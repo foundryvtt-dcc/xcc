@@ -1,8 +1,7 @@
-import { XCCActorSheet } from './xcc-actor-sheet.js';
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js';
-import { ensurePlus, getCritTableResult, getFumbleTableResult, getNPCFumbleTableResult, getFumbleTableNameFromCritTableName } from '/systems/dcc/module/utilities.js'
-import * as chat from '/systems/dcc/module/chat.js';
-import { globals } from './settings.js';
+import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import { ensurePlus, getCritTableResult } from '/systems/dcc/module/utilities.js'
+import * as chat from '/systems/dcc/module/chat.js'
+import { globals } from './settings.js'
 
 class XCCActorSheetAthlete extends DCCActorSheet {
   /** @inheritDoc */
@@ -44,26 +43,16 @@ class XCCActorSheetAthlete extends DCCActorSheet {
     }
   }
 
-  static addHooksAndHelpers() {
+  static addHooksAndHelpers () {
     Handlebars.registerHelper('getGrappleToHit', function (actor) {
-      if (!actor.system.class?.trainingDie) return actor.system.abilities.str.mod;
-      if (actor.system.abilities.str.mod < 0)
-        return "+" + actor.system.class.trainingDie + actor.system.abilities.str.mod;
-      else if (actor.system.abilities.str.mod > 0)
-        return "+" + actor.system.class.trainingDie + "+" + actor.system.abilities.str.mod;
-      else
-        return "+" + actor.system.class.trainingDie;
-    });
+      if (!actor.system.class?.trainingDie) return actor.system.abilities.str.mod
+      if (actor.system.abilities.str.mod < 0) { return '+' + actor.system.class.trainingDie + actor.system.abilities.str.mod } else if (actor.system.abilities.str.mod > 0) { return '+' + actor.system.class.trainingDie + '+' + actor.system.abilities.str.mod } else { return '+' + actor.system.class.trainingDie }
+    })
 
     Handlebars.registerHelper('getGrappleDamage', function (actor) {
-      if (!actor.system.class?.trainingDie) return "d4" + ensurePlus(actor.system.abilities.str.mod);
-      if (actor.system.abilities.str.mod < 0)
-        return "d4+" + actor.system.class.trainingDie + actor.system.abilities.str.mod;
-      else if (actor.system.abilities.str.mod > 0)
-        return "d4+" + actor.system.class.trainingDie + "+" + actor.system.abilities.str.mod;
-      else
-        return "d4+" + actor.system.class.trainingDie;
-    });
+      if (!actor.system.class?.trainingDie) return 'd4' + ensurePlus(actor.system.abilities.str.mod)
+      if (actor.system.abilities.str.mod < 0) { return 'd4+' + actor.system.class.trainingDie + actor.system.abilities.str.mod } else if (actor.system.abilities.str.mod > 0) { return 'd4+' + actor.system.class.trainingDie + '+' + actor.system.abilities.str.mod } else { return 'd4+' + actor.system.class.trainingDie }
+    })
 
     Hooks.on('renderChatMessageHTML', (message, html, data) => {
       if (message.getFlag('dcc', 'isGrapple')) {
@@ -101,93 +90,82 @@ class XCCActorSheetAthlete extends DCCActorSheet {
   }
 
   /** @override */
-  async _prepareContext(options) {
+  async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
     await this.actor.update({
-      'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Athlete.ClassLink'), { relativeTo: this.actor }),
-    });
+      'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Athlete.ClassLink'), { relativeTo: this.actor })
+    })
 
     if (this.actor.system.details.sheetClass !== 'athlete') {
       await this.actor.update({
-        'system.class.localizationPath': "XCC.Athlete",
-        'system.class.className': "athlete",
+        'system.class.localizationPath': 'XCC.Athlete',
+        'system.class.className': 'athlete',
         'system.details.sheetClass': 'athlete',
         'system.config.showSkills': false,
         'system.config.showSpells': false
-      });
+      })
     }
 
-    let isArmorTooHeavy = false;
+    let isArmorTooHeavy = false
     for (const armorItem of this.actor.itemTypes.armor) {
       if (armorItem.system.equipped && parseInt(armorItem.system.checkPenalty) <= -4) {
-        isArmorTooHeavy = true;
-        break;
+        isArmorTooHeavy = true
+        break
       }
     }
-    this.actor.system.class.armorTooHeavy = isArmorTooHeavy;
+    this.actor.system.class.armorTooHeavy = isArmorTooHeavy
     if (!isArmorTooHeavy) {
       this.actor.update({
         'system.attributes.ac.otherMod': this.actor.system.class?.scramble || 0,
         'system.attributes.speed.base': this.actor.system.class?.speed || 30
-      });
-    }
-    else {
+      })
+    } else {
       this.actor.update({
         'system.attributes.ac.otherMod': 0,
         'system.attributes.speed.base': 30
-      });
+      })
     }
     return context
   }
 
-  getGrappleToHit() {
-    if (!this.actor.system.class?.trainingDie) return this.actor.system.abilities.str.mod;
+  getGrappleToHit () {
+    if (!this.actor.system.class?.trainingDie) return this.actor.system.abilities.str.mod
 
-    if (this.actor.system.abilities.str.mod < 0)
-      return "+" + this.actor.system.class.trainingDie + this.actor.system.abilities.str.mod;
-    else if (this.actor.system.abilities.str.mod > 0)
-      return "+" + this.actor.system.class.trainingDie + "+" + this.actor.system.abilities.str.mod;
-    else
-      return "+" + this.actor.system.class.trainingDie;
+    if (this.actor.system.abilities.str.mod < 0) { return '+' + this.actor.system.class.trainingDie + this.actor.system.abilities.str.mod } else if (this.actor.system.abilities.str.mod > 0) { return '+' + this.actor.system.class.trainingDie + '+' + this.actor.system.abilities.str.mod } else { return '+' + this.actor.system.class.trainingDie }
   }
 
-  getGrappleDamage() {
-    if (!this.actor.system.class?.trainingDie) return "d4" + ensurePlus(this.actor.system.abilities.str.mod);
-    if (this.actor.system.abilities.str.mod < 0)
-      return "d4+" + this.actor.system.class.trainingDie + this.actor.system.abilities.str.mod;
-    else if (this.actor.system.abilities.str.mod > 0)
-      return "d4+" + this.actor.system.class.trainingDie + "+" + this.actor.system.abilities.str.mod;
-    else
-      return "d4+" + this.actor.system.class.trainingDie;
+  getGrappleDamage () {
+    if (!this.actor.system.class?.trainingDie) return 'd4' + ensurePlus(this.actor.system.abilities.str.mod)
+    if (this.actor.system.abilities.str.mod < 0) { return 'd4+' + this.actor.system.class.trainingDie + this.actor.system.abilities.str.mod } else if (this.actor.system.abilities.str.mod > 0) { return 'd4+' + this.actor.system.class.trainingDie + '+' + this.actor.system.abilities.str.mod } else { return 'd4+' + this.actor.system.class.trainingDie }
   }
 
-  _onRender(context, options) {
+  _onRender (context, options) {
     // Set tooltips for ability boxes
-    this.parts.character.firstElementChild.querySelector('div#str.ability-box').firstElementChild.title = game.i18n.localize('XCC.Athlete.RollStrengthCheckHint');
-    this.parts.character.firstElementChild.querySelector('div#agl.ability-box').firstElementChild.title = game.i18n.localize('XCC.Athlete.RollAgilityCheckHint');
-    this.parts.character.firstElementChild.querySelector('div#sta.ability-box').firstElementChild.title = game.i18n.localize('XCC.Athlete.RollStaminaCheckHint');
+    this.parts.character.firstElementChild.querySelector('div#str.ability-box').firstElementChild.title = game.i18n.localize('XCC.Athlete.RollStrengthCheckHint')
+    this.parts.character.firstElementChild.querySelector('div#agl.ability-box').firstElementChild.title = game.i18n.localize('XCC.Athlete.RollAgilityCheckHint')
+    this.parts.character.firstElementChild.querySelector('div#sta.ability-box').firstElementChild.title = game.i18n.localize('XCC.Athlete.RollStaminaCheckHint')
     if (game.settings.get(globals.id, 'includeGrappleInWeapons')) {
       // Add the Grapple item to the equipment section
-      let items = this.parts.equipment.querySelector('.weapon-list-header').outerHTML +=
+      this.parts.equipment.querySelector('.weapon-list-header').outerHTML +=
         `<li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.athlete.grapple">
             <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
-            <img class="icon-filter" src="`+globals.imagesPath + `game-icons-net/grab.svg" title="Grapple" alt="Grapple" width="22" height="22">
+            <img class="icon-filter" src="` + globals.imagesPath + `game-icons-net/grab.svg" title="Grapple" alt="Grapple" width="22" height="22">
             <div class="attack-buttons">
                 <div class="rollable weapon-button icon-filter" data-action="rollGrapple" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
             </div>
-            <input class="weapon-name" type="text" value="`+ game.i18n.localize("XCC.Athlete.Grapple") + `" readonly="">
-            <input class="disabled" type="text" value="`+ this.getGrappleToHit() + `" readonly="">
-            <input class="weapon-damage disabled" style="width: auto;" type="text" value="`+ this.getGrappleDamage() + `" readonly="">
-            <input class="weapon-notes disabled" type="text" value="`+ game.i18n.localize("XCC.Athlete.GrappleNotes") + `" readonly="">
+            <input class="weapon-name" type="text" value="` + game.i18n.localize('XCC.Athlete.Grapple') + `" readonly="">
+            <input class="disabled" type="text" value="` + this.getGrappleToHit() + `" readonly="">
+            <input class="weapon-damage disabled" style="width: auto;" type="text" value="` + this.getGrappleDamage() + `" readonly="">
+            <input class="weapon-notes disabled" type="text" value="` + game.i18n.localize('XCC.Athlete.GrappleNotes') + `" readonly="">
             <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
             <div class="disabled">-</div>
-        </li>`;
+        </li>`
     }
-    super._onRender(context, options);
+    super._onRender(context, options)
   }
 
-  static rollAbilityCheck(event, target) {
+  static rollAbilityCheck (event, target) {
     const options = DCCActorSheet.fillRollOptions(event)
     const ability = target.parentElement.dataset.ability
 
@@ -201,18 +179,18 @@ class XCCActorSheetAthlete extends DCCActorSheet {
       const abilityRef = this.actor.system.abilities[ability]
 
       // Temporarily modify the ability and its modifier
-      let oldMod = CONFIG.DCC.abilityModifiers[abilityRef.value]
-      let oldLabel = CONFIG.DCC.abilities[ability];
+      const oldMod = CONFIG.DCC.abilityModifiers[abilityRef.value]
+      const oldLabel = CONFIG.DCC.abilities[ability]
       // If the actor has a positive luck modifier, apply it to Strength, Agility, or Stamina checks
       if (this.actor.system.abilities.lck.mod > 0) {
-        CONFIG.DCC.abilities[ability] = "XCC.Athlete." + ability;
-        CONFIG.DCC.abilityModifiers[abilityRef.value] = oldMod + this.actor.system.abilities.lck.mod;
+        CONFIG.DCC.abilities[ability] = 'XCC.Athlete.' + ability
+        CONFIG.DCC.abilityModifiers[abilityRef.value] = oldMod + this.actor.system.abilities.lck.mod
       }
 
       // If the user is holding shift, add the training die to the action dice
-      let oldDie = this.actor.system.attributes.actionDice.value;
+      const oldDie = this.actor.system.attributes.actionDice.value
       if (event.shiftKey) {
-        this.actor.system.attributes.actionDice.value += "+" + (this.actor.system.class?.trainingDie || 0);
+        this.actor.system.attributes.actionDice.value += '+' + (this.actor.system.class?.trainingDie || 0)
       }
 
       // Roll the ability check
@@ -220,23 +198,21 @@ class XCCActorSheetAthlete extends DCCActorSheet {
 
       // Restore the original values after the roll
       if (this.actor.system.abilities.lck.mod > 0) {
-        CONFIG.DCC.abilityModifiers[abilityRef.value] = oldMod;
-        CONFIG.DCC.abilities[ability] = oldLabel;
-        abilityRef.mod = oldMod;
-        abilityRef.label = oldLabel;
+        CONFIG.DCC.abilityModifiers[abilityRef.value] = oldMod
+        CONFIG.DCC.abilities[ability] = oldLabel
+        abilityRef.mod = oldMod
+        abilityRef.label = oldLabel
       }
       if (event.shiftKey) {
-        this.actor.system.attributes.actionDice.value = oldDie;
+        this.actor.system.attributes.actionDice.value = oldDie
       }
-    }
-    else {
+    } else {
       this.actor.rollAbilityCheck(ability, options)
     }
   }
 
-  static async rollGrappleAttack(event, target) {
-    event.preventDefault();
-    const itemId = DCCActorSheet.findDataset(target, 'itemId')
+  static async rollGrappleAttack (event, target) {
+    event.preventDefault()
     const options = DCCActorSheet.fillRollOptions(event)
     Object.assign(options, {
       backstab: target.classList.contains('backstab-button')
@@ -249,12 +225,12 @@ class XCCActorSheetAthlete extends DCCActorSheet {
     const rolls = []
 
     // Attack roll
-    options.targets = game.user.targets;
+    options.targets = game.user.targets
 
     /* Grab the To Hit modifier */
-    let toHit = ensurePlus(this.actor.system.class?.trainingDie || 0);
-    toHit += ensurePlus(this.actor.system.abilities.str.mod);
-    const die = this.actor.system.attributes.actionDice.value;
+    let toHit = ensurePlus(this.actor.system.class?.trainingDie || 0)
+    toHit += ensurePlus(this.actor.system.abilities.str.mod)
+    const die = this.actor.system.attributes.actionDice.value
 
     let critRange = parseInt(this.actor.system.class?.grappleCritRange || 20)
 
@@ -307,7 +283,7 @@ class XCCActorSheetAthlete extends DCCActorSheet {
         upperThreshold: 3
       }
       // Create a proper Roll object for the deed die
-      deedDieFormula = attackRoll.dice[1].formula;
+      deedDieFormula = attackRoll.dice[1].formula
       deedDieRoll = Roll.fromTerms([attackRoll.dice[1]])
       deedDieRoll._total = attackRoll.dice[1].total
       deedDieRoll._evaluated = true
@@ -319,7 +295,7 @@ class XCCActorSheetAthlete extends DCCActorSheet {
     const naturalCrit = (d20RollResult >= critRange)
     const crit = (naturalCrit) && !(this.actor.system.class.armorTooHeavy)
 
-    let attackRollResult = {
+    const attackRollResult = {
       d20RollResult,
       deedDieFormula,
       deedDieRollResult,
@@ -343,9 +319,9 @@ class XCCActorSheetAthlete extends DCCActorSheet {
     rolls.push(attackRollResult.roll)
 
     // Damage roll
-    let damageRollFormula = attackRollResult.weaponDamageFormula;
+    let damageRollFormula = attackRollResult.weaponDamageFormula
     if (attackRollResult.deedDieRollResult) {
-      const rawDeedFormula = this.actor.system.class.trainingDie; // e.g. "d4"
+      const rawDeedFormula = this.actor.system.class.trainingDie // e.g. "d4"
       const deedBonusStringComponent = ensurePlus(rawDeedFormula) // e.g. "+d4", this is what's in the damage formula from warrior bonus
       const deedNumericResult = attackRollResult.deedDieRollResult.toString() // e.g. "4"
       // Determine sign from how deed was added to formula, then append numeric result
@@ -396,7 +372,7 @@ class XCCActorSheetAthlete extends DCCActorSheet {
     let critInlineRoll = ''
     let critPrompt = game.i18n.localize('DCC.RollCritical')
     let critRoll
-    let critTableName = "AG: Athlete Grapple"
+    let critTableName = 'AG: Athlete Grapple'
     let critText = ''
     const luckMod = ensurePlus(this.actor.system.abilities.lck.mod)
     if (attackRollResult.crit) {
@@ -447,7 +423,7 @@ class XCCActorSheetAthlete extends DCCActorSheet {
     const messageData = {
       user: game.user.id,
       speaker,
-      flavor: game.i18n.format('DCC.AttackRoll', "xcc.athlete.grapple"),
+      flavor: game.i18n.format('DCC.AttackRoll', 'xcc.athlete.grapple'),
       flags,
       rolls,
       system: {
@@ -468,8 +444,8 @@ class XCCActorSheetAthlete extends DCCActorSheet {
         deedRollSuccess,
         hitsAc: attackRollResult.hitsAc,
         targets: game.user.targets,
-        weaponId: "xcc.athlete.grapple",
-        weaponName: "xcc.athlete.grapple",
+        weaponId: 'xcc.athlete.grapple',
+        weaponName: 'xcc.athlete.grapple',
         armorTooHeavy: this.actor.system.class.armorTooHeavy
       }
     }
@@ -490,21 +466,17 @@ class XCCActorSheetAthlete extends DCCActorSheet {
       let iconClass = 'fa-dice-d20'
       if (message.system?.deedDieFormula.includes('d4')) {
         iconClass = 'fa-dice-d4'
-      }
-      else if (message.system?.deedDieFormula.includes('d3') || message.system?.deedDieFormula.includes('d5') || message.system?.deedDieFormula.includes('d6')) {
+      } else if (message.system?.deedDieFormula.includes('d3') || message.system?.deedDieFormula.includes('d5') || message.system?.deedDieFormula.includes('d6')) {
         iconClass = 'fa-dice-d6'
-      }
-      else if (message.system?.deedDieFormula.includes('d7') || message.system?.deedDieFormula.includes('d8')) {
+      } else if (message.system?.deedDieFormula.includes('d7') || message.system?.deedDieFormula.includes('d8')) {
         iconClass = 'fa-dice-d8'
-      }
-      else if (message.system?.deedDieFormula.includes('d10')) {
+      } else if (message.system?.deedDieFormula.includes('d10')) {
         iconClass = 'fa-dice-d10'
-      }
-      else if (message.system?.deedDieFormula.includes('d12') || message.system?.deedDieFormula.includes('d14') || message.system?.deedDieFormula.includes('d16')) {
+      } else if (message.system?.deedDieFormula.includes('d12') || message.system?.deedDieFormula.includes('d14') || message.system?.deedDieFormula.includes('d16')) {
         iconClass = 'fa-dice-d12'
       }
 
-      let deedDieHTML;
+      let deedDieHTML
       if (message.system.deedDieRoll) {
         // If we have the full roll object, create a proper inline roll
         deedDieHTML = `<a class="inline-roll inline-result${critical}" data-roll="${encodeURIComponent(JSON.stringify(message.system.deedDieRoll))}" title="${message.system?.deedDieFormula}"><i class="fas ${iconClass}"></i>${message.system.deedDieRollResult}</a>`
@@ -514,7 +486,7 @@ class XCCActorSheetAthlete extends DCCActorSheet {
       }
       deedRollHTML = game.i18n.format('XCC.Athlete.GrappleRollTrainingEmoteSegment', { deed: deedDieHTML })
       if (message.system.deedRollSuccess) {
-        deedRollHTML += game.i18n.format('XCC.Athlete.GrappleRollTrainingSuccess');
+        deedRollHTML += game.i18n.format('XCC.Athlete.GrappleRollTrainingSuccess')
       }
     }
 
@@ -522,7 +494,7 @@ class XCCActorSheetAthlete extends DCCActorSheet {
     if (message.getFlag('dcc', 'isCrit')) {
       crit = `<p class="emote-alert critical">${message.system.critPrompt}!</p> ${message.system.critInlineRoll}`
     }
-    let fumble = ''
+    const fumble = ''
 
     const damageInlineRoll = message.system.damageInlineRoll.replaceAll('@ab', message.system.deedDieRollResult)
 

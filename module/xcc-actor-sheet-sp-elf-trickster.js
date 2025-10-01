@@ -1,5 +1,5 @@
-import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
-import { globals } from './settings.js';
+import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import { globals } from './settings.js'
 
 class XCCActorSheetSpElfTrickster extends DCCActorSheet {
   /** @inheritDoc */
@@ -41,24 +41,24 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
     }
   }
 
-  setSpecialistSkills() {
-    //DCC System had a bug with pickPocket skill, we're setting a custom one for now
+  setSpecialistSkills () {
+    // DCC System had a bug with pickPocket skill, we're setting a custom one for now
     if (this.actor.system.skills.pickPocket) {
-      this.actor.system.skills.pickPocket.ability = 'agl';
-      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value';
+      this.actor.system.skills.pickPocket.ability = 'agl'
+      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value'
     }
-    //XCC uses int for forge document skill
+    // XCC uses int for forge document skill
     if (this.actor.system.skills.forgeDocument) {
-      this.actor.system.skills.forgeDocument.ability = 'int';
+      this.actor.system.skills.forgeDocument.ability = 'int'
     }
-    //Elf Trickster: Detect secret doors skill
-    if (this.actor.system.class.className == 'elftrickster') {
+    // Elf Trickster: Detect secret doors skill
+    if (this.actor.system.class.className === 'elftrickster') {
       this.actor.system.skills.detectSecretDoors = {
         value: 4,
         ability: 'int',
         label: 'XCC.DetectSecretDoors',
         die: 'd20'
-      };
+      }
       this.actor.system.skills.spellCheck = {
         value: this.actor.system.abilities.lck.mod + this.actor.system.details.level.value,
         config: {
@@ -67,18 +67,18 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
         ability: 'per',
         label: 'DCC.Spell',
         die: 'd20'
-      };
+      }
     }
   }
 
   /** @override */
-  async _prepareContext(options) {
+  async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'sp-elf-trickster') {
       await this.actor.update({
-        'system.class.localizationPath': "XCC.Specialist.ElfTrickster",
-        'system.class.className': "elftrickster",
+        'system.class.localizationPath': 'XCC.Specialist.ElfTrickster',
+        'system.class.className': 'elftrickster',
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.ElfTrickster.ClassLink')),
         'system.details.sheetClass': 'sp-elf-trickster',
         'system.details.critRange': 20,
@@ -90,16 +90,15 @@ class XCCActorSheetSpElfTrickster extends DCCActorSheet {
         'system.class.spellCheckOtherMod': this.actor.system.abilities.lck.mod,
         'system.config.showSpells': true
       })
-    }
-    else {
+    } else {
       await this.actor.update({
         'system.class.spellCheckAbility': 'per',
         'system.class.spellCheckOtherMod': this.actor.system.abilities.lck.mod
-      });
+      })
     }
-    this.setSpecialistSkills();
+    this.setSpecialistSkills()
     return context
   }
 }
 
-export default XCCActorSheetSpElfTrickster;
+export default XCCActorSheetSpElfTrickster

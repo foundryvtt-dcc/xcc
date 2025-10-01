@@ -1,6 +1,6 @@
-import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
-import { ensurePlus } from "/systems/dcc/module/utilities.js";
-import { globals } from './settings.js';
+import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import { ensurePlus } from '/systems/dcc/module/utilities.js'
+import { globals } from './settings.js'
 
 class XCCActorSheetDwarf extends DCCActorSheet {
   /** @inheritDoc */
@@ -40,17 +40,17 @@ class XCCActorSheetDwarf extends DCCActorSheet {
     }
   }
 
-  static addHooksAndHelpers() {
+  static addHooksAndHelpers () {
     Handlebars.registerHelper('getShieldBashDamage', (actor) => {
-      return actor.system.class.shieldBashDamage + ensurePlus(actor.system.details.attackBonus);
-    });
+      return actor.system.class.shieldBashDamage + ensurePlus(actor.system.details.attackBonus)
+    })
     Handlebars.registerHelper('getShieldBashBonus', (actor) => {
-      return actor.system.details.attackBonus + ensurePlus(actor.system.class.shieldBashBonus);
-    });
+      return actor.system.details.attackBonus + ensurePlus(actor.system.class.shieldBashBonus)
+    })
   }
 
   /** @override */
-  async _prepareContext(options) {
+  async _prepareContext (options) {
     // Set base speed
     if (this.actor.system.details.sheetClass !== 'xcc-dwarf') {
       await this.actor.update({
@@ -65,8 +65,8 @@ class XCCActorSheetDwarf extends DCCActorSheet {
 
     if (this.actor.system.details.sheetClass !== 'xcc-dwarf') {
       await this.actor.update({
-        'system.class.localizationPath': "XCC.Dwarf",
-        'system.class.className': "xcc.dwarf",
+        'system.class.localizationPath': 'XCC.Dwarf',
+        'system.class.className': 'xcc.dwarf',
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Dwarf.ClassLink')),
         'system.details.sheetClass': 'xcc-dwarf',
         'system.details.critRange': 20,
@@ -79,20 +79,20 @@ class XCCActorSheetDwarf extends DCCActorSheet {
     // Never used when _onRender is commented out, but left in case we want to re-enable skill-based shield bash
     if (!this.actor.system.class?.shieldBashDamage) {
       await this.actor.update({
-        'system.class.shieldBashDamage': "1d3"
-      });
+        'system.class.shieldBashDamage': '1d3'
+      })
     }
     if (!this.actor.system.class?.shieldBashBonus) {
       await this.actor.update({
         'system.class.shieldBashBonus': 0
-      });
+      })
     }
     return context
   }
 
-  _onRender(context, options) {
+  _onRender (context, options) {
     // Backup of shield bash code, in case we want to re-enable it instead of using an item
-    /*if (game.settings.get(globals.id, 'includeShieldBashInWeapons')) {
+    /* if (game.settings.get(globals.id, 'includeShieldBashInWeapons')) {
       // Add the Grapple item to the equipment section
       let items = this.parts.equipment.querySelector('.weapon-list-header').outerHTML +=
         `<li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.brawler.unarmedRegular">
@@ -108,21 +108,21 @@ class XCCActorSheetDwarf extends DCCActorSheet {
               <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
               <div class="disabled">-</div>
           </li>`;
-    }*/
-    super._onRender(context, options);
+    } */
+    super._onRender(context, options)
   }
 
-  getShieldBashToHit() {
-    return this.actor.system.details.attackBonus + ensurePlus(parseInt(this.actor.system.abilities.str.mod || 0) + parseInt(this.actor.system.class.shieldBashBonus));
+  getShieldBashToHit () {
+    return this.actor.system.details.attackBonus + ensurePlus(parseInt(this.actor.system.abilities.str.mod || 0) + parseInt(this.actor.system.class.shieldBashBonus))
   }
 
-  getShieldBashDamage() {
-    return this.actor.system.class.shieldBashDamage + ensurePlus(this.actor.system.details.attackBonus) + ensurePlus(parseInt(this.actor.system.abilities.str.mod || 0));
+  getShieldBashDamage () {
+    return this.actor.system.class.shieldBashDamage + ensurePlus(this.actor.system.details.attackBonus) + ensurePlus(parseInt(this.actor.system.abilities.str.mod || 0))
   }
 
-  static async rollShieldBashAttack(event, target) {
+  static async rollShieldBashAttack (event, target) {
     // Make a temporary fake weapon
-    const fakeId = DCCActorSheet.findDataset(target, 'itemId') || '';
+    const fakeId = DCCActorSheet.findDataset(target, 'itemId') || ''
     const weapon = {
       key: fakeId,
       value: {
@@ -138,11 +138,11 @@ class XCCActorSheetDwarf extends DCCActorSheet {
       }
     }
     // Add the fake weapon to the actor's items
-    this.actor.items.set(weapon.key, weapon.value, { modifySource: false });
+    this.actor.items.set(weapon.key, weapon.value, { modifySource: false })
     // Pass the fake weapon
-    await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target);
+    await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
     // Remove the fake weapon from items after we're done
-    this.actor.items.delete(weapon.id, { modifySource: false });
+    this.actor.items.delete(weapon.id, { modifySource: false })
   }
 }
-export default XCCActorSheetDwarf;
+export default XCCActorSheetDwarf

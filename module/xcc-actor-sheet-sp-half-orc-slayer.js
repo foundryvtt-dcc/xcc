@@ -1,5 +1,5 @@
-import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
-import { globals } from './settings.js';
+import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import { globals } from './settings.js'
 
 class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
   /** @inheritDoc */
@@ -39,33 +39,33 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
     }
   }
 
-  setSpecialistSkills() {
-    //DCC System had a bug with pickPocket skill, we're setting a custom one for now
+  setSpecialistSkills () {
+    // DCC System had a bug with pickPocket skill, we're setting a custom one for now
     if (this.actor.system.skills.pickPocket) {
-      this.actor.system.skills.pickPocket.ability = 'agl';
-      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value';
+      this.actor.system.skills.pickPocket.ability = 'agl'
+      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value'
     }
-    //XCC uses int for forge document skill
+    // XCC uses int for forge document skill
     if (this.actor.system.skills.forgeDocument) {
-      this.actor.system.skills.forgeDocument.ability = 'int';
+      this.actor.system.skills.forgeDocument.ability = 'int'
     }
   }
 
   /** @override */
-  async _prepareContext(options) {
+  async _prepareContext (options) {
     // Half-Orc Slayer adds Reflex to initiative
     if (this.actor.isPC && this.actor._getConfig().computeInitiative) {
       await this.actor.update({
-        'system.attributes.init.otherMod': this.actor.system.saves.ref.value,
-      });
+        'system.attributes.init.otherMod': this.actor.system.saves.ref.value
+      })
     }
 
     const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'sp-half-orc-slayer') {
       await this.actor.update({
-        'system.class.localizationPath': "XCC.Specialist.HalfOrcSlayer",
-        'system.class.className': "halforcslayer",
+        'system.class.localizationPath': 'XCC.Specialist.HalfOrcSlayer',
+        'system.class.className': 'halforcslayer',
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.HalfOrcSlayer.ClassLink')),
         'system.details.sheetClass': 'sp-half-orc-slayer',
         'system.details.critRange': 20,
@@ -75,11 +75,11 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
         'system.config.addClassLevelToInitiative': false
       })
     }
-    this.setSpecialistSkills();
+    this.setSpecialistSkills()
     return context
   }
 
-  static async rollModifiedWeaponAttack(event, target) {
+  static async rollModifiedWeaponAttack (event, target) {
     event.preventDefault()
     const itemId = DCCActorSheet.findDataset(target, 'itemId')
     const options = DCCActorSheet.fillRollOptions(event)
@@ -87,15 +87,15 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
       backstab: target.classList.contains('backstab-button')
     })
     const weapon = this.actor.items.find(i => i.id === itemId)
-    let oldTable = "";
+    let oldTable = ''
     if (options.backstab) {
       if (weapon) {
         // Set critTable to III
-        oldTable = weapon.system?.critTable || "";
-        weapon.system.critTable = "III"
+        oldTable = weapon.system?.critTable || ''
+        weapon.system.critTable = 'III'
         // If backstab is active, we bump the damage die up if backstabDamage is not already set
-        if (weapon.system.melee && weapon.system.backstabDamage === "") {
-          weapon.system.backstabDamage = game.dcc.DiceChain.bumpDie(weapon.system.damageWeapon, 1);
+        if (weapon.system.melee && weapon.system.backstabDamage === '') {
+          weapon.system.backstabDamage = game.dcc.DiceChain.bumpDie(weapon.system.damageWeapon, 1)
         }
       }
     }
@@ -104,9 +104,9 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
 
     // Restore regular critTable
     if (options.backstab && weapon) {
-      weapon.system.critTable = oldTable;
+      weapon.system.critTable = oldTable
     }
   }
 }
 
-export default XCCActorSheetSpHalfOrcSlayer;
+export default XCCActorSheetSpHalfOrcSlayer

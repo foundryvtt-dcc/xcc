@@ -1,6 +1,6 @@
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js';
-import { ensurePlus } from '/systems/dcc/module/utilities.js';
-import { globals } from './settings.js';
+import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import { ensurePlus } from '/systems/dcc/module/utilities.js'
+import { globals } from './settings.js'
 
 class XCCActorSheetBlaster extends DCCActorSheet {
   /** @inheritDoc */
@@ -9,7 +9,7 @@ class XCCActorSheetBlaster extends DCCActorSheet {
       height: 640
     },
     actions: {
-        rollSpellCheck: this.rollSpellCheck
+      rollSpellCheck: this.rollSpellCheck
     }
   }
 
@@ -50,13 +50,13 @@ class XCCActorSheetBlaster extends DCCActorSheet {
     const context = await super._prepareContext(options)
 
     await this.actor.update({
-      'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Blaster.ClassLink'), { relativeTo: this.actor }),
+      'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Blaster.ClassLink'), { relativeTo: this.actor })
     })
 
     if (this.actor.system.details.sheetClass !== 'blaster') {
       await this.actor.update({
-        'system.class.localizationPath':"XCC.Blaster",
-        'system.class.className': "blaster",
+        'system.class.localizationPath': 'XCC.Blaster',
+        'system.class.className': 'blaster',
         'system.details.sheetClass': 'blaster',
         'system.class.spellCheckAbility': 'per',
         'system.details.critRange': 20,
@@ -70,7 +70,7 @@ class XCCActorSheetBlaster extends DCCActorSheet {
     return context
   }
 
-  async rollDefaultBlasterSpellCheck(options) {
+  async rollDefaultBlasterSpellCheck (options) {
     if (!options.abilityId) {
       options.abilityId = this.actor.system.class.spellCheckAbility || ''
     }
@@ -113,7 +113,7 @@ class XCCActorSheetBlaster extends DCCActorSheet {
     const applyCheckPenalty = !isIdolMagic
     options.title = game.i18n.localize('DCC.SpellCheck')
 
-    let blasterDie = this.actor.system.class.blasterDie || 'd3';
+    const blasterDie = this.actor.system.class.blasterDie || 'd3'
 
     // Collate terms for the roll
     const terms = [
@@ -137,7 +137,7 @@ class XCCActorSheetBlaster extends DCCActorSheet {
         type: 'Die',
         label: game.i18n.localize('XCC.Blaster.BlasterDie'),
         formula: blasterDie,
-        presets: [{label: blasterDie, formula: blasterDie}],
+        presets: [{ label: blasterDie, formula: blasterDie }]
       })
       terms.push({
         type: 'Compound',
@@ -156,29 +156,29 @@ class XCCActorSheetBlaster extends DCCActorSheet {
     }
     // Show spellburn
     terms.push({
-        type: 'Spellburn',
-        formula: '+0',
-        str: this.actor.system.abilities.str.value,
-        agl: this.actor.system.abilities.agl.value,
-        sta: this.actor.system.abilities.sta.value,
-        callback: (formula, term) => {
-            // Apply the spellburn
-            this.actor.update({
-                'system.abilities.str.value': term.str,
-                'system.abilities.agl.value': term.agl,
-                'system.abilities.sta.value': term.sta
-            })
-        }
-    })
-    if(checkPenalty !== "+0") {
-        terms.push({
-            type: 'CheckPenalty',
-            formula: checkPenalty,
-            label: game.i18n.localize('DCC.CheckPenalty'),
-            apply: applyCheckPenalty
+      type: 'Spellburn',
+      formula: '+0',
+      str: this.actor.system.abilities.str.value,
+      agl: this.actor.system.abilities.agl.value,
+      sta: this.actor.system.abilities.sta.value,
+      callback: (formula, term) => {
+        // Apply the spellburn
+        this.actor.update({
+          'system.abilities.str.value': term.str,
+          'system.abilities.agl.value': term.agl,
+          'system.abilities.sta.value': term.sta
         })
+      }
+    })
+    if (checkPenalty !== '+0') {
+      terms.push({
+        type: 'CheckPenalty',
+        formula: checkPenalty,
+        label: game.i18n.localize('DCC.CheckPenalty'),
+        apply: applyCheckPenalty
+      })
     }
-    
+
     const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), options)
 
     if (roll.dice.length > 0) {
@@ -201,8 +201,8 @@ class XCCActorSheetBlaster extends DCCActorSheet {
     })
   }
 
-  static async rollSpellCheck(event,target) {
-    console.log("Rolling spell check for target:", target);
+  static async rollSpellCheck (event, target) {
+    console.log('Rolling spell check for target:', target)
     const options = DCCActorSheet.fillRollOptions(event)
     const dataset = target.parentElement.dataset
     if (dataset.itemId) {
@@ -331,7 +331,7 @@ class XCCActorSheetBlaster extends DCCActorSheet {
       manifestation: item.system?.manifestation?.displayInChat ? item.system?.manifestation : {},
       mercurial: item.system?.mercurialEffect?.displayInChat ? item.system?.mercurialEffect : {}
     })
-  }*/
+  } */
 }
 
-export default XCCActorSheetBlaster;
+export default XCCActorSheetBlaster

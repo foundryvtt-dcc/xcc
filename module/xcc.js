@@ -1,29 +1,25 @@
-/* global foundry */
-import { registerModuleSettings } from './settings.js'
+import XCCActorSheetAthlete from './xcc-actor-sheet-athlete.js'
+import XCCActorSheetBlaster from './xcc-actor-sheet-blaster.js'
+import XCCActorSheetBrawler from './xcc-actor-sheet-brawler.js'
+import XCCActorSheetJammer from './xcc-actor-sheet-jammer.js'
+import XCCActorSheetMessenger from './xcc-actor-sheet-messenger.js'
+import XCCActorSheetSpAcrobat from './xcc-actor-sheet-sp-acrobat.js'
+import XCCActorSheetSpCommando from './xcc-actor-sheet-sp-commando.js'
+import XCCActorSheetSpCriminal from './xcc-actor-sheet-sp-criminal.js'
+import XCCActorSheetSpCryptRaider from './xcc-actor-sheet-sp-crypt-raider.js'
+import XCCActorSheetSpScout from './xcc-actor-sheet-sp-scout.js'
+import XCCActorSheetSpDwarfMechanic from './xcc-actor-sheet-sp-dwarf-mechanic.js'
+import XCCActorSheetSpElfTrickster from './xcc-actor-sheet-sp-elf-trickster.js'
+import XCCActorSheetSpHalfOrcSlayer from './xcc-actor-sheet-sp-half-orc-slayer.js'
+import XCCActorSheetSpHalflingRogue from './xcc-actor-sheet-sp-halfling-rogue.js'
+import XCCActorSheetHalfOrc from './xcc-actor-sheet-half-orc.js'
+import XCCActorSheetHalfElf from './xcc-actor-sheet-half-elf.js'
+import XCCActorSheetGnome from './xcc-actor-sheet-gnome.js'
+import XCCActorSheetDwarf from './xcc-actor-sheet-dwarf.js'
+import DCCMonkeyPatch from './dcc-monkey-patch.js'
 
-//import {XCCActorSheet} from './xcc-actor-sheet.js';
-import XCCActorSheetAthlete from './xcc-actor-sheet-athlete.js';
-import XCCActorSheetBlaster from './xcc-actor-sheet-blaster.js';
-import XCCActorSheetBrawler from './xcc-actor-sheet-brawler.js';
-import XCCActorSheetJammer from './xcc-actor-sheet-jammer.js';
-import XCCActorSheetMessenger from './xcc-actor-sheet-messenger.js';
-import XCCActorSheetSpAcrobat from './xcc-actor-sheet-sp-acrobat.js';
-import XCCActorSheetSpCommando from './xcc-actor-sheet-sp-commando.js';
-import XCCActorSheetSpCriminal from './xcc-actor-sheet-sp-criminal.js';
-import XCCActorSheetSpCryptRaider from './xcc-actor-sheet-sp-crypt-raider.js';
-import XCCActorSheetSpScout from './xcc-actor-sheet-sp-scout.js';
-import XCCActorSheetSpDwarfMechanic from './xcc-actor-sheet-sp-dwarf-mechanic.js';
-import XCCActorSheetSpElfTrickster from './xcc-actor-sheet-sp-elf-trickster.js';
-import XCCActorSheetSpHalfOrcSlayer from './xcc-actor-sheet-sp-half-orc-slayer.js';
-import XCCActorSheetSpHalflingRogue from './xcc-actor-sheet-sp-halfling-rogue.js';
-import XCCActorSheetHalfOrc from './xcc-actor-sheet-half-orc.js';
-import XCCActorSheetHalfElf from './xcc-actor-sheet-half-elf.js';
-import XCCActorSheetGnome from './xcc-actor-sheet-gnome.js';
-import XCCActorSheetDwarf from './xcc-actor-sheet-dwarf.js';
-import DCCMonkeyPatch from './dcc-monkey-patch.js';
-
-import { ensurePlus } from '/systems/dcc/module/utilities.js';
-import { globals } from './settings.js';
+import { ensurePlus } from '/systems/dcc/module/utilities.js'
+import { globals, registerModuleSettings } from './settings.js'
 
 const { Actors } = foundry.documents.collections
 const { loadTemplates } = foundry.applications.handlebars
@@ -33,333 +29,326 @@ const { loadTemplates } = foundry.applications.handlebars
 /* -------------------------------------------- */
 
 Hooks.once('init', async function () {
-  console.log(`XCC | Initializing XCrawl Classics System`)
-  DCCMonkeyPatch.patch();
+  console.log('XCC | Initializing XCrawl Classics System')
+  DCCMonkeyPatch.patch()
 
   // XCCActorSheet is not used anymore - using dcc-monkey-patch instead.
-  //Actors.unregisterSheet('dcc', DCCActorSheet);
-  //Actors.registerSheet('xcc', XCCActorSheet, {makeDefault: true});
+  // Actors.unregisterSheet('dcc', DCCActorSheet);
+  // Actors.registerSheet('xcc', XCCActorSheet, {makeDefault: true});
 
   // Register ActorSheets and their Helper functions
   Actors.registerSheet('xcc-athlete', XCCActorSheetAthlete, {
     types: ['Player'],
     label: 'XCC.Athlete.DropdownLabel'
   })
-  XCCActorSheetAthlete.addHooksAndHelpers();
+  XCCActorSheetAthlete.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-blaster', XCCActorSheetBlaster, {
     types: ['Player'],
     label: 'XCC.Blaster.DropdownLabel'
   })
-  XCCActorSheetBlaster.addHooksAndHelpers();
+  XCCActorSheetBlaster.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-brawler', XCCActorSheetBrawler, {
     types: ['Player'],
     label: 'XCC.Brawler.DropdownLabel'
   })
-  XCCActorSheetBrawler.addHooksAndHelpers();
+  XCCActorSheetBrawler.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-jammer', XCCActorSheetJammer, {
     types: ['Player'],
     label: 'XCC.Jammer.DropdownLabel'
   })
-  XCCActorSheetJammer.addHooksAndHelpers();
+  XCCActorSheetJammer.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-messenger', XCCActorSheetMessenger, {
     types: ['Player'],
     label: 'XCC.Messenger.DropdownLabel'
   })
-  XCCActorSheetMessenger.addHooksAndHelpers();
+  XCCActorSheetMessenger.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-sp-acrobat', XCCActorSheetSpAcrobat, {
     types: ['Player'],
     label: 'XCC.Specialist.Acrobat.DropdownLabel'
   })
-  XCCActorSheetSpAcrobat.addHooksAndHelpers();
+  XCCActorSheetSpAcrobat.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-sp-commando', XCCActorSheetSpCommando, {
     types: ['Player'],
     label: 'XCC.Specialist.Commando.DropdownLabel'
   })
-  XCCActorSheetSpCommando.addHooksAndHelpers();
+  XCCActorSheetSpCommando.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-sp-criminal', XCCActorSheetSpCriminal, {
     types: ['Player'],
     label: 'XCC.Specialist.Criminal.DropdownLabel'
   })
-  XCCActorSheetSpCriminal.addHooksAndHelpers();
+  XCCActorSheetSpCriminal.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-sp-crypt-raider', XCCActorSheetSpCryptRaider, {
     types: ['Player'],
     label: 'XCC.Specialist.CryptRaider.DropdownLabel'
   })
-  XCCActorSheetSpCryptRaider.addHooksAndHelpers();
+  XCCActorSheetSpCryptRaider.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-sp-scout', XCCActorSheetSpScout, {
     types: ['Player'],
     label: 'XCC.Specialist.Scout.DropdownLabel'
   })
-  XCCActorSheetSpScout.addHooksAndHelpers();
+  XCCActorSheetSpScout.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-sp-dwarf-mechanic', XCCActorSheetSpDwarfMechanic, {
     types: ['Player'],
     label: 'XCC.Specialist.DwarfMechanic.DropdownLabel'
   })
-  XCCActorSheetSpDwarfMechanic.addHooksAndHelpers();
+  XCCActorSheetSpDwarfMechanic.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-sp-elf-trickster', XCCActorSheetSpElfTrickster, {
     types: ['Player'],
     label: 'XCC.Specialist.ElfTrickster.DropdownLabel'
   })
-  XCCActorSheetSpElfTrickster.addHooksAndHelpers();
+  XCCActorSheetSpElfTrickster.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-sp-half-orc-slayer', XCCActorSheetSpHalfOrcSlayer, {
     types: ['Player'],
     label: 'XCC.Specialist.HalfOrcSlayer.DropdownLabel'
   })
-  XCCActorSheetSpHalfOrcSlayer.addHooksAndHelpers();
+  XCCActorSheetSpHalfOrcSlayer.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-sp-halfling-rogue', XCCActorSheetSpHalflingRogue, {
     types: ['Player'],
     label: 'XCC.Specialist.HalflingRogue.DropdownLabel'
   })
-  XCCActorSheetSpHalflingRogue.addHooksAndHelpers();
+  XCCActorSheetSpHalflingRogue.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-half-orc', XCCActorSheetHalfOrc, {
     types: ['Player'],
     label: 'XCC.HalfOrc.DropdownLabel'
   })
-  XCCActorSheetHalfOrc.addHooksAndHelpers();
+  XCCActorSheetHalfOrc.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-half-elf', XCCActorSheetHalfElf, {
     types: ['Player'],
     label: 'XCC.HalfElf.DropdownLabel'
   })
-  XCCActorSheetHalfElf.addHooksAndHelpers();
+  XCCActorSheetHalfElf.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-dwarf', XCCActorSheetDwarf, {
     types: ['Player'],
     label: 'XCC.Dwarf.DropdownLabel'
   })
-  XCCActorSheetDwarf.addHooksAndHelpers();
+  XCCActorSheetDwarf.addHooksAndHelpers()
 
   Actors.registerSheet('xcc-gnome', XCCActorSheetGnome, {
     types: ['Player'],
     label: 'XCC.Gnome.DropdownLabel'
   })
-  XCCActorSheetGnome.addHooksAndHelpers();
+  XCCActorSheetGnome.addHooksAndHelpers()
 
   // Register partial templates
-  loadTemplates([globals.templatesPath + 'actor-partial-common.html']);
+  loadTemplates([globals.templatesPath + 'actor-partial-common.html'])
 
   // Register debug helper
   Handlebars.registerHelper('debugItem', function (item) {
     if (game.settings.get(globals.id, 'isDebug')) {
-      console.log("Debugging item:", item);
+      console.log('Debugging item:', item)
     }
-  });
+  })
 
   // Register rewards helpers
   Handlebars.registerHelper('updateRewards', function (actor, sponsorships) {
-    if (actor.system?.rewards?.fame === undefined || actor.system.rewards.baseWealth === undefined
-      || actor.system.rewards.totalWealth === undefined) {
+    if (actor.system?.rewards?.fame === undefined || actor.system.rewards.baseWealth === undefined ||
+      actor.system.rewards.totalWealth === undefined) {
       actor.update({
         'system.rewards.fame': 0,
         'system.rewards.totalWealth': 11,
-        'system.rewards.baseWealth': 11,
-      });
-    }
-    else {
-      let wealth = actor.system.rewards.baseWealth;
+        'system.rewards.baseWealth': 11
+      })
+    } else {
+      let wealth = actor.system.rewards.baseWealth
       sponsorships.forEach(element => {
-        wealth += element.system.rewards?.wealth || 0;
-      });
+        wealth += element.system.rewards?.wealth || 0
+      })
       actor.update({
         'system.rewards.totalWealth': wealth
-      });
+      })
     }
-  });
+  })
 
   Handlebars.registerHelper('getWealthRank', function (actor) {
-    const totalWealth = actor.system?.rewards?.totalWealth || 0;
+    const totalWealth = actor.system?.rewards?.totalWealth || 0
 
     if (totalWealth >= 100) {
-      return "XCC.Rewards.WealthTable.100+.Title";
+      return 'XCC.Rewards.WealthTable.100+.Title'
     } else if (totalWealth >= 96) {
-      return "XCC.Rewards.WealthTable.96-99.Title";
+      return 'XCC.Rewards.WealthTable.96-99.Title'
     } else if (totalWealth >= 91) {
-      return "XCC.Rewards.WealthTable.91-95.Title";
+      return 'XCC.Rewards.WealthTable.91-95.Title'
     } else if (totalWealth >= 71) {
-      return "XCC.Rewards.WealthTable.71-90.Title";
+      return 'XCC.Rewards.WealthTable.71-90.Title'
     } else if (totalWealth >= 51) {
-      return "XCC.Rewards.WealthTable.51-70.Title";
+      return 'XCC.Rewards.WealthTable.51-70.Title'
     } else if (totalWealth >= 21) {
-      return "XCC.Rewards.WealthTable.21-50.Title";
+      return 'XCC.Rewards.WealthTable.21-50.Title'
     } else if (totalWealth >= 11) {
-      return "XCC.Rewards.WealthTable.11-20.Title";
+      return 'XCC.Rewards.WealthTable.11-20.Title'
     } else {
-      return "XCC.Rewards.WealthTable.1-10.Title";
+      return 'XCC.Rewards.WealthTable.1-10.Title'
     }
-  });
+  })
 
   Handlebars.registerHelper('getWealthMeaning', function (actor) {
-    const totalWealth = actor.system?.rewards?.totalWealth || 0;
+    const totalWealth = actor.system?.rewards?.totalWealth || 0
 
     if (totalWealth >= 100) {
-      return "XCC.Rewards.WealthTable.100+.Meaning";
+      return 'XCC.Rewards.WealthTable.100+.Meaning'
     } else if (totalWealth >= 96) {
-      return "XCC.Rewards.WealthTable.96-99.Meaning";
+      return 'XCC.Rewards.WealthTable.96-99.Meaning'
     } else if (totalWealth >= 91) {
-      return "XCC.Rewards.WealthTable.91-95.Meaning";
+      return 'XCC.Rewards.WealthTable.91-95.Meaning'
     } else if (totalWealth >= 71) {
-      return "XCC.Rewards.WealthTable.71-90.Meaning";
+      return 'XCC.Rewards.WealthTable.71-90.Meaning'
     } else if (totalWealth >= 51) {
-      return "XCC.Rewards.WealthTable.51-70.Meaning";
+      return 'XCC.Rewards.WealthTable.51-70.Meaning'
     } else if (totalWealth >= 21) {
-      return "XCC.Rewards.WealthTable.21-50.Meaning";
+      return 'XCC.Rewards.WealthTable.21-50.Meaning'
     } else if (totalWealth >= 11) {
-      return "XCC.Rewards.WealthTable.11-20.Meaning";
+      return 'XCC.Rewards.WealthTable.11-20.Meaning'
     } else {
-      return "XCC.Rewards.WealthTable.1-10.Meaning";
+      return 'XCC.Rewards.WealthTable.1-10.Meaning'
     }
-  });
+  })
 
   Handlebars.registerHelper('getFameModifier', function (actor) {
-    const fame = actor.system?.rewards?.fame || 0;
+    const fame = actor.system?.rewards?.fame || 0
 
     if (fame >= 81) {
-      return "+2d";
+      return '+2d'
     } else if (fame >= 61) {
-      return "+1d";
+      return '+1d'
     } else if (fame >= 41) {
-      return "+2";
+      return '+2'
     } else if (fame >= 21) {
-      return "+1";
+      return '+1'
     } else {
-      return "+0";
+      return '+0'
     }
-  });
+  })
 
   // Register localization helpers
   Handlebars.registerHelper('getLocalizedArray', function (key) {
     // Split the key to navigate the nested structure
-    const parts = key.split('.');
-    let current = game.i18n.translations;
+    const parts = key.split('.')
+    let current = game.i18n.translations
 
     // Navigate through the nested object
     for (const part of parts) {
       if (current && typeof current === 'object' && part in current) {
-        current = current[part];
-      }
-      else { return [game.i18n.localize('XCC.ErrorNoEntries')] }
+        current = current[part]
+      } else { return [game.i18n.localize('XCC.ErrorNoEntries')] }
     }
 
     // Return the array if found, empty array otherwise
-    return Array.isArray(current) ? current : [];
-  });
+    return Array.isArray(current) ? current : []
+  })
 
   Handlebars.registerHelper('getLocalizationKey', function (actor, name) {
-    return (actor.system.class?.localizationPath || "Undefined") + "." + name;
-  });
+    return (actor.system.class?.localizationPath || 'Undefined') + '.' + name
+  })
 
   Handlebars.registerHelper('hasLocalizedEntries', function (actor, name) {
-    const key = (actor.system.class?.localizationPath || "Undefined") + "." + name
-    const parts = key.split('.');
-    let current = game.i18n.translations;
+    const key = (actor.system.class?.localizationPath || 'Undefined') + '.' + name
+    const parts = key.split('.')
+    let current = game.i18n.translations
 
     // Navigate through the nested object
     for (const part of parts) {
       if (current && typeof current === 'object' && part in current) {
-        current = current[part];
-      }
-      else { return false; }
+        current = current[part]
+      } else { return false }
     }
 
     // Return true if we found an array
-    return Array.isArray(current);
-  });
+    return Array.isArray(current)
+  })
 
   // Register math helpers
   Handlebars.registerHelper('ensurePlus', function (value) {
-    if(value < 0) return ensurePlus(value);
-    else return '+0';
-  });
+    if (value < 0) return ensurePlus(value)
+    else return '+0'
+  })
 
   Handlebars.registerHelper('sum', function (a, b) {
-    if(a && b) return parseInt(a) + parseInt(b);
-    else return a || b || 0;
-  });
+    if (a && b) return parseInt(a) + parseInt(b)
+    else return a || b || 0
+  })
 
   // Register path helper
   Handlebars.registerHelper('getGameImage', function (partial) {
-    return globals.imagesPath + "game-icons-net/" + partial;
-  });
-});
+    return globals.imagesPath + 'game-icons-net/' + partial
+  })
+})
 
 // Parent system is ready - add our module functionality on top
 Hooks.once('dcc.ready', async function () {
-  console.log(`DCC is ready - XCrawl Classics System is loading...`)
+  console.log('DCC is ready - XCrawl Classics System is loading...')
 
   // Register module settings
-  await registerModuleSettings();
+  await registerModuleSettings()
 
   // Register our packs
   if (game.settings.get(globals.id, 'registerLevelDataPack')) {
-    Hooks.callAll('dcc.registerLevelDataPack', globals.id + '.xcc-class-level-data');
+    Hooks.callAll('dcc.registerLevelDataPack', globals.id + '.xcc-class-level-data')
   }
   if (game.settings.get(globals.id, 'registerDisapprovalPack')) {
     Hooks.callAll('dcc.registerDisapprovalPack', globals.id + '.xcc-disapproval')
   }
   // Force fleeting luck to refresh and become Mojo
-  game.dcc.FleetingLuck.init();
+  game.dcc.FleetingLuck.init()
 
   // Setup pause
-  Hooks.on("renderApplicationV2", (app, html, context, options) => {
-    const caption = $("#pause > figcaption");
-    if (game.settings.get(globals.id, 'smallerPause'))
-      $("#pause").addClass("small");
-    else
-      $("#pause").removeClass("small");
+  Hooks.on('renderApplicationV2', (app, html, context, options) => {
+    const caption = $('#pause > figcaption')
+    document.getElementById('pause')?.classList.toggle('small', game.settings.get(globals.id, 'smallerPause'))
     // This won't be necessary after new pause screen is implemented into the base DCC system
-    caption.text(game.i18n.localize('DCC.FancyPause'));
-
-  });
-});
+    caption.text(game.i18n.localize('DCC.FancyPause'))
+  })
+})
 
 // Register Dynamic Token Rings
-Hooks.on("initializeDynamicTokenRingConfig", ringConfig => {
+Hooks.on('initializeDynamicTokenRingConfig', ringConfig => {
   const myCustomRings = new foundry.canvas.placeables.tokens.DynamicRingData({
-    label: "XCC Token Rings",
+    label: 'XCC Token Rings',
     effects: {
-      RING_PULSE: "TOKEN.RING.EFFECTS.RING_PULSE",
-      RING_GRADIENT: "TOKEN.RING.EFFECTS.RING_GRADIENT",
-      BKG_WAVE: "TOKEN.RING.EFFECTS.BKG_WAVE",
-      INVISIBILITY: "TOKEN.RING.EFFECTS.INVISIBILITY",
-      COLOR_OVER_SUBJECT: "TOKEN.RING.EFFECTS.COLOR_OVER_SUBJECT"
+      RING_PULSE: 'TOKEN.RING.EFFECTS.RING_PULSE',
+      RING_GRADIENT: 'TOKEN.RING.EFFECTS.RING_GRADIENT',
+      BKG_WAVE: 'TOKEN.RING.EFFECTS.BKG_WAVE',
+      INVISIBILITY: 'TOKEN.RING.EFFECTS.INVISIBILITY',
+      COLOR_OVER_SUBJECT: 'TOKEN.RING.EFFECTS.COLOR_OVER_SUBJECT'
     },
-    spritesheet: "/modules/xcc/styles/dynamic-token-ring/dynamic-xcc-spritesheet.json" // TODO: replace path with variable
-  });
-  ringConfig.addConfig("myCustomRings", myCustomRings);
-});
+    spritesheet: '/modules/xcc/styles/dynamic-token-ring/dynamic-xcc-spritesheet.json' // TODO: replace path with variable
+  })
+  ringConfig.addConfig('myCustomRings', myCustomRings)
+})
 
 // Debug logs
 Hooks.on('dcc.update', async function (actor, data) {
   if (game.settings.get(globals.id, 'isDebug')) {
-    console.log(`XCC: update hook triggered for actor: ${actor.name}`);
+    console.log(`XCC: update hook triggered for actor: ${actor.name}`)
   }
-});
+})
 
-Hooks.on("updateActor", (actor, data, action, userId) => {
+Hooks.on('updateActor', (actor, data, action, userId) => {
   if (game.settings.get(globals.id, 'isDebug')) {
-    console.log("XCC: actor updated:", actor.name, "Data:", data, "Action:", action, "User ID:", userId);
+    console.log('XCC: actor updated:', actor.name, 'Data:', data, 'Action:', action, 'User ID:', userId)
   }
-});
+})
 
-Hooks.on("updateItem", (actor, data, action, userId) => {
+Hooks.on('updateItem', (actor, data, action, userId) => {
   if (game.settings.get(globals.id, 'isDebug')) {
-    console.log("XCC: item updated:", actor.name, "Data:", data, "Action:", action, "User ID:", userId);
+    console.log('XCC: item updated:', actor.name, 'Data:', data, 'Action:', action, 'User ID:', userId)
   }
-});
+})
 
 // Handle chat message
 Hooks.on('renderChatMessageHTML', (message, html, data) => {
@@ -370,4 +359,4 @@ Hooks.on('renderChatMessageHTML', (message, html, data) => {
       header.remove()
     }
   }
-});
+})
