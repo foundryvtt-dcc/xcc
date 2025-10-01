@@ -1,6 +1,6 @@
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js';
-import { ensurePlus, getCritTableResult, getFumbleTableResult, getNPCFumbleTableResult, getFumbleTableNameFromCritTableName } from '/systems/dcc/module/utilities.js';
-import { globals } from './settings.js';
+import DCCActorSheet from '../../../../../../../systems/dcc/module/actor-sheet.js'
+import { ensurePlus, getCritTableResult, getFumbleTableResult, getNPCFumbleTableResult, getFumbleTableNameFromCritTableName } from '../../../../../../../systems/dcc/module/utilities.js'
+import { globals } from './settings.js'
 
 class XCCActorSheetBrawler extends DCCActorSheet {
   static DEFAULT_OPTIONS = {
@@ -39,40 +39,40 @@ class XCCActorSheetBrawler extends DCCActorSheet {
     }
   }
 
-  static addHooksAndHelpers() {
+  static addHooksAndHelpers () {
     Handlebars.registerHelper('getBrawlerToHit', function (actor) {
-      let lck = String(actor.system.abilities.lck.mod)[0] === "-" ? '' : actor.system.abilities.lck.mod || '';
-      let str = actor.system.abilities.str.mod || '';
-      let ab = actor.system.details.attackBonus || '';
-      return ab + ensurePlus(str + lck);
-    });
+      const lck = String(actor.system.abilities.lck.mod)[0] === '-' ? '' : actor.system.abilities.lck.mod || ''
+      const str = actor.system.abilities.str.mod || ''
+      const ab = actor.system.details.attackBonus || ''
+      return ab + ensurePlus(str + lck)
+    })
 
     Handlebars.registerHelper('getBrawlerDamage', function (actor) {
-      let lck = String(actor.system.abilities.lck.mod)[0] === "-" ? '' : actor.system.abilities.lck.mod || '';
-      let str = actor.system.abilities.str.mod || '';
-      let die = actor.system.class.unarmedDamage || '';
-      return die + ensurePlus(str + lck);
-    });
+      const lck = String(actor.system.abilities.lck.mod)[0] === '-' ? '' : actor.system.abilities.lck.mod || ''
+      const str = actor.system.abilities.str.mod || ''
+      const die = actor.system.class.unarmedDamage || ''
+      return die + ensurePlus(str + lck)
+    })
 
-    Handlebars.registerHelper('positiveOrZero', function(value) {
+    Handlebars.registerHelper('positiveOrZero', function (value) {
       // If the value starts with '-', return '+0', otherwise return the original value
-      const stringValue = String(value);
-      return stringValue.startsWith('-') ? '+0' : stringValue;
-    });
+      const stringValue = String(value)
+      return stringValue.startsWith('-') ? '+0' : stringValue
+    })
   }
 
   /** @inheritDoc */
-  async _prepareContext(options) {
+  async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
     await this.actor.update({
-      'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Brawler.ClassLink'), { relativeTo: this.actor }),
+      'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Brawler.ClassLink'), { relativeTo: this.actor })
     })
 
     if (this.actor.system.details.sheetClass !== 'brawler') {
       await this.actor.update({
-        'system.class.localizationPath': "XCC.Brawler",
-        'system.class.className': "brawler",
+        'system.class.localizationPath': 'XCC.Brawler',
+        'system.class.className': 'brawler',
         'system.details.sheetClass': 'brawler',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,
@@ -85,23 +85,23 @@ class XCCActorSheetBrawler extends DCCActorSheet {
     return context
   }
 
-  getBrawlerToHit() {
-    let lck = String(this.actor.system.abilities.lck.mod)[0] === "-" ? '' : this.actor.system.abilities.lck.mod || '';
-    let str = this.actor.system.abilities.str.mod || '';
-    let ab = this.actor.system.details.attackBonus || '';
-    return ab + ensurePlus(str + lck);
+  getBrawlerToHit () {
+    const lck = String(this.actor.system.abilities.lck.mod)[0] === '-' ? '' : this.actor.system.abilities.lck.mod || ''
+    const str = this.actor.system.abilities.str.mod || ''
+    const ab = this.actor.system.details.attackBonus || ''
+    return ab + ensurePlus(str + lck)
   }
 
-  getBrawlerDamage() {
-    let lck = String(this.actor.system.abilities.lck.mod)[0] === "-" ? '' : this.actor.system.abilities.lck.mod || '';
-    let str = this.actor.system.abilities.str.mod || '';
-    let die = this.actor.system.class.unarmedDamage || '';
-    let ab = this.actor.system.details.attackBonus || '';
-    return die + ensurePlus(ab) + ensurePlus(str + lck);
+  getBrawlerDamage () {
+    const lck = String(this.actor.system.abilities.lck.mod)[0] === '-' ? '' : this.actor.system.abilities.lck.mod || ''
+    const str = this.actor.system.abilities.str.mod || ''
+    const die = this.actor.system.class.unarmedDamage || ''
+    const ab = this.actor.system.details.attackBonus || ''
+    return die + ensurePlus(ab) + ensurePlus(str + lck)
   }
 
-  static async rollUnarmedAttack(event, target) {
-    event.preventDefault();
+  static async rollUnarmedAttack (event, target) {
+    event.preventDefault()
     const options = DCCActorSheet.fillRollOptions(event)
     const type = DCCActorSheet.findDataset(target, 'itemId')
 
@@ -110,23 +110,23 @@ class XCCActorSheetBrawler extends DCCActorSheet {
     // Accumulate all rolls for sending to the chat message
     const rolls = []
     // Attack roll
-    options.targets = game.user.targets;
+    options.targets = game.user.targets
     let critRange = 20
-    let die = 'd14';
+    let die = 'd14'
     if (type === 'xcc.brawler.unarmedRegular') {
       die = 'd16'
-      critRange = 16;
+      critRange = 16
     }
-    let toHit = this.getBrawlerToHit();
+    const toHit = this.getBrawlerToHit()
     /* If we don't have a valid formula, bail out here */
     if (!Roll.validate(toHit)) {
-      console.log("Unarmed attack formula is invalid: " + toHit);
+      console.log('Unarmed attack formula is invalid: ' + toHit)
       return {
         rolled: false,
         formula: toHit
       }
     }
-    console.log("Rolling unarmed attack with formula: " + toHit);
+    console.log('Rolling unarmed attack with formula: ' + toHit)
     // Collate terms for the roll
     const terms = [
       {
@@ -170,7 +170,7 @@ class XCCActorSheetBrawler extends DCCActorSheet {
         upperThreshold: 3
       }
       // Create a proper Roll object for the deed die
-      deedDieFormula = attackRoll.dice[1].formula;
+      deedDieFormula = attackRoll.dice[1].formula
       deedDieRoll = Roll.fromTerms([attackRoll.dice[1]])
       deedDieRoll._total = attackRoll.dice[1].total
       deedDieRoll._evaluated = true
@@ -182,7 +182,7 @@ class XCCActorSheetBrawler extends DCCActorSheet {
     const naturalCrit = (actionDieRollResult >= critRange)
     const crit = (naturalCrit) && !(this.actor.system.class.armorTooHeavy)
 
-    let attackRollResult = {
+    const attackRollResult = {
       actionDieRollResult,
       deedDieFormula,
       deedDieRollResult,
@@ -206,9 +206,9 @@ class XCCActorSheetBrawler extends DCCActorSheet {
     rolls.push(attackRollResult.roll)
 
     // Damage roll
-    let damageRollFormula = attackRollResult.weaponDamageFormula;
+    let damageRollFormula = attackRollResult.weaponDamageFormula
     if (attackRollResult.deedDieRollResult) {
-      const rawDeedFormula = this.actor.system.details.attackBonus; // e.g. "d4"
+      const rawDeedFormula = this.actor.system.details.attackBonus // e.g. "d4"
       const deedBonusStringComponent = ensurePlus(rawDeedFormula) // e.g. "+d4", this is what's in the damage formula from warrior bonus
       const deedNumericResult = attackRollResult.deedDieRollResult.toString() // e.g. "4"
       // Determine sign from how deed was added to formula, then append numeric result
@@ -313,15 +313,9 @@ class XCCActorSheetBrawler extends DCCActorSheet {
         fumbleRollFormula = '1d10'
       }
       fumbleInlineRoll = await foundry.applications.ux.TextEditor.enrichHTML(`[[/r ${fumbleRollFormula} # Fumble (${fumbleTableName})]] (${fumbleTableName})`)
-      if (type === "xcc.brawler.unarmedRegular")
-        fumblePrompt = game.i18n.localize('XCC.RollFumbleTwoWeapons')
-      else
-        fumblePrompt = game.i18n.localize('DCC.RollFumble')
+      if (type === 'xcc.brawler.unarmedRegular') { fumblePrompt = game.i18n.localize('XCC.RollFumbleTwoWeapons') } else { fumblePrompt = game.i18n.localize('DCC.RollFumble') }
       if (automateDamageFumblesCrits) {
-        if (type === "xcc.brawler.unarmedRegular")
-          fumblePrompt = game.i18n.localize('XCC.FumbleTwoWeapons')
-        else
-          fumblePrompt = game.i18n.localize('DCC.Fumble')
+        if (type === 'xcc.brawler.unarmedRegular') { fumblePrompt = game.i18n.localize('XCC.FumbleTwoWeapons') } else { fumblePrompt = game.i18n.localize('DCC.Fumble') }
         fumbleRoll = game.dcc.DCCRoll.createRoll([
           {
             type: 'Compound',
@@ -356,7 +350,7 @@ class XCCActorSheetBrawler extends DCCActorSheet {
       'dcc.isCrit': attackRollResult.crit,
       'dcc.isNaturalCrit': attackRollResult.naturalCrit,
       'dcc.isMelee': true,
-      'dcc.isUnarmed': true,
+      'dcc.isUnarmed': true
     }
     game.dcc.FleetingLuck.updateFlags(flags, attackRollResult.roll)
 
@@ -366,7 +360,7 @@ class XCCActorSheetBrawler extends DCCActorSheet {
     const messageData = {
       user: game.user.id,
       speaker,
-      flavor: game.i18n.format('DCC.AttackRoll', game.i18n.localize("XCC.Brawler.UnarmedAttack").toLowerCase()),
+      flavor: game.i18n.format('DCC.AttackRoll', game.i18n.localize('XCC.Brawler.UnarmedAttack').toLowerCase()),
       flags,
       rolls,
       system: {
@@ -393,7 +387,7 @@ class XCCActorSheetBrawler extends DCCActorSheet {
         hitsAc: attackRollResult.hitsAc,
         targets: game.user.targets,
         weaponId: type,
-        weaponName: game.i18n.localize("XCC.Brawler.UnarmedAttack").toLowerCase()
+        weaponName: game.i18n.localize('XCC.Brawler.UnarmedAttack').toLowerCase()
       }
     }
     await Hooks.callAll('dcc.rollWeaponAttack', rolls, messageData)
@@ -404,39 +398,38 @@ class XCCActorSheetBrawler extends DCCActorSheet {
     ChatMessage.create(messageData)
   }
 
-
-  _onRender(context, options) {
+  _onRender (context, options) {
     if (game.settings.get(globals.id, 'includeUnarmedInWeapons')) {
       // Add the Grapple item to the equipment section
-      let items = this.parts.equipment.querySelector('.weapon-list-header').outerHTML +=
+      this.parts.equipment.querySelector('.weapon-list-header').outerHTML +=
         `<li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.brawler.unarmedRegular">
               <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
-              <img class="icon-filter" src="`+globals.imagesPath + `game-icons-net/rock.svg" title="`+ game.i18n.localize("XCC.Brawler.UnarmedRegularShort") + `" alt="` + game.i18n.localize("XCC.Brawler.UnarmedRegularShort") + `" width="22" height="22">
+              <img class="icon-filter" src="` + globals.imagesPath + 'game-icons-net/rock.svg" title="' + game.i18n.localize('XCC.Brawler.UnarmedRegularShort') + '" alt="' + game.i18n.localize('XCC.Brawler.UnarmedRegularShort') + `" width="22" height="22">
               <div class="attack-buttons">
                   <div class="rollable two-attack-button icon-filter" data-action="rollUnarmedAttack" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
               </div>
-              <input class="weapon-name" type="text" value="`+ game.i18n.localize("XCC.Brawler.UnarmedRegularShort") + `" readonly="">
-              <input class="disabled" type="text" value="`+ this.getBrawlerToHit() + `" readonly="">
-              <input class="weapon-damage disabled" style="width: auto;" type="text" value="`+ this.getBrawlerDamage() + `" readonly="">
-              <input class="weapon-notes disabled" type="text" value="`+ game.i18n.localize("XCC.Brawler.UnarmedRegularNote") + `" readonly="">
+              <input class="weapon-name" type="text" value="` + game.i18n.localize('XCC.Brawler.UnarmedRegularShort') + `" readonly="">
+              <input class="disabled" type="text" value="` + this.getBrawlerToHit() + `" readonly="">
+              <input class="weapon-damage disabled" style="width: auto;" type="text" value="` + this.getBrawlerDamage() + `" readonly="">
+              <input class="weapon-notes disabled" type="text" value="` + game.i18n.localize('XCC.Brawler.UnarmedRegularNote') + `" readonly="">
               <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
               <div class="disabled">-</div>
           </li>
           <li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.brawler.unarmedFree">
               <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
-              <img class="icon-filter" src="`+globals.imagesPath + `game-icons-net/rock.svg" title="`+ game.i18n.localize("XCC.Brawler.UnarmedFreeShort") + `" alt="` + game.i18n.localize("XCC.Brawler.UnarmedFreeShort") + `" width="22" height="22">
+              <img class="icon-filter" src="` + globals.imagesPath + 'game-icons-net/rock.svg" title="' + game.i18n.localize('XCC.Brawler.UnarmedFreeShort') + '" alt="' + game.i18n.localize('XCC.Brawler.UnarmedFreeShort') + `" width="22" height="22">
               <div class="attack-buttons">
                   <div class="rollable free-attack-button icon-filter" data-action="rollUnarmedAttack" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
               </div>
-              <input class="weapon-name" type="text" value="`+ game.i18n.localize("XCC.Brawler.UnarmedFreeShort") + `" readonly="">
-              <input class="disabled" type="text" value="`+ this.getBrawlerToHit() + `" readonly="">
-              <input class="weapon-damage disabled" style="width: auto;" type="text" value="`+ this.getBrawlerDamage() + `" readonly="">
-              <input class="weapon-notes disabled" type="text" value="`+ game.i18n.localize("XCC.Brawler.UnarmedFreeNote") + `" readonly="">
+              <input class="weapon-name" type="text" value="` + game.i18n.localize('XCC.Brawler.UnarmedFreeShort') + `" readonly="">
+              <input class="disabled" type="text" value="` + this.getBrawlerToHit() + `" readonly="">
+              <input class="weapon-damage disabled" style="width: auto;" type="text" value="` + this.getBrawlerDamage() + `" readonly="">
+              <input class="weapon-notes disabled" type="text" value="` + game.i18n.localize('XCC.Brawler.UnarmedFreeNote') + `" readonly="">
               <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
               <div class="disabled">-</div>
-          </li>`;
+          </li>`
     }
-    super._onRender(context, options);
+    super._onRender(context, options)
   }
 }
-export default XCCActorSheetBrawler;
+export default XCCActorSheetBrawler

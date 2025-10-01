@@ -1,6 +1,10 @@
-import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
-import { ensurePlus, getCritTableResult, getFumbleTableResult } from "/systems/dcc/module/utilities.js";
-import { globals } from './settings.js';
+import DCCActorSheet from '../../../../../../../systems/dcc/module/actor-sheet.js'
+import {
+  ensurePlus,
+  getCritTableResult,
+  getFumbleTableResult
+} from '../../../../../../../systems/dcc/module/utilities.js'
+import { globals } from './settings.js'
 
 class XCCActorSheetHalfElf extends DCCActorSheet {
   /** @inheritDoc */
@@ -46,94 +50,90 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
     }
   }
 
-  static addHooksAndHelpers() {
+  static addHooksAndHelpers () {
     Hooks.on('renderChatMessageHTML', (message, html, data) => {
-      if(message.speakerActor?.system?.details?.sheetClass !== 'half-elf') return;
+      if (message.speakerActor?.system?.details?.sheetClass !== 'half-elf') return
       if ((message.system?.skillId || '') === 'acrobatics') {
         // Dodge message
-        let reflex = data.speakerActor?.system?.saves.ref.value || 0;
-        let enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeFailure');
+        const reflex = data.speakerActor?.system?.saves.ref.value || 0
+        let enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeFailure')
         if ((message.rolls[0]?.total || 0) >= 20) {
-          enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeAll');
-        }
-        else if ((message.rolls[0]?.total || 0) >= 15) {
-          enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeMultiple');
-        }
-        else if ((message.rolls[0]?.total || 0) >= 10) {
-          enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeSingle');
+          enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeAll')
+        } else if ((message.rolls[0]?.total || 0) >= 15) {
+          enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeMultiple')
+        } else if ((message.rolls[0]?.total || 0) >= 10) {
+          enemies = game.i18n.localize('XCC.Specialist.Acrobat.DodgeSingle')
         }
         // Withdraw message
-        let withdraw = game.i18n.localize('XCC.Specialist.Acrobat.WithdrawFailure');
+        let withdraw = game.i18n.localize('XCC.Specialist.Acrobat.WithdrawFailure')
         if ((message.rolls[0]?.total || 0) >= 20) {
-          withdraw = game.i18n.localize('XCC.Specialist.Acrobat.WithdrawMultiple');
-        }
-        else if ((message.rolls[0]?.total || 0) >= 15) {
-          withdraw = game.i18n.localize('XCC.Specialist.Acrobat.WithdrawSingle');
+          withdraw = game.i18n.localize('XCC.Specialist.Acrobat.WithdrawMultiple')
+        } else if ((message.rolls[0]?.total || 0) >= 15) {
+          withdraw = game.i18n.localize('XCC.Specialist.Acrobat.WithdrawSingle')
         }
         // Fall damage mitigation
-        let fall = '0';
+        let fall = '0'
         if ((message.rolls[0]?.total || 0) >= 30) {
-          fall = '5d6';
+          fall = '5d6'
+        } else if ((message.rolls[0]?.total || 0) >= 25) {
+          fall = '4d6'
+        } else if ((message.rolls[0]?.total || 0) >= 20) {
+          fall = '3d6'
+        } else if ((message.rolls[0]?.total || 0) >= 15) {
+          fall = '2d6'
+        } else if ((message.rolls[0]?.total || 0) >= 10) {
+          fall = '1d6'
         }
-        else if ((message.rolls[0]?.total || 0) >= 25) {
-          fall = '4d6';
-        }
-        else if ((message.rolls[0]?.total || 0) >= 20) {
-          fall = '3d6';
-        }
-        else if ((message.rolls[0]?.total || 0) >= 15) {
-          fall = '2d6';
-        }
-        else if ((message.rolls[0]?.total || 0) >= 10) {
-          fall = '1d6';
-        }
-        html.innerHTML += "<div class='message-content'><br/>" + game.i18n.format('XCC.Specialist.Acrobat.AcrobaticsMessage', { enemies, reflex, withdraw, fall }) + "</div>"
-      }
-      // Pole vault message
-      else if ((message.system?.skillId || '') === 'poleVault') {
-        let height = 0;
+        html.innerHTML += '<div class=\'message-content\'><br/>' + game.i18n.format('XCC.Specialist.Acrobat.AcrobaticsMessage', {
+          enemies,
+          reflex,
+          withdraw,
+          fall
+        }) + '</div>'
+      } else if ((message.system?.skillId || '') === 'poleVault') {
+        // Pole vault message
+        let height = 0
         let dc = 0
         if ((message.rolls[0]?.total || 0) >= 25) {
-          height = 20;
-          dc = 25;
+          height = 20
+          dc = 25
+        } else if ((message.rolls[0]?.total || 0) >= 20) {
+          height = 15
+          dc = 20
+        } else if ((message.rolls[0]?.total || 0) >= 15) {
+          height = 10
+          dc = 15
+        } else if ((message.rolls[0]?.total || 0) >= 10) {
+          height = 5
+          dc = 10
         }
-        else if ((message.rolls[0]?.total || 0) >= 20) {
-          height = 15;
-          dc = 20;
-        }
-        else if ((message.rolls[0]?.total || 0) >= 15) {
-          height = 10;
-          dc = 15;
-        }
-        else if ((message.rolls[0]?.total || 0) >= 10) {
-          height = 5;
-          dc = 10;
-        }
-        html.innerHTML += "<div class='message-content'><br/>" + game.i18n.format('XCC.Specialist.Acrobat.PoleVaultMessage', { height, dc }) + "</div>"
+        html.innerHTML += '<div class=\'message-content\'><br/>' + game.i18n.format('XCC.Specialist.Acrobat.PoleVaultMessage', {
+          height,
+          dc
+        }) + '</div>'
+      } else if ((message.system?.skillId || '') === 'tightropeWalk') {
+        // Tightrope walk message
+        html.innerHTML += '<div class=\'message-content tightrope\'><br/>' + game.i18n.format('XCC.Specialist.Acrobat.TightRopeMessage') + '</div>'
       }
-      // Tightrope walk message
-      else if ((message.system?.skillId || '') === 'tightropeWalk') {
-        html.innerHTML += "<div class='message-content tightrope'><br/>" + game.i18n.format('XCC.Specialist.Acrobat.TightRopeMessage') + "</div>"
-      }
-    });
+    })
   }
 
-  setSpecialistSkills() {
-    //DCC System had a bug with pickPocket skill, we're setting a custom one for now
+  setSpecialistSkills () {
+    // DCC System had a bug with pickPocket skill, we're setting a custom one for now
     if (this.actor.system.skills.pickPocket) {
-      this.actor.system.skills.pickPocket.ability = 'agl';
-      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value';
+      this.actor.system.skills.pickPocket.ability = 'agl'
+      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value'
     }
-    //XCC uses int for forge document skill
+    // XCC uses int for forge document skill
     if (this.actor.system.skills.forgeDocument) {
-      this.actor.system.skills.forgeDocument.ability = 'int';
+      this.actor.system.skills.forgeDocument.ability = 'int'
     }
-    //Acrobat: Acrobatics
+    // Acrobat: Acrobatics
     if (this.actor.system.skills.acrobatics) {
-      this.actor.system.skills.acrobatics.ability = 'agl';
-      this.actor.system.skills.acrobatics.label = 'DCC.system.skills.acrobatics.value';
+      this.actor.system.skills.acrobatics.ability = 'agl'
+      this.actor.system.skills.acrobatics.label = 'DCC.system.skills.acrobatics.value'
     }
-    //Half-Elf spellcheck skill
+    // Half-Elf spellcheck skill
     if (this.actor.system.skills.spellCheck) {
       this.actor.system.skills.spellCheck = {
         value: this.actor.system.details.level.value,
@@ -143,18 +143,18 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
         ability: 'per',
         label: 'DCC.Spell',
         die: 'd20'
-      };
+      }
     }
   }
 
   /** @override */
-  async _prepareContext(options) {
+  async _prepareContext (options) {
     const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'half-elf') {
       await this.actor.update({
-        'system.class.localizationPath': "XCC.HalfElf",
-        'system.class.className': "xcc.halfelf",
+        'system.class.localizationPath': 'XCC.HalfElf',
+        'system.class.className': 'xcc.halfelf',
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.HalfElf.ClassLink')),
         'system.details.sheetClass': 'half-elf',
         'system.details.critRange': 20,
@@ -171,122 +171,118 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
     return context
   }
 
-  static async rollDowngradedToHit(weapon, options, actor) {
-    {
-      // Apply armor check penalty to backstab attacks;
-      const toHit = weapon.system?.toHit.replaceAll('@ab', actor.system.details.attackBonus) + ensurePlus(actor.system?.attributes?.ac?.checkPenalty || '0')
-      const actorActionDice = actor.getActionDice({ includeUntrained: true })[0].formula
+  static async rollDowngradedToHit (weapon, options, actor) {
+    // Apply armor check penalty to backstab attacks;
+    const toHit = weapon.system?.toHit.replaceAll('@ab', actor.system.details.attackBonus) + ensurePlus(actor.system?.attributes?.ac?.checkPenalty || '0')
+    const actorActionDice = actor.getActionDice({ includeUntrained: true })[0].formula
 
-      const die = weapon.system?.actionDie || actorActionDice
+    const die = weapon.system?.actionDie || actorActionDice
 
-      let critRange = parseInt(weapon.system?.critRange || actor.system.details.critRange || 20)
+    let critRange = parseInt(weapon.system?.critRange || actor.system.details.critRange || 20)
 
-      /* If we don't have a valid formula, bail out here */
-      if (!Roll.validate(toHit)) {
-        return {
-          rolled: false,
-          formula: toHit
-        }
-      }
-
-      // Collate terms for the roll
-      const terms = [
-        {
-          type: 'Die',
-          label: game.i18n.localize('DCC.ActionDie'),
-          formula: die,
-          presets: actor.getActionDice({ includeUntrained: true })
-        },
-        {
-          type: 'Compound',
-          modifierLabel: game.i18n.localize('DCC.ToHit'),
-          formula: toHit
-        }
-      ]
-
-      // Add backstab bonus if required
-      terms.push({
-        type: 'Modifier',
-        label: game.i18n.localize('DCC.Backstab'),
-        presets: [],
-        formula: parseInt(actor.system?.class?.backstab || '+0')
-      })
-
-      // Allow modules to modify the terms before the roll is created
-      const proceed = Hooks.call('dcc.modifyAttackRollTerms', terms, actor, weapon, options)
-      if (!proceed) return // Cancel the attack roll if any listener returns false
-
-      /* Roll the Attack */
-      const rollOptions = Object.assign(
-        {
-          title: game.i18n.localize('DCC.ToHit')
-        },
-        options
-      )
-      const attackRoll = await game.dcc.DCCRoll.createRoll(terms, Object.assign({ critical: critRange }, actor.getRollData()), rollOptions)
-      await attackRoll.evaluate()
-
-      // Adjust crit range if the die size was adjusted
-      const strictCrits = game.settings.get('dcc', 'strictCriticalHits')
-      if (strictCrits) {
-        // Extract die sizes from the original and adjusted formulas
-        const originalDieMatch = die.match(/(\d+)d(\d+)/)
-        const adjustedDieMatch = attackRoll.formula.match(/(\d+)d(\d+)/)
-        if (originalDieMatch && adjustedDieMatch) {
-          const originalDieSize = parseInt(originalDieMatch[2])
-          const adjustedDieSize = parseInt(adjustedDieMatch[2])
-          if (originalDieSize !== adjustedDieSize) {
-            // Use proportional crit range calculation
-            critRange = game.dcc.DiceChain.calculateProportionalCritRange(critRange, originalDieSize, adjustedDieSize)
-          }
-        }
-      } else {
-        // Use the original logic (expand crit range)
-        critRange += parseInt(game.dcc.DiceChain.calculateCritAdjustment(die, attackRoll.formula))
-      }
-
-      const d20RollResult = attackRoll.dice[0].total
-      attackRoll.dice[0].options.dcc = {
-        upperThreshold: critRange
-      }
-
-      /* Check for crit or fumble */
-      const fumble = (d20RollResult === 1)
-      const naturalCrit = d20RollResult >= critRange
-      const crit = !fumble
-
+    /* If we don't have a valid formula, bail out here */
+    if (!Roll.validate(toHit)) {
       return {
-        d20RollResult,
-        crit,
-        formula: game.dcc.DCCRoll.cleanFormula(attackRoll.terms),
-        fumble,
-        hitsAc: attackRoll.total,
-        naturalCrit,
-        roll: attackRoll,
-        rolled: true,
-        weaponDamageFormula: weapon.damage
+        rolled: false,
+        formula: toHit
       }
+    }
+
+    // Collate terms for the roll
+    const terms = [
+      {
+        type: 'Die',
+        label: game.i18n.localize('DCC.ActionDie'),
+        formula: die,
+        presets: actor.getActionDice({ includeUntrained: true })
+      },
+      {
+        type: 'Compound',
+        modifierLabel: game.i18n.localize('DCC.ToHit'),
+        formula: toHit
+      }
+    ]
+
+    // Add backstab bonus if required
+    terms.push({
+      type: 'Modifier',
+      label: game.i18n.localize('DCC.Backstab'),
+      presets: [],
+      formula: parseInt(actor.system?.class?.backstab || '+0')
+    })
+
+    // Allow modules to modify the terms before the roll is created
+    const proceed = Hooks.call('dcc.modifyAttackRollTerms', terms, actor, weapon, options)
+    if (!proceed) return // Cancel the attack roll if any listener returns false
+
+    /* Roll the Attack */
+    const rollOptions = Object.assign(
+      {
+        title: game.i18n.localize('DCC.ToHit')
+      },
+      options
+    )
+    const attackRoll = await game.dcc.DCCRoll.createRoll(terms, Object.assign({ critical: critRange }, actor.getRollData()), rollOptions)
+    await attackRoll.evaluate()
+
+    // Adjust crit range if the die size was adjusted
+    const strictCrits = game.settings.get('dcc', 'strictCriticalHits')
+    if (strictCrits) {
+      // Extract die sizes from the original and adjusted formulas
+      const originalDieMatch = die.match(/(\d+)d(\d+)/)
+      const adjustedDieMatch = attackRoll.formula.match(/(\d+)d(\d+)/)
+      if (originalDieMatch && adjustedDieMatch) {
+        const originalDieSize = parseInt(originalDieMatch[2])
+        const adjustedDieSize = parseInt(adjustedDieMatch[2])
+        if (originalDieSize !== adjustedDieSize) {
+          // Use proportional crit range calculation
+          critRange = game.dcc.DiceChain.calculateProportionalCritRange(critRange, originalDieSize, adjustedDieSize)
+        }
+      }
+    } else {
+      // Use the original logic (expand crit range)
+      critRange += parseInt(game.dcc.DiceChain.calculateCritAdjustment(die, attackRoll.formula))
+    }
+
+    const d20RollResult = attackRoll.dice[0].total
+    attackRoll.dice[0].options.dcc = {
+      upperThreshold: critRange
+    }
+
+    /* Check for crit or fumble */
+    const fumble = (d20RollResult === 1)
+    const naturalCrit = d20RollResult >= critRange
+    const crit = !fumble
+
+    return {
+      d20RollResult,
+      crit,
+      formula: game.dcc.DCCRoll.cleanFormula(attackRoll.terms),
+      fumble,
+      hitsAc: attackRoll.total,
+      naturalCrit,
+      roll: attackRoll,
+      rolled: true,
+      weaponDamageFormula: weapon.damage
     }
   }
 
-  static async rollWeaponAttack(event, target) {
+  static async rollWeaponAttack (event, target) {
     const itemId = DCCActorSheet.findDataset(target, 'itemId')
-    const weapon = this.actor.items.find(i => i.id === itemId);
+    const weapon = this.actor.items.find(i => i.id === itemId)
     if (weapon) {
       // Half-Elf applies armor penalty to backstab attacks and reduces the crit die by 2
       if (target.classList.contains('backstab-button')) {
-        await XCCActorSheetHalfElf.rollDowngradedBackstab(event, weapon, this.actor);
+        await XCCActorSheetHalfElf.rollDowngradedBackstab(event, weapon, this.actor)
+      } else {
+        // Call the original roll weapon attack action
+        await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
       }
-      // Call the original roll weapon attack action
-      else
-        await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target);
-    }
-    else
-      console.warn(`Weapon not found: ${itemId} `);
+    } else { console.warn(`Weapon not found: ${itemId} `) }
   }
 
-  static async rollDowngradedBackstab(event, weapon, actor) {
-    event.preventDefault();
+  static async rollDowngradedBackstab (event, weapon, actor) {
+    event.preventDefault()
     const options = DCCActorSheet.fillRollOptions(event)
 
     const automateDamageFumblesCrits = game.settings.get('dcc', 'automateDamageFumblesCrits')
@@ -305,7 +301,7 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
 
     // Attack roll
     options.targets = game.user.targets // Add targets set to options
-    const attackRollResult = await XCCActorSheetHalfElf.rollDowngradedToHit(weapon, options, actor);
+    const attackRollResult = await XCCActorSheetHalfElf.rollDowngradedToHit(weapon, options, actor)
 
     if (!attackRollResult) return // <-- if the attack roll is cancelled, return
 
@@ -373,9 +369,8 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
     if (attackRollResult.crit) {
       critRollFormula = `${weapon.system?.critDie || actor.system.attributes.critical?.die || '1d10'}`
       // Backstab criticals are reduced by 2 die steps unless it's a natural crit
-      if (!attackRollResult.naturalCrit)
-        critRollFormula = game.dcc.DiceChain.bumpDie(critRollFormula, -2);
-      critRollFormula += luckMod;
+      if (!attackRollResult.naturalCrit) { critRollFormula = game.dcc.DiceChain.bumpDie(critRollFormula, -2) }
+      critRollFormula += luckMod
       const criticalText = game.i18n.localize('DCC.Critical')
       const critTableText = game.i18n.localize('DCC.CritTable')
       critInlineRoll = await foundry.applications.ux.TextEditor.enrichHTML(`[[/r ${critRollFormula} # ${criticalText} (${critTableText} ${critTableName})]] (${critTableText} ${critTableName})`)
@@ -398,7 +393,10 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
           critText = `: <br>${critText}`
         }
         const critResultPrompt = game.i18n.localize('DCC.CritResult')
-        const critRollAnchor = critRoll.toAnchor({ classes: ['inline-dsn-hidden'], dataset: { damage: critRoll.total } }).outerHTML
+        const critRollAnchor = critRoll.toAnchor({
+          classes: ['inline-dsn-hidden'],
+          dataset: { damage: critRoll.total }
+        }).outerHTML
         critInlineRoll = await foundry.applications.ux.TextEditor.enrichHTML(`${critResultPrompt} ${critRollAnchor} (${critTableText} ${critTableName})${critText}`)
       }
     }
@@ -407,7 +405,7 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
     let fumbleRollFormula = ''
     let fumbleInlineRoll = ''
     let fumblePrompt = ''
-    let fumbleTableName = 'Table 4-2: Fumbles';
+    let fumbleTableName = 'Table 4-2: Fumbles'
     let fumbleText = ''
     let fumbleRoll
     const inverseLuckMod = ensurePlus((parseInt(actor.system.abilities.lck.mod) * -1).toString())
@@ -427,14 +425,16 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
         await fumbleRoll.evaluate()
         foundry.utils.mergeObject(fumbleRoll.options, { 'dcc.isFumbleRoll': true })
         rolls.push(fumbleRoll)
-        let fumbleResult
-        fumbleResult = await getFumbleTableResult(fumbleRoll)
+        const fumbleResult = await getFumbleTableResult(fumbleRoll)
         if (fumbleResult) {
           fumbleTableName = `${fumbleResult?.parent?.link}:<br>`.replace('Fumble Table ', '').replace('Crit/', '')
           fumbleText = await foundry.applications.ux.TextEditor.enrichHTML(fumbleResult.description)
         }
         const onPrep = game.i18n.localize('DCC.on')
-        const fumbleRollAnchor = fumbleRoll.toAnchor({ classes: ['inline-dsn-hidden'], dataset: { damage: fumbleRoll.total } }).outerHTML
+        const fumbleRollAnchor = fumbleRoll.toAnchor({
+          classes: ['inline-dsn-hidden'],
+          dataset: { damage: fumbleRoll.total }
+        }).outerHTML
         fumbleInlineRoll = await foundry.applications.ux.TextEditor.enrichHTML(`${fumbleRollAnchor} ${onPrep} ${fumbleTableName} ${fumbleText}`)
       }
     }
@@ -493,51 +493,45 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
     ChatMessage.create(messageData)
   }
 
-
-
-  static async rollSavingThrow(event, target) {
+  static async rollSavingThrow (event, target) {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event);
+    const options = DCCActorSheet.fillRollOptions(event)
 
     const save = target.parentElement.dataset.save
-    if (this.actor.system.class.saveBonus <= 0)
+    if (this.actor.system.class.saveBonus <= 0) { await this.actor.rollSavingThrow(save, options) } else {
+      const oldRef = this.actor.system.saves.ref.value
+      const oldFrt = this.actor.system.saves.frt.value
+      const oldWil = this.actor.system.saves.wil.value
+      if (!this.actor.system.saves.ref.override) { this.actor.system.saves.ref.value += this.actor.system.class.saveBonus }
+      if (!this.actor.system.saves.frt.override) { this.actor.system.saves.frt.value += this.actor.system.class.saveBonus }
+      if (!this.actor.system.saves.wil.override) { this.actor.system.saves.wil.value += this.actor.system.class.saveBonus }
       await this.actor.rollSavingThrow(save, options)
-    else {
-      let oldRef = this.actor.system.saves.ref.value;
-      let oldFrt = this.actor.system.saves.frt.value;
-      let oldWil = this.actor.system.saves.wil.value;
-      if (!this.actor.system.saves.ref.override)
-        this.actor.system.saves.ref.value += this.actor.system.class.saveBonus;
-      if (!this.actor.system.saves.frt.override)
-        this.actor.system.saves.frt.value += this.actor.system.class.saveBonus;
-      if (!this.actor.system.saves.wil.override)
-        this.actor.system.saves.wil.value += this.actor.system.class.saveBonus;
-      await this.actor.rollSavingThrow(save, options)
-      this.actor.system.saves.ref.value = oldRef;
-      this.actor.system.saves.frt.value = oldFrt;
-      this.actor.system.saves.wil.value = oldWil;
+      this.actor.system.saves.ref.value = oldRef
+      this.actor.system.saves.frt.value = oldFrt
+      this.actor.system.saves.wil.value = oldWil
     }
   }
 
-  _onRender(context, options) {
+  _onRender (context, options) {
     if (this.actor.system.class.saveBonus && this.actor.system.class.saveBonus > 0) {
-      let element = undefined;
+      let element
       if (!this.actor.system.saves.ref.override) {
-        element = this.parts.character.firstElementChild.querySelector('input[id="system.saves.ref.value"]');
-        element.value = ensurePlus(parseInt(this.actor.system.saves.ref.value) + parseInt(this.actor.system.class.saveBonus));
+        element = this.parts.character.firstElementChild.querySelector('input[id="system.saves.ref.value"]')
+        element.value = ensurePlus(parseInt(this.actor.system.saves.ref.value) + parseInt(this.actor.system.class.saveBonus))
       }
       if (!this.actor.system.saves.frt.override) {
-        element = this.parts.character.firstElementChild.querySelector('input[id="system.saves.frt.value"]');
-        element.value = ensurePlus(parseInt(this.actor.system.saves.frt.value) + parseInt(this.actor.system.class.saveBonus));
+        element = this.parts.character.firstElementChild.querySelector('input[id="system.saves.frt.value"]')
+        element.value = ensurePlus(parseInt(this.actor.system.saves.frt.value) + parseInt(this.actor.system.class.saveBonus))
       }
       if (!this.actor.system.saves.wil.override) {
-        element = this.parts.character.firstElementChild.querySelector('input[id="system.saves.wil.value"]');
-        element.value = ensurePlus(parseInt(this.actor.system.saves.wil.value) + parseInt(this.actor.system.class.saveBonus));
+        element = this.parts.character.firstElementChild.querySelector('input[id="system.saves.wil.value"]')
+        element.value = ensurePlus(parseInt(this.actor.system.saves.wil.value) + parseInt(this.actor.system.class.saveBonus))
       }
     }
-    super._onRender(context, options);
+    super._onRender(context, options)
   }
 }
-export default XCCActorSheetHalfElf;
+
+export default XCCActorSheetHalfElf

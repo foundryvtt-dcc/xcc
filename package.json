@@ -16,6 +16,16 @@
       "assets/",
       "metadata/",
       "packs/"
+    ],
+    "globals": [
+      "game",
+      "foundry",
+      "ui",
+      "CONFIG",
+      "ChatMessage",
+      "Handlebars",
+      "Hooks",
+      "Roll"
     ]
   },
   "repository": {

@@ -1,5 +1,5 @@
-import DCCActorSheet from "/systems/dcc/module/actor-sheet.js";
-import { globals } from './settings.js';
+import DCCActorSheet from '../../../../../../../systems/dcc/module/actor-sheet.js'
+import { globals } from './settings.js'
 
 class XCCActorSheetGnome extends DCCActorSheet {
   /** @inheritDoc */
@@ -45,24 +45,24 @@ class XCCActorSheetGnome extends DCCActorSheet {
     }
   }
 
-  getDrawAgroBonus() {
-    let bonus = this.actor.system?.abilities?.per?.mod || 0;
-    bonus += this.actor.system?.details?.level?.value || 0;
-    if (this.actor.system.abilities.lck.mod > 0) bonus += this.actor.system.abilities.lck.mod;
-    return bonus;
+  getDrawAgroBonus () {
+    let bonus = this.actor.system?.abilities?.per?.mod || 0
+    bonus += this.actor.system?.details?.level?.value || 0
+    if (this.actor.system.abilities.lck.mod > 0) bonus += this.actor.system.abilities.lck.mod
+    return bonus
   }
 
-  static addHooksAndHelpers() {
+  static addHooksAndHelpers () {
     Handlebars.registerHelper('getDrawAgroBonus', (actor) => {
-      let bonus = actor.system?.abilities?.per?.mod || 0;
-      bonus += actor.system?.details?.level?.value || 0;
-      if (actor.system.abilities.lck.mod > 0) bonus += actor.system.abilities.lck.mod;
-      return bonus;
-    });
+      let bonus = actor.system?.abilities?.per?.mod || 0
+      bonus += actor.system?.details?.level?.value || 0
+      if (actor.system.abilities.lck.mod > 0) bonus += actor.system.abilities.lck.mod
+      return bonus
+    })
   }
 
   /** @override */
-  async _prepareContext(options) {
+  async _prepareContext (options) {
     // Set base speed
     if (this.actor.system.details.sheetClass !== 'gnome') {
       await this.actor.update({
@@ -75,8 +75,8 @@ class XCCActorSheetGnome extends DCCActorSheet {
 
     if (this.actor.system.details.sheetClass !== 'gnome') {
       await this.actor.update({
-        'system.class.localizationPath': "XCC.Gnome",
-        'system.class.className': "xcc.gnome",
+        'system.class.localizationPath': 'XCC.Gnome',
+        'system.class.className': 'xcc.gnome',
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Gnome.ClassLink')),
         'system.details.sheetClass': 'gnome',
         'system.details.critRange': 20,
@@ -96,16 +96,16 @@ class XCCActorSheetGnome extends DCCActorSheet {
       ability: 'per',
       label: 'DCC.Spell',
       die: 'd20'
-    };
+    }
 
     return context
   }
 
-  static async rollTeamMascotDie(event, target) {
-    event.preventDefault();
+  static async rollTeamMascotDie (event, target) {
+    event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event);
+    const options = DCCActorSheet.fillRollOptions(event)
 
     // Create terms for the DCC roll system
     const terms = [
@@ -114,7 +114,7 @@ class XCCActorSheetGnome extends DCCActorSheet {
         label: game.i18n.localize('DCC.ActionDie'),
         formula: this.actor.system.class.teamMascotDie || '1d3'
       }
-    ];
+    ]
 
     // Roll options for the DCC roll system
     const rollOptions = Object.assign(
@@ -122,11 +122,11 @@ class XCCActorSheetGnome extends DCCActorSheet {
         title: game.i18n.localize('XCC.Gnome.TeamMascotDie')
       },
       options
-    );
+    )
 
     // Create and evaluate the roll using DCC system
-    const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions);
-    await roll.evaluate();
+    const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
+    await roll.evaluate()
 
     // Create the luck die message
     const teamMascotDieMessage = game.i18n.format(
@@ -135,15 +135,15 @@ class XCCActorSheetGnome extends DCCActorSheet {
         actorName: this.actor.name,
         rollHTML: roll.toAnchor().outerHTML
       }
-    );
+    )
 
     // Add DCC flags
     const flags = {
       'dcc.isNoHeader': true
-    };
+    }
 
     // Update with fleeting luck
-    game.dcc.FleetingLuck.updateFlags(flags, roll);
+    game.dcc.FleetingLuck.updateFlags(flags, roll)
     game.dcc.FleetingLuck.give(game.user.id, roll.total)
 
     // Create message data
@@ -155,22 +155,21 @@ class XCCActorSheetGnome extends DCCActorSheet {
       sound: CONFIG.sounds.dice,
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Gnome.TeamMascotDie')}`
-    };
+    }
 
-    const chatMessage = await ChatMessage.create(messageData);
+    await ChatMessage.create(messageData)
 
-    return roll;
-
+    return roll
   }
 
-  static async rollDrawAgro(event, target) {
-    event.preventDefault();
+  static async rollDrawAgro (event, target) {
+    event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event);
+    const options = DCCActorSheet.fillRollOptions(event)
 
     // Calculate draw aggro check bonus
-    let bonus = this.getDrawAgroBonus();
+    const bonus = this.getDrawAgroBonus()
 
     // Create terms for the DCC roll system
     const terms = [
@@ -184,7 +183,7 @@ class XCCActorSheetGnome extends DCCActorSheet {
         label: game.i18n.localize('XCC.Gnome.DrawAgro'),
         formula: bonus >= 0 ? `+${bonus}` : `${bonus}`
       }
-    ];
+    ]
 
     // Roll options for the DCC roll system
     const rollOptions = Object.assign(
@@ -192,11 +191,11 @@ class XCCActorSheetGnome extends DCCActorSheet {
         title: game.i18n.localize('XCC.Gnome.DrawAgro')
       },
       options
-    );
+    )
 
     // Create and evaluate the roll using DCC system
-    const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions);
-    await roll.evaluate();
+    const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
+    await roll.evaluate()
 
     // Create the disrespect message
     const disrespectMessage = game.i18n.format(
@@ -207,17 +206,17 @@ class XCCActorSheetGnome extends DCCActorSheet {
         rollHTML: roll.toAnchor().outerHTML,
         penalty: this.actor.system.details.level.value >= 5 ? '-2d' : '-1d'
       }
-    );
+    )
 
     // Add DCC flags
     const flags = {
       'dcc.isDrawAgroCheck': true,
       'dcc.RollType': 'DrawAgroCheck',
       'dcc.isNoHeader': true
-    };
+    }
 
     // Update with fleeting luck flags
-    game.dcc.FleetingLuck.updateFlags(flags, roll);
+    game.dcc.FleetingLuck.updateFlags(flags, roll)
 
     // Create message data
     const messageData = {
@@ -228,11 +227,11 @@ class XCCActorSheetGnome extends DCCActorSheet {
       sound: CONFIG.sounds.dice,
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Gnome.DrawAgro')}`
-    };
+    }
 
-    const chatMessage = await ChatMessage.create(messageData);
+    await ChatMessage.create(messageData)
 
-    return roll;
+    return roll
   }
 }
-export default XCCActorSheetGnome;
+export default XCCActorSheetGnome
