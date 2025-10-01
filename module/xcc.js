@@ -18,7 +18,7 @@ import XCCActorSheetGnome from './xcc-actor-sheet-gnome.js'
 import XCCActorSheetDwarf from './xcc-actor-sheet-dwarf.js'
 import DCCMonkeyPatch from './dcc-monkey-patch.js'
 
-import { ensurePlus } from '../../../../../../../systems/dcc/module/utilities.js'
+import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals, registerModuleSettings } from './settings.js'
 
 const { Actors } = foundry.documents.collections

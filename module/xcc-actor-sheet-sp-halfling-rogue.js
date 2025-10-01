@@ -1,4 +1,4 @@
-import DCCActorSheet from '../../../../../../../systems/dcc/module/actor-sheet.js'
+import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
 import { globals } from './settings.js'
 
 class XCCActorSheetSpHalflingRogue extends DCCActorSheet {
