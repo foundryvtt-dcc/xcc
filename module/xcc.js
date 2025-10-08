@@ -1,4 +1,5 @@
 /* eslint-disable import/no-absolute-path */
+/* global CONFIG, foundry, game, Hooks */
 import XCCActorSheetAthlete from './xcc-actor-sheet-athlete.js'
 import XCCActorSheetBlaster from './xcc-actor-sheet-blaster.js'
 import XCCActorSheetBrawler from './xcc-actor-sheet-brawler.js'
@@ -18,6 +19,8 @@ import XCCActorSheetHalfElf from './xcc-actor-sheet-half-elf.js'
 import XCCActorSheetGnome from './xcc-actor-sheet-gnome.js'
 import XCCActorSheetDwarf from './xcc-actor-sheet-dwarf.js'
 import DCCMonkeyPatch from './dcc-monkey-patch.js'
+import XCCActorParser from './xcc-parser.js'
+import XCC from '../config.js'
 
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals, registerModuleSettings } from './settings.js'
@@ -31,6 +34,7 @@ const { loadTemplates } = foundry.applications.handlebars
 
 Hooks.once('init', async function () {
   console.log('XCC | Initializing XCrawl Classics System')
+  CONFIG.XCC = XCC
   DCCMonkeyPatch.patch()
 
   // XCCActorSheet is not used anymore - using dcc-monkey-patch instead.
@@ -38,109 +42,109 @@ Hooks.once('init', async function () {
   // Actors.registerSheet('xcc', XCCActorSheet, {makeDefault: true});
 
   // Register ActorSheets and their Helper functions
-  Actors.registerSheet('xcc-athlete', XCCActorSheetAthlete, {
+  Actors.registerSheet('xcc', XCCActorSheetAthlete, {
     types: ['Player'],
     label: 'XCC.Athlete.DropdownLabel'
   })
   XCCActorSheetAthlete.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-blaster', XCCActorSheetBlaster, {
+  Actors.registerSheet('xcc', XCCActorSheetBlaster, {
     types: ['Player'],
     label: 'XCC.Blaster.DropdownLabel'
   })
   XCCActorSheetBlaster.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-brawler', XCCActorSheetBrawler, {
+  Actors.registerSheet('xcc', XCCActorSheetBrawler, {
     types: ['Player'],
     label: 'XCC.Brawler.DropdownLabel'
   })
   XCCActorSheetBrawler.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-jammer', XCCActorSheetJammer, {
+  Actors.registerSheet('xcc', XCCActorSheetJammer, {
     types: ['Player'],
     label: 'XCC.Jammer.DropdownLabel'
   })
   XCCActorSheetJammer.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-messenger', XCCActorSheetMessenger, {
+  Actors.registerSheet('xcc', XCCActorSheetMessenger, {
     types: ['Player'],
     label: 'XCC.Messenger.DropdownLabel'
   })
   XCCActorSheetMessenger.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-sp-acrobat', XCCActorSheetSpAcrobat, {
+  Actors.registerSheet('xcc', XCCActorSheetSpAcrobat, {
     types: ['Player'],
     label: 'XCC.Specialist.Acrobat.DropdownLabel'
   })
   XCCActorSheetSpAcrobat.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-sp-commando', XCCActorSheetSpCommando, {
+  Actors.registerSheet('xcc', XCCActorSheetSpCommando, {
     types: ['Player'],
     label: 'XCC.Specialist.Commando.DropdownLabel'
   })
   XCCActorSheetSpCommando.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-sp-criminal', XCCActorSheetSpCriminal, {
+  Actors.registerSheet('xcc', XCCActorSheetSpCriminal, {
     types: ['Player'],
     label: 'XCC.Specialist.Criminal.DropdownLabel'
   })
   XCCActorSheetSpCriminal.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-sp-crypt-raider', XCCActorSheetSpCryptRaider, {
+  Actors.registerSheet('xcc', XCCActorSheetSpCryptRaider, {
     types: ['Player'],
     label: 'XCC.Specialist.CryptRaider.DropdownLabel'
   })
   XCCActorSheetSpCryptRaider.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-sp-scout', XCCActorSheetSpScout, {
+  Actors.registerSheet('xcc', XCCActorSheetSpScout, {
     types: ['Player'],
     label: 'XCC.Specialist.Scout.DropdownLabel'
   })
   XCCActorSheetSpScout.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-sp-dwarf-mechanic', XCCActorSheetSpDwarfMechanic, {
+  Actors.registerSheet('xcc', XCCActorSheetSpDwarfMechanic, {
     types: ['Player'],
     label: 'XCC.Specialist.DwarfMechanic.DropdownLabel'
   })
   XCCActorSheetSpDwarfMechanic.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-sp-elf-trickster', XCCActorSheetSpElfTrickster, {
+  Actors.registerSheet('xcc', XCCActorSheetSpElfTrickster, {
     types: ['Player'],
     label: 'XCC.Specialist.ElfTrickster.DropdownLabel'
   })
   XCCActorSheetSpElfTrickster.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-sp-half-orc-slayer', XCCActorSheetSpHalfOrcSlayer, {
+  Actors.registerSheet('xcc', XCCActorSheetSpHalfOrcSlayer, {
     types: ['Player'],
     label: 'XCC.Specialist.HalfOrcSlayer.DropdownLabel'
   })
   XCCActorSheetSpHalfOrcSlayer.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-sp-halfling-rogue', XCCActorSheetSpHalflingRogue, {
+  Actors.registerSheet('xcc', XCCActorSheetSpHalflingRogue, {
     types: ['Player'],
     label: 'XCC.Specialist.HalflingRogue.DropdownLabel'
   })
   XCCActorSheetSpHalflingRogue.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-half-orc', XCCActorSheetHalfOrc, {
+  Actors.registerSheet('xcc', XCCActorSheetHalfOrc, {
     types: ['Player'],
     label: 'XCC.HalfOrc.DropdownLabel'
   })
   XCCActorSheetHalfOrc.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-half-elf', XCCActorSheetHalfElf, {
+  Actors.registerSheet('xcc', XCCActorSheetHalfElf, {
     types: ['Player'],
     label: 'XCC.HalfElf.DropdownLabel'
   })
   XCCActorSheetHalfElf.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-dwarf', XCCActorSheetDwarf, {
+  Actors.registerSheet('xcc', XCCActorSheetDwarf, {
     types: ['Player'],
     label: 'XCC.Dwarf.DropdownLabel'
   })
   XCCActorSheetDwarf.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc-gnome', XCCActorSheetGnome, {
+  Actors.registerSheet('xcc', XCCActorSheetGnome, {
     types: ['Player'],
     label: 'XCC.Gnome.DropdownLabel'
   })
@@ -313,6 +317,19 @@ Hooks.once('dcc.ready', async function () {
     document.getElementById('pause')?.classList.toggle('small', game.settings.get(globals.id, 'smallerPause'))
     // This won't be necessary after new pause screen is implemented into the base DCC system
     if (caption) caption.textContent = game.i18n.localize('DCC.FancyPause')
+  })
+})
+
+// Override Actor Directory's Import Actor button to open our own import dialog
+Hooks.on('renderActorDirectory', (app, html) => {
+  console.log('XCC | onRenderActorDirectory hook triggered')
+  const button = html.querySelector('.import-actors')
+  const clone = button?.cloneNode(true)
+  button?.replaceWith(clone)
+  clone?.addEventListener('click', async (event) => {
+    event.preventDefault()
+    new XCCActorParser().render(true)
+    console.log('XCC | Import Actor button clicked')
   })
 })
 
