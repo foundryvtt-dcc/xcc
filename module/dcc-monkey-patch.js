@@ -3,9 +3,21 @@ import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
 import DCCActor from '/systems/dcc/module/actor.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
+import DCCActorParser from '/systems/dcc/module/parser.js'
 
 class DCCMonkeyPatch {
+  static async #onSubmitForm (event, form, formData) {
+    event.preventDefault()
+    console.log('XCC | Form submitted with data:', formData)
+  }
+
   static patch () {
+    DCCActorParser.createActors = new Proxy(DCCActorParser.createActors, {
+      apply: async function (target, thisArg, argumentsList) {
+        console.log('XCC | createActors called with arguments:', argumentsList)
+        return await target.apply(thisArg, argumentsList)
+      }
+    })
     // Extend the DCCActorSheet to support 'Rewards' tab and its functionality.
 
     // Add rewards tab.
