@@ -472,7 +472,7 @@ a[data-tab='rewards'] {
 
 .rewards-grid {
   display: grid;
-  grid-template-rows: 59px 8px 59px 8px;
+  grid-template-rows: 59px 8px 59px 8px 26px 8px;
   grid-template-columns: 180px auto;
   grid-column-gap: 8px;
 }
@@ -484,12 +484,12 @@ a[data-tab='rewards'] {
 
 .contacts-block {
   display: grid;
-  grid-template-rows: 19px 107px;
+  grid-template-rows: 19px 141px;
   grid-row-end: span 3;
 
   textarea {
     text-align: left;
-    height: 107px;
+    height: 141px;
     border: var(--system-frame-border);
     border-top: none;
     resize: none;

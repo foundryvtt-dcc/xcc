@@ -112,7 +112,7 @@ class XCCActorSheetGnome extends DCCActorSheet {
     const terms = [
       {
         type: 'Die',
-        label: game.i18n.localize('DCC.ActionDie'),
+        label: game.i18n.localize('DCC.system.class.teamMascotDie'),
         formula: this.actor.system.class.teamMascotDie || '1d3'
       }
     ]
@@ -120,7 +120,7 @@ class XCCActorSheetGnome extends DCCActorSheet {
     // Roll options for the DCC roll system
     const rollOptions = Object.assign(
       {
-        title: game.i18n.localize('XCC.Gnome.TeamMascotDie')
+        title: game.i18n.localize('DCC.system.class.teamMascotDie')
       },
       options
     )
@@ -155,7 +155,7 @@ class XCCActorSheetGnome extends DCCActorSheet {
       rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags,
-      flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Gnome.TeamMascotDie')}`
+      flavor: `${this.actor.name} - ${game.i18n.localize('DCC.system.class.teamMascotDie')}`
     }
 
     await ChatMessage.create(messageData)

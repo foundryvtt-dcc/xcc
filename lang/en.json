@@ -46,6 +46,16 @@
     "system.details.wildCritRange": "Wild Crit Range"
   },
   "XCC": {
+    "MojoDefault": [
+      "You earn a mojo point for rolling a natural 20 on your action die during combat.",
+      "You earn a mojo point for successfully completing an encounter."
+    ],
+    "Grandstanding": "Grandstanding",
+    "GrandstandingHint": "Click to roll a Grandstanding check, CMD/CTRL click for more options",
+    "GrandstandingMessage": "{actorName} works the crowd (<b>DC{crowd}</b>) and rolls a {rollHTML} on their Grandstanding check.<br/>The crowd <b style='color: var(--system-accent-color)'>{result}</b>",
+    "GrandstandingSuccess": "goes WILD! (+1 Fame)",
+    "GrandstandingFailure": "is not impressed...",
+    "GrandstandingCrowd": "Crowd DC",
     "DetectSecretDoors": "Detect Secret Doors",
     "Acrobatics": "Acrobatics",
     "PoleVault": "Pole Vault",
@@ -134,7 +144,7 @@
         "You automatically pick Spellweaver Blast as your first known spell."
       ],
       "Restrictions": [
-        "You cannot scribe scrolls (but you can still use them),",
+        "You cannot scribe scrolls (but you can still use them).",
         "You can never summon permanent familiars nor create permanent magic items (even when using scrolls).",
         "Your second action die can only be used for spell checks."
       ],
@@ -203,8 +213,8 @@
         "Disrespect is ineffective against inanimate objects, slimes, and constructed creatures, such as golems."
       ],
       "Mojo": [
-        "You earn a Mojo point whenever a disrespected enemy fails an attack/spell check.",
-        "Unlike other classes, you can spend mojo AFTER your ally makes the die roll."
+        "Unlike other classes, you can spend mojo AFTER your ally makes the die roll.",
+        "You earn a Mojo point whenever a disrespected enemy fails an attack/spell check."
       ]
     },
     "Messenger": {
@@ -254,7 +264,8 @@
         "Scourge damage applies only to unholy creatures attacked with a favored weapon."
       ],
       "Mojo": [
-        "You earn a Mojo point healing a downed (0hp) ally, and for successful Turn Unholy."
+        "You earn a Mojo point for healing a downed (0hp) ally.",
+        "You earn a Mojo point for each successful Turn Unholy."
       ]
     },
     "HalfElf": {
@@ -327,8 +338,8 @@
       ],
       "Mojo": [
         "Result of natural 20 on an attack roll or a spell checks earns you a number of Mojo Points determined by the roll of your Team Mascot Die.",
-        "You earn a Mojo Point after the whole team loses Mojo due to a roll of natural 1.",
-        "You earn a Mojo point for every victim of your draw agro that changes their target to you."
+        "You earn a Mojo point after the whole team loses Mojo due to a roll of natural 1.",
+        "You earn a Mojo point each time your Draw Agro causes an enemy to target you."
       ]
     },
     "HalfOrc": {
@@ -477,7 +488,8 @@
           "You roll -1d on all Grandstanding checks."
         ],
         "Mojo": [
-          "You earn a Mojo point for successful Turn Unholy checks you make, as well as for every un-dead creature and demon you directly participate in destroying."
+          "You earn a Mojo point for each successful Turn Unholy.",
+          "You earn a Mojo point for every un-dead creature or demon you directly participate in destroying."
         ]
       },
       "DwarfMechanic": {
@@ -565,7 +577,8 @@
           "In public, you are treated as an outcast in halfling society. Privately, you are considered a heroic adventurer."
         ],
         "Mojo": [
-          "You earn a Mojo point for downing an opponent with a backstab or successfully disarming a trap."
+          "You earn a Mojo point for downing an opponent with a backstab",
+          "You earn a Mojo point for every successfully disarmed trap."
         ]
       }
     },
@@ -573,6 +586,14 @@
       "RewardsTitle": "Xcrawl",
       "SponsorshipTitle": "Sponsorship",
       "Fame": "Fame",
+      "FameCheck": "Fame Check (roll under)",
+      "FameTip": "Fame is a measure of your renown and reputation. It is earned by completing adventures, achieving goals, and performing notable deeds. Fame can open doors to new opportunities, but it can also attract unwanted attention.",
+      "FameCheckFailure": "<b style='color: var(--system-accent-color)'>Unrecognized</b>: Target does not recognize you from XCrawl at all.",
+      "FameCheckSmallSuccess": "<b style='color: var(--system-accent-color)'>Known only by sight</b>: Target recognizes your face from XCrawl.",
+      "FameCheckNormalSuccess": "<b style='color: var(--system-accent-color)'>Known</b>: Target knows your face, name and class from XCrawl",
+      "FameCheckBigSuccess": "<b style='color: var(--system-accent-color)'>Well Known</b>: Target knows your name, class, career highlights, major victories, teams you played with, gossip, etc.",
+      "FameCheckMessage": "{actorName} makes a {rollHTML} fame check (roll under {fame}).<br/><br>{result}",
+      "PercentileDie": "% Die",
       "Wealth": "Wealth",
       "XCrawl": "Xcrawl",
       "Contacts": "Contacts",

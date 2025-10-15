@@ -4,27 +4,50 @@
 <section class="tab {{tabs.rewards.id}} {{tabs.rewards.cssClass}}" data-tab="{{tabs.rewards.id}}"
   data-group="{{tabs.rewards.group}}">
   <div class="rewards-grid">
+    <!-- Fame (left, row 1) -->
     <div class="rewards-block" style="grid-row: 1; grid-column: 1;">
-      <label class="box-title">{{localize "XCC.Rewards.Fame"}}</label>
-      <input class="base" value="{{system.rewards.fame}}" name="system.rewards.fame" data-dtype="Number"
-        placeholder="10" />
+      <label class="box-title rollable" data-action="rollFameCheck">{{localize "XCC.Rewards.Fame"}}</label>
+      <input class="base" value="{{system.rewards.fame}}" name="system.rewards.fame" data-dtype="Number" />
       <label data-modifier="true" class="middle-label">{{localize "DCC.Modifier"}}</label>
-      <input class="middle-label" value="{{getFameModifier actor}}" disabled="" />
+      <input class="middle-label" value="{{getFameModifier actor}}" disabled />
     </div>
-    <div style="grid-row: 2;" class="row-separator"></div>
-    <div class="rewards-block" style="grid-row: 3; grid-column: 1;">
-      <label class="box-title">{{localize "XCC.Rewards.Wealth"}}</label>
-      <input class="base" value={{system.rewards.totalWealth}} name="system.rewards.totalWealth" data-dtype="Number"
-        placeholder="11" disabled="" />
-      <label data-modifier="true" class="middle-label" style="grid-row-end: span 2;"
-        title="{{localize (getWealthMeaning actor)}}">{{localize (getWealthRank actor)}}</label>
-      <div class="middle-label info" title="{{localize 'XCC.Rewards.WealthTip'}}"></div>
-    </div>
-    <div class="contacts-block" style="grid-row: 1; grid-column: 2;">
+
+    <!-- Contacts (right column, taller to fit the new button row) -->
+    <div class="contacts-block" style="grid-row: 1 / 6; grid-column: 2;">
       <label data-modifier="true" class="box-title">{{localize "XCC.Rewards.Contacts"}}</label>
       <textarea name="system.rewards.contacts">{{system.rewards.contacts}}</textarea>
     </div>
-    <div style="grid-row: 4; grid-column-end: span 2;" class="row-separator"></div>
+
+    <!-- Sep -->
+    <div style="grid-row: 4; grid-column: 1;" class="row-separator"></div>
+
+    <!-- Wealth (left, row 3) -->
+    <div class="rewards-block" style="grid-row:3; grid-column: 1;">
+      <label class="box-title">{{localize "XCC.Rewards.Wealth"}}</label>
+      <input class="base" value="{{system.rewards.totalWealth}}" name="system.rewards.totalWealth" data-dtype="Number" disabled />
+      <label data-modifier="true" class="middle-label" style="grid-row-end: span 2;"
+        title="{{localize (getWealthMeaning actor)}}">{{localize (getWealthRank actor)}}</label>
+      <div class="middle-label info" title="{{localize 'XCC.Rewards.WealthTip'}}"></div>
+    </div>
+
+
+    <!-- Grandstanding check button (styled like “roll spell check”) -->
+    <div style="grid-row: 5; grid-column: 1;" class="grid-container">
+      <div class="grid-col-span-12">
+        <div class="grid-container grid-col-gap-8 grid-align-center p-5">
+          <div class="label-font rollable grid-col-span-12 center"
+               title="{{localize 'XCC.RollGrandstandingCheckHint'}}"
+               data-action="rollGrandstandingCheck"
+               data-drag="false">
+            <div ><i class="fas fa-dice-d20"></i> {{localize "XCC.Grandstanding"}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sep (full width before sponsorship) -->
+    <div style="grid-row: 6; grid-column-end: span 2;" class="row-separator"></div>
+
     {{!-- Sponsorship Offers --}}
     {{#* inline "OfferHeader"}}
     <li class="grid-col-span-5 sponsorship-list-header">
@@ -33,55 +56,47 @@
       <div>{{localize "XCC.Rewards.Wealth"}}</div>
       <div>
         <a class="sponsorship-control" title="{{localize 'DCC.ItemCreate'}}" data-type="xcc-core-book.sponsorship"
-          data-action="sponsorshipCreate"><i class="fas fa-plus"></i>
-          {{localize "DCC.Add"}}</a>
+          data-action="sponsorshipCreate"><i class="fas fa-plus"></i> {{localize "DCC.Add"}}</a>
       </div>
     </li>
     {{/inline}}
     {{#* inline "OfferRow"}}
-    {{debugItem item}}
     <li class="grid-col-span-5 item item-draggable" data-item-id="{{item._id}}">
-      <img class="sponsorship-draggable icon-filter" src="{{item.img}}" title="{{item.name}}" alt="{{item.name}}"
-        width="22" height="22">
+      <img class="sponsorship-draggable icon-filter" src="{{item.img}}" title="{{item.name}}" alt="{{item.name}}" width="22" height="22">
       <div>{{item.name}}</div>
-      <div><i class="fa-thin fa-up" data-action="increaseWealth"></i> {{#if (eq item.system.rewards.wealth
-        undefined)}}?{{else}}{{#if (eq item.system.rewards.wealth
-        null)}}?{{else}}{{item.system.rewards.wealth}}{{/if}}{{/if}} <i class="fa-thin fa-down"
-          data-action="decreaseWealth"></i></div>
+      <div><i class="fa-thin fa-up" data-action="increaseWealth"></i>
+        {{#if (eq item.system.rewards.wealth undefined)}}?{{else}}{{#if (eq item.system.rewards.wealth null)}}?{{else}}{{item.system.rewards.wealth}}{{/if}}{{/if}}
+        <i class="fa-thin fa-down" data-action="decreaseWealth"></i></div>
       <div>
-        <a class="sponsorship-control" title="{{localize 'DCC.ItemEdit'}}" data-action="itemEdit"><i
-            class="fas fa-edit"></i></a>
-        <a class="sponsorship-control" title="{{localize 'DCC.ItemDelete'}}" data-action="itemDelete"><i
-            class="fas fa-trash"></i></a>
+        <a class="sponsorship-control" title="{{localize 'DCC.ItemEdit'}}" data-action="itemEdit"><i class="fas fa-edit"></i></a>
+        <a class="sponsorship-control" title="{{localize 'DCC.ItemDelete'}}" data-action="itemDelete"><i class="fas fa-trash"></i></a>
       </div>
     </li>
     {{/inline}}
 
-    {{!-- Sponsorship Offers --}}
-    <div style="grid-row: 5; grid-column-end: span 2;">
+    <div style="grid-row: 7; grid-column-end: span 2;">
       <div class="box-title">{{localize "XCC.Rewards.Sponsorship"}}</div>
       <div class="box-border">
         <ol class="sponsorship-list sticky" style="margin-bottom:0">
           {{> OfferHeader type="equipment"}}
         </ol>
         <ol class="sponsorship-list" style="margin-bottom:0">
-          <li class="grid-col-span-5 sponsorship sponsorship-draggable" data-item-id="{{item._id}}">
-            <img src="systems/dcc/styles/images/game-icons-net/coins.svg" class="icon-filter" title="Funds" alt="Funds"
-              width="22" height="22">
+          <li class="grid-col-span-5 sponsorship sponsorship-draggable">
+            <img src="systems/dcc/styles/images/game-icons-net/coins.svg" class="icon-filter" title="Funds" alt="Funds" width="22" height="22">
             <div>{{localize "XCC.Rewards.BaseWealth"}}</div>
-            <div><i class="fa-thin fa-up" data-action="increaseWealth"></i> {{system.rewards.baseWealth}} <i
-                class="fa-thin fa-down" data-action="decreaseWealth"></i></div>
+            <div><i class="fa-thin fa-up" data-action="increaseWealth"></i> {{system.rewards.baseWealth}} <i class="fa-thin fa-down" data-action="decreaseWealth"></i></div>
             <div></div>
           </li>
-          {{debugItem sponsorships}}
           {{#each sponsorships as |sponsorship id|}}
-          {{> OfferRow item=sponsorship id=id}}
+            {{> OfferRow item=sponsorship id=id}}
           {{/each}}
         </ol>
       </div>
     </div>
-    <div style="grid-row: 6; grid-column-end: span 2;" class="row-separator"></div>
-    <div style="grid-row: 7; grid-column-end: span 2;" class="xcc-notes">
+
+    <div style="grid-row: 8; grid-column-end: span 2;" class="row-separator"></div>
+
+    <div style="grid-row: 9; grid-column-end: span 2;" class="xcc-notes">
       <label class="box-title" data-modifier="true">{{localize "DCC.Notes"}}</label>
       <textarea name="system.details.xccnotes" class="box-border">{{system.details.xccnotes}}</textarea>
     </div>

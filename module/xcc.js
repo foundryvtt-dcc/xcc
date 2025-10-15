@@ -241,7 +241,7 @@ Hooks.once('init', async function () {
   })
 
   // Register localization helpers
-  Handlebars.registerHelper('getLocalizedArray', function (key) {
+  Handlebars.registerHelper('getLocalizedArray', function (key, actor = undefined) {
     // Split the key to navigate the nested structure
     const parts = key.split('.')
     let current = game.i18n.translations
@@ -253,6 +253,12 @@ Hooks.once('init', async function () {
       } else { return [game.i18n.localize('XCC.ErrorNoEntries')] }
     }
 
+    // Skip the first mojo entry for gnome
+    if (actor) {
+      if (actor.system?.details?.sheetClass === 'gnome') {
+        current.shift()
+      }
+    }
     // Return the array if found, empty array otherwise
     return Array.isArray(current) ? current : []
   })
