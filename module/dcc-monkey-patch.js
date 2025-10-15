@@ -76,6 +76,76 @@ class DCCMonkeyPatch {
       return this.actor.createEmbeddedDocuments('Item', [itemData])
     }
 
+    // Define action for rolling a fame check
+    this.rollFameCheck = async function (event, target) {
+      event.preventDefault()
+
+      // Get roll options from the DCC system (handles CTRL-click dialog)
+      const options = DCCActorSheet.fillRollOptions(event)
+      // Create terms for the DCC roll system
+      const terms = [
+        {
+          type: 'Die',
+          label: game.i18n.localize('XCC.Rewards.PercentileDie'),
+          formula: '1d100'
+        }]
+      // Roll options for the DCC roll system
+      const rollOptions = Object.assign(
+        {
+          title: game.i18n.localize('XCC.Rewards.FameCheck')
+        },
+        options
+      )
+
+      // Create and evaluate the roll using DCC system
+      const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
+      await roll.evaluate()
+      const fame = this.actor.system?.rewards?.fame || 0
+      // Create the grandstanding message
+      console.log(roll, fame)
+
+      let resultKey = 'XCC.Rewards.FameCheckFailure'
+      if (roll.total <= fame - 30) {
+        resultKey = 'XCC.Rewards.FameCheckBigSuccess'
+      } else if (roll.total <= fame - 10) {
+        resultKey = 'XCC.Rewards.FameCheckNormalSuccess'
+      } else if (roll.total <= fame) {
+        resultKey = 'XCC.Rewards.FameCheckSmallSuccess'
+      }
+
+      const fameMessage = game.i18n.format(
+        'XCC.Rewards.FameCheckMessage',
+        {
+          actorName: this.actor.name,
+          rollHTML: roll.toAnchor().outerHTML,
+          result: game.i18n.localize(resultKey),
+          fame
+        }
+      )
+
+      // Add DCC flags
+      const flags = {
+        'dcc.isFameCheck': true,
+        'dcc.RollType': 'FameCheck',
+        'dcc.isNoHeader': true
+      }
+
+      // Create message data
+      const messageData = {
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        content: fameMessage,
+        rolls: [roll],
+        sound: CONFIG.sounds.dice,
+        flags,
+        flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Rewards.FameCheck')}`
+      }
+
+      await ChatMessage.create(messageData)
+
+      return roll
+    }
+
     // Define action for rolling grandstanding check.
     this.rollGrandstandingCheck = async function (event, target) {
       event.preventDefault()
@@ -178,6 +248,7 @@ class DCCMonkeyPatch {
         increaseWealth: this.increaseWealth,
         decreaseWealth: this.decreaseWealth,
         sponsorshipCreate: this.sponsorshipCreate,
+        rollFameCheck: this.rollFameCheck,
         rollGrandstandingCheck: this.rollGrandstandingCheck
       }
     })
