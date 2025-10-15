@@ -28,6 +28,9 @@
         {{#each (getLocalizedArray (localize (getLocalizationKey actor "Mojo"))) as |mojo|}}
         <li>{{mojo}}</li>
         {{/each}}
+        {{#each (getLocalizedArray (localize "XCC.MojoDefault") actor) as |mojo|}}
+        <li>{{mojo}}</li>
+        {{/each}}
     </ul>
 </div>
 {{/if}}
