@@ -97,7 +97,7 @@ class DCCMonkeyPatch {
         {
           type: 'Modifier',
           label: game.i18n.localize('XCC.GrandstandingCrowd'),
-          formula: '+0'
+          formula: '+14'
         }
       ]
 
@@ -111,11 +111,13 @@ class DCCMonkeyPatch {
 
       // Create and evaluate the roll using DCC system
       const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
+      const crowdDC = parseInt(roll.terms[3].operator + roll.terms[4].number)
+      roll.terms = roll.terms.slice(0, 3)
       await roll.evaluate()
-
-      const crowdDC = Math.max(0, 14 + parseInt(roll.terms[3].operator + roll.terms[4].number))
       // Create the grandstanding message
-      console.log(roll)
+      console.log(roll, crowdDC)
+
+      // roll.terms[0].results[0].result = roll.terms[0].results[0].result - crowdMod
       const grandstandingMessage = game.i18n.format(
         'XCC.GrandstandingMessage',
         {
@@ -132,9 +134,6 @@ class DCCMonkeyPatch {
         'dcc.RollType': 'GrandstandingCheck',
         'dcc.isNoHeader': true
       }
-
-      // Update with fleeting luck flags
-      game.dcc.FleetingLuck.updateFlags(flags, roll)
 
       // Create message data
       const messageData = {

@@ -55,7 +55,7 @@
     "GrandstandingMessage": "{actorName} works the crowd (<b>DC{crowd}</b>) and rolls a {rollHTML} on their Grandstanding check.<br/>The crowd <b style='color: var(--system-accent-color)'>{result}</b>",
     "GrandstandingSuccess": "goes WILD! (+1 Fame)",
     "GrandstandingFailure": "is not impressed...",
-    "GrandstandingCrowd": "Crowd Modifier",
+    "GrandstandingCrowd": "Crowd DC",
     "DetectSecretDoors": "Detect Secret Doors",
     "Acrobatics": "Acrobatics",
     "PoleVault": "Pole Vault",
