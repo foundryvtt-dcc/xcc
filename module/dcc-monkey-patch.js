@@ -1,6 +1,7 @@
 /* eslint-disable import/no-absolute-path */
 import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
 import DCCActor from '/systems/dcc/module/actor.js'
+import DiceChain from '/systems/dcc/module/dice-chain.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
 
@@ -82,17 +83,32 @@ class DCCMonkeyPatch {
       // Get roll options from the DCC system (handles CTRL-click dialog)
       const options = DCCActorSheet.fillRollOptions(event)
 
+      // Get fame modifier
+      const fame = this.actor.system?.rewards?.fame || 0
+      let fameMod = 0
+      let fameDie = (this.actor.system.details.sheetClass === 'sp-crypt-raider') ? '1d16' : '1d20'
+      if (fame >= 81) {
+        fameDie = DiceChain.bumpDie(fameDie, 2)
+      } else if (fame >= 61) {
+        fameDie = DiceChain.bumpDie(fameDie, 1)
+      } else if (fame >= 41) {
+        fameMod = 2
+      } else if (fame >= 21) {
+        fameMod = 1
+      }
+      console.log(`Grandstanding Fame: ${fame}, Fame Die: ${fameDie}, Fame Mod: ${fameMod}`)
+
       // Create terms for the DCC roll system
       const terms = [
         {
           type: 'Die',
           label: game.i18n.localize('DCC.ActionDie'),
-          formula: (this.actor.system.details.sheetClass === 'sp-crypt-raider') ? '1d16' : '1d20'
+          formula: fameDie
         },
         {
           type: 'Modifier',
           label: game.i18n.localize('DCC.Modifier'),
-          formula: ensurePlus(this.actor.system.abilities.per.mod + this.actor.system.details.level.value)
+          formula: ensurePlus(this.actor.system.abilities.per.mod + this.actor.system.details.level.value + fameMod)
         },
         {
           type: 'Modifier',
