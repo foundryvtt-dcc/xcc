@@ -75,12 +75,95 @@ class DCCMonkeyPatch {
       return this.actor.createEmbeddedDocuments('Item', [itemData])
     }
 
+    // Define action for rolling grandstanding check.
+    this.rollGrandstandingCheck = async function (event, target) {
+      event.preventDefault()
+
+      // Get roll options from the DCC system (handles CTRL-click dialog)
+      const options = DCCActorSheet.fillRollOptions(event)
+
+      // Create terms for the DCC roll system
+      const terms = [
+        {
+          type: 'Die',
+          label: game.i18n.localize('DCC.ActionDie'),
+          formula: (this.actor.system.details.sheetClass === 'sp-crypt-raider') ? '1d16' : '1d20'
+        },
+        {
+          type: 'Modifier',
+          label: game.i18n.localize('DCC.Modifier'),
+          formula: ensurePlus(this.actor.system.abilities.per.mod + this.actor.system.details.level.value)
+        },
+        {
+          type: 'Modifier',
+          label: game.i18n.localize('XCC.GrandstandingCrowd'),
+          formula: '+0'
+        }
+      ]
+
+      // Roll options for the DCC roll system
+      const rollOptions = Object.assign(
+        {
+          title: game.i18n.localize('XCC.Grandstanding')
+        },
+        options
+      )
+
+      // Create and evaluate the roll using DCC system
+      const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
+      await roll.evaluate()
+
+      const crowdDC = Math.max(0, 14 + parseInt(roll.terms[3].operator + roll.terms[4].number))
+      // Create the grandstanding message
+      console.log(roll)
+      const grandstandingMessage = game.i18n.format(
+        'XCC.GrandstandingMessage',
+        {
+          actorName: this.actor.name,
+          rollHTML: roll.toAnchor().outerHTML,
+          result: roll.total >= crowdDC ? game.i18n.localize('XCC.GrandstandingSuccess') : game.i18n.localize('XCC.GrandstandingFailure'),
+          crowd: crowdDC
+        }
+      )
+
+      // Add DCC flags
+      const flags = {
+        'dcc.isGrandstandingCheck': true,
+        'dcc.RollType': 'GrandstandingCheck',
+        'dcc.isNoHeader': true
+      }
+
+      // Update with fleeting luck flags
+      game.dcc.FleetingLuck.updateFlags(flags, roll)
+
+      // Create message data
+      const messageData = {
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        content: grandstandingMessage,
+        rolls: [roll],
+        sound: CONFIG.sounds.dice,
+        flags,
+        flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Grandstanding')}`
+      }
+
+      await ChatMessage.create(messageData)
+
+      // If we succeeded, increase fame by 1
+      if (roll.total >= crowdDC) {
+        this.actor.update({ 'system.rewards.fame': (this.actor.system.rewards?.fame || 0) + 1 })
+      }
+
+      return roll
+    }
+
     // Add the wealth and sponsorship input actions to the DCCActorSheet
     DCCActorSheet.DEFAULT_OPTIONS = foundry.utils.mergeObject(DCCActorSheet.DEFAULT_OPTIONS, {
       actions: {
         increaseWealth: this.increaseWealth,
         decreaseWealth: this.decreaseWealth,
-        sponsorshipCreate: this.sponsorshipCreate
+        sponsorshipCreate: this.sponsorshipCreate,
+        rollGrandstandingCheck: this.rollGrandstandingCheck
       }
     })
 

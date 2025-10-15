@@ -46,6 +46,12 @@
     "system.details.wildCritRange": "Wild Crit Range"
   },
   "XCC": {
+    "Grandstanding": "Grandstanding",
+    "GrandstandingHint": "Click to roll a Grandstanding check, CMD/CTRL click for more options",
+    "GrandstandingMessage": "{actorName} works the crowd (<b>DC{crowd}</b>) and rolls a {rollHTML} on their Grandstanding check.<br/>The crowd <b style='color: var(--system-accent-color)'>{result}</b>",
+    "GrandstandingSuccess": "goes WILD! (+1 Fame)",
+    "GrandstandingFailure": "is not impressed...",
+    "GrandstandingCrowd": "Crowd Modifier",
     "DetectSecretDoors": "Detect Secret Doors",
     "Acrobatics": "Acrobatics",
     "PoleVault": "Pole Vault",
