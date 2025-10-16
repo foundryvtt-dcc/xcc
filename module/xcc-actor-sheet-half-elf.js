@@ -150,13 +150,19 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
 
   /** @override */
   async _prepareContext (options) {
+    // Update class link before default prepareContext to ensure it is correct
+    if (this.actor.system.details.sheetClass !== 'half-elf') {
+      await this.actor.update({
+        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.HalfElf.ClassLink'))
+      })
+    }
+
     const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'half-elf') {
       await this.actor.update({
         'system.class.localizationPath': 'XCC.HalfElf',
         'system.class.className': 'xcc.halfelf',
-        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.HalfElf.ClassLink')),
         'system.details.sheetClass': 'half-elf',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,

@@ -55,7 +55,9 @@ class XCCActorSheetSpDwarfMechanic extends DCCActorSheet {
     if (this.actor.system.details.sheetClass !== 'sp-dwarf-mechanic') {
       await this.actor.update({
         'system.attributes.speed.base': 20,
-        'system.attributes.speed.value': 20
+        'system.attributes.speed.value': 20,
+        // Update class link before default prepareContext to ensure it is correct
+        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.DwarfMechanic.ClassLink'))
       })
     }
 
@@ -65,7 +67,6 @@ class XCCActorSheetSpDwarfMechanic extends DCCActorSheet {
       await this.actor.update({
         'system.class.localizationPath': 'XCC.Specialist.DwarfMechanic',
         'system.class.className': 'dwarfmechanic',
-        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.DwarfMechanic.ClassLink')),
         'system.details.sheetClass': 'sp-dwarf-mechanic',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,

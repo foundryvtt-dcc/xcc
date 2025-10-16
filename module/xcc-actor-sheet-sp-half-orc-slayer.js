@@ -55,11 +55,17 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
   /** @override */
   async _prepareContext (options) {
     // Half-Orc Slayer adds Reflex to initiative
-    if (this.actor.isPC && this.actor._getConfig().computeInitiative) {
-      await this.actor.update({
-        'system.attributes.init.otherMod': this.actor.system.saves.ref.value
-      })
+    if (this.actor.system.details.sheetClass !== 'sp-half-orc-slayer') {
+      if (this.actor.isPC && this.actor._getConfig().computeInitiative) {
+        await this.actor.update({
+          'system.attributes.init.otherMod': this.actor.system.saves.ref.value
+        })
+      }
     }
+
+    await this.actor.update({
+      'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.HalfOrcSlayer.ClassLink'))
+    })
 
     const context = await super._prepareContext(options)
 
@@ -67,7 +73,6 @@ class XCCActorSheetSpHalfOrcSlayer extends DCCActorSheet {
       await this.actor.update({
         'system.class.localizationPath': 'XCC.Specialist.HalfOrcSlayer',
         'system.class.className': 'halforcslayer',
-        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.HalfOrcSlayer.ClassLink')),
         'system.details.sheetClass': 'sp-half-orc-slayer',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,

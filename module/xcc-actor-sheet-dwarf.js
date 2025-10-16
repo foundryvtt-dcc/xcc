@@ -58,7 +58,9 @@ class XCCActorSheetDwarf extends DCCActorSheet {
         'system.attributes.speed.base': 20,
         'system.attributes.speed.value': 20,
         // we don't want armor to reduce dwarf speed, but the user can still turn on this option
-        'system.config.computeSpeed': false
+        'system.config.computeSpeed': false,
+        // we need to set the class link before default _prepareContext to ensure it is correct
+        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Dwarf.ClassLink'))
       })
     }
 
@@ -68,7 +70,6 @@ class XCCActorSheetDwarf extends DCCActorSheet {
       await this.actor.update({
         'system.class.localizationPath': 'XCC.Dwarf',
         'system.class.className': 'xcc.dwarf',
-        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Dwarf.ClassLink')),
         'system.details.sheetClass': 'xcc-dwarf',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,

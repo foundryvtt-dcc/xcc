@@ -68,7 +68,9 @@ class XCCActorSheetGnome extends DCCActorSheet {
     if (this.actor.system.details.sheetClass !== 'gnome') {
       await this.actor.update({
         'system.attributes.speed.base': 25,
-        'system.attributes.speed.value': 25
+        'system.attributes.speed.value': 25,
+        // we need to set the class link before default _prepareContext to ensure it is correct
+        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Gnome.ClassLink'))
       })
     }
 
@@ -78,7 +80,6 @@ class XCCActorSheetGnome extends DCCActorSheet {
       await this.actor.update({
         'system.class.localizationPath': 'XCC.Gnome',
         'system.class.className': 'xcc.gnome',
-        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Gnome.ClassLink')),
         'system.details.sheetClass': 'gnome',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,

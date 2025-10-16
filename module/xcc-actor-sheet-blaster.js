@@ -48,11 +48,14 @@ class XCCActorSheetBlaster extends DCCActorSheet {
 
   /** @inheritDoc */
   async _prepareContext (options) {
-    const context = await super._prepareContext(options)
+    // Update class link before default prepareContext to ensure it is correct
+    if (this.actor.system.details.sheetClass !== 'blaster') {
+      await this.actor.update({
+        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Blaster.ClassLink'), { relativeTo: this.actor })
+      })
+    }
 
-    await this.actor.update({
-      'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Blaster.ClassLink'), { relativeTo: this.actor })
-    })
+    const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'blaster') {
       await this.actor.update({
