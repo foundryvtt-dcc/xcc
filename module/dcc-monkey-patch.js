@@ -1,5 +1,6 @@
 /* eslint-disable import/no-absolute-path */
 import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import { DCCActorSheetGeneric } from '/systems/dcc/module/actor-sheets-dcc.js'
 import DCCActor from '/systems/dcc/module/actor.js'
 import DiceChain from '/systems/dcc/module/dice-chain.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
@@ -17,6 +18,13 @@ class DCCMonkeyPatch {
     })
     // Add rewards part template.
     DCCActorSheet.PARTS = foundry.utils.mergeObject(DCCActorSheet.PARTS, {
+      rewards: {
+        id: 'rewards',
+        template: globals.templatesPath + 'actor-partial-rewards.html'
+      }
+    })
+    // Not sure why this is needed, but the rewards tab would not show without it on 0 level characters.
+    DCCActorSheetGeneric.PARTS = foundry.utils.mergeObject(DCCActorSheetGeneric.PARTS, {
       rewards: {
         id: 'rewards',
         template: globals.templatesPath + 'actor-partial-rewards.html'
