@@ -100,6 +100,9 @@
       "IsDebug": "Debug Mode",
       "IsDebugHint": "Prints out debug information about objects and events into the browser console. Intended for module developers."
     },
+    "GenericSheet":{
+      "DropdownLabel": "XCC 0-Level"
+    },
     "Athlete": {
       "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.y0SDAP95YwfgH9ds]{Athlete}",
       "DropdownLabel": "XCC Athlete",

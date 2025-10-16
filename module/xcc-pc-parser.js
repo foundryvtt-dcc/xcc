@@ -268,6 +268,8 @@ function _parseJSONPCs (pcObject) {
     if (pcObject.languages) {
       notes = notes + game.i18n.localize('DCC.Languages') + ': ' + pcObject.languages + '<br/>'
       pc['details.languages'] = pcObject.languages
+    } else {
+      pc['details.languages'] = 'English'
     }
     if (pcObject.racialTraits) {
       notes = notes + pcObject.racialTraits + '<br/>'
@@ -501,6 +503,23 @@ function _parsePlainPCToJSON (pcString) {
   }
   if (pcObject.occTitle) {
     const occLower = pcObject.occTitle.toLowerCase()
+    // Set languages
+    if (!pcObject.languages) pcObject.languages = 'English'
+    if (pcObject.intelligenceScore > 7) {
+      if (occLower.startsWith('halfling') && !pcObject.languages.includes('Halfling')) pcObject.languages += ', Halfling'
+      else if ((occLower.startsWith('half-elf') || occLower.startsWith('elf')) && !pcObject.languages.includes('Elvish')) pcObject.languages += ', Elvish'
+      else if (occLower.startsWith('gnome') && !pcObject.languages.includes('Gnomish')) pcObject.languages += ', Gnomish'
+      else if (occLower.startsWith('dwarf') && !pcObject.languages.includes('Dwarven')) pcObject.languages += ', Dwarven'
+      else if (occLower.startsWith('half-orc') && !pcObject.languages.includes('Orcish')) pcObject.languages += ', Orcish'
+      else if (occLower.startsWith('nobility') && !pcObject.languages.includes('Latin')) pcObject.languages += ', Latin'
+      if (pcObject.intelligenceScore > 17) pcObject.languages += ', +3 Languages (int)'
+      else if (pcObject.intelligenceScore > 15) pcObject.languages += ', +2 Languages (int)'
+      else if (pcObject.intelligenceScore > 12) pcObject.languages += ', +1 Language (int)'
+    } else if (pcObject.intelligenceScore < 6) pcObject.languages = ' (can\'t read or write)'
+    // Translator ignores int score and adds the language anyway
+    if (occLower.startsWith('translator') && pcObject.intelligenceScore < 13) pcObject.languages += ', +1 Language (translator)'
+
+    // Set base wealth according to occupation
     let baseWealth = 11
     if (occLower.includes('nobility')) {
       baseWealth = 25

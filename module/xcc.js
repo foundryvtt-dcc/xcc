@@ -18,6 +18,7 @@ import XCCActorSheetHalfOrc from './xcc-actor-sheet-half-orc.js'
 import XCCActorSheetHalfElf from './xcc-actor-sheet-half-elf.js'
 import XCCActorSheetGnome from './xcc-actor-sheet-gnome.js'
 import XCCActorSheetDwarf from './xcc-actor-sheet-dwarf.js'
+import XCCActorSheetGeneric from './xcc-actor-sheet-generic.js'
 import DCCMonkeyPatch from './dcc-monkey-patch.js'
 import XCCActorParser from './xcc-parser.js'
 import XCC from '../config.js'
@@ -149,6 +150,12 @@ Hooks.once('init', async function () {
     label: 'XCC.Gnome.DropdownLabel'
   })
   XCCActorSheetGnome.addHooksAndHelpers()
+
+  Actors.registerSheet('xcc', XCCActorSheetGeneric, {
+    types: ['Player'],
+    label: 'XCC.GenericSheet.DropdownLabel'
+  })
+  XCCActorSheetGeneric.addHooksAndHelpers()
 
   // Register partial templates
   loadTemplates([globals.templatesPath + 'actor-partial-common.html'])
