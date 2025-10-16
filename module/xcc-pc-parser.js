@@ -36,6 +36,9 @@ function _parseJSONPCs (pcObject) {
     if (pcObject.name) {
       pc.name = pcObject.name
     }
+    pc['rewards.fame'] = pcObject?.rewards?.fame || 0
+    pc['rewards.totalWealth'] = pcObject?.rewards?.totalWealth || 11
+    pc['rewards.baseWealth'] = pcObject?.rewards?.baseWealth || 11
     pc['details.occupation.value'] = pcObject.occTitle ? pcObject.occTitle.trim() : ''
     pc['abilities.str.value'] = pcObject.strengthScore || 10
     pc['abilities.agl.value'] = pcObject.agilityScore || 10
@@ -494,6 +497,22 @@ function _parsePlainPCToJSON (pcString) {
         attackDamage: weapon3.system.damage,
         melee: weapon3.system.melee
       })
+    }
+  }
+  if (pcObject.occTitle) {
+    const occLower = pcObject.occTitle.toLowerCase()
+    let baseWealth = 11
+    if (occLower.includes('nobility')) {
+      baseWealth = 25
+    } else if (occLower.includes('er-do-well') || occLower.includes('slacker') || occLower.includes('drifter') || occLower.includes('college student') || occLower.includes('wayfarer')) {
+      baseWealth = 1
+    } else {
+      baseWealth = 11
+    }
+    pcObject.rewards = {
+      baseWealth,
+      totalWealth: baseWealth,
+      fame: 0
     }
   }
 
