@@ -56,13 +56,19 @@ class XCCActorSheetSpCriminal extends DCCActorSheet {
 
   /** @override */
   async _prepareContext (options) {
+    // Update class link before default prepareContext to ensure it is correct
+    if (this.actor.system.details.sheetClass !== 'sp-criminal') {
+      await this.actor.update({
+        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Criminal.ClassLink'))
+      })
+    }
+
     const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'sp-criminal') {
       await this.actor.update({
         'system.class.localizationPath': 'XCC.Specialist.Criminal',
         'system.class.className': 'criminal',
-        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Criminal.ClassLink')),
         'system.details.sheetClass': 'sp-criminal',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,

@@ -101,9 +101,7 @@ class DCCMonkeyPatch {
       const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
       await roll.evaluate()
       const fame = this.actor.system?.rewards?.fame || 0
-      // Create the grandstanding message
-      console.log(roll, fame)
-
+      // Determine the result key based on the roll outcome
       let resultKey = 'XCC.Rewards.FameCheckFailure'
       if (roll.total <= fame - 30) {
         resultKey = 'XCC.Rewards.FameCheckBigSuccess'
@@ -113,6 +111,7 @@ class DCCMonkeyPatch {
         resultKey = 'XCC.Rewards.FameCheckSmallSuccess'
       }
 
+      // Create the grandstanding message
       const fameMessage = game.i18n.format(
         'XCC.Rewards.FameCheckMessage',
         {
@@ -139,6 +138,75 @@ class DCCMonkeyPatch {
         sound: CONFIG.sounds.dice,
         flags,
         flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Rewards.FameCheck')}`
+      }
+
+      await ChatMessage.create(messageData)
+
+      return roll
+    }
+
+    // Define action for rolling a wealth check
+    this.rollWealthCheck = async function (event, target) {
+      event.preventDefault()
+
+      // Get roll options from the DCC system (handles CTRL-click dialog)
+      const options = DCCActorSheet.fillRollOptions(event)
+      // Create terms for the DCC roll system
+      const terms = [
+        {
+          type: 'Die',
+          label: game.i18n.localize('XCC.Rewards.PercentileDie'),
+          formula: '1d100'
+        }]
+      // Roll options for the DCC roll system
+      const rollOptions = Object.assign(
+        {
+          title: game.i18n.localize('XCC.Rewards.WealthCheck')
+        },
+        options
+      )
+
+      // Create and evaluate the roll using DCC system
+      const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
+      await roll.evaluate()
+      const wealth = this.actor.system?.rewards?.totalWealth || 0
+      // Determine the result key based on the roll outcome
+      let resultKey = 'XCC.Rewards.WealthCheckFailure'
+      if (roll.total <= wealth - 30) {
+        resultKey = 'XCC.Rewards.WealthCheckBigSuccess'
+      } else if (roll.total <= wealth - 10) {
+        resultKey = 'XCC.Rewards.WealthCheckNormalSuccess'
+      } else if (roll.total <= wealth) {
+        resultKey = 'XCC.Rewards.WealthCheckSmallSuccess'
+      }
+
+      // Create the wealth message
+      const wealthMessage = game.i18n.format(
+        'XCC.Rewards.WealthCheckMessage',
+        {
+          actorName: this.actor.name,
+          rollHTML: roll.toAnchor().outerHTML,
+          result: game.i18n.localize(resultKey),
+          wealth
+        }
+      )
+
+      // Add DCC flags
+      const flags = {
+        'dcc.isWealthCheck': true,
+        'dcc.RollType': 'WealthCheck',
+        'dcc.isNoHeader': true
+      }
+
+      // Create message data
+      const messageData = {
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        content: wealthMessage,
+        rolls: [roll],
+        sound: CONFIG.sounds.dice,
+        flags,
+        flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Rewards.WealthCheck')}`
       }
 
       await ChatMessage.create(messageData)
@@ -249,6 +317,7 @@ class DCCMonkeyPatch {
         decreaseWealth: this.decreaseWealth,
         sponsorshipCreate: this.sponsorshipCreate,
         rollFameCheck: this.rollFameCheck,
+        rollWealthCheck: this.rollWealthCheck,
         rollGrandstandingCheck: this.rollGrandstandingCheck
       }
     })
@@ -296,7 +365,7 @@ class DCCMonkeyPatch {
       }
     }
 
-    // Replace Title field with actor field
+    // Replace Title field with actor field and hide the notes tab if the setting is set
     const originalOnRender = DCCActorSheet.prototype._onRender
     DCCActorSheet.prototype._onRender = function (app, html, data) {
       originalOnRender.call(this, app, html, data)

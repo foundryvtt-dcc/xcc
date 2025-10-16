@@ -54,13 +54,19 @@ class XCCActorSheetSpCommando extends DCCActorSheet {
 
   /** @override */
   async _prepareContext (options) {
+    // Update class link before default prepareContext to ensure it is correct
+    if (this.actor.system.details.sheetClass !== 'sp-commando') {
+      await this.actor.update({
+        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Commando.ClassLink'))
+      })
+    }
+
     const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'sp-commando') {
       await this.actor.update({
         'system.class.localizationPath': 'XCC.Specialist.Commando',
         'system.class.className': 'commando',
-        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Commando.ClassLink')),
         'system.details.sheetClass': 'sp-commando',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,

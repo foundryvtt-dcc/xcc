@@ -55,13 +55,19 @@ class XCCActorSheetSpScout extends DCCActorSheet {
 
   /** @override */
   async _prepareContext (options) {
+    // Update class link before default prepareContext to ensure it is correct
+    if (this.actor.system.details.sheetClass !== 'sp-scout') {
+      await this.actor.update({
+        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Scout.ClassLink'))
+      })
+    }
+
     const context = await super._prepareContext(options)
 
     if (this.actor.system.details.sheetClass !== 'sp-scout') {
       await this.actor.update({
         'system.class.localizationPath': 'XCC.Specialist.Scout',
         'system.class.className': 'scout',
-        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Scout.ClassLink')),
         'system.details.sheetClass': 'sp-scout',
         'system.details.critRange': 20,
         'system.class.disapproval': 1,

@@ -208,11 +208,11 @@ async function createActors (type, folderId, actorData) {
       const classes = Object.keys(CONFIG.Actor.sheetClasses[type])
       for (const sheetClass of classes) {
         if (sheetClass.includes(parsedCharacter['class.className'])) {
-          actor.setFlag('core', 'sheetClass', sheetClass)
+          await actor.setFlag('core', 'sheetClass', sheetClass)
         }
       }
-    } else {
-      await actor.setFlag('core', 'sheetClass', 'dcc.DCCActorSheetGeneric')
+    } else if (type === 'Player') {
+      await actor.setFlag('core', 'sheetClass', 'xcc.XCCActorSheetGeneric')
     }
 
     // Try and remap items to compendium items
@@ -225,7 +225,6 @@ async function createActors (type, folderId, actorData) {
         // Apply name remapping
         const names = CONFIG.XCC.actorImporterNameMap[cleanName.toLowerCase()] ?? [cleanName.toLowerCase()]
         const newItems = []
-
         for (let name of names) {
           // Handle gold pieces included as equipmentent, (e.g. "50 gp")
           const gpMatch = name.match(/\d+\s?gp/)
@@ -249,6 +248,12 @@ async function createActors (type, folderId, actorData) {
           // Handle random piece of standard equipment
           } else if (name === 'extra piece of gear') {
             name = getRandomEquipment()
+          } else if (name === 'Extra Weapon') {
+            await actor.update({ 'system.details.xccnotes': 'Additional Trained Weapon' })
+            continue
+          } else if (name === 'to stamina') {
+            await actor.update({ 'system.abilities.sta.value': (parseInt(actor.system.abilities.sta.value) + 1).toString() })
+            continue
           }
           // Handle quantities, e.g. "Arrows (20)"
           let qty = 1

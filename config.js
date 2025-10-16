@@ -45,7 +45,7 @@ XCC.actorImporterNameMap = {
   'longbow & quiver(24)': ['Longbow', 'Quiver', 'Arrow (24)'],
   '100 gp/m & sports car': ['100 gp', 'Keys to Sports Car'],
   'notebook + pens': ['Notebook', 'Pen (5)'],
-  'chain mail & extra weapon': ['Chain Mail'],
+  'chain mail & extra weapon': ['Chain Mail', 'Extra Weapon'],
   'smokes + lighter': ['Smokes', 'Lighter, Cheap'],
   'holy symbol & water': ['Holy Symbol, Silver', 'Holy water, 1 vial']
 }

@@ -23,7 +23,7 @@
 
     <!-- Wealth (left, row 3) -->
     <div class="rewards-block" style="grid-row:3; grid-column: 1;">
-      <label class="box-title">{{localize "XCC.Rewards.Wealth"}}</label>
+      <label class="box-title rollable" data-action="rollWealthCheck">{{localize "XCC.Rewards.Wealth"}}</label>
       <input class="base" value="{{system.rewards.totalWealth}}" name="system.rewards.totalWealth" data-dtype="Number" disabled />
       <label data-modifier="true" class="middle-label" style="grid-row-end: span 2;"
         title="{{localize (getWealthMeaning actor)}}">{{localize (getWealthRank actor)}}</label>
