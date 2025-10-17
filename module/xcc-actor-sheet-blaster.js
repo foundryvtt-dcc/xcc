@@ -206,7 +206,6 @@ class XCCActorSheetBlaster extends XCCActorSheet {
   }
 
   static async rollSpellCheck (event, target) {
-    console.log('Rolling spell check for target:', target)
     const options = XCCActorSheet.fillRollOptions(event)
     const dataset = target.parentElement.dataset
     if (dataset.itemId) {
