@@ -1,8 +1,8 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetSpCriminal extends DCCActorSheet {
+class XCCActorSheetSpCriminal extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {

@@ -1,9 +1,9 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetMessenger extends DCCActorSheet {
+class XCCActorSheetMessenger extends XCCActorSheet {
   static DEFAULT_OPTIONS = {
     position: {
       height: 650
@@ -159,7 +159,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Calculate holy act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0
@@ -220,7 +220,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Calculate holy act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0
@@ -328,7 +328,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Calculate holy act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0
@@ -423,7 +423,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Calculate Holy Act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0
@@ -505,7 +505,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Calculate Holy Act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0
@@ -587,7 +587,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Calculate Holy Act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0
@@ -666,7 +666,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
   }
 
   static async rollWeaponAttackWithScourge (event, target) {
-    const itemId = DCCActorSheet.findDataset(target, 'itemId')
+    const itemId = XCCActorSheet.findDataset(target, 'itemId')
     const weapon = this.actor.items.find(i => i.id === itemId)
     if (weapon) {
       const scourgeAmount = this.actor.system.class.scourge || 0
@@ -685,14 +685,14 @@ class XCCActorSheetMessenger extends DCCActorSheet {
         }
       })
       // Call the original roll weapon attack action
-      await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
+      await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
     } else { console.warn(`Weapon not found: ${itemId}`) }
   }
 
   // Prepare and roll a fake weapon with modified toHit, damage and crit rolls
   static async rollFreeAttackWithScourge (event, target) {
     // Make a temporary fake weapon
-    const fakeId = DCCActorSheet.findDataset(target, 'itemId') || ''
+    const fakeId = XCCActorSheet.findDataset(target, 'itemId') || ''
     const weapon = {
       key: fakeId,
       value: {
@@ -710,14 +710,14 @@ class XCCActorSheetMessenger extends DCCActorSheet {
     // Add the fake weapon to the actor's items
     this.actor.items.set(weapon.key, weapon.value, { modifySource: false })
     // Pass the fake weapon
-    await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
+    await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
     // Remove the fake weapon from items after we're done
     this.actor.items.delete(weapon.id, { modifySource: false })
   }
 
   static async rollFreeAttack (event, target) {
     // Make a temporary fake weapon
-    const fakeId = DCCActorSheet.findDataset(target, 'itemId') || ''
+    const fakeId = XCCActorSheet.findDataset(target, 'itemId') || ''
     const weapon = {
       key: fakeId,
       value: {
@@ -735,7 +735,7 @@ class XCCActorSheetMessenger extends DCCActorSheet {
     // Add the fake weapon to the actor's items
     this.actor.items.set(weapon.key, weapon.value, { modifySource: false })
     // Pass the fake weapon
-    await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
+    await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
     // Remove the fake weapon from items after we're done
     this.actor.items.delete(weapon.id, { modifySource: false })
   }

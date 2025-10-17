@@ -1,9 +1,9 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetHalfOrc extends DCCActorSheet {
+class XCCActorSheetHalfOrc extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -94,7 +94,7 @@ class XCCActorSheetHalfOrc extends DCCActorSheet {
   }
 
   static async rollWeaponAttackWithWild (event, target) {
-    const itemId = DCCActorSheet.findDataset(target, 'itemId')
+    const itemId = XCCActorSheet.findDataset(target, 'itemId')
     const weapon = this.actor.items.find(i => i.id === itemId)
     if (weapon) {
       const wildCritRange = this.actor.system.class.wildCritRange || 20
@@ -119,7 +119,7 @@ class XCCActorSheetHalfOrc extends DCCActorSheet {
         }
       })
       // Call the original roll weapon attack action
-      await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
+      await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
     } else { console.warn(`Weapon not found: ${itemId}`) }
   }
 }

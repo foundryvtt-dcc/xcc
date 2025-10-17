@@ -1,9 +1,9 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import { ensurePlus, getCritTableResult, getFumbleTableResult, getNPCFumbleTableResult, getFumbleTableNameFromCritTableName } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetBrawler extends DCCActorSheet {
+class XCCActorSheetBrawler extends XCCActorSheet {
   static DEFAULT_OPTIONS = {
     position: {
       height: 640
@@ -106,8 +106,8 @@ class XCCActorSheetBrawler extends DCCActorSheet {
 
   static async rollUnarmedAttack (event, target) {
     event.preventDefault()
-    const options = DCCActorSheet.fillRollOptions(event)
-    const type = DCCActorSheet.findDataset(target, 'itemId')
+    const options = XCCActorSheet.fillRollOptions(event)
+    const type = XCCActorSheet.findDataset(target, 'itemId')
 
     const automateDamageFumblesCrits = game.settings.get('dcc', 'automateDamageFumblesCrits')
     const rollMode = game.settings.get('core', 'rollMode')

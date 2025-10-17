@@ -1,8 +1,8 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetSpCommando extends DCCActorSheet {
+class XCCActorSheetSpCommando extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -81,8 +81,8 @@ class XCCActorSheetSpCommando extends DCCActorSheet {
 
   static async rollModifiedWeaponAttack (event, target) {
     event.preventDefault()
-    const itemId = DCCActorSheet.findDataset(target, 'itemId')
-    const options = DCCActorSheet.fillRollOptions(event)
+    const itemId = XCCActorSheet.findDataset(target, 'itemId')
+    const options = XCCActorSheet.fillRollOptions(event)
     Object.assign(options, {
       backstab: target.classList.contains('backstab-button')
     })
