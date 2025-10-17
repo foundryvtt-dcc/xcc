@@ -124,13 +124,12 @@ class XCCActorSheetBrawler extends XCCActorSheet {
     const toHit = this.getBrawlerToHit()
     /* If we don't have a valid formula, bail out here */
     if (!Roll.validate(toHit)) {
-      console.log('Unarmed attack formula is invalid: ' + toHit)
+      console.error('Unarmed attack formula is invalid: ' + toHit)
       return {
         rolled: false,
         formula: toHit
       }
     }
-    console.log('Rolling unarmed attack with formula: ' + toHit)
     // Collate terms for the roll
     const terms = [
       {

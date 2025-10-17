@@ -372,18 +372,14 @@ class XCCActorSheetMessenger extends XCCActorSheet {
 
     const layOnHandsTableName = 'Table 1-12: Lay on Hands'
     const messengerPackName = 'xcc-core-book.xcc-core-tables'
-    console.log(`Looking for pack: ${messengerPackName}`)
     const pack = game.packs.get(messengerPackName)
     if (pack) {
-      console.log(`Found pack: ${messengerPackName}`)
       const entry = pack.index.filter((entity) => entity.name.startsWith(layOnHandsTableName))
       if (entry.length > 0) {
-        console.log(`Found lay on hands table: ${layOnHandsTableName}`)
         rollTable = await pack.getDocument(entry[0]._id)
         const results = rollTable.getResultsForRoll(roll.total)
         if (results && results.length > 0) {
           layOnHandsResult = results[0].description + game.i18n.localize('XCC.Messenger.LayOnHandsAlternate')
-          console.log(`Lay on hands result found: ${layOnHandsResult}`)
         }
       }
     }
@@ -391,6 +387,8 @@ class XCCActorSheetMessenger extends XCCActorSheet {
     if (layOnHandsResult) {
       const tableText = await foundry.applications.ux.TextEditor.enrichHTML(layOnHandsResult)
       tableResult = tableText
+    } else {
+      console.error(`Could not extract rollable table result for ${roll.total} in ${layOnHandsTableName} (${messengerPackName}).`)
     }
 
     // Add DCC flags

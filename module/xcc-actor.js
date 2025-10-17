@@ -4,7 +4,6 @@ import { ensurePlus } from '/systems/dcc/module/utilities.js'
 
 class XCCActor extends DCCActor {
   computeSpellCheck (item, options = {}) {
-    console.log('Computing Spell Check for XCC', this, item, options)
     super.computeSpellCheck(item, options)
     if (this.system.details.sheetClass === 'blaster') {
       // Custom logic for Blaster class spell checks

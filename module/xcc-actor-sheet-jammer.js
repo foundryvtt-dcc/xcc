@@ -75,11 +75,11 @@ class XCCActorSheetJammer extends XCCActorSheet {
       return bonus >= 0 ? '+' + bonus : bonus
     })
 
-    // Handle special grapple chat message
+    // Handle special lionize chat message
     Hooks.on('renderChatMessageHTML', (message, html, data) => {
-      // Only for GMs to avoid shenanigans
+      // Only GMs can use the arrow buttons to change rolled table result
       if (!game.user.isGM) {
-        console.log('Not GM, skipping')
+        console.warning('Only GMs can adjust the rolled table result.')
         return
       }
 
@@ -88,7 +88,6 @@ class XCCActorSheetJammer extends XCCActorSheet {
         // Add event delegation for the arrows
         const lionizeTable = html.querySelector('.xcc-lionize')
         if (lionizeTable) {
-          console.log('Found lionize table, adding event listeners')
           lionizeTable.addEventListener('click', (event) => {
             if (event.target.classList.contains('lionize-shift-up')) {
               XCCActorSheetJammer._onNextLionizeResult.call(message, event)
@@ -98,6 +97,7 @@ class XCCActorSheetJammer extends XCCActorSheet {
           })
         }
       }
+      // TODO: add arrows to more skills
     })
   }
 

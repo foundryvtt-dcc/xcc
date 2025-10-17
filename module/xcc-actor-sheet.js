@@ -321,9 +321,7 @@ export class XCCActorSheet extends DCCActorSheet {
   })
 
   // Add parent helper function
-  static addHooksAndHelpers () {
-    console.log('XCCActorSheet | Adding hooks and helpers')
-  }
+  static addHooksAndHelpers () { }
 
   async prepareXCCNotes () {
     const context = { relativeTo: this.options.document, secrets: this.options.document.isOwner }

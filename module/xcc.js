@@ -38,10 +38,6 @@ Hooks.once('init', async function () {
   CONFIG.XCC = XCC
   CONFIG.Actor.documentClass = XCCActor
 
-  // XCCActorSheet is not used anymore - using dcc-monkey-patch instead.
-  // Actors.unregisterSheet('dcc', DCCActorSheet);
-  // Actors.registerSheet('xcc', XCCActorSheet, {makeDefault: true});
-
   // Register ActorSheets and their Helper functions
   Actors.registerSheet('xcc', XCCActorSheetAthlete, {
     types: ['Player'],
@@ -312,7 +308,7 @@ Hooks.once('init', async function () {
 
 // Parent system is ready - add our module functionality on top
 Hooks.once('dcc.ready', async function () {
-  console.log('DCC is ready - XCrawl Classics System is loading...')
+  console.log('DCC system is ready - XCrawl Classics System applies its changes...')
 
   // Register module settings
   await registerModuleSettings()
