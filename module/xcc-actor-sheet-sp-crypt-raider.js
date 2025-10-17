@@ -1,9 +1,9 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 
-class XCCActorSheetSpCryptRaider extends DCCActorSheet {
+class XCCActorSheetSpCryptRaider extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -110,7 +110,7 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Calculate Holy Act bonus (Personality + Level)
     let bonus = this.actor.system?.abilities?.per?.mod || 0
@@ -238,7 +238,7 @@ class XCCActorSheetSpCryptRaider extends DCCActorSheet {
   }
 
   static async rollCritDieModified (event, target, sheet, isBackstab) {
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
     const oldDie = sheet.actor.system.attributes.critical.die
     const oldTable = sheet.actor.system.attributes.critical.table
     if (isBackstab) {

@@ -1,10 +1,10 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import { ensurePlus, getCritTableResult } from '/systems/dcc/module/utilities.js'
 import * as chat from '/systems/dcc/module/chat.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetAthlete extends DCCActorSheet {
+class XCCActorSheetAthlete extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -170,7 +170,7 @@ class XCCActorSheetAthlete extends DCCActorSheet {
   }
 
   static rollAbilityCheck (event, target) {
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
     const ability = target.parentElement.dataset.ability
 
     // Luck checks are roll under unless the user explicitly clicks the modifier
@@ -217,7 +217,7 @@ class XCCActorSheetAthlete extends DCCActorSheet {
 
   static async rollGrappleAttack (event, target) {
     event.preventDefault()
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
     Object.assign(options, {
       backstab: target.classList.contains('backstab-button')
     })

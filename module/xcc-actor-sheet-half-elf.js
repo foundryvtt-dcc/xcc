@@ -1,5 +1,5 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import {
   ensurePlus,
   getCritTableResult,
@@ -7,7 +7,7 @@ import {
 } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetHalfElf extends DCCActorSheet {
+class XCCActorSheetHalfElf extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -275,7 +275,7 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
   }
 
   static async rollWeaponAttack (event, target) {
-    const itemId = DCCActorSheet.findDataset(target, 'itemId')
+    const itemId = XCCActorSheet.findDataset(target, 'itemId')
     const weapon = this.actor.items.find(i => i.id === itemId)
     if (weapon) {
       // Half-Elf applies armor penalty to backstab attacks and reduces the crit die by 2
@@ -283,14 +283,14 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
         await XCCActorSheetHalfElf.rollDowngradedBackstab(event, weapon, this.actor)
       } else {
         // Call the original roll weapon attack action
-        await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
+        await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
       }
     } else { console.warn(`Weapon not found: ${itemId} `) }
   }
 
   static async rollDowngradedBackstab (event, weapon, actor) {
     event.preventDefault()
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     const automateDamageFumblesCrits = game.settings.get('dcc', 'automateDamageFumblesCrits')
     const rollMode = game.settings.get('core', 'rollMode')
@@ -504,7 +504,7 @@ class XCCActorSheetHalfElf extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     const save = target.parentElement.dataset.save
     if (this.actor.system.class.saveBonus <= 0) { await this.actor.rollSavingThrow(save, options) } else {

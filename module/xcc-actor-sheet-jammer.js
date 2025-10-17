@@ -1,8 +1,8 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetJammer extends DCCActorSheet {
+class XCCActorSheetJammer extends XCCActorSheet {
   static DEFAULT_OPTIONS = {
     position: {
       height: 650
@@ -173,7 +173,7 @@ class XCCActorSheetJammer extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Calculate base bonus
     let bonus = this.actor.system?.abilities?.per?.mod || 0
@@ -228,7 +228,7 @@ class XCCActorSheetJammer extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Calculate performance check bonus
     let bonus = this.actor.system?.abilities?.per?.mod || 0
@@ -339,7 +339,7 @@ class XCCActorSheetJammer extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Calculate performance check bonus
     let bonus = this.actor.system?.abilities?.per?.mod || 0

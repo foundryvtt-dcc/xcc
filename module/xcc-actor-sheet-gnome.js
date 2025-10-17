@@ -1,8 +1,8 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetGnome extends DCCActorSheet {
+class XCCActorSheetGnome extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -107,7 +107,7 @@ class XCCActorSheetGnome extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Create terms for the DCC roll system
     const terms = [
@@ -168,7 +168,7 @@ class XCCActorSheetGnome extends DCCActorSheet {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
 
     // Calculate draw aggro check bonus
     const bonus = this.getDrawAgroBonus()

@@ -1,9 +1,9 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetDwarf extends DCCActorSheet {
+class XCCActorSheetDwarf extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -124,7 +124,7 @@ class XCCActorSheetDwarf extends DCCActorSheet {
 
   static async rollShieldBashAttack (event, target) {
     // Make a temporary fake weapon
-    const fakeId = DCCActorSheet.findDataset(target, 'itemId') || ''
+    const fakeId = XCCActorSheet.findDataset(target, 'itemId') || ''
     const weapon = {
       key: fakeId,
       value: {
@@ -142,7 +142,7 @@ class XCCActorSheetDwarf extends DCCActorSheet {
     // Add the fake weapon to the actor's items
     this.actor.items.set(weapon.key, weapon.value, { modifySource: false })
     // Pass the fake weapon
-    await DCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
+    await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
     // Remove the fake weapon from items after we're done
     this.actor.items.delete(weapon.id, { modifySource: false })
   }

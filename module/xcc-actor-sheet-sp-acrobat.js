@@ -1,8 +1,8 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetSpAcrobat extends DCCActorSheet {
+class XCCActorSheetSpAcrobat extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {

@@ -1,9 +1,9 @@
 /* eslint-disable import/no-absolute-path */
-import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
+import XCCActorSheet from './xcc-actor-sheet.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
 
-class XCCActorSheetBlaster extends DCCActorSheet {
+class XCCActorSheetBlaster extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
@@ -207,7 +207,7 @@ class XCCActorSheetBlaster extends DCCActorSheet {
 
   static async rollSpellCheck (event, target) {
     console.log('Rolling spell check for target:', target)
-    const options = DCCActorSheet.fillRollOptions(event)
+    const options = XCCActorSheet.fillRollOptions(event)
     const dataset = target.parentElement.dataset
     if (dataset.itemId) {
       // Roll through a spell item

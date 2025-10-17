@@ -19,7 +19,6 @@ import XCCActorSheetHalfElf from './xcc-actor-sheet-half-elf.js'
 import XCCActorSheetGnome from './xcc-actor-sheet-gnome.js'
 import XCCActorSheetDwarf from './xcc-actor-sheet-dwarf.js'
 import XCCActorSheetGeneric from './xcc-actor-sheet-generic.js'
-import DCCMonkeyPatch from './dcc-monkey-patch.js'
 import XCCActorParser from './xcc-parser.js'
 import XCC from '../config.js'
 import XCCActor from './xcc-actor.js'
@@ -38,7 +37,6 @@ Hooks.once('init', async function () {
   console.log('XCC | Initializing XCrawl Classics System')
   CONFIG.XCC = XCC
   CONFIG.Actor.documentClass = XCCActor
-  DCCMonkeyPatch.patch()
 
   // XCCActorSheet is not used anymore - using dcc-monkey-patch instead.
   // Actors.unregisterSheet('dcc', DCCActorSheet);
@@ -171,6 +169,9 @@ Hooks.once('init', async function () {
 
   // Register rewards helpers
   Handlebars.registerHelper('updateRewards', function (actor, sponsorships) {
+    // Non-XCC class
+    if (sponsorships === undefined) return
+    // XCC class
     if (actor.system?.rewards?.fame === undefined || actor.system.rewards.baseWealth === undefined ||
       actor.system.rewards.totalWealth === undefined) {
       actor.update({
@@ -337,14 +338,12 @@ Hooks.once('dcc.ready', async function () {
 
 // Override Actor Directory's Import Actor button to open our own import dialog
 Hooks.on('renderActorDirectory', (app, html) => {
-  console.log('XCC | onRenderActorDirectory hook triggered')
   const button = html.querySelector('.import-actors')
   const clone = button?.cloneNode(true)
   button?.replaceWith(clone)
   clone?.addEventListener('click', async (event) => {
     event.preventDefault()
     new XCCActorParser().render(true)
-    console.log('XCC | Import Actor button clicked')
   })
 })
 
