@@ -1,6 +1,5 @@
 /* eslint-disable import/no-absolute-path */
 import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
-import DCCActor from '/systems/dcc/module/actor.js'
 import DiceChain from '/systems/dcc/module/dice-chain.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
@@ -346,23 +345,6 @@ class DCCMonkeyPatch {
       }
       foundry.utils.mergeObject(context, ...[{ sponsorships }, { notesXCC: await this.prepareXCCNotes() }])
       return context
-    }
-
-    // Spell check for Blaster class are computed differently.
-    const originalComputeSpellCheck = DCCActor.prototype.computeSpellCheck
-    DCCActor.prototype.computeSpellCheck = function (item, options = {}) {
-      originalComputeSpellCheck.call(this, item, options)
-      if (this.system.details.sheetClass === 'blaster') {
-        // Custom logic for Blaster class spell checks
-        const blasterMod = ensurePlus(this.system.class?.blasterDie || 'd3')
-        const abilityMod = ensurePlus(this.system.abilities.per.mod)
-        const otherMod = this.system.class.spellCheckOtherMod ? ensurePlus(this.system.class.spellCheckOtherMod) : ''
-        this.system.class.spellCheck = ensurePlus(blasterMod + abilityMod + otherMod)
-
-        if (this.system.class.spellCheckOverride) {
-          this.system.class.spellCheck = this.system.class.spellCheckOverride
-        }
-      }
     }
 
     // Replace Title field with actor field and hide the notes tab if the setting is set

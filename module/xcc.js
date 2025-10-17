@@ -22,6 +22,7 @@ import XCCActorSheetGeneric from './xcc-actor-sheet-generic.js'
 import DCCMonkeyPatch from './dcc-monkey-patch.js'
 import XCCActorParser from './xcc-parser.js'
 import XCC from '../config.js'
+import XCCActor from './xcc-actor.js'
 
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals, registerModuleSettings } from './settings.js'
@@ -36,6 +37,7 @@ const { loadTemplates } = foundry.applications.handlebars
 Hooks.once('init', async function () {
   console.log('XCC | Initializing XCrawl Classics System')
   CONFIG.XCC = XCC
+  CONFIG.Actor.documentClass = XCCActor
   DCCMonkeyPatch.patch()
 
   // XCCActorSheet is not used anymore - using dcc-monkey-patch instead.
