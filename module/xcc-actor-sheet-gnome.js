@@ -30,7 +30,7 @@ class XCCActorSheetGnome extends XCCActorSheet {
     },
     wizardSpells: {
       id: 'wizardSpells',
-      template: 'systems/dcc/templates/actor-partial-wizard-spells.html'
+      template: globals.templatesPath + 'actor-partial-spells.html'
     }
   }
 
@@ -95,7 +95,7 @@ class XCCActorSheetGnome extends XCCActorSheet {
       config: {
         applyCheckPenalty: true
       },
-      ability: 'per',
+      ability: this.actor.system.class.spellCheckAbility,
       label: 'DCC.Spell',
       die: 'd20'
     }

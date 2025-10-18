@@ -26,7 +26,7 @@ class XCCActorSheetSpElfTrickster extends XCCActorSheet {
     },
     wizardSpells: {
       id: 'wizardSpells',
-      template: 'systems/dcc/templates/actor-partial-wizard-spells.html'
+      template: globals.templatesPath + 'actor-partial-spells.html'
     }
   }
 
@@ -94,13 +94,7 @@ class XCCActorSheetSpElfTrickster extends XCCActorSheet {
         'system.config.showBackstab': true,
         'system.config.addClassLevelToInitiative': false,
         'system.class.spellCheckAbility': 'per',
-        'system.class.spellCheckOtherMod': this.actor.system.abilities.lck.mod,
         'system.config.showSpells': true
-      })
-    } else {
-      await this.actor.update({
-        'system.class.spellCheckAbility': 'per',
-        'system.class.spellCheckOtherMod': this.actor.system.abilities.lck.mod
       })
     }
     this.setSpecialistSkills()

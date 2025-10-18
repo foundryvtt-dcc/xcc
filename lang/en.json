@@ -46,6 +46,13 @@
     "system.details.wildCritRange": "Wild Crit Range"
   },
   "XCC": {
+    "AdjustedKnownSpells": "Max spells: ",
+    "AdjustedMaxSpellLevel": "Max level: ",
+    "SpellCheckOtherMod": "Extra Modifier",
+    "SpellCheckAbility": "Spell Check Ability",
+    "SpellCheckConfig": "Spell Check Configuration",
+    "ConfigureSpellCheck": "Configure Spell Check",
+    "CalculatedSpellCheck": "Calculated Spell Check",
     "MojoDefault": [
       "You earn a mojo point for rolling a natural 20 on your action die during combat.",
       "You earn a mojo point for successfully completing an encounter."
@@ -148,6 +155,7 @@
       "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.GCypDSSEQkqkh5sG]{Blaster}",
       "ActorSheetBlaster": "Blaster",
       "BlasterDie": "Blaster Die",
+      "BlasterDieHint": "Die added to each spell check",
       "WeaponTraining": [
         "You are trained with longsword, short sword, spear, club, dagger, and crossbow."
       ],

@@ -1,0 +1,41 @@
+<section class="config-dialog">
+    <label for="temporaryValues.spellCheckAbility">{{localize "XCC.SpellCheckAbility"}}</label>
+    <select name="temporaryValues.spellCheckAbility" id="temporaryValues.spellCheckAbility">
+        <option value="per" {{#if (eq temporaryValues.spellCheckAbility 'per')}}selected{{/if}}>{{localize "DCC.AbilityPer"}}</option>
+        <option value="int" {{#if (eq temporaryValues.spellCheckAbility 'int')}}selected{{/if}}>{{localize "DCC.AbilityInt"}}</option>
+    </select>
+
+    <div class="group-separator"></div>
+    
+    <label for="temporaryValues.spellCheckOtherMod" title="{{localize 'DCC.SpellCheckOtherModHint'}}">{{localize
+        "XCC.SpellCheckOtherMod"}}</label>
+    <input type="text" style="border-bottom: 1px solid var(--system-input-background-color)"
+        name="temporaryValues.spellCheckOtherMod" id="temporaryValues.spellCheckOtherMod"
+        value="{{temporaryValues.spellCheckOtherMod}}" data-dtype="String" />
+
+    <label for="temporaryValues.spellCheckOverrideDie" title="{{localize 'DCC.OverrideHint'}}">{{localize "DCC.Die"}}
+        {{localize "DCC.Override"}}</label>
+    <input type="text" style="border-bottom: 1px solid var(--system-input-background-color)"
+        name="temporaryValues.spellCheckOverrideDie" id="temporaryValues.spellCheckOverrideDie"
+        value="{{temporaryValues.spellCheckOverrideDie}}" data-dtype="String" />
+
+    <label for="temporaryValues.spellCheckOverride" title="{{localize 'DCC.OverrideHint'}}">{{localize "DCC.Bonus"}}
+        {{localize "DCC.Override"}}</label>
+    <input type="text" style="border-bottom: 1px solid var(--system-input-background-color)"
+        name="temporaryValues.spellCheckOverride" id="temporaryValues.spellCheckOverride"
+        value="{{temporaryValues.spellCheckOverride}}" data-dtype="String" />
+
+    <div class="group-separator"></div>
+
+    <label title="{{localize 'DCC.DisplayValueHint'}}">{{localize "XCC.CalculatedSpellCheck"}}</label>
+    <input type="text" style="border-bottom: 1px solid var(--system-input-background-color)"
+        name="system.details.spellCheck.value" id="system.details.spellCheck.value"
+        value="{{ifThen temporaryValues.spellCheckOverrideDie temporaryValues.spellCheckOverrideDie system.attributes.actionDice.value}}{{ifThen temporaryValues.spellCheckOverride temporaryValues.spellCheckOverride temporaryValues.spellCheck}}"
+        data-dtype="String" disabled="true" />
+        <div class="grid-col-span-2">{{temporaryValues.spellCheckHint}}</div>
+    <footer class="grid-col-span-2 mt-8">
+        <button type="submit">
+            <i class="fas fa-save"></i>{{localize "DCC.SaveSheetConfig"}}
+        </button>
+    </footer>
+</section>

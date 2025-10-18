@@ -35,7 +35,7 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
     },
     wizardSpells: {
       id: 'wizardSpells',
-      template: 'systems/dcc/templates/actor-partial-wizard-spells.html'
+      template: globals.templatesPath + 'actor-partial-spells.html'
     }
   }
 

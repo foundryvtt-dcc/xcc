@@ -3,6 +3,8 @@ import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
 import DiceChain from '/systems/dcc/module/dice-chain.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
+import XCCSpellCheckConfig from './spell-check-config.js'
+import { calculateSpellCheckBonus } from './xcc-utils.js'
 
 // Extends the DCCActorSheet and adds 'XCrawl' tab and its functionality.
 export class XCCActorSheet extends DCCActorSheet {
@@ -308,20 +310,284 @@ export class XCCActorSheet extends DCCActorSheet {
     return roll
   }
 
+  /**
+   * Display spell check configuration settings
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   * @returns {Promise<void>}
+   */
+  async configureSpellCheck (event, target) {
+    event.preventDefault()
+    await new XCCSpellCheckConfig({
+      document: this.actor,
+      position: {
+        top: this.position.top + 40,
+        left: this.position.left + (this.position.width - 400) / 2
+      }
+    }).render(true)
+  }
+
+  static async rollSpellCheck (event, target) {
+    await this.actor.update({
+      'system.class.spellCheck': calculateSpellCheckBonus(this.actor)
+    })
+    const options = DCCActorSheet.fillRollOptions(event)
+    const dataset = target.parentElement.dataset
+    if (dataset.itemId) {
+      // Roll through a spell item
+      const item = this.actor.items.find(i => i.id === dataset.itemId)
+      const ability = dataset.ability || ''
+      await this.rollItemSpellCheck(item, ability, options) // item.rollSpellCheck(ability, options)
+    } else {
+      // Roll a raw spell check for the actor
+      await this.rollDefaultSpellCheck(options)
+    }
+  }
+
+  async rollDefaultSpellCheck (options = {}) {
+    if (!options.abilityId) {
+      options.abilityId = this.actor.system.class.spellCheckAbility || ''
+    }
+
+    // raw dice roll with appropriate flavor
+    const ability = this.actor.system.abilities[options.abilityId] || {}
+    ability.label = CONFIG.DCC.abilities[options.abilityId]
+    let die = this.actor.system.attributes.actionDice.value || '1d20'
+    if (this.actor.system.class.spellCheckOverrideDie) {
+      die = this.actor.system.class.spellCheckOverrideDie
+    }
+    const bonus = this.actor.system.class.spellCheckOverride ? this.actor.system.class.spellCheckOverride : calculateSpellCheckBonus(this.actor)
+    const checkPenalty = ensurePlus(this.actor.system?.attributes?.ac?.checkPenalty || '0')
+    options.title = game.i18n.localize('DCC.SpellCheck')
+
+    // Collate terms for the roll
+    const terms = [
+      {
+        type: 'Die',
+        label: game.i18n.localize('DCC.ActionDie'),
+        formula: die,
+        presets: this.actor.getActionDice({ includeUntrained: true })
+      }
+    ]
+
+    if (bonus) {
+      terms.push({
+        type: 'Compound',
+        dieLabel: this.actor.system.details.sheetClass === 'blaster' ? game.i18n.localize('XCC.Blaster.BlasterDie') : game.i18n.localize('DCC.RollModifierDieTerm'),
+        modifierLabel: game.i18n.localize('DCC.SpellCheck'),
+        formula: bonus
+      })
+    }
+    // Check penalty
+    if (checkPenalty !== '+0') {
+      terms.push({
+        type: 'CheckPenalty',
+        formula: checkPenalty,
+        label: game.i18n.localize('DCC.CheckPenalty'),
+        apply: true
+      })
+    }
+    // Show spellburn if not elf trickster
+    if (this.actor.system.details.sheetClass !== 'sp-elf-trickster') {
+      terms.push({
+        type: 'Spellburn',
+        formula: '+0',
+        str: this.actor.system.abilities.str.value,
+        agl: this.actor.system.abilities.agl.value,
+        sta: this.actor.system.abilities.sta.value,
+        callback: (formula, term) => {
+        // Apply the spellburn
+          this.actor.update({
+            'system.abilities.str.value': term.str,
+            'system.abilities.agl.value': term.agl,
+            'system.abilities.sta.value': term.sta
+          })
+        }
+      })
+    }
+
+    const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), options)
+
+    if (roll.dice.length > 0) {
+      roll.dice[0].options.dcc = {
+        lowerThreshold: this.actor.system.class.disapproval
+      }
+    }
+
+    let flavor = game.i18n.localize('DCC.SpellCheck')
+    if (ability.label) {
+      flavor += ` (${game.i18n.localize(ability.label)})`
+    }
+
+    // Tell the system to handle the spell check result
+    await game.dcc.processSpellCheck(this.actor, {
+      rollTable: null,
+      roll,
+      item: null,
+      flavor
+    })
+  }
+
+  // Copied from DCC item class and modified to hide spellburn for elf tricksters
+  async rollItemSpellCheck (item, abilityId = '', options = {}) {
+    if (item.type !== 'spell') { return }
+    const actor = item.actor || item.parent
+
+    if (item.system.lost) {
+      return ui.notifications.warn(game.i18n.format('DCC.SpellLostWarning', {
+        actor: actor.name,
+        spell: item.name
+      }))
+    }
+
+    const ability = actor.system.abilities[abilityId] || {}
+    ability.label = CONFIG.DCC.abilities[abilityId]
+    const spell = item.name
+    options.title = game.i18n.format('DCC.RollModifierTitleCasting', { spell })
+    const die = item.system.spellCheck.die
+    let bonus = item.system.spellCheck.value.toString()
+
+    // Consolidate the spell check value so that the modifier dialog is not too wide
+    // Unless people are using variables, in which case the DCC roll parser needs to deal with those
+    if (bonus.includes('@')) {
+      bonus = Roll.safeEval(bonus)
+    }
+
+    // Calculate check penalty if relevant
+    let checkPenalty
+    if (item.system.config.inheritCheckPenalty) {
+      checkPenalty = parseInt(actor.system.attributes.ac.checkPenalty || '0')
+    } else {
+      checkPenalty = parseInt(item.system.spellCheck.penalty || '0')
+    }
+
+    // Collate terms for the roll
+    const terms = [
+      {
+        type: 'Die',
+        label: game.i18n.localize('DCC.ActionDie'),
+        formula: die
+      },
+      {
+        type: 'Compound',
+        dieLabel: actor.system.details.sheetClass === 'blaster' ? game.i18n.localize('XCC.Blaster.BlasterDie') : game.i18n.localize('DCC.RollModifierDieTerm'),
+        modifierLabel: game.i18n.localize('DCC.SpellCheck'),
+        formula: bonus
+      },
+      {
+        type: 'CheckPenalty',
+        formula: checkPenalty,
+        apply: true
+      }
+    ]
+
+    // Elf Tricksters cannot spellburn
+    if (actor.system.details.sheetClass !== 'sp-elf-trickster') {
+      terms.push({
+        type: 'Spellburn',
+        formula: '+0',
+        str: actor.system.abilities.str.value,
+        agl: actor.system.abilities.agl.value,
+        sta: actor.system.abilities.sta.value,
+        callback: (formula, term) => {
+          // Apply the spellburn
+          actor.update({
+            'system.abilities.str.value': term.str,
+            'system.abilities.agl.value': term.agl,
+            'system.abilities.sta.value': term.sta
+          })
+        }
+      })
+    }
+
+    // Roll the spell check
+    const roll = await game.dcc.DCCRoll.createRoll(terms, actor.getRollData(), options)
+    await roll.evaluate()
+
+    if (roll.dice.length > 0) {
+      roll.dice[0].options.dcc = {
+        lowerThreshold: actor.system.class.disapproval
+      }
+    }
+
+    // Lookup the appropriate table
+    const resultsRef = item.system.results
+    if (!resultsRef.table) {
+      return ui.notifications.warn(game.i18n.localize('DCC.NoSpellResultsTableWarning'))
+    }
+    const predicate = t => t.name === resultsRef.table || t._id === resultsRef.table.replace('RollTable.', '')
+    let resultsTable
+    // If a collection is specified then check the appropriate pack for the spell
+    if (resultsRef.collection) {
+      const pack = game.packs.get(resultsRef.collection)
+      if (pack) {
+        const entry = pack.index.find(predicate)
+        resultsTable = await pack.getDocument(entry._id)
+      }
+    }
+    // Otherwise fall back to searching the world
+    if (!resultsTable) {
+      resultsTable = game.tables.contents.find(predicate)
+    }
+
+    let flavor = spell
+    if (ability.label) {
+      flavor += ` (${game.i18n.localize(ability.label)})`
+    }
+
+    // Tell the system to handle the spell check result
+    await game.dcc.processSpellCheck(actor, {
+      rollTable: resultsTable,
+      roll,
+      item,
+      flavor,
+      manifestation: item.system?.manifestation?.displayInChat ? item.system?.manifestation : {},
+      mercurial: item.system?.mercurialEffect?.displayInChat ? item.system?.mercurialEffect : {}
+    })
+  }
+
+  static getKnownSpellsCount (actor) {
+    const result = actor.system.class.knownSpells || 0
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 3) return 0
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 5) return Math.max(0, result - 2)
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 7) return Math.max(0, result - 1)
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 13) return result
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 16) return result + 1
+    return result + 2
+  }
+
+  static getMaxSpellLevel (actor) {
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 3) return 0
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 7) return 1
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 9) return Math.min(2, actor.system.class.maxSpellLevel || 0)
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 11) return Math.min(3, actor.system.class.maxSpellLevel || 0)
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 14) return Math.min(4, actor.system.class.maxSpellLevel || 0)
+    return Math.min(5, actor.system.class.maxSpellLevel || 0)
+  }
+
   // Add the wealth and sponsorship input actions to the DCCActorSheet
-  DEFAULT_OPTIONS = foundry.utils.mergeObject(DCCActorSheet.DEFAULT_OPTIONS, {
+  static DEFAULT_OPTIONS = foundry.utils.mergeObject(DCCActorSheet.DEFAULT_OPTIONS, {
     actions: {
-      increaseWealth: this.increaseWealth,
-      decreaseWealth: this.decreaseWealth,
-      sponsorshipCreate: this.sponsorshipCreate,
-      rollFameCheck: this.rollFameCheck,
-      rollWealthCheck: this.rollWealthCheck,
-      rollGrandstandingCheck: this.rollGrandstandingCheck
+      increaseWealth: XCCActorSheet.prototype.increaseWealth,
+      decreaseWealth: XCCActorSheet.prototype.decreaseWealth,
+      sponsorshipCreate: XCCActorSheet.prototype.sponsorshipCreate,
+      rollFameCheck: XCCActorSheet.prototype.rollFameCheck,
+      rollWealthCheck: XCCActorSheet.prototype.rollWealthCheck,
+      rollGrandstandingCheck: XCCActorSheet.prototype.rollGrandstandingCheck,
+      configureSpellCheck: XCCActorSheet.prototype.configureSpellCheck,
+      rollSpellCheck: XCCActorSheet.rollSpellCheck
     }
   })
 
   // Add parent helper function
-  static addHooksAndHelpers () { }
+  static addHooksAndHelpers () {
+    Handlebars.registerHelper('getMaxSpellLevel', (actor) => {
+      return XCCActorSheet.getMaxSpellLevel(actor)
+    })
+    Handlebars.registerHelper('getKnownSpellsCount', (actor) => {
+      return XCCActorSheet.getKnownSpellsCount(actor)
+    })
+  }
 
   async prepareXCCNotes () {
     const context = { relativeTo: this.options.document, secrets: this.options.document.isOwner }
@@ -371,6 +637,20 @@ export class XCCActorSheet extends DCCActorSheet {
         }
       }
     }
+  }
+
+  _configureRenderParts (options) {
+    const parts = super._configureRenderParts(options)
+
+    // Override default spells tab
+    if (this.options.document?.system?.config?.showSpells && !this.constructor.CLASS_PARTS?.wizardSpells) {
+      parts.wizardSpells = {
+        id: 'wizardSpells',
+        template: globals.templatesPath + 'actor-partial-spells.html'
+      }
+    }
+
+    return parts
   }
 }
 
