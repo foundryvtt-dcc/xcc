@@ -44,19 +44,6 @@
                 <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Gnome.DrawAgroNotes'}}"
                     readonly="">
             </li>
-            <li class="grid-col-span-6 weapon grid-col-gap-5">
-                <img class="icon-filter" src="{{getGameImage 'sparkles.svg'}}"
-                    title="{{localize 'DCC.SpellCheck'}}" alt="{{localize 'DCC.SpellCheck'}}" width="22" height="22">
-                <div class="attack-buttons" data-skill="spellCheck">
-                    <div class="rollable weapon-button icon-filter" data-action="rollSkillCheck" data-drag="false"
-                        title="Roll" draggable="false"></div>
-                </div>
-                <input class="weapon-name" type="text" value="{{localize 'DCC.SpellCheck'}}" readonly="">
-                <input class="disabled" type="text"
-                    value="{{ensurePlus (sum system.abilities.per.mod system.details.level.value)}}" readonly="">
-                <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.Gnome.SpellCheckNotes'}}"
-                    readonly="">
-            </li>
         </ol>
     </div>
     <div class="grid-col-span-12 dark-border sp-skills">

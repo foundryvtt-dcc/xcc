@@ -549,20 +549,21 @@ export class XCCActorSheet extends DCCActorSheet {
   static getKnownSpellsCount (actor) {
     const result = actor.system.class.knownSpells || 0
     if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 3) return 0
-    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 5) return Math.max(0, result - 2)
-    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 7) return Math.max(0, result - 1)
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 5) return Math.max(1, parseInt(result) - 2)
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 7) return Math.max(1, parseInt(result) - 1)
     if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 13) return result
-    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 16) return result + 1
-    return result + 2
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 16) return parseInt(result) + 1
+    return parseInt(result) + 2
   }
 
   static getMaxSpellLevel (actor) {
+    const result = actor.system.class.maxSpellLevel || 0
     if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 3) return 0
     if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 7) return 1
-    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 9) return Math.min(2, actor.system.class.maxSpellLevel || 0)
-    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 11) return Math.min(3, actor.system.class.maxSpellLevel || 0)
-    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 14) return Math.min(4, actor.system.class.maxSpellLevel || 0)
-    return Math.min(5, actor.system.class.maxSpellLevel || 0)
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 9) return Math.min(2, parseInt(result))
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 11) return Math.min(3, parseInt(result))
+    if (actor.system.abilities[actor.system.class.spellCheckAbility].value <= 14) return Math.min(4, parseInt(result))
+    return Math.min(5, parseInt(result))
   }
 
   // Add the wealth and sponsorship input actions to the DCCActorSheet

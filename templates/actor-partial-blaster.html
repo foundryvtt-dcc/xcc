@@ -2,77 +2,32 @@
 <section class="xcc tab blaster-bg {{tabs.blaster.id}} {{tabs.blaster.cssClass}}" data-tab="{{tabs.blaster.id}}"
   data-group="{{tabs.blaster.group}}" id="blaster">
   <div class="grid-container">
-    <div class="grid-col-span-12 grid-container grid-row-gap-5 grid-col-gap-5">
-      <div class="grid-col-span-5 grid-row-span-2 box-border" data-ability="int">
-        <div class="box-title">{{localize "DCC.SpellCheck"}}</div>
-        <div class="grid-align-center p-5">
-          <div class="value-display" title="{{localize 'DCC.DisplayValueHint'}}">
-            {{ifThen system.class.spellCheckOverrideDie system.class.spellCheckOverrideDie
-            system.attributes.actionDice.value}}
-            {{system.class.spellCheck}}
-          </div>
-
-          <div class="group-separator"></div>
-
-          <div class="grid-tpl-max-auto-tight grid-col-gap-8 grid-align-center">
-            <div class="group-heading" style="font-size: 15px;">{{localize "DCC.Die"}}</div>
-            <div class="value-display" title="{{localize 'DCC.DisplayValueHint'}}">
-              {{system.attributes.actionDice.value}}</div>
-            <label class="group-indent" for="system.class.spellCheckOverrideDie"
-              title="{{localize 'DCC.OverrideHint'}}">
-              {{localize "DCC.Override"}}
-            </label>
-            <input id="system.class.spellCheckOverrideDie" name="system.class.spellCheckOverrideDie"
-              value="{{system.class.spellCheckOverrideDie}}" data-dtype="String" />
-          </div>
-
-          <div class="group-separator"></div>
-
-          <div class="grid-tpl-max-auto-tight grid-col-gap-8 grid-align-center">
-            <div class="group-heading" style="font-size: 15px;">{{localize "DCC.Bonus"}}</div>
-            <div class="value-display" title="{{localize 'DCC.DisplayValueHint'}}">{{system.class.spellCheck}}</div>
-            <label class="group-indent" for="system.class.blasterDie" title="{{localize 'XCC.Blaster.BlasterDieHint'}}">
-              {{localize "XCC.Blaster.BlasterDie"}}
-            </label>
-            <input id="system.class.blasterDie" name="system.class.blasterDie" value="{{system.class.blasterDie}}"
-              data-dtype="String" />
-            <div class="mr-3 group-indent label-font" title="{{localize 'DCC.DisplayValueHint'}}">
-              {{localize "DCC.AbilityPerShort"}} {{localize "DCC.Modifier"}}
-            </div>
-            <div class="value-display center" title="{{localize 'DCC.DisplayValueHint'}}">{{numberFormat
-              system.abilities.per.mod decimals=0 sign=true}}</div>
-            <label class="group-indent" for="system.class.spellCheckOtherMod" title="{{localize 'DCC.OtherModHint'}}">
-              {{localize "DCC.SpellCheckOtherMod"}}
-            </label>
-            <input id="system.class.spellCheckOtherMod" name="system.class.spellCheckOtherMod"
-              value="{{system.class.spellCheckOtherMod}}" data-dtype="String" />
-
-            <label class="group-indent" for="system.class.spellCheckOverride" title="{{localize 'DCC.OverrideHint'}}">
-              {{localize "DCC.Override"}}
-            </label>
-            <input id="system.class.spellCheckOverride" name="system.class.spellCheckOverride"
-              value="{{system.class.spellCheckOverride}}" data-dtype="String" />
-
-            <div class="group-separator"></div>
-
-            <div class="label-font spell-check rollable mr-3 grid-col-span-2 center"
-              title="{{localize 'DCC.RollSpellCheckHint'}}" data-action="rollSpellCheck" data-drag="true"
-              data-drag-action="spellCheck">
-              <div><i class="fas fa-dice-d20"></i> {{localize "DCC.Roll"}} {{localize "DCC.SpellCheck"}}</div>
-            </div>
-          </div>
+    <div class="grid-col-span-12 box-border reminder-block">
+      <div class="box-title">{{localize "XCC.ClassProperties"}}{{#dccPackExists
+        "xcc-core-book.xcc-core-text"}}<div class="link-floater">{{{system.class.classLink}}}</div>
+        {{/dccPackExists}}</div>
+      <div class="grid-tpl-two grid-row-gap-8 p-5">
+        <div class="grid-tpl-max-25 grid-col-gap-5">
+          <label class="skill-check" for="system.class.maxSpellLevel">
+            {{localize "DCC.system.class.maxSpellLevel"}}
+          </label>
+          <input type="text" id="system.class.maxSpellLevel" name="system.class.maxSpellLevel"
+            value="{{system.class.maxSpellLevel}}" data-dtype="String" />
         </div>
-      </div>
-      <div class="patron grid-col-span-7 box-border">
-        <div class="box-title">{{localize "DCC.Patron"}}{{#dccPackExists "dcc-core-book.dcc-core-journals"}}<div
-            class="link-floater">{{{system.class.classLink}}}</div>{{/dccPackExists}}</div>
-        <textarea id="system.class.patron" name="system.class.patron" rows="5" class="data-font"
-          style="background: none; border: none" data-dtype="String">{{system.class.patron}}</textarea>
-      </div>
-      <div class="patron grid-col-span-7 box-border">
-        <label for="system.class.corruption" class="box-title">{{localize "DCC.Corruptions"}}</label>
-        <textarea id="system.class.corruption" name="system.class.corruption" rows="5" class="data-font"
-          style="background: none; border: none" data-dtype="String">{{system.class.corruption}}</textarea>
+        <div class="grid-tpl-max-25 grid-col-gap-5">
+          <label class="skill-check" for="system.class.knownSpells">
+            {{localize "DCC.system.class.knownSpells"}}
+          </label>
+          <input type="text" id="system.class.knownSpells" name="system.class.knownSpells"
+            value="{{system.class.knownSpells}}" data-dtype="String" />
+        </div>
+        <div class="grid-tpl-max-25 grid-col-gap-5">
+          <label class="skill-check rollable" for="system.class.blasterDie">
+            {{localize "DCC.system.class.blasterDie"}}
+          </label>
+          <input type="text" id="system.class.blasterDie" name="system.class.blasterDie"
+            value="{{system.class.blasterDie}}" data-dtype="String" />
+        </div>
       </div>
     </div>
   </div>
