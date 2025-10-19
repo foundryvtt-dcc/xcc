@@ -23,7 +23,6 @@ import XCCActorParser from './xcc-parser.js'
 import XCC from '../config.js'
 import XCCActor from './xcc-actor.js'
 
-import FleetingLuck from '/systems/dcc/module/fleeting-luck.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals, registerModuleSettings } from './settings.js'
 
@@ -35,11 +34,6 @@ const { loadTemplates } = foundry.applications.handlebars
 /* -------------------------------------------- */
 
 Hooks.once('init', async function () {
-  // Override Fleeting Luck to always be enabled
-  Object.defineProperty(FleetingLuck, 'enabled', {
-    get: function () { return true }
-  })
-
   console.log('XCC | Initializing XCrawl Classics System')
   CONFIG.XCC = XCC
   CONFIG.Actor.documentClass = XCCActor
@@ -317,11 +311,16 @@ Hooks.once('init', async function () {
 Hooks.once('dcc.ready', async function () {
   console.log('DCC system is ready - XCrawl Classics System applies its changes...')
 
+  // Override Fleeting Luck to always be enabled
+  Object.defineProperty(game.dcc.FleetingLuck, 'enabled', {
+    get: function () { return true }
+  })
+
   // Register module settings
   await registerModuleSettings()
 
   // Override Fleeting Luck Automation with our setting
-  Object.defineProperty(FleetingLuck, 'automationEnabled', {
+  Object.defineProperty(game.dcc.FleetingLuck, 'automationEnabled', {
     get: function () { return foundry.game.settings.get(globals.id, 'enableMojoAutomation') }
   })
 
@@ -341,8 +340,9 @@ Hooks.once('dcc.ready', async function () {
     if (caption) caption.textContent = game.i18n.localize('DCC.FancyPause')
   })
 
-  // Force fleeting luck to refresh and become Mojo
+  // Re-Initialize Fleeting Luck UI
   game.dcc.FleetingLuck.init()
+  foundry.ui.controls.render()
 })
 
 // Override Actor Directory's Import Actor button to open our own import dialog
