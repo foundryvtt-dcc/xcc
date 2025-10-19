@@ -23,6 +23,7 @@ import XCCActorParser from './xcc-parser.js'
 import XCC from '../config.js'
 import XCCActor from './xcc-actor.js'
 
+import FleetingLuck from '/systems/dcc/module/fleeting-luck.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals, registerModuleSettings } from './settings.js'
 
@@ -34,6 +35,11 @@ const { loadTemplates } = foundry.applications.handlebars
 /* -------------------------------------------- */
 
 Hooks.once('init', async function () {
+  // Override Fleeting Luck to always be enabled
+  Object.defineProperty(FleetingLuck, 'enabled', {
+    get: function () { return true }
+  })
+
   console.log('XCC | Initializing XCrawl Classics System')
   CONFIG.XCC = XCC
   CONFIG.Actor.documentClass = XCCActor
@@ -314,6 +320,11 @@ Hooks.once('dcc.ready', async function () {
   // Register module settings
   await registerModuleSettings()
 
+  // Override Fleeting Luck Automation with our setting
+  Object.defineProperty(FleetingLuck, 'automationEnabled', {
+    get: function () { return foundry.game.settings.get(globals.id, 'enableMojoAutomation') }
+  })
+
   // Register our packs
   if (game.settings.get(globals.id, 'registerLevelDataPack')) {
     Hooks.callAll('dcc.registerLevelDataPack', globals.id + '.xcc-class-level-data')
@@ -321,8 +332,6 @@ Hooks.once('dcc.ready', async function () {
   if (game.settings.get(globals.id, 'registerDisapprovalPack')) {
     Hooks.callAll('dcc.registerDisapprovalPack', globals.id + '.xcc-disapproval')
   }
-  // Force fleeting luck to refresh and become Mojo
-  game.dcc.FleetingLuck.init()
 
   // Setup pause
   Hooks.on('renderApplicationV2', (app, html, context, options) => {
@@ -331,6 +340,9 @@ Hooks.once('dcc.ready', async function () {
     // This won't be necessary after new pause screen is implemented into the base DCC system
     if (caption) caption.textContent = game.i18n.localize('DCC.FancyPause')
   })
+
+  // Force fleeting luck to refresh and become Mojo
+  game.dcc.FleetingLuck.init()
 })
 
 // Override Actor Directory's Import Actor button to open our own import dialog

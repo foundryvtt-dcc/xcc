@@ -38,6 +38,14 @@ export const registerModuleSettings = async function () {
     default: true,
     type: Boolean
   })
+  game.settings.register(globals.id, 'enableMojoAutomation', {
+    name: 'XCC.Settings.EnableMojoAutomation',
+    hint: 'XCC.Settings.EnableMojoAutomationHint',
+    scope: 'module',
+    config: true,
+    default: true,
+    type: Boolean
+  })
   game.settings.register(globals.id, 'includeGrappleInWeapons', {
     name: 'XCC.Settings.IncludeGrappleInWeapons',
     hint: 'XCC.Settings.IncludeGrappleInWeaponsHint',
