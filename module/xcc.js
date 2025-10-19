@@ -321,9 +321,8 @@ Hooks.once('dcc.ready', async function () {
 
   // Override Fleeting Luck Automation with our setting
   Object.defineProperty(game.dcc.FleetingLuck, 'automationEnabled', {
-    get: function () { return foundry.game.settings.get(globals.id, 'enableMojoAutomation') }
+    get: function () { return game.settings.get(globals.id, 'enableMojoAutomation') }
   })
-
   // Register our packs
   if (game.settings.get(globals.id, 'registerLevelDataPack')) {
     Hooks.callAll('dcc.registerLevelDataPack', globals.id + '.xcc-class-level-data')
