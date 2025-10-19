@@ -744,7 +744,15 @@ a[data-tab='sponsorship-item']::before {
 }
 
 .item-list-spellcheck {
-  grid-template-columns: 30px 4px 33px 1fr 1fr 0 39px;
+  grid-template-columns: 30px 22px 22px 1fr 1fr 0 39px;
+  .spell-item-button {
+    background-image: var(--system-d20-icon);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+    height: 22px;
+    width: 22px;
+  }
 }
 
 .xcc-notes textarea {
