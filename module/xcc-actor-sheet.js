@@ -566,6 +566,12 @@ export class XCCActorSheet extends DCCActorSheet {
     return Math.min(5, parseInt(result))
   }
 
+  static getLocalizedSpellCheckNotes (actor) {
+    if (actor.system.details.sheetClass === 'sp-elf-trickster') {
+      return game.i18n.localize('XCC.Specialist.ElfTrickster.SpellCheckNotes')
+    } else { return game.i18n.localize('XCC.SpellCheckNotes') }
+  }
+
   // Add the wealth and sponsorship input actions to the DCCActorSheet
   static DEFAULT_OPTIONS = foundry.utils.mergeObject(DCCActorSheet.DEFAULT_OPTIONS, {
     actions: {
@@ -587,6 +593,9 @@ export class XCCActorSheet extends DCCActorSheet {
     })
     Handlebars.registerHelper('getKnownSpellsCount', (actor) => {
       return XCCActorSheet.getKnownSpellsCount(actor)
+    })
+    Handlebars.registerHelper('getLocalizedSpellCheckNotes', (actor) => {
+      return XCCActorSheet.getLocalizedSpellCheckNotes(actor)
     })
   }
 

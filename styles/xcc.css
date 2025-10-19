@@ -743,6 +743,10 @@ a[data-tab='sponsorship-item']::before {
   min-width: 60px;
 }
 
+.item-list-spellcheck {
+  grid-template-columns: 30px 4px 33px 1fr 1fr 0 39px;
+}
+
 .xcc-notes textarea {
   min-height: 180px;
   max-height: 100%;

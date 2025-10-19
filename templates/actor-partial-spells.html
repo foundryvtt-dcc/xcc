@@ -2,7 +2,7 @@
 <section class="xcc tab wizard-spells-bg {{tabs.wizardSpells.id}} {{tabs.wizardSpells.cssClass}}" id="wizardSpells"
   data-tab="{{tabs.wizardSpells.id}}" data-group="{{tabs.wizardSpells.group}}">
   <div class="box-title">Base Spell Check</div>
-  <ol class="item-list item-list-spells box-border" style="margin-bottom: 0; padding-bottom: 0;">
+  <ol class="item-list item-list-spellcheck box-border" style="margin-bottom: 0; padding-bottom: 0;">
     <li class="item spell-item grid-col-span-8">
       <div class="item-image">
         <img class="icon-filter" src="{{getGameImage 'sparkles.svg'}}" title="{{localize 'DCC.SpellCheck'}}"
@@ -12,8 +12,8 @@
         data-drag-action="spellCheck">&nbsp;</div>
       <div></div>
       <div class="item-name">{{localize "DCC.SpellCheck"}}</div>
-      <div class="item-notes"><input class="weapon-notes disabled" type="text"
-          value="{{localize 'XCC.HalfElf.SpellCheckNotes'}}" readonly=""></div>
+      <div class="item-notes" style="width:100%"><input class="weapon-notes disabled" type="text"
+          value="{{getLocalizedSpellCheckNotes actor}}" readonly=""></div>
       <div></div>
       <div><a class="item-control" title="{{localize 'XCC.ConfigureSpellCheck'}}" data-action="configureSpellCheck"><i
             class="fas fa-gear"></i></a>

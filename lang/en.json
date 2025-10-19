@@ -46,6 +46,7 @@
     "system.details.wildCritRange": "Wild Crit Range"
   },
   "XCC": {
+    "SpellCheckNotes": "Armor penalty applies",
     "AdjustedKnownSpells": "Max spells: ",
     "AdjustedMaxSpellLevel": "Max level: ",
     "SpellCheckOtherMod": "Extra Modifier",
@@ -290,7 +291,6 @@
     "HalfElf": {
       "DropdownLabel": "XCC Half-Elf",
       "ActorSheetHalfElf": "Half-Elf",
-      "SpellCheckNotes": "Armor penalty applies",
       "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.AVwGT67DLPu81Yuh]{Half-Elf}",
       "WeaponTraining": [
         "You are trained in long sword, short sword, longbow, shortbow, and dagger."
@@ -340,7 +340,6 @@
       "DropdownLabel": "XCC Gnome",
       "ActorSheetGnome": "Gnome",
       "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.MP4twPDVeq2lQZfL]{Gnome}",
-      "SpellCheckNotes": "Armor penalty applies",
       "DrawAgro": "Draw Agro",
       "DrawAgroNotes": "60' range",
       "DrawAgroMessage": "{actorName} attempts to draw agro with a {rollHTML} check!<br><br>The target must make a <b style='color:var(--system-accent-color)'>DC {rollResult} Willpower save</b> or spend their next action attacking {actorName}.<br><br>The target may choose to resist this effect, but in doing so they take a <b style='color:var(--system-accent-color)'>{penalty} penalty</b> to all combat actions on their turn.",
@@ -539,7 +538,7 @@
         "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.Lk2Q7w8ymsSe7oU7]{Elf Trickster}",
         "ActorSheetElfTrickster": "Elf Trickster",
         "DetectSecretDoorsNotes": "Auto-check when in 10’ range",
-        "SpellCheckNotes": "No spellburn, armor penalty applies",
+        "SpellCheckNotes": "No spellburn, armor penalty",
         "WeaponTraining": [
           "You are trained in short swords, daggers, staff, and shortbows."
         ],
