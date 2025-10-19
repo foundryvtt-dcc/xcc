@@ -21,11 +21,6 @@
     </li>
   </ol>
   <div class="row-separator"></div>
-  <div class="spells-footer" style="text-align: center;">
-    {{localize "XCC.AdjustedKnownSpells"}}{{getKnownSpellsCount actor}}&nbsp;&nbsp;&nbsp;&nbsp;
-    {{localize "XCC.AdjustedMaxSpellLevel"}}{{getMaxSpellLevel actor}}<br>
-  </div>
-  <div class="row-separator"></div>
   <div class="box-title">{{localize "DCC.Spells"}}</div>
   <ol class="item-list item-list-spells box-border" style="padding-bottom:0; margin-bottom:0;">
     <li class="item item-list-header grid-col-span-8">
@@ -72,6 +67,18 @@
       <div style="height: 50px; padding-top: 14px;">{{localize "DCC.SpellTabHelp"}}</div>
     </li>
     {{/each}}
+    <li class = "grid-col-span-8 grid-tpl-max">
+      <div class="row-separator"></div>
+    </li>
+    <li class = "grid-col-span-8 grid-tpl-max">
+      <div class="spells-footer" style="text-align: center;">
+        {{localize "XCC.AdjustedMaxSpellLevel"}}{{getMaxSpellLevel actor}}&nbsp;&nbsp;&nbsp;&nbsp;
+        {{localize "XCC.AdjustedKnownSpells"}}{{getKnownSpellsCount actor}}<br>
+      </div>
+    </li>
+    <li class = "grid-col-span-8 grid-tpl-max">
+      <div class="row-separator"></div>
+    </li>
   </ol>
   <div class="row-separator"></div>
   <div class="grid-col-span-12 grid-container grid-row-gap-5 grid-col-gap-5">

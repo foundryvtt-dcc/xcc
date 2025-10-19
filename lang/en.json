@@ -47,8 +47,8 @@
   },
   "XCC": {
     "SpellCheckNotes": "Armor penalty applies",
-    "AdjustedKnownSpells": "Max spells: ",
-    "AdjustedMaxSpellLevel": "Max level: ",
+    "AdjustedKnownSpells": "Adjusted known spells: ",
+    "AdjustedMaxSpellLevel": "Adjusted max spell level: ",
     "SpellCheckOtherMod": "Extra Modifier",
     "SpellCheckAbility": "Spell Check Ability",
     "SpellCheckConfig": "Spell Check Configuration",
