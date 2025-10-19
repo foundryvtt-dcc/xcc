@@ -1,4 +1,5 @@
 <img width="1300" height="280" alt="image" src="https://github.com/user-attachments/assets/6407104d-9277-4511-9e4b-693031b36901" />
+
 # XCrawl Classics System
 This is a work-in-progress Foundry VTT module that modifies the DCC game system so it supports the Xcrawl Classics ruleset. Most of the module intended functionality is already implemented and it can be used together with the xcc-core-book module to fully enjoy XCrawl in Foundry VTT.
 Importing Plain Text characters from the Purple Sorcer is now supported.
