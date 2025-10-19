@@ -295,7 +295,6 @@ class XCCActorSheetJammer extends XCCActorSheet {
     const messageData = {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Jammer.Lionize')}`
@@ -405,7 +404,6 @@ class XCCActorSheetJammer extends XCCActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: disrespectMessage,
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Jammer.Disrespect')}`

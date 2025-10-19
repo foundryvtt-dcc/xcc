@@ -153,7 +153,6 @@ class XCCActorSheetGnome extends XCCActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: teamMascotDieMessage,
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('DCC.system.class.teamMascotDie')}`
@@ -225,7 +224,6 @@ class XCCActorSheetGnome extends XCCActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: disrespectMessage,
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Gnome.DrawAgro')}`

@@ -179,7 +179,6 @@ class XCCActorSheetSpCryptRaider extends XCCActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: `${this.actor.name} ${game.i18n.localize('XCC.Messenger.TurnUnholyFlavor')} ${roll.toAnchor().outerHTML}:<br>${resultHTML}${game.i18n.localize('XCC.CoreBook.Footnotes.TurnUnholy')}`,
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags
     }
@@ -220,7 +219,7 @@ class XCCActorSheetSpCryptRaider extends XCCActorSheet {
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: game.i18n.format('XCC.Specialist.CryptRaider.DisapprovalFlavor', { actor: this.actor.name, roll: roll.terms[0].results[0].result }),
       rolls: [roll],
-      sound: CONFIG.sounds.dice,
+      sound: null,
       flags
     }
 

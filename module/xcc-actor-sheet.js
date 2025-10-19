@@ -28,7 +28,7 @@ export class XCCActorSheet extends DCCActorSheet {
   })
 
   // Define actions for wealth management and sponsorship creation.
-  async increaseWealth (event, target) {
+  static async increaseWealth (event, target) {
     const itemId = DCCActorSheet.findDataset(target, 'itemId')
     const item = this.actor.items?.get(itemId)
     if (!item) {
@@ -42,7 +42,7 @@ export class XCCActorSheet extends DCCActorSheet {
     }
   }
 
-  async decreaseWealth (event, target) {
+  static async decreaseWealth (event, target) {
     const itemId = DCCActorSheet.findDataset(target, 'itemId')
     const item = this.actor.items?.get(itemId)
     if (!item) {
@@ -56,7 +56,7 @@ export class XCCActorSheet extends DCCActorSheet {
     }
   }
 
-  async sponsorshipCreate (event, target) {
+  static async sponsorshipCreate (event, target) {
     const type = 'xcc-core-book.sponsorship'
     // Grab any data associated with this control.
     const system = foundry.utils.duplicate(target.dataset)
@@ -81,8 +81,9 @@ export class XCCActorSheet extends DCCActorSheet {
   }
 
   // Define action for rolling a fame check
-  async rollFameCheck (event, target) {
+  static async rollFameCheck (event, target) {
     event.preventDefault()
+    console.log('Rolling fame check')
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event)
@@ -104,6 +105,7 @@ export class XCCActorSheet extends DCCActorSheet {
     // Create and evaluate the roll using DCC system
     const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
     await roll.evaluate()
+    console.log('Fame roll result:', roll.total)
     const fame = this.actor.system?.rewards?.fame || 0
     // Determine the result key based on the roll outcome
     let resultKey = 'XCC.Rewards.FameCheckFailure'
@@ -125,6 +127,7 @@ export class XCCActorSheet extends DCCActorSheet {
         fame
       }
     )
+    console.log('Fame message:', fameMessage)
 
     // Add DCC flags
     const flags = {
@@ -138,11 +141,11 @@ export class XCCActorSheet extends DCCActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: fameMessage,
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Rewards.FameCheck')}`
     }
+    console.log('Message data:', messageData)
 
     await ChatMessage.create(messageData)
 
@@ -150,7 +153,7 @@ export class XCCActorSheet extends DCCActorSheet {
   }
 
   // Define action for rolling a wealth check
-  async rollWealthCheck (event, target) {
+  static async rollWealthCheck (event, target) {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
@@ -207,7 +210,6 @@ export class XCCActorSheet extends DCCActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: wealthMessage,
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Rewards.WealthCheck')}`
@@ -219,7 +221,7 @@ export class XCCActorSheet extends DCCActorSheet {
   }
 
   // Define action for rolling grandstanding check.
-  async rollGrandstandingCheck (event, target) {
+  static async rollGrandstandingCheck (event, target) {
     event.preventDefault()
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
@@ -294,7 +296,6 @@ export class XCCActorSheet extends DCCActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: grandstandingMessage,
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Grandstanding')}`
@@ -316,7 +317,7 @@ export class XCCActorSheet extends DCCActorSheet {
    * @param {HTMLElement} target
    * @returns {Promise<void>}
    */
-  async configureSpellCheck (event, target) {
+  static async configureSpellCheck (event, target) {
     event.preventDefault()
     await new XCCSpellCheckConfig({
       document: this.actor,
@@ -337,27 +338,27 @@ export class XCCActorSheet extends DCCActorSheet {
       // Roll through a spell item
       const item = this.actor.items.find(i => i.id === dataset.itemId)
       const ability = dataset.ability || ''
-      await this.rollItemSpellCheck(item, ability, options) // item.rollSpellCheck(ability, options)
+      await XCCActorSheet.rollItemSpellCheck(item, ability, options) // item.rollSpellCheck(ability, options)
     } else {
       // Roll a raw spell check for the actor
-      await this.rollDefaultSpellCheck(options)
+      await XCCActorSheet.rollDefaultSpellCheck(this.actor, options)
     }
   }
 
-  async rollDefaultSpellCheck (options = {}) {
+  static async rollDefaultSpellCheck (actor, options = {}) {
     if (!options.abilityId) {
-      options.abilityId = this.actor.system.class.spellCheckAbility || ''
+      options.abilityId = actor.system.class.spellCheckAbility || ''
     }
 
     // raw dice roll with appropriate flavor
-    const ability = this.actor.system.abilities[options.abilityId] || {}
+    const ability = actor.system.abilities[options.abilityId] || {}
     ability.label = CONFIG.DCC.abilities[options.abilityId]
-    let die = this.actor.system.attributes.actionDice.value || '1d20'
-    if (this.actor.system.class.spellCheckOverrideDie) {
-      die = this.actor.system.class.spellCheckOverrideDie
+    let die = actor.system.attributes.actionDice.value || '1d20'
+    if (actor.system.class.spellCheckOverrideDie) {
+      die = actor.system.class.spellCheckOverrideDie
     }
-    const bonus = this.actor.system.class.spellCheckOverride ? this.actor.system.class.spellCheckOverride : calculateSpellCheckBonus(this.actor)
-    const checkPenalty = ensurePlus(this.actor.system?.attributes?.ac?.checkPenalty || '0')
+    const bonus = actor.system.class.spellCheckOverride ? actor.system.class.spellCheckOverride : calculateSpellCheckBonus(actor)
+    const checkPenalty = ensurePlus(actor.system?.attributes?.ac?.checkPenalty || '0')
     options.title = game.i18n.localize('DCC.SpellCheck')
 
     // Collate terms for the roll
@@ -366,14 +367,14 @@ export class XCCActorSheet extends DCCActorSheet {
         type: 'Die',
         label: game.i18n.localize('DCC.ActionDie'),
         formula: die,
-        presets: this.actor.getActionDice({ includeUntrained: true })
+        presets: actor.getActionDice({ includeUntrained: true })
       }
     ]
 
     if (bonus) {
       terms.push({
         type: 'Compound',
-        dieLabel: this.actor.system.details.sheetClass === 'blaster' ? game.i18n.localize('XCC.Blaster.BlasterDie') : game.i18n.localize('DCC.RollModifierDieTerm'),
+        dieLabel: actor.system.details.sheetClass === 'blaster' ? game.i18n.localize('XCC.Blaster.BlasterDie') : game.i18n.localize('DCC.RollModifierDieTerm'),
         modifierLabel: game.i18n.localize('DCC.SpellCheck'),
         formula: bonus
       })
@@ -388,16 +389,16 @@ export class XCCActorSheet extends DCCActorSheet {
       })
     }
     // Show spellburn if not elf trickster
-    if (this.actor.system.details.sheetClass !== 'sp-elf-trickster') {
+    if (actor.system.details.sheetClass !== 'sp-elf-trickster') {
       terms.push({
         type: 'Spellburn',
         formula: '+0',
-        str: this.actor.system.abilities.str.value,
-        agl: this.actor.system.abilities.agl.value,
-        sta: this.actor.system.abilities.sta.value,
+        str: actor.system.abilities.str.value,
+        agl: actor.system.abilities.agl.value,
+        sta: actor.system.abilities.sta.value,
         callback: (formula, term) => {
         // Apply the spellburn
-          this.actor.update({
+          actor.update({
             'system.abilities.str.value': term.str,
             'system.abilities.agl.value': term.agl,
             'system.abilities.sta.value': term.sta
@@ -406,11 +407,11 @@ export class XCCActorSheet extends DCCActorSheet {
       })
     }
 
-    const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), options)
+    const roll = await game.dcc.DCCRoll.createRoll(terms, actor.getRollData(), options)
 
     if (roll.dice.length > 0) {
       roll.dice[0].options.dcc = {
-        lowerThreshold: this.actor.system.class.disapproval
+        lowerThreshold: actor.system.class.disapproval
       }
     }
 
@@ -420,7 +421,7 @@ export class XCCActorSheet extends DCCActorSheet {
     }
 
     // Tell the system to handle the spell check result
-    await game.dcc.processSpellCheck(this.actor, {
+    await game.dcc.processSpellCheck(actor, {
       rollTable: null,
       roll,
       item: null,
@@ -429,7 +430,7 @@ export class XCCActorSheet extends DCCActorSheet {
   }
 
   // Copied from DCC item class and modified to hide spellburn for elf tricksters
-  async rollItemSpellCheck (item, abilityId = '', options = {}) {
+  static async rollItemSpellCheck (item, abilityId = '', options = {}) {
     if (item.type !== 'spell') { return }
     const actor = item.actor || item.parent
 
@@ -575,14 +576,14 @@ export class XCCActorSheet extends DCCActorSheet {
   // Add the wealth and sponsorship input actions to the DCCActorSheet
   static DEFAULT_OPTIONS = foundry.utils.mergeObject(DCCActorSheet.DEFAULT_OPTIONS, {
     actions: {
-      increaseWealth: XCCActorSheet.prototype.increaseWealth,
-      decreaseWealth: XCCActorSheet.prototype.decreaseWealth,
-      sponsorshipCreate: XCCActorSheet.prototype.sponsorshipCreate,
-      rollFameCheck: XCCActorSheet.prototype.rollFameCheck,
-      rollWealthCheck: XCCActorSheet.prototype.rollWealthCheck,
-      rollGrandstandingCheck: XCCActorSheet.prototype.rollGrandstandingCheck,
-      configureSpellCheck: XCCActorSheet.prototype.configureSpellCheck,
-      rollSpellCheck: XCCActorSheet.rollSpellCheck
+      increaseWealth: this.increaseWealth,
+      decreaseWealth: this.decreaseWealth,
+      sponsorshipCreate: this.sponsorshipCreate,
+      rollFameCheck: this.rollFameCheck,
+      rollWealthCheck: this.rollWealthCheck,
+      rollGrandstandingCheck: this.rollGrandstandingCheck,
+      configureSpellCheck: this.configureSpellCheck,
+      rollSpellCheck: this.rollSpellCheck
     }
   })
 

@@ -271,7 +271,7 @@
       "LayOnHandsAlternate": "<b>If declared before the roll, HD can heal a condition instead of hit points:</b><ul><li>1HD - Broken limbs</li><li>2HD - Disease, organ damage</li><li>3HD - Paralysis, poison</li><li>4HD - Blindness/Deafness</li></ul>",
       "DisapprovalFlavor": "{actor} fails the Holy Act check with a natural roll of <b style='color:var(--system-accent-color)'>{roll}</b> and <b style='color:var(--system-accent-color)'>incurs the disapproval of their deity!</b>",
       "DivineAidFlavor": "{actor} calls upon their deity for aid!<br/>The deity grants requests of DC{roll} and lower.</br></br><b>Example effects:</b>",
-      "DeityRequest": "<b>If the request is granted, the deity will request a specific act in return.</b>",
+      "DeityRequest": "<b>If the request is granted, the deity will request a specific act in return.<br/><br/>Example act:</b>",
       "WeaponTraining": [
         "You are trained with deity's favored weapon, dagger, club, staff, and sling."
       ],

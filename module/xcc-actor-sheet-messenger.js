@@ -117,7 +117,7 @@ class XCCActorSheetMessenger extends XCCActorSheet {
     if (automate) {
       if (naturalRoll <= this.actor.system.class.disapproval) {
         // Trigger disapproval and return without checking the result
-        await this.showDiapproval(roll)
+        await this.showDisapproval(roll)
         await this.actor.rollDisapproval(naturalRoll)
         await this.actor.applyDisapproval()
         return true // Indicates disapproval triggered, should return early
@@ -130,7 +130,7 @@ class XCCActorSheetMessenger extends XCCActorSheet {
     return false // No disapproval, continue processing
   }
 
-  async showDiapproval (roll) {
+  async showDisapproval (roll) {
     // Add DCC flags
     const flags = {
       'dcc.isTurnUnholyCheck': true,
@@ -291,7 +291,7 @@ class XCCActorSheetMessenger extends XCCActorSheet {
       }
     }
     // Deity request table entry found, convert to HTML
-    await foundry.applications.ux.TextEditor.enrichHTML(deityRequestHTML)
+    deityRequestHTML = await foundry.applications.ux.TextEditor.enrichHTML(deityRequestHTML)
 
     // Add DCC flags
     const flags = {
@@ -310,8 +310,7 @@ class XCCActorSheetMessenger extends XCCActorSheet {
       content: `${game.i18n.format('XCC.Messenger.DivineAidFlavor', {
         roll: roll.toAnchor().outerHTML,
         actor: this.actor.name
-      })} ${resultHTML}${game.i18n.localize('XCC.Messenger.DeityRequest')}`,
-      rolls: [roll, deityRequestRoll],
+      })} ${resultHTML}${game.i18n.localize('XCC.Messenger.DeityRequest')}${deityRequestHTML}`,
       sound: CONFIG.sounds.dice,
       flags
     }
@@ -406,7 +405,6 @@ class XCCActorSheetMessenger extends XCCActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: `${this.actor.name} ${game.i18n.localize('XCC.Messenger.LayOnHandsFlavor')} ${roll.toAnchor().outerHTML}: ${tableResult}`,
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Messenger.LayOnHands')}`
@@ -491,7 +489,6 @@ class XCCActorSheetMessenger extends XCCActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: `${this.actor.name} ${game.i18n.localize('XCC.Messenger.BlessFlavor')} ${roll.toAnchor().outerHTML}:<br>${resultHTML}`,
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags
     }
@@ -573,7 +570,6 @@ class XCCActorSheetMessenger extends XCCActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: `${this.actor.name} ${game.i18n.localize('XCC.Messenger.SummonWeaponFlavor')} ${roll.toAnchor().outerHTML}:<br>${resultHTML}`,
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags
     }
@@ -655,7 +651,6 @@ class XCCActorSheetMessenger extends XCCActorSheet {
       user: game.user.id,
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       content: `${this.actor.name} ${game.i18n.localize('XCC.Messenger.TurnUnholyFlavor')} ${roll.toAnchor().outerHTML}:<br>${resultHTML}${game.i18n.localize('XCC.CoreBook.Footnotes.TurnUnholy')}`,
-      rolls: [roll],
       sound: CONFIG.sounds.dice,
       flags
     }
