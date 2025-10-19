@@ -1,6 +1,6 @@
 /* eslint-disable import/no-absolute-path */
 import XCCActorSheet from './xcc-actor-sheet.js'
-import { ensurePlus, getCritTableResult, getFumbleTableResult, getNPCFumbleTableResult, getFumbleTableNameFromCritTableName } from '/systems/dcc/module/utilities.js'
+import { ensurePlus, getCritTableResult, getFumbleTableResult } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
 
 class XCCActorSheetBrawler extends XCCActorSheet {
@@ -298,23 +298,14 @@ class XCCActorSheetBrawler extends XCCActorSheet {
     let fumbleRollFormula = ''
     let fumbleInlineRoll = ''
     let fumblePrompt = ''
-    let useNPCFumbles = true // even if core compendium isn't installed, still show correct fumble table in flavor text
-    try {
-      useNPCFumbles = game.settings.get('dcc-core-book', 'registerNPCFumbleTables') || true
-    } catch {
-      // warn to console log
-      console.warn('DCC | Error reading "registerNPCFumbleTables" setting from "dcc-core-book" module. Defaulting useNPCFumbles to true.')
-    }
-    let fumbleTableName = (this.actor.isPC || !useNPCFumbles) ? 'Table 4-2: Fumbles' : getFumbleTableNameFromCritTableName(critTableName)
+
+    let fumbleTableName = 'Table 4-2: Fumbles'
 
     let fumbleText = ''
     let fumbleRoll
     const inverseLuckMod = ensurePlus((parseInt(this.actor.system.abilities.lck.mod) * -1).toString())
     if (attackRollResult.fumble) {
       fumbleRollFormula = `${this.actor.system.attributes.fumble.die}${inverseLuckMod}`
-      if (this.actor.isNPC && useNPCFumbles) {
-        fumbleRollFormula = '1d10'
-      }
       fumbleInlineRoll = await foundry.applications.ux.TextEditor.enrichHTML(`[[/r ${fumbleRollFormula} # Fumble (${fumbleTableName})]] (${fumbleTableName})`)
       if (type === 'xcc.brawler.unarmedRegular') { fumblePrompt = game.i18n.localize('XCC.RollFumbleTwoWeapons') } else { fumblePrompt = game.i18n.localize('DCC.RollFumble') }
       if (automateDamageFumblesCrits) {
@@ -329,13 +320,7 @@ class XCCActorSheetBrawler extends XCCActorSheet {
         await fumbleRoll.evaluate()
         foundry.utils.mergeObject(fumbleRoll.options, { 'dcc.isFumbleRoll': true })
         rolls.push(fumbleRoll)
-        let fumbleResult
-        if (this.actor.isPC || !useNPCFumbles) {
-          fumbleResult = await getFumbleTableResult(fumbleRoll)
-        } else {
-          fumbleTableName = getFumbleTableNameFromCritTableName(critTableName)
-          fumbleResult = await getNPCFumbleTableResult(fumbleRoll, fumbleTableName)
-        }
+        const fumbleResult = await getFumbleTableResult(fumbleRoll)
         if (fumbleResult) {
           fumbleTableName = `${fumbleResult?.parent?.link}:<br>`.replace('Fumble Table ', '').replace('Crit/', '')
           fumbleText = await foundry.applications.ux.TextEditor.enrichHTML(fumbleResult.description)
