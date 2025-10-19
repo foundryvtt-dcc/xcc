@@ -258,15 +258,16 @@ Hooks.once('init', async function () {
         current = current[part]
       } else { return [game.i18n.localize('XCC.ErrorNoEntries')] }
     }
+    const list = Array.from(current)
 
     // Skip the first mojo entry for gnome
     if (actor) {
       if (actor.system?.details?.sheetClass === 'gnome') {
-        current.shift()
+        list.shift()
       }
     }
     // Return the array if found, empty array otherwise
-    return Array.isArray(current) ? current : []
+    return Array.isArray(list) ? list : []
   })
 
   Handlebars.registerHelper('getLocalizationKey', function (actor, name) {
