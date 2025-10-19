@@ -79,7 +79,6 @@ class XCCActorSheetJammer extends XCCActorSheet {
     Hooks.on('renderChatMessageHTML', (message, html, data) => {
       // Only GMs can use the arrow buttons to change rolled table result
       if (!game.user.isGM) {
-        console.warning('Only GMs can adjust the rolled table result.')
         return
       }
 
