@@ -83,7 +83,6 @@ export class XCCActorSheet extends DCCActorSheet {
   // Define action for rolling a fame check
   static async rollFameCheck (event, target) {
     event.preventDefault()
-    console.log('Rolling fame check')
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event)
@@ -105,7 +104,6 @@ export class XCCActorSheet extends DCCActorSheet {
     // Create and evaluate the roll using DCC system
     const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
     await roll.evaluate()
-    console.log('Fame roll result:', roll.total)
     const fame = this.actor.system?.rewards?.fame || 0
     // Determine the result key based on the roll outcome
     let resultKey = 'XCC.Rewards.FameCheckFailure'
@@ -127,7 +125,6 @@ export class XCCActorSheet extends DCCActorSheet {
         fame
       }
     )
-    console.log('Fame message:', fameMessage)
 
     // Add DCC flags
     const flags = {
@@ -145,7 +142,6 @@ export class XCCActorSheet extends DCCActorSheet {
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Rewards.FameCheck')}`
     }
-    console.log('Message data:', messageData)
 
     await ChatMessage.create(messageData)
 
