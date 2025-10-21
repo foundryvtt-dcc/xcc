@@ -51,7 +51,7 @@
       <div class="rollable spell-misfire-button icon-filter" data-action="rollSpellMisfire" data-drag="true" title="{{localize 'XCC.RollSpellMisfire'}}">&nbsp;</div>
       <div>{{item.system.level}}</div>
       <div class="item-name" data-tooltip="{{item.descriptionHTML}}">{{item.name}}</div>
-      <div class="item-notes" data-tooltip="{{item.system.mercurialEffect.description}}">
+      <div class="item-notes" data-tooltip="{{item.system.mercurialEffect.descriptionHTML}}">
         {{item.system.mercurialEffect.summary}}
       </div>
       <input class="item-lost" type="checkbox" name="items.{{item._id}}.system.lost" data-dtype="Boolean" {{checked
