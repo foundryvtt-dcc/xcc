@@ -6,6 +6,7 @@
   --icon-d14: url("images/d14black.svg");
   --icon-d16: url("images/d16black.svg");
   --icon-scourge: url("images/skull-crack-black.svg");
+  --icon-misfire: url("images/misfire-black.svg");
 }
 
 /*Override for dark theme */
@@ -16,6 +17,7 @@
   --icon-d14: url("images/d14grey.svg");
   --icon-d16: url("images/d16grey.svg");
   --icon-scourge: url("images/skull-crack-grey.svg");
+  --icon-misfire: url("images/misfire_gray.svg");
 }
 
 .dcc select option {
@@ -757,6 +759,19 @@ a[data-tab='sponsorship-item']::before {
     height: 22px;
     width: 22px;
   }
+}
+
+.spell-misfire-button {
+  background-image: var(--icon-misfire);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 22px 22px;
+  height: 22px;
+  width: 22px;
+}
+
+.dcc .item-list-spells{
+  grid-template-columns:  30px 22px 28px 33px 0.8fr 1.2fr 40px 39px
 }
 
 .item-list-spells .item-list-header{
