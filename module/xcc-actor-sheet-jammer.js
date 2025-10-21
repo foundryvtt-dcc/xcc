@@ -471,7 +471,6 @@ class XCCActorSheetJammer extends XCCActorSheet {
 
         const newContent = await foundry.applications.handlebars.renderTemplate(globals.templatesPath + 'chat-card-lionize-result.html', {
           results: newResults.map(r => foundry.utils.duplicate(r)),
-          rollHTML: rollTable.displayRoll ? await this.rolls[0].render() : null,
           table: rollTable,
           emoteMessage: existingEmoteMessage,
           durationText: existingDurationText
