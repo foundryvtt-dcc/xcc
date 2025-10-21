@@ -700,6 +700,8 @@ export class XCCActorSheet extends DCCActorSheet {
           notesTab.style.display = 'none'
         }
       }
+      const levelInput = this.parts.character.firstElementChild.querySelector('input[id="system.details.level.value"]')
+      if (levelInput) { levelInput.outerHTML = '<div>' + levelInput.outerHTML + '<i data-action="levelChange" class="fa-solid fa-sort rollable" style=""></i></div>' }
     }
   }
 
