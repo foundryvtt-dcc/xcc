@@ -323,13 +323,6 @@ Hooks.once('dcc.ready', async function () {
   Object.defineProperty(game.dcc.FleetingLuck, 'automationEnabled', {
     get: function () { return game.settings.get(globals.id, 'enableMojoAutomation') }
   })
-  // Register our packs
-  if (game.settings.get(globals.id, 'registerLevelDataPack')) {
-    Hooks.callAll('dcc.registerLevelDataPack', globals.id + '.xcc-class-level-data')
-  }
-  if (game.settings.get(globals.id, 'registerDisapprovalPack')) {
-    Hooks.callAll('dcc.registerDisapprovalPack', globals.id + '.xcc-disapproval')
-  }
 
   // Setup pause
   Hooks.on('renderApplicationV2', (app, html, context, options) => {

@@ -6,30 +6,6 @@ export const globals = {
 }
 
 export const registerModuleSettings = async function () {
-  game.settings.register(globals.id, 'registerLevelDataPack', {
-    name: 'XCC.Settings.RegisterLevelDataPack',
-    hint: 'XCC.Settings.RegisterLevelDataPackHint',
-    scope: 'module',
-    config: true,
-    default: true,
-    type: Boolean
-  })
-  game.settings.register(globals.id, 'registerCritTablesPack', {
-    name: 'XCC.Settings.RegisterCritTablesPack',
-    hint: 'XCC.Settings.RegisterCritTablesPackHint',
-    scope: 'module',
-    config: true,
-    default: true,
-    type: Boolean
-  })
-  game.settings.register(globals.id, 'registerDisapprovalPack', {
-    name: 'XCC.Settings.RegisterDisapprovalPack',
-    hint: 'XCC.Settings.RegisterDisapprovalPackHint',
-    scope: 'module',
-    config: true,
-    default: true,
-    type: Boolean
-  })
   game.settings.register(globals.id, 'automateMessengerDisapproval', {
     name: 'XCC.Settings.AutomateMessengerDisapproval',
     hint: 'XCC.Settings.AutomateMessengerDisapprovalHint',

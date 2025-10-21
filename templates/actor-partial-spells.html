@@ -3,16 +3,16 @@
   data-tab="{{tabs.wizardSpells.id}}" data-group="{{tabs.wizardSpells.group}}">
   <div class="box-title">Base Spell Check</div>
   <ol class="item-list item-list-spellcheck box-border" style="margin-bottom: 0; padding-bottom: 0;">
-    <li class="item spell-item grid-col-span-8">
+    <li class="item spell-item grid-col-span-8" style="border-bottom:none;">
       <div class="item-image">
         <img class="icon-filter" src="{{getGameImage 'sparkles.svg'}}" title="{{localize 'DCC.SpellCheck'}}"
           alt="{{localize 'DCC.SpellCheck'}}" width="24" height="24">
       </div>
       <div class="rollable spell-item-button icon-filter" data-action="rollSpellCheck" data-drag="true"
-        data-drag-action="spellCheck">&nbsp;</div>
+        data-drag-action="spellCheck" title="{{localize 'DCC.RollSpellCheck'}}">&nbsp;</div>
       <div></div>
       <div class="item-name">{{localize "DCC.SpellCheck"}}</div>
-      <div class="item-notes" style="width:100%"><input class="weapon-notes disabled" type="text"
+      <div class="item-notes" style="width:100%; margin-left:-53px"><input class="weapon-notes disabled" type="text"
           value="{{getLocalizedSpellCheckNotes actor}}" readonly=""></div>
       <div></div>
       <div><a class="item-control" title="{{localize 'XCC.ConfigureSpellCheck'}}" data-action="configureSpellCheck"><i
@@ -26,7 +26,8 @@
     <li class="item item-list-header grid-col-span-8">
       <div></div>
       <div></div>
-      <div>{{localize "DCC.SpellLevelShort"}}</div>
+      <div></div>
+      <div>{{localize "XCC.SpellLevelShortest"}}</div>
       <div>{{localize "DCC.SpellName"}}</div>
       <div>{{localize "DCC.MercurialEffect"}}</div>
       <div>{{localize "DCC.SpellLost"}}</div>
@@ -46,10 +47,11 @@
           height="24" data-drag="true" data-drag-action="item">
       </div>
       <div class="rollable spell-item-button icon-filter" data-action="rollSpellCheck" data-drag="true"
-        data-drag-action="spellCheck">&nbsp;</div>
+        data-drag-action="spellCheck" title="{{localize 'DCC.RollSpellCheck'}}">&nbsp;</div>
+      <div class="rollable spell-misfire-button icon-filter" data-action="rollSpellMisfire" data-drag="true" title="{{localize 'XCC.RollSpellMisfire'}}">&nbsp;</div>
       <div>{{item.system.level}}</div>
       <div class="item-name" data-tooltip="{{item.descriptionHTML}}">{{item.name}}</div>
-      <div class="item-notes">
+      <div class="item-notes" data-tooltip="{{item.system.mercurialEffect.description}}">
         {{item.system.mercurialEffect.summary}}
       </div>
       <input class="item-lost" type="checkbox" name="items.{{item._id}}.system.lost" data-dtype="Boolean" {{checked
@@ -67,7 +69,7 @@
       <div style="height: 50px; padding-top: 14px;">{{localize "DCC.SpellTabHelp"}}</div>
     </li>
     {{/each}}
-    <li class = "grid-col-span-8 grid-tpl-max">
+    <li class = "grid-col-span-8 grid-tpl-max" style="margin-top:-2px">
       <div class="row-separator"></div>
     </li>
     <li class = "grid-col-span-8 grid-tpl-max">

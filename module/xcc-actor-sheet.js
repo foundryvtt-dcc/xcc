@@ -83,7 +83,6 @@ export class XCCActorSheet extends DCCActorSheet {
   // Define action for rolling a fame check
   static async rollFameCheck (event, target) {
     event.preventDefault()
-    console.log('Rolling fame check')
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = DCCActorSheet.fillRollOptions(event)
@@ -105,7 +104,6 @@ export class XCCActorSheet extends DCCActorSheet {
     // Create and evaluate the roll using DCC system
     const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
     await roll.evaluate()
-    console.log('Fame roll result:', roll.total)
     const fame = this.actor.system?.rewards?.fame || 0
     // Determine the result key based on the roll outcome
     let resultKey = 'XCC.Rewards.FameCheckFailure'
@@ -127,7 +125,6 @@ export class XCCActorSheet extends DCCActorSheet {
         fame
       }
     )
-    console.log('Fame message:', fameMessage)
 
     // Add DCC flags
     const flags = {
@@ -145,7 +142,6 @@ export class XCCActorSheet extends DCCActorSheet {
       flags,
       flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Rewards.FameCheck')}`
     }
-    console.log('Message data:', messageData)
 
     await ChatMessage.create(messageData)
 
@@ -326,6 +322,62 @@ export class XCCActorSheet extends DCCActorSheet {
         left: this.position.left + (this.position.width - 400) / 2
       }
     }).render(true)
+  }
+
+  static async rollSpellMisfire (event, target) {
+    const options = DCCActorSheet.fillRollOptions(event)
+    const dataset = target.parentElement.dataset
+    if (dataset.itemId) {
+      // Roll through a spell item
+      const item = this.actor.items.find(i => i.id === dataset.itemId)
+      if (item.type !== 'spell') { return }
+
+      const actor = item.actor
+      if (!actor) { return }
+
+      const misfirePackName = game.settings.get('dcc', 'spellSideEffectsCompendium') || 'xcc-core-book.xcc-core-spell-side-effect-tables'
+      const misfireTableName = `${item.name} Misfire`
+      const pack = game.packs.get(misfirePackName)
+      // Lookup the misfire table if available
+      let misfireResult = null
+      if (pack) {
+        const entry = pack.index.find((entity) => entity.name === misfireTableName)
+        if (entry) {
+          const table = await pack.getDocument(entry._id)
+          const terms = [
+            {
+              type: 'Die',
+              formula: table.formula
+            }
+          ]
+          let roll = await game.dcc.DCCRoll.createRoll(terms, {}, options)
+          misfireResult = await table.draw({ roll })
+          // Local Lookup
+          if (!misfireResult) {
+            const table = game.tables.getName(misfireTableName)
+            if (table) {
+              misfireResult = await table.draw({ roll })
+            }
+          }
+          // Grab the result from the table if present
+          if (misfireResult) {
+            roll = misfireResult.roll
+          } else {
+            // Fall back to displaying just the roll
+            await roll.evaluate()
+            roll.toMessage({
+              speaker: ChatMessage.getSpeaker({ actor }),
+              flavor: game.i18n.localize('XCC.MisfireRoll'),
+              flags: {
+                'dcc.RollType': 'Misfire'
+              }
+            })
+          }
+        } else {
+          console.warn(game.i18n.localize('DCC.SpellSideEffectsCompendiumNotFoundWarning'))
+        }
+      }
+    }
   }
 
   static async rollSpellCheck (event, target) {
@@ -583,7 +635,8 @@ export class XCCActorSheet extends DCCActorSheet {
       rollWealthCheck: this.rollWealthCheck,
       rollGrandstandingCheck: this.rollGrandstandingCheck,
       configureSpellCheck: this.configureSpellCheck,
-      rollSpellCheck: this.rollSpellCheck
+      rollSpellCheck: this.rollSpellCheck,
+      rollSpellMisfire: this.rollSpellMisfire
     }
   })
 

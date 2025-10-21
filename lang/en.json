@@ -42,6 +42,9 @@
     "system.details.wildCritRange": "Wild Crit Range"
   },
   "XCC": {
+    "MisfireRoll": "Misfire Roll",
+    "RollSpellMisfire": "Roll Spell Misfire",
+    "SpellLevelShortest": "Lev.",
     "SpellCheckNotes": "Armor penalty applies",
     "AdjustedKnownSpells": "Adjusted known spells: ",
     "AdjustedMaxSpellLevel": "Adjusted max spell level: ",
