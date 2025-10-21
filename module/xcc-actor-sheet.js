@@ -701,7 +701,7 @@ export class XCCActorSheet extends DCCActorSheet {
         }
       }
       const levelInput = this.parts.character.firstElementChild.querySelector('input[id="system.details.level.value"]')
-      if (levelInput) { levelInput.outerHTML = '<div>' + levelInput.outerHTML + '<i data-action="levelChange" class="fa-solid fa-sort rollable" style=""></i></div>' }
+      if (levelInput) { levelInput.outerHTML = '<div style="display:grid; grid-template-columns: auto min-content;">' + levelInput.outerHTML + '<i data-action="levelChange" class="fa-solid fa-square-arrow-up rollable" style="margin-left:-14px; font-size:14px;"></i></div>' }
     }
   }
 
