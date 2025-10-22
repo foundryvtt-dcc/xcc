@@ -26,15 +26,6 @@
                     <input type="text" id="system.class.toughness" name="system.class.toughness"
                         value="{{positiveOrZero system.saves.frt.value}}" disabled='' data-dtype="String" />
                 </div>
-
-                <div>
-                    <a class="external-link" href="https://github.com/foundryvtt-dcc/dcc/wiki/Mighty-Deeds">
-                        <i class="fas fa-link"></i> {{localize "DCC.MightyDeedsHowToLink"}}
-                    </a>
-                    {{#dccPackExists "xcc-core-book.xcc-core-text"}}
-                    <div style="display: inline-block;">{{{system.class.mightyDeedsLink}}}</div>
-                    {{/dccPackExists}}
-                </div>
             </div>
         </div>
         <div class="grid-col-span-12 dark-border">
