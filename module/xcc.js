@@ -292,7 +292,7 @@ Hooks.once('init', async function () {
 
   // Register math helpers
   Handlebars.registerHelper('ensurePlus', function (value) {
-    if (value < 0) return ensurePlus(value)
+    if (value >= 0) return ensurePlus(value)
     else return '+0'
   })
 
