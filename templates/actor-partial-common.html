@@ -4,7 +4,7 @@
 <div class="reminder-block dark-border">
     <ul>
         {{#each (getLocalizedArray (localize (getLocalizationKey actor "Benefits"))) as |benefit|}}
-        <li>{{benefit}}</li>
+        <li>{{{benefit}}}</li>
         {{/each}}
     </ul>
 </div>
@@ -15,7 +15,7 @@
 <div class="reminder-block dark-border">
     <ul>
         {{#each (getLocalizedArray (localize (getLocalizationKey actor "Restrictions"))) as |restriction|}}
-        <li>{{restriction}}</li>
+        <li>{{{restriction}}}</li>
         {{/each}}
     </ul>
 </div>
@@ -26,10 +26,10 @@
 <div class="reminder-block dark-border">
     <ul>
         {{#each (getLocalizedArray (localize (getLocalizationKey actor "Mojo"))) as |mojo|}}
-        <li>{{mojo}}</li>
+        <li>{{{mojo}}}</li>
         {{/each}}
         {{#each (getLocalizedArray (localize "XCC.MojoDefault") actor) as |mojo|}}
-        <li>{{mojo}}</li>
+        <li>{{{mojo}}}</li>
         {{/each}}
     </ul>
 </div>
@@ -40,7 +40,7 @@
 <div class="reminder-block dark-border">
     <ul>
         {{#each (getLocalizedArray (localize (getLocalizationKey actor "WeaponTraining"))) as |training|}}
-        <li>{{training}}</li>
+        <li>{{{training}}}</li>
         {{/each}}
     </ul>
 </div>
