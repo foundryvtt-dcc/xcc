@@ -53,20 +53,11 @@ class XCCActorSheetSpElfTrickster extends XCCActorSheet {
       this.actor.system.skills.forgeDocument.ability = 'int'
     }
     // Elf Trickster: Detect secret doors skill
-    if (this.actor.system.class.className === 'elftrickster') {
+    if (this.actor.system.details.sheetClass === 'sp-elf-trickster') {
       this.actor.system.skills.detectSecretDoors = {
         value: 4,
         ability: 'int',
         label: 'XCC.DetectSecretDoors',
-        die: 'd20'
-      }
-      this.actor.system.skills.spellCheck = {
-        value: this.actor.system.abilities.lck.mod + this.actor.system.details.level.value,
-        config: {
-          applyCheckPenalty: true
-        },
-        ability: 'per',
-        label: 'DCC.Spell',
         die: 'd20'
       }
     }
@@ -94,7 +85,8 @@ class XCCActorSheetSpElfTrickster extends XCCActorSheet {
         'system.config.showBackstab': true,
         'system.config.addClassLevelToInitiative': false,
         'system.class.spellCheckAbility': 'per',
-        'system.config.showSpells': true
+        'system.config.showSpells': true,
+        'system.class.blasterDie': ''
       })
     }
     this.setSpecialistSkills()
