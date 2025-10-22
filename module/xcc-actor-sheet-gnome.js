@@ -1,6 +1,7 @@
 /* eslint-disable import/no-absolute-path */
 import XCCActorSheet from './xcc-actor-sheet.js'
 import { globals } from './settings.js'
+import { ensurePlus } from '/systems/dcc/module/utilities.js'
 
 class XCCActorSheetGnome extends XCCActorSheet {
   /** @inheritDoc */
@@ -47,19 +48,24 @@ class XCCActorSheetGnome extends XCCActorSheet {
   }
 
   getDrawAgroBonus () {
-    let bonus = this.actor.system?.abilities?.per?.mod || 0
-    bonus += this.actor.system?.details?.level?.value || 0
-    if (this.actor.system.abilities.lck.mod > 0) bonus += this.actor.system.abilities.lck.mod
-    return bonus
+    let bonus = parseInt(this.actor.system?.abilities?.per?.mod || 0)
+    bonus += parseInt(this.actor.system?.details?.level?.value || 0)
+    if (this.actor.system.abilities.lck.mod > 0) bonus += parseInt(this.actor.system.abilities.lck.mod)
+    return ensurePlus(bonus)
   }
 
   static addHooksAndHelpers () {
     Handlebars.registerHelper('getDrawAgroBonus', (actor) => {
-      let bonus = actor.system?.abilities?.per?.mod || 0
-      bonus += actor.system?.details?.level?.value || 0
-      if (actor.system.abilities.lck.mod > 0) bonus += actor.system.abilities.lck.mod
-      return bonus
+      return actor.sheet.getDrawAgroBonus()
     })
+  }
+
+  setSpecialistSkills () {
+    // DCC System had a bug with pickPocket skill, we're setting a custom one for now
+    if (this.actor.system.skills.pickPocket) {
+      this.actor.system.skills.pickPocket.ability = 'agl'
+      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value'
+    }
   }
 
   /** @override */
@@ -73,6 +79,7 @@ class XCCActorSheetGnome extends XCCActorSheet {
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Gnome.ClassLink'))
       })
     }
+    this.setSpecialistSkills()
 
     const context = await super._prepareContext(options)
 
@@ -86,18 +93,9 @@ class XCCActorSheetGnome extends XCCActorSheet {
         'system.config.attackBonusMode': 'flat',
         'system.class.spellCheckAbility': 'per',
         'system.config.addClassLevelToInitiative': false,
-        'system.config.showSpells': true
+        'system.config.showSpells': true,
+        'system.class.blasterDie': ''
       })
-    }
-
-    this.actor.system.skills.spellCheck = {
-      value: this.actor.system.details.level.value,
-      config: {
-        applyCheckPenalty: true
-      },
-      ability: this.actor.system.class.spellCheckAbility,
-      label: 'DCC.Spell',
-      die: 'd20'
     }
 
     return context
