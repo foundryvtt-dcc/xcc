@@ -325,7 +325,7 @@
   grid-row: 1;
   width: 25px;
   height: 25px;
-  margin: -1px 0 0 -10px;
+  margin: -1px 0 0 -8px;
 }
 
 .scourge-button {
@@ -393,6 +393,10 @@
   grid-row-gap: 5px;
 }
 
+.dcc .equipment .weapon-list .weapon .backstab-button {
+  margin-left:-6px;
+}
+
 .dcc .weapon-list{
   grid-template-columns: min-content 30px min-content minmax(90px, auto) 55px 85px 90px 39px;
   input.name, input.weapon-notes {
@@ -403,11 +407,11 @@
 }
 
 .dcc .weapon-list.brawler {
-  grid-template-columns: 30px min-content minmax(90px, auto) 50px 55px 60px 97px;
+  grid-template-columns: 30px min-content minmax(90px, auto) 40px 55px 85px 97px;
 }
 
 .dcc .weapon-list.athlete {
-  grid-template-columns: 30px min-content minmax(90px, auto) 97px 60px 150px;
+  grid-template-columns: 30px min-content minmax(90px, auto) 65px 85px 120px;
 }
 
 .dcc .weapon-list.dwarf {

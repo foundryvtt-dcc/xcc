@@ -39,6 +39,7 @@
     "system.skills.tightropeWalk.value": "Tightrope walk",
     "system.skills.dangerSense.value": "Danger sense",
     "system.skills.criminalConnections.value": "Criminal connections",
+    "system.skills.pickPocket.value": "Pick Pocket",
     "system.details.wildCritRange": "Wild Crit Range"
   },
   "XCC": {
@@ -128,7 +129,7 @@
       "ActorSheetAthlete": "Athlete",
       "TrainingDie": "Training Die",
       "AthleticDurability": "Athletic Durability",
-      "GrappleCheck": "Grapple Check",
+      "GrappleCheck": "Wrestling",
       "Scramble": "Scramble",
       "Speed": "Fast Movement",
       "GrappleCritRange": "Grapple Crit Range",
@@ -187,7 +188,7 @@
       "UnarmedRegularShort": "No weapon",
       "UnarmedFreeNote": "one attack",
       "UnarmedRegularNote": "two attacks",
-      "UnarmedAttacks": "Unarmed Attacks",
+      "UnarmedAttacks": "Unarmed Fighting",
       "UnarmedAttack": "Unarmed Attack",
       "UnarmedType": "Option",
       "WeaponTraining": [
@@ -211,7 +212,7 @@
       "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.RWqWbvdwzzpEneRj]{Jammer}",
       "ActorSheetJammer": "Jammer",
       "PerformanceCheck": "Performance Check",
-      "Performance": "Performance",
+      "Performance": "Performance Checks",
       "PerformanceSpecialties": "Performance Specialties",
       "DisrespectPenalty": "Disrespect Penalty",
       "DevastatingAttack": "Devastating Attack",
@@ -315,6 +316,7 @@
       ]
     },
     "Dwarf": {
+      "SwordAndBoard": "Sword and Board",
       "DropdownLabel": "XCC Dwarf",
       "ActorSheetDwarf": "Dwarf",
       "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.TdyE3ayeMeJdSAMK]{Dwarf}",
@@ -347,6 +349,7 @@
       ]
     },
     "Gnome": {
+      "Taunting": "Taunting",
       "DropdownLabel": "XCC Gnome",
       "ActorSheetGnome": "Gnome",
       "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.MP4twPDVeq2lQZfL]{Gnome}",
@@ -491,7 +494,7 @@
         ]
       },
       "CryptRaider": {
-        "Abilities": "Crypt Raider Abilities",
+        "Dungeoneering": "Crypt Raiding",
         "DropdownLabel": "XCC Specialist - Crypt Raider",
         "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.w87RdoBv9knZ9bvl]{Crypt Raider}",
         "ActorSheetCryptRaider": "Crypt Raider",
@@ -544,6 +547,7 @@
         ]
       },
       "ElfTrickster": {
+        "Abilities": "Heightened Senses",
         "DropdownLabel": "XCC Specialist - Elf Trickster",
         "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.Lk2Q7w8ymsSe7oU7]{Elf Trickster}",
         "ActorSheetElfTrickster": "Elf Trickster",
