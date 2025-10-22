@@ -42,17 +42,11 @@ class XCCActorSheetBrawler extends XCCActorSheet {
 
   static addHooksAndHelpers () {
     Handlebars.registerHelper('getBrawlerToHit', function (actor) {
-      const lck = String(actor.system.abilities.lck.mod)[0] === '-' ? '' : actor.system.abilities.lck.mod || ''
-      const str = actor.system.abilities.str.mod || ''
-      const ab = actor.system.details.attackBonus || ''
-      return ab + ensurePlus(str + lck)
+      return actor.sheet.getBrawlerToHit()
     })
 
     Handlebars.registerHelper('getBrawlerDamage', function (actor) {
-      const lck = String(actor.system.abilities.lck.mod)[0] === '-' ? '' : actor.system.abilities.lck.mod || ''
-      const str = actor.system.abilities.str.mod || ''
-      const die = actor.system.class.unarmedDamage || ''
-      return die + ensurePlus(str + lck)
+      return actor.sheet.getBrawlerDamage()
     })
 
     Handlebars.registerHelper('positiveOrZero', function (value) {
@@ -400,7 +394,6 @@ class XCCActorSheetBrawler extends XCCActorSheet {
               <input class="disabled" type="text" value="` + this.getBrawlerToHit() + `" readonly="">
               <input class="weapon-damage disabled" type="text" value="` + this.getBrawlerDamage() + `" readonly="">
               <input class="weapon-notes disabled" type="text" value="` + game.i18n.localize('XCC.Brawler.UnarmedRegularNote') + `" readonly="">
-              <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
               <div class="disabled">-</div>
           </li>
           <li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.brawler.unarmedFree">
@@ -413,7 +406,6 @@ class XCCActorSheetBrawler extends XCCActorSheet {
               <input class="disabled" type="text" value="` + this.getBrawlerToHit() + `" readonly="">
               <input class="weapon-damage disabled" type="text" value="` + this.getBrawlerDamage() + `" readonly="">
               <input class="weapon-notes disabled" type="text" value="` + game.i18n.localize('XCC.Brawler.UnarmedFreeNote') + `" readonly="">
-              <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
               <div class="disabled">-</div>
           </li>`
     }
