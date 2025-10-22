@@ -6,6 +6,7 @@ import {
   getFumbleTableResult
 } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
+import DiceChain from '/systems/dcc/module/dice-chain.js'
 
 class XCCActorSheetHalfElf extends XCCActorSheet {
   /** @inheritDoc */
@@ -15,7 +16,9 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
     },
     actions: {
       rollSavingThrow: this.rollSavingThrow,
-      rollWeaponAttack: this.rollWeaponAttack
+      rollAbilityCheck: this.rollAbilityCheck,
+      rollWeaponAttack: this.rollWeaponAttack,
+      rollGrandstandingCheck: this.rollGrandstandingCheck
     }
   }
 
@@ -129,23 +132,30 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
     if (this.actor.system.skills.forgeDocument) {
       this.actor.system.skills.forgeDocument.ability = 'int'
     }
-    // Acrobat: Acrobatics
+    // Half-Elf: Acrobatics
     if (this.actor.system.skills.acrobatics) {
       this.actor.system.skills.acrobatics.ability = 'agl'
+      this.actor.system.skills.acrobatics.config = { applyCheckPenalty: true }
       this.actor.system.skills.acrobatics.label = 'DCC.system.skills.acrobatics.value'
     }
-    // Half-Elf spellcheck skill
-    if (this.actor.system.skills.spellCheck) {
-      this.actor.system.skills.spellCheck = {
-        value: this.actor.system.details.level.value,
-        config: {
-          applyCheckPenalty: true
-        },
-        ability: 'per',
-        label: 'DCC.Spell',
-        die: 'd20'
-      }
+    // Half-Elf: Backstab
+    if (this.actor.system.skills.backstab) {
+      this.actor.system.skills.backstab.config = { applyCheckPenalty: true }
     }
+    // Half-Elf: Hide in shadows
+    if (this.actor.system.skills.hideInShadows) {
+      this.actor.system.skills.hideInShadows.config = { applyCheckPenalty: true }
+    }
+  }
+
+  calculateSaveBonus () {
+    if (this.actor.system.abilities.lck.max >= 18) {
+      return '+3'
+    } else if (this.actor.system.abilities.lck.max >= 16) {
+      return '+2'
+    } else if (this.actor.system.abilities.lck.max >= 13) {
+      return '+1'
+    } else return '+0'
   }
 
   /** @override */
@@ -153,7 +163,8 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
     // Update class link before default prepareContext to ensure it is correct
     if (this.actor.system.details.sheetClass !== 'half-elf') {
       await this.actor.update({
-        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.HalfElf.ClassLink'))
+        'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.HalfElf.ClassLink')),
+        'system.class.saveBonus': this.calculateSaveBonus()
       })
     }
 
@@ -170,7 +181,8 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
         'system.config.addClassLevelToInitiative': false,
         'system.class.spellCheckAbility': 'per',
         'system.config.showSpells': true,
-        'system.config.showBackstab': true
+        'system.config.showBackstab': true,
+        'system.class.blasterDie': ''
       })
     }
     this.setSpecialistSkills()
@@ -519,6 +531,126 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
       this.actor.system.saves.frt.value = oldFrt
       this.actor.system.saves.wil.value = oldWil
     }
+  }
+
+  // Define action for rolling grandstanding check.
+  static async rollGrandstandingCheck (event, target) {
+    event.preventDefault()
+
+    // Get roll options from the DCC system (handles CTRL-click dialog)
+    const options = XCCActorSheet.fillRollOptions(event)
+
+    // Get fame modifier
+    const fame = this.actor.system?.rewards?.fame || 0
+    let fameMod = 0
+    let fameDie = (this.actor.system.details.sheetClass === 'sp-crypt-raider') ? '1d16' : '1d20'
+    if (fame >= 81) {
+      fameDie = DiceChain.bumpDie(fameDie, 2)
+    } else if (fame >= 61) {
+      fameDie = DiceChain.bumpDie(fameDie, 1)
+    } else if (fame >= 41) {
+      fameMod = 2
+    } else if (fame >= 21) {
+      fameMod = 1
+    }
+
+    // Create terms for the DCC roll system
+    const terms = [
+      {
+        type: 'Die',
+        label: game.i18n.localize('DCC.ActionDie'),
+        formula: fameDie
+      },
+      {
+        type: 'Die',
+        label: game.i18n.localize('DCC.system.class.charismaDie'),
+        formula: this.actor.system.class.charismaDie || '1d2'
+      },
+      {
+        type: 'Modifier',
+        label: game.i18n.localize('DCC.Modifier'),
+        formula: ensurePlus(this.actor.system.abilities.per.mod + this.actor.system.details.level.value + fameMod)
+      },
+      {
+        type: 'Modifier',
+        label: game.i18n.localize('XCC.GrandstandingCrowd'),
+        formula: '+14'
+      }
+    ]
+
+    // Roll options for the DCC roll system
+    const rollOptions = Object.assign(
+      {
+        title: game.i18n.localize('XCC.Grandstanding')
+      },
+      options
+    )
+
+    // Create and evaluate the roll using DCC system
+    const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
+    const crowdDC = parseInt(roll.terms[5].operator + roll.terms[6].number)
+    roll.terms = roll.terms.slice(0, 3)
+    await roll.evaluate()
+    // Create the grandstanding message
+    const grandstandingMessage = game.i18n.format(
+      'XCC.GrandstandingMessage',
+      {
+        actorName: this.actor.name,
+        rollHTML: roll.toAnchor().outerHTML,
+        result: roll.total >= crowdDC ? game.i18n.localize('XCC.GrandstandingSuccess') : game.i18n.localize('XCC.GrandstandingFailure'),
+        crowd: crowdDC
+      }
+    )
+
+    // Add DCC flags
+    const flags = {
+      'dcc.isGrandstandingCheck': true,
+      'dcc.RollType': 'GrandstandingCheck',
+      'dcc.isNoHeader': true
+    }
+
+    // Create message data
+    const messageData = {
+      user: game.user.id,
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      content: grandstandingMessage,
+      sound: CONFIG.sounds.dice,
+      flags,
+      flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Grandstanding')}`
+    }
+
+    await ChatMessage.create(messageData)
+
+    // If we succeeded, increase fame by 1
+    if (roll.total >= crowdDC) {
+      this.actor.update({ 'system.rewards.fame': (this.actor.system.rewards?.fame || 0) + 1 })
+    }
+
+    return roll
+  }
+
+  static rollAbilityCheck (event, target) {
+    const ability = target.parentElement.dataset.ability
+    const options = XCCActorSheet.fillRollOptions(event)
+
+    // Luck checks are roll under unless the user explicitly clicks the modifier
+    const rollUnder = (ability === 'lck') && (target.htmlFor !== 'system.abilities.lck.mod')
+    Object.assign(options, {
+      rollUnder
+    })
+
+    // Make a default ability check for non-perception checks
+    if (ability !== 'per') return this.actor.rollAbilityCheck(ability, options)
+
+    // Add the charisma die to the action dice
+    const oldDie = this.actor.system.attributes.actionDice.value
+    this.actor.system.attributes.actionDice.value += '+' + (this.actor.system.class?.charismaDie || 0)
+
+    // Roll the ability check
+    this.actor.rollAbilityCheck(ability, options)
+
+    // Restore the original value after the roll
+    this.actor.system.attributes.actionDice.value = oldDie
   }
 
   _onRender (context, options) {
