@@ -27,7 +27,7 @@
 
     <div class="group-separator"></div>
 
-    <label title="{{localize 'DCC.DisplayValueHint'}}">{{localize "XCC.CalculatedSpellCheck"}}</label>
+    <label title="{{localize 'XCC.DisplayValueHint'}}">{{localize "XCC.CalculatedSpellCheck"}}</label>
     <input type="text" style="border-bottom: 1px solid var(--system-input-background-color)"
         name="system.details.spellCheck.value" id="system.details.spellCheck.value"
         value="{{ifThen temporaryValues.spellCheckOverrideDie temporaryValues.spellCheckOverrideDie system.attributes.actionDice.value}}{{ifThen temporaryValues.spellCheckOverride temporaryValues.spellCheckOverride temporaryValues.spellCheck}}"

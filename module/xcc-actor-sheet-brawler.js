@@ -398,7 +398,7 @@ class XCCActorSheetBrawler extends XCCActorSheet {
               </div>
               <input class="weapon-name" type="text" value="` + game.i18n.localize('XCC.Brawler.UnarmedRegularShort') + `" readonly="">
               <input class="disabled" type="text" value="` + this.getBrawlerToHit() + `" readonly="">
-              <input class="weapon-damage disabled" style="width: auto;" type="text" value="` + this.getBrawlerDamage() + `" readonly="">
+              <input class="weapon-damage disabled" type="text" value="` + this.getBrawlerDamage() + `" readonly="">
               <input class="weapon-notes disabled" type="text" value="` + game.i18n.localize('XCC.Brawler.UnarmedRegularNote') + `" readonly="">
               <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
               <div class="disabled">-</div>
@@ -411,7 +411,7 @@ class XCCActorSheetBrawler extends XCCActorSheet {
               </div>
               <input class="weapon-name" type="text" value="` + game.i18n.localize('XCC.Brawler.UnarmedFreeShort') + `" readonly="">
               <input class="disabled" type="text" value="` + this.getBrawlerToHit() + `" readonly="">
-              <input class="weapon-damage disabled" style="width: auto;" type="text" value="` + this.getBrawlerDamage() + `" readonly="">
+              <input class="weapon-damage disabled" type="text" value="` + this.getBrawlerDamage() + `" readonly="">
               <input class="weapon-notes disabled" type="text" value="` + game.i18n.localize('XCC.Brawler.UnarmedFreeNote') + `" readonly="">
               <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
               <div class="disabled">-</div>

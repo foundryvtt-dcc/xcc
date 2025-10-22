@@ -106,7 +106,7 @@ class XCCActorSheetMessenger extends XCCActorSheet {
   }
 
   getFreeAttackDamage () {
-    const formula = this.actor.system.class.freeAttackDamage
+    const formula = this.actor.system.class.freeAttackDamage || '1d4'
     return formula
   }
 
@@ -259,24 +259,8 @@ class XCCActorSheetMessenger extends XCCActorSheet {
       return
     }
 
-    // Find the divine aid result
-    let resultHTML = game.i18n.localize('XCC.NotFound')
-    const divineAidTableName = 'Table 10-2: Divine Aid Check DCs'
-    const pack = game.packs.get('xcc-core-book.xcc-core-tables')
-    if (pack) {
-      const entry = pack.index.filter((entity) => entity.name.startsWith(divineAidTableName))
-      if (entry.length > 0) {
-        const rollTable = await pack.getDocument(entry[0]._id)
-        const results = rollTable.getResultsForRoll(roll.total)
-        if (results && results.length > 0) {
-          resultHTML = results[0].description
-        }
-      }
-    }
-    // Table entry found, convert to HTML
-    resultHTML = await foundry.applications.ux.TextEditor.enrichHTML(resultHTML)
-
     // Roll d10 for Deity Requests table
+    const pack = game.packs.get('xcc-core-book.xcc-core-tables')
     const deityRequestRoll = await new Roll('1d10').evaluate()
     let deityRequestHTML = game.i18n.localize('XCC.NotFound')
     const deityRequestTableName = 'Table 10-1: Deity Requests'
@@ -292,34 +276,11 @@ class XCCActorSheetMessenger extends XCCActorSheet {
     }
     // Deity request table entry found, convert to HTML
     deityRequestHTML = await foundry.applications.ux.TextEditor.enrichHTML(deityRequestHTML)
-
-    // Add DCC flags
-    const flags = {
-      'dcc.isDivineAidCheck': true,
-      'dcc.RollType': 'DivineAidCheck',
-      'dcc.isNoHeader': true
-    }
-
-    // Update with fleeting luck flags
-    game.dcc.FleetingLuck.updateFlags(flags, roll)
-
-    // Create message data
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `${game.i18n.format('XCC.Messenger.DivineAidFlavor', {
-        roll: roll.toAnchor().outerHTML,
-        actor: this.actor.name
-      })} ${resultHTML}${game.i18n.localize('XCC.Messenger.DeityRequest')}${deityRequestHTML}`,
-      sound: CONFIG.sounds.dice,
-      flags
-    }
-
     // Apply disapproval increase of 10 after rolling Divine Aid
     await this.actor.applyDisapproval(10)
+    // Display the Divine Aid message
+    await this.displayAdjustableMessage('DivineAid', 'XCC.Messenger.DivineAidFlavor', 'XCC.Messenger.DivineAid', 'Table 10-2: Divine Aid Check DCs', 'xcc-core-book.xcc-core-tables', roll, { deityRequest: deityRequestHTML }, 'XCC.Messenger.DeityRequest')
 
-    // Create the chat message
-    await ChatMessage.create(messageData)
     return roll
   }
 
@@ -365,52 +326,7 @@ class XCCActorSheetMessenger extends XCCActorSheet {
       return
     }
 
-    let layOnHandsResult = ''
-    let tableResult = 'No table result found'
-    let rollTable = null
-
-    const layOnHandsTableName = 'Table 1-12: Lay on Hands'
-    const messengerPackName = 'xcc-core-book.xcc-core-tables'
-    const pack = game.packs.get(messengerPackName)
-    if (pack) {
-      const entry = pack.index.filter((entity) => entity.name.startsWith(layOnHandsTableName))
-      if (entry.length > 0) {
-        rollTable = await pack.getDocument(entry[0]._id)
-        const results = rollTable.getResultsForRoll(roll.total)
-        if (results && results.length > 0) {
-          layOnHandsResult = results[0].description + game.i18n.localize('XCC.Messenger.LayOnHandsAlternate')
-        }
-      }
-    }
-
-    if (layOnHandsResult) {
-      const tableText = await foundry.applications.ux.TextEditor.enrichHTML(layOnHandsResult)
-      tableResult = tableText
-    } else {
-      console.error(`Could not extract rollable table result for ${roll.total} in ${layOnHandsTableName} (${messengerPackName}).`)
-    }
-
-    // Add DCC flags
-    const flags = {
-      'dcc.isLayOnHandsCheck': true,
-      'dcc.RollType': 'LayOnHandsCheck',
-      'dcc.isNoHeader': true
-    }
-
-    // Update with fleeting luck flags
-    game.dcc.FleetingLuck.updateFlags(flags, roll)
-
-    // Create message data
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `${this.actor.name} ${game.i18n.localize('XCC.Messenger.LayOnHandsFlavor')} ${roll.toAnchor().outerHTML}: ${tableResult}`,
-      sound: CONFIG.sounds.dice,
-      flags,
-      flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Messenger.LayOnHands')}`
-    }
-
-    await ChatMessage.create(messageData)
+    await this.displayAdjustableMessage('LayOnHands', 'XCC.Messenger.LayOnHandsFlavor', 'XCC.Messenger.LayOnHands', 'Table 1-12: Lay on Hands', 'xcc-core-book.xcc-core-tables', roll, {}, 'XCC.Messenger.LayOnHandsAlternate')
 
     return roll
   }
@@ -457,43 +373,10 @@ class XCCActorSheetMessenger extends XCCActorSheet {
       return
     }
 
-    // Find the bless result
-    let resultHTML = game.i18n.localize('XCC.NotFound')
-    const blessingTableName = 'Table 1-13: Blessing'
-    const pack = game.packs.get('xcc-core-book.xcc-core-tables')
-    if (pack) {
-      const entry = pack.index.filter((entity) => entity.name.startsWith(blessingTableName))
-      if (entry.length > 0) {
-        const rollTable = await pack.getDocument(entry[0]._id)
-        const results = rollTable.getResultsForRoll(roll.total)
-        if (results && results.length > 0) {
-          resultHTML = results[0].description
-        }
-      }
-    }
-    // Table entry found, convert to HTML
-    resultHTML = await foundry.applications.ux.TextEditor.enrichHTML(resultHTML)
-
-    // Add DCC flags
-    const flags = {
-      'dcc.isBlessingCheck': true,
-      'dcc.RollType': 'BlessingCheck',
-      'dcc.isNoHeader': true
-    }
-
-    // Update with fleeting luck flags
-    game.dcc.FleetingLuck.updateFlags(flags, roll)
-
-    // Create message data
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `${this.actor.name} ${game.i18n.localize('XCC.Messenger.BlessFlavor')} ${roll.toAnchor().outerHTML}:<br>${resultHTML}`,
-      sound: CONFIG.sounds.dice,
-      flags
-    }
     // Create the chat message
-    await ChatMessage.create(messageData)
+    await this.displayAdjustableMessage('Bless', 'XCC.Messenger.BlessFlavor', 'XCC.Messenger.Bless', 'Table 1-13: Blessing', 'xcc-core-book.xcc-core-tables', roll)
+
+    return roll
   }
 
   static async rollSummonWeapon (event, target) {
@@ -537,44 +420,10 @@ class XCCActorSheetMessenger extends XCCActorSheet {
     if (await this.checkDisapprovalAndHandle(roll)) {
       return
     }
-
-    // Find the summon weapon result
-    let resultHTML = game.i18n.localize('XCC.NotFound')
-    const summonWeaponTableName = 'Table X: Summon Weapon'
-    const pack = game.packs.get('xcc-core-book.xcc-core-tables')
-    if (pack) {
-      const entry = pack.index.filter((entity) => entity.name.startsWith(summonWeaponTableName))
-      if (entry.length > 0) {
-        const rollTable = await pack.getDocument(entry[0]._id)
-        const results = rollTable.getResultsForRoll(roll.total)
-        if (results && results.length > 0) {
-          resultHTML = results[0].description
-        }
-      }
-    }
-    // Table entry found, convert to HTML
-    resultHTML = await foundry.applications.ux.TextEditor.enrichHTML(resultHTML)
-
-    // Add DCC flags
-    const flags = {
-      'dcc.isSummonWeaponCheck': true,
-      'dcc.RollType': 'SummonWeaponCheck',
-      'dcc.isNoHeader': true
-    }
-
-    // Update with fleeting luck flags
-    game.dcc.FleetingLuck.updateFlags(flags, roll)
-
-    // Create message data
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `${this.actor.name} ${game.i18n.localize('XCC.Messenger.SummonWeaponFlavor')} ${roll.toAnchor().outerHTML}:<br>${resultHTML}`,
-      sound: CONFIG.sounds.dice,
-      flags
-    }
     // Create the chat message
-    await ChatMessage.create(messageData)
+    await this.displayAdjustableMessage('SummonWeapon', 'XCC.Messenger.SummonWeaponFlavor', 'XCC.Messenger.SummonWeapon', 'Table X: Summon Weapon', 'xcc-core-book.xcc-core-tables', roll, { duration: this.actor.system.details.level.value || 1 })
+
+    return roll
   }
 
   static async rollTurnUnholy (event, target) {
@@ -618,44 +467,10 @@ class XCCActorSheetMessenger extends XCCActorSheet {
     if (await this.checkDisapprovalAndHandle(roll)) {
       return
     }
-
-    // Find the turn unholy result
-    let resultHTML = game.i18n.localize('XCC.NotFound')
-    const turnUnholyTableName = 'Table 4-4: Turn Unholy Result by HD'
-    const pack = game.packs.get('xcc-core-book.xcc-core-tables')
-    if (pack) {
-      const entry = pack.index.filter((entity) => entity.name.startsWith(turnUnholyTableName))
-      if (entry.length > 0) {
-        const rollTable = await pack.getDocument(entry[0]._id)
-        const results = rollTable.getResultsForRoll(roll.total)
-        if (results && results.length > 0) {
-          resultHTML = results[0].description
-        }
-      }
-    }
-    // Table entry found, convert to HTML
-    resultHTML = await foundry.applications.ux.TextEditor.enrichHTML(resultHTML)
-
-    // Add DCC flags
-    const flags = {
-      'dcc.isTurnUnholyCheck': true,
-      'dcc.RollType': 'TurnUnholyCheck',
-      'dcc.isNoHeader': true
-    }
-
-    // Update with fleeting luck flags
-    game.dcc.FleetingLuck.updateFlags(flags, roll)
-
-    // Create message data
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `${this.actor.name} ${game.i18n.localize('XCC.Messenger.TurnUnholyFlavor')} ${roll.toAnchor().outerHTML}:<br>${resultHTML}${game.i18n.localize('XCC.CoreBook.Footnotes.TurnUnholy')}`,
-      sound: CONFIG.sounds.dice,
-      flags
-    }
     // Create the chat message
-    await ChatMessage.create(messageData)
+    await this.displayAdjustableMessage('TurnUnholy', 'XCC.Messenger.TurnUnholyFlavor', 'XCC.Messenger.TurnUnholy', 'Table 4-4: Turn Unholy Result by HD', 'xcc-core-book.xcc-core-tables', roll, {}, 'XCC.Messenger.TurnUnholyLegend')
+
+    return roll
   }
 
   static async rollWeaponAttackWithScourge (event, target) {
@@ -666,15 +481,19 @@ class XCCActorSheetMessenger extends XCCActorSheet {
       const evilCritRange = this.actor.system.class.critEvilRange || 20
       const oldDamage = weapon.system.damage
       const oldCrit = weapon.system.critRange
+      const oldName = weapon.name
       // Adjust crit range
       weapon.system.critRange = Math.min(evilCritRange, weapon.system.critRange)
       // Add scourge damage to the formula
       weapon.system.damage = weapon.system.damage ? `${weapon.system.damage}+${scourgeAmount}` : `${scourgeAmount}`
+      // Adjust weapon name to indicate scourge damage
+      weapon.name += game.i18n.localize('XCC.Messenger.WithScourge')
       // Add hook to restore original weapon data
       Hooks.once('dcc.rollWeaponAttack', async (rolls, messageData) => {
         if (weapon && messageData.system.weaponId === weapon.id) {
           weapon.system.damage = oldDamage
           weapon.system.critRange = oldCrit
+          weapon.name = oldName
         }
       })
       // Call the original roll weapon attack action
@@ -689,7 +508,7 @@ class XCCActorSheetMessenger extends XCCActorSheet {
     const weapon = {
       key: fakeId,
       value: {
-        name: game.i18n.localize('XCC.Messenger.FreeAttack').toLowerCase(),
+        name: game.i18n.localize('XCC.Messenger.FreeAttack').toLowerCase() + game.i18n.localize('XCC.Messenger.WithScourge'),
         system: {
           actionDie: '1d14',
           damage: this.getFreeAttackDamage() + ensurePlus(this.actor.system.class.scourge || 0),

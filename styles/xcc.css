@@ -9,6 +9,13 @@
   --icon-misfire: url("images/misfire_black.svg");
 }
 
+.dcc.sheet .sheet-tabs.tabs{
+  margin-bottom:0;
+}
+.dcc .tab {
+  padding-top:7px;
+}
+
 /*Override for dark theme */
 .theme-dark {
   --system-header-link-color: #d0beaa;
@@ -386,12 +393,25 @@
   grid-row-gap: 5px;
 }
 
+.dcc .weapon-list{
+  grid-template-columns: min-content 30px min-content minmax(90px, auto) 55px 85px 90px 39px;
+  input.name, input.weapon-notes {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
 .dcc .weapon-list.brawler {
   grid-template-columns: 30px min-content minmax(90px, auto) 50px 55px 60px 97px;
 }
 
 .dcc .weapon-list.athlete {
   grid-template-columns: 30px min-content minmax(90px, auto) 97px 60px 150px;
+}
+
+.dcc .weapon-list.dwarf {
+  grid-template-columns: 30px min-content minmax(80px, auto) 80px 80px 90px 39px;
 }
 
 .dcc .weapon-list.jammer {
@@ -457,20 +477,36 @@ a[data-tab='rewards'] {
   display: inline-block;
 }
 
-/* Lionize result controls styling */
-.xcc-lionize {
+/* Adjustable table result controls styling */
+.xcc-adjustable {
   .table-results {
     padding: 0;
+
+    .result-text p{
+      margin-top:0;
+    }
 
     .result-range {
       padding-top: 5px;
       justify-items: center;
       margin-right: 3px;
 
-      .lionize-shift-down,
-      .lionize-shift-up {
+      .fa-sort-up,
+      .fa-sort-down {
         cursor: pointer;
         color: var(--system-primary-color);
+        margin-left:3px;
+        font-size:17px;
+      }
+      .fa-sort-up:hover,
+      .fa-sort-down:hover {
+        text-shadow: 0 0 8px var(--color-shadow-primary);
+      }
+      p.table-result-shift-up{
+        margin-bottom:0;
+      }
+      p.table-result-shift-down{
+        margin-top:0;
       }
     }
   }

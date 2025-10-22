@@ -3,7 +3,7 @@ import DCCActorSheet from '/systems/dcc/module/actor-sheet.js'
 import DiceChain from '/systems/dcc/module/dice-chain.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
-import XCCSpellCheckConfig from './spell-check-config.js'
+import XCCSpellCheckConfig from './xcc-spell-check-config.js'
 import { calculateSpellCheckBonus } from './xcc-utils.js'
 
 // Extends the DCCActorSheet and adds 'XCrawl' tab and its functionality.
@@ -12,10 +12,10 @@ export class XCCActorSheet extends DCCActorSheet {
   static END_TABS = {
     sheet: {
       tabs:
-      [
-        { id: 'rewards', group: 'sheet', label: 'XCC.Rewards.RewardsTitle' },
-        { id: 'notes', group: 'sheet', label: 'DCC.Notes' }
-      ]
+        [
+          { id: 'rewards', group: 'sheet', label: 'XCC.Rewards.RewardsTitle' },
+          { id: 'notes', group: 'sheet', label: 'DCC.Notes' }
+        ]
     }
   }
 
@@ -307,12 +307,6 @@ export class XCCActorSheet extends DCCActorSheet {
     return roll
   }
 
-  /**
-   * Display spell check configuration settings
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
-   * @returns {Promise<void>}
-   */
   static async configureSpellCheck (event, target) {
     event.preventDefault()
     await new XCCSpellCheckConfig({
@@ -449,7 +443,7 @@ export class XCCActorSheet extends DCCActorSheet {
         agl: actor.system.abilities.agl.value,
         sta: actor.system.abilities.sta.value,
         callback: (formula, term) => {
-        // Apply the spellburn
+          // Apply the spellburn
           actor.update({
             'system.abilities.str.value': term.str,
             'system.abilities.agl.value': term.agl,
@@ -625,6 +619,59 @@ export class XCCActorSheet extends DCCActorSheet {
     } else { return game.i18n.localize('XCC.SpellCheckNotes') }
   }
 
+  static async _onNextTableResult (event) {
+    XCCActorSheet._adjustTableResult.bind(this)(event, +1)
+  }
+
+  static async _onPreviousTableResult (event) {
+    XCCActorSheet._adjustTableResult.bind(this)(event, -1)
+  }
+
+  static async _adjustTableResult (event, direction) {
+    // Pull out the relevant data from the existing HTML
+    const tableId = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-table-id')
+    const tableCompendium = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('data-table-compendium')
+    const resultId = event.target.parentElement.parentElement.getAttribute('data-result-id')
+
+    // Lookup the appropriate table
+    let rollTable
+    if (tableCompendium) {
+      const pack = game.packs.get(tableCompendium)
+      if (pack) {
+        const entry = pack.index.get(tableId)
+        rollTable = await pack.getDocument(entry._id)
+      }
+    }
+    if (!rollTable) {
+      rollTable = game.tables.get(tableId)
+    }
+
+    if (rollTable) {
+      // Find the next result up or down, if available
+      const entry = rollTable.results.get(resultId)
+      const newResultRoll = (direction > 0) ? (entry.range[1]) + 1 : (entry.range[0] - 1)
+      const newResults = rollTable.getResultsForRoll(newResultRoll)
+
+      if (newResults && newResults.length > 0) {
+        // Extract the existing emote message from the current HTML to preserve it
+        const adjustableContainer = event.target.closest('.xcc-adjustable')
+        const existingEmoteElement = adjustableContainer.querySelector('.table-result-emote')
+        const existingEmoteMessage = existingEmoteElement ? existingEmoteElement.innerHTML : null
+        const existingEndElement = adjustableContainer.querySelector('.end-text')
+        const existingEndText = existingEndElement ? existingEndElement.innerHTML : null
+
+        const newContent = await foundry.applications.handlebars.renderTemplate(globals.templatesPath + 'chat-card-table-result.html', {
+          results: newResults.map(r => foundry.utils.duplicate(r)),
+          table: rollTable,
+          emoteMessage: existingEmoteMessage,
+          endText: existingEndText
+        })
+
+        this.update({ content: newContent })
+      }
+    }
+  }
+
   // Add the wealth and sponsorship input actions to the DCCActorSheet
   static DEFAULT_OPTIONS = foundry.utils.mergeObject(DCCActorSheet.DEFAULT_OPTIONS, {
     actions: {
@@ -651,6 +698,84 @@ export class XCCActorSheet extends DCCActorSheet {
     Handlebars.registerHelper('getLocalizedSpellCheckNotes', (actor) => {
       return XCCActorSheet.getLocalizedSpellCheckNotes(actor)
     })
+
+    // Handle adjustable arrows in chat message
+    Hooks.on('renderChatMessageHTML', (message, html, data) => {
+      // Only GMs can use the arrow buttons to change rolled table result
+      if (!game.user.isGM) {
+        return
+      }
+      // Add event delegation for the arrows
+      const table = html.querySelector('.xcc-adjustable')
+      if (table) {
+        table.addEventListener('click', (event) => {
+          if (event.target.classList.contains('table-result-shift-up')) {
+            XCCActorSheet._onNextTableResult.call(message, event)
+          } else if (event.target.classList.contains('table-result-shift-down')) {
+            XCCActorSheet._onPreviousTableResult.call(message, event)
+          }
+        })
+      }
+    })
+  }
+
+  async displayAdjustableMessage (id, emoteKey, nameKey, tableName, packName, roll, variables = {}, endKey = '') {
+    // Add DCC flags
+    const flags = {
+      'dcc.isNoHeader': true,
+      'dcc.RollType': `${id}Check`
+    }
+    flags[`dcc.is${id}Check`] = true
+
+    // Update with fleeting luck flags
+    game.dcc.FleetingLuck.updateFlags(flags, roll)
+
+    let rolledResult = ''
+    let rollTable = null
+    let tableResults = []
+
+    const pack = game.packs.get(packName)
+    if (pack) {
+      const entry = pack.index.filter((entity) => entity.name.startsWith(tableName))
+      if (entry.length > 0) {
+        rollTable = await pack.getDocument(entry[0]._id)
+        const results = rollTable.getResultsForRoll(roll.total)
+        if (results && results.length > 0) {
+          tableResults = results
+          rolledResult = results[0].description
+        }
+      }
+    }
+    if (rolledResult && tableResults.length > 0) {
+      await foundry.applications.ux.TextEditor.enrichHTML(rolledResult)
+
+      variables = foundry.utils.mergeObject(variables, {
+        actorName: this.actor.name,
+        rollHTML: roll.toAnchor().outerHTML,
+        rollTotal: roll.total
+      })
+
+      const emoteMessage = game.i18n.format(emoteKey, variables)
+
+      // Create message data
+      const messageData = {
+        user: game.user.id,
+        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        sound: CONFIG.sounds.dice,
+        flags,
+        flavor: `${game.i18n.localize(nameKey)}`
+      }
+
+      const messageContent = await foundry.applications.handlebars.renderTemplate(globals.templatesPath + 'chat-card-table-result.html', {
+        results: tableResults.map(r => foundry.utils.duplicate(r)),
+        table: rollTable,
+        actorName: this.actor.name,
+        endText: endKey ? game.i18n.format(endKey, variables) : '',
+        emoteMessage
+      })
+      messageData.content = messageContent
+      await ChatMessage.create(messageData)
+    }
   }
 
   async prepareXCCNotes () {
@@ -701,7 +826,7 @@ export class XCCActorSheet extends DCCActorSheet {
         }
       }
       const levelInput = this.parts.character.firstElementChild.querySelector('input[id="system.details.level.value"]')
-      if (levelInput) { levelInput.outerHTML = '<div style="display:grid; grid-template-columns: auto min-content;">' + levelInput.outerHTML + '<i data-action="levelChange" class="fa-solid fa-square-arrow-up rollable" style="margin-left:-14px; font-size:14px;"></i></div>' }
+      if (levelInput) { levelInput.outerHTML = '<div style="display:grid; grid-template-columns: auto min-content;">' + levelInput.outerHTML + '<i data-action="levelChange" class="fa-solid fa-square-arrow-up rollable" style="margin-left:-14px; font-size:14px; margin-top:1px;"></i></div>' }
     }
   }
 

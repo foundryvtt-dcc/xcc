@@ -1,0 +1,32 @@
+<section class="config-dialog">
+    <label for="temporaryValues.shieldBashOverrideDie" title="{{localize 'XCC.Dwarf.ShieldBashOverrideDieHint'}}">{{localize "XCC.Dwarf.ShieldBashOverrideDie"}}</label>
+    <input type="text" style="border-bottom: 1px solid var(--system-input-background-color)"
+        name="temporaryValues.shieldBashOverrideDie" id="temporaryValues.shieldBashOverrideDie"
+        value="{{temporaryValues.shieldBashOverrideDie}}" data-dtype="String" />
+
+    <div class="group-separator"></div>
+
+    <label for="temporaryValues.shieldBashBonus" title="{{localize 'XCC.Dwarf.ShieldBashBonusHint'}}">{{localize "XCC.Dwarf.ShieldBashBonus"}}</label>
+    <input type="text" style="border-bottom: 1px solid var(--system-input-background-color)"
+        name="temporaryValues.shieldBashBonus" id="temporaryValues.shieldBashBonus"
+        value="{{temporaryValues.shieldBashBonus}}" data-dtype="String" />
+
+    <label for="temporaryValues.shieldBashDamage" title="{{localize 'XCC.Dwarf.ShieldBashDamageHint'}}">{{localize "XCC.Dwarf.ShieldBashDamage"}}</label>
+    <input type="text" style="border-bottom: 1px solid var(--system-input-background-color)"
+        name="temporaryValues.shieldBashDamage" id="temporaryValues.shieldBashDamage"
+        value="{{temporaryValues.shieldBashDamage}}" data-dtype="String" />
+
+    <div class="group-separator"></div>
+
+    <label title="{{localize 'XCC.DisplayValueHint'}}">{{localize "XCC.Dwarf.CalculatedShieldBashBonus"}}</label>
+    <input type="text" style="border-bottom: 1px solid var(--system-input-background-color)"
+        name="system.details.shieldBash.value" id="system.details.shieldBash.value"
+        value="{{ifThen temporaryValues.shieldBashOverrideDie temporaryValues.shieldBashOverrideDie '1d14'}}{{temporaryValues.shieldBashCheck}}"
+        data-dtype="String" disabled="true" />
+    <div class="grid-col-span-2">{{temporaryValues.shieldBashHint}}</div>
+    <footer class="grid-col-span-2 mt-8">
+        <button type="submit">
+            <i class="fas fa-save"></i>{{localize "DCC.SaveSheetConfig"}}
+        </button>
+    </footer>
+</section>

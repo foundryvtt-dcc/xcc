@@ -1,5 +1,6 @@
 /* eslint-disable import/no-absolute-path */
 import XCCActorSheet from './xcc-actor-sheet.js'
+import XCCShieldBashConfig from './xcc-shield-bash-config.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
 
@@ -10,7 +11,8 @@ class XCCActorSheetDwarf extends XCCActorSheet {
       height: 640
     },
     actions: {
-      rollShieldBashAttack: this.rollShieldBashAttack
+      rollShieldBashAttack: this.rollShieldBashAttack,
+      configureShieldBash: this.configureShieldBash
     }
   }
 
@@ -41,12 +43,26 @@ class XCCActorSheetDwarf extends XCCActorSheet {
     }
   }
 
+  static async configureShieldBash (event, target) {
+    event.preventDefault()
+    await new XCCShieldBashConfig({
+      document: this.actor,
+      position: {
+        top: this.position.top + 40,
+        left: this.position.left + (this.position.width - 400) / 2
+      }
+    }).render(true)
+  }
+
   static addHooksAndHelpers () {
     Handlebars.registerHelper('getShieldBashDamage', (actor) => {
-      return actor.system.class.shieldBashDamage + ensurePlus(actor.system.details.attackBonus)
+      return actor.sheet.getShieldBashDamage()
+    })
+    Handlebars.registerHelper('getShieldBashDamageShort', (actor) => {
+      return actor.sheet.getShieldBashDamageShort()
     })
     Handlebars.registerHelper('getShieldBashBonus', (actor) => {
-      return actor.system.details.attackBonus + ensurePlus(actor.system.class.shieldBashBonus)
+      return actor.sheet.getShieldBashToHit()
     })
   }
 
@@ -65,7 +81,6 @@ class XCCActorSheetDwarf extends XCCActorSheet {
     }
 
     const context = await super._prepareContext(options)
-
     if (this.actor.system.details.sheetClass !== 'xcc-dwarf') {
       await this.actor.update({
         'system.class.localizationPath': 'XCC.Dwarf',
@@ -75,10 +90,11 @@ class XCCActorSheetDwarf extends XCCActorSheet {
         'system.class.disapproval': 1,
         'system.config.attackBonusMode': 'autoPerAttack',
         'system.config.addClassLevelToInitiative': false,
-        'system.config.showSpells': false
+        'system.config.showSpells': false,
+        'system.class.shieldBashDamage': '1d3',
+        'system.class.shieldBashBonus': 0
       })
     }
-    // Never used when _onRender is commented out, but left in case we want to re-enable skill-based shield bash
     if (!this.actor.system.class?.shieldBashDamage) {
       await this.actor.update({
         'system.class.shieldBashDamage': '1d3'
@@ -94,32 +110,38 @@ class XCCActorSheetDwarf extends XCCActorSheet {
 
   _onRender (context, options) {
     // Backup of shield bash code, in case we want to re-enable it instead of using an item
-    /* if (game.settings.get(globals.id, 'includeShieldBashInWeapons')) {
-      // Add the Grapple item to the equipment section
-      let items = this.parts.equipment.querySelector('.weapon-list-header').outerHTML +=
-        `<li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.brawler.unarmedRegular">
+    if (game.settings.get(globals.id, 'includeShieldBashInWeapons')) {
+      // Add the shield bash item to the equipment section
+      this.parts.equipment.querySelector('.weapon-list-header').outerHTML +=
+        `<li class="grid-col-span-9 weapon grid-col-gap-5" data-item-id="xcc.shield-bash">
               <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
-              <img class="icon-filter" src="`+globals.imagesPath + `game-icons-net/shield-bash.svg" title="`+ game.i18n.localize("XCC.Dwarf.ShieldBash") + `" alt="` + game.i18n.localize("XCC.Dwarf.ShieldBash") + `" width="22" height="22">
+              <img class="icon-filter" src="` + globals.imagesPath + 'game-icons-net/shield-bash.svg" title="' + game.i18n.localize('XCC.Dwarf.ShieldBash') + '" alt="' + game.i18n.localize('XCC.Dwarf.ShieldBash') + `" width="22" height="22">
               <div class="attack-buttons">
                   <div class="rollable free-attack-button icon-filter" data-action="rollShieldBashAttack" data-drag="false" title="Roll" draggable="false">&nbsp;</div>
               </div>
-              <input class="weapon-name" type="text" value="`+ game.i18n.localize("XCC.Dwarf.ShieldBash") + `" readonly="">
-              <input class="disabled" type="text" value="`+ this.getShieldBashToHit() + `" readonly="">
-              <input class="weapon-damage disabled" style="width: auto;" type="text" value="`+ this.getShieldBashDamage() + `" readonly="">
-              <input class="weapon-notes disabled" type="text" value="`+ game.i18n.localize("XCC.Dwarf.ShieldBashNote") + `" readonly="">
-              <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
-              <div class="disabled">-</div>
-          </li>`;
-    } */
+              <input class="weapon-name" type="text" value="` + game.i18n.localize('XCC.Dwarf.ShieldBash') + `" readonly="">
+              <input class="disabled" type="text" value="` + this.getShieldBashToHit() + `" readonly="">
+              <input class="weapon-damage disabled" type="text" value="` + this.getShieldBashDamage() + `" readonly="">
+              <input class="weapon-notes disabled" type="text" value="` + game.i18n.localize('XCC.Dwarf.ShieldBashNote') + `" readonly="">
+              <a class="item-control" style="margin-left:8px; margin-right:8px; font-size:18px;" title="` + game.i18n.localize('XCC.Dwarf.ConfigureShieldBash') + `"
+                    data-action="configureShieldBash">
+                    <i class="fas fa-gear"></i>
+              </a>
+          </li>`
+    } /**/
     super._onRender(context, options)
   }
 
   getShieldBashToHit () {
-    return this.actor.system.details.attackBonus + ensurePlus(parseInt(this.actor.system.abilities.str.mod || 0) + parseInt(this.actor.system.class.shieldBashBonus))
+    return ensurePlus(this.actor.system.details.attackBonus) + ensurePlus(parseInt(this.actor.system.abilities.str.mod || 0) + parseInt(this.actor.system.class.shieldBashBonus))
   }
 
   getShieldBashDamage () {
     return this.actor.system.class.shieldBashDamage + ensurePlus(this.actor.system.details.attackBonus) + ensurePlus(parseInt(this.actor.system.abilities.str.mod || 0))
+  }
+
+  getShieldBashDamageShort () {
+    return this.actor.system.class.shieldBashDamage + ensurePlus(parseInt(this.actor.system.abilities.str.mod || 0))
   }
 
   static async rollShieldBashAttack (event, target) {

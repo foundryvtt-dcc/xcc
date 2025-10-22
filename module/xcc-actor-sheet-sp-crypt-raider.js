@@ -147,43 +147,10 @@ class XCCActorSheetSpCryptRaider extends XCCActorSheet {
       return
     }
 
-    // Find the turn unholy result
-    let resultHTML = game.i18n.localize('XCC.NotFound')
-    const turnUnholyTableName = 'Table 4-4: Turn Unholy Result by HD'
-    const pack = game.packs.get('xcc-core-book.xcc-core-tables')
-    if (pack) {
-      const entry = pack.index.filter((entity) => entity.name.startsWith(turnUnholyTableName))
-      if (entry.length > 0) {
-        const rollTable = await pack.getDocument(entry[0]._id)
-        const results = rollTable.getResultsForRoll(roll.total)
-        if (results && results.length > 0) {
-          resultHTML = results[0].description
-        }
-      }
-    }
-    // Table entry found, convert to HTML
-    resultHTML = await foundry.applications.ux.TextEditor.enrichHTML(resultHTML)
-
-    // Add DCC flags
-    const flags = {
-      'dcc.isTurnUnholyCheck': true,
-      'dcc.RollType': 'TurnUnholyCheck',
-      'dcc.isNoHeader': true
-    }
-
-    // Update with fleeting luck flags
-    game.dcc.FleetingLuck.updateFlags(flags, roll)
-
-    // Create message data
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `${this.actor.name} ${game.i18n.localize('XCC.Messenger.TurnUnholyFlavor')} ${roll.toAnchor().outerHTML}:<br>${resultHTML}${game.i18n.localize('XCC.CoreBook.Footnotes.TurnUnholy')}`,
-      sound: CONFIG.sounds.dice,
-      flags
-    }
     // Create the chat message
-    await ChatMessage.create(messageData)
+    await this.displayAdjustableMessage('TurnUnholy', 'XCC.Messenger.TurnUnholyFlavor', 'XCC.Specialist.CryptRaider.TurnUnholy', 'Table 4-4: Turn Unholy Result by HD', 'xcc-core-book.xcc-core-tables', roll, {}, 'XCC.Messenger.TurnUnholyLegend')
+
+    return roll
   }
 
   async checkDisapprovalAndHandle (roll) {

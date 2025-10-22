@@ -160,7 +160,7 @@ class XCCActorSheetAthlete extends XCCActorSheet {
             </div>
             <input class="weapon-name" type="text" value="` + game.i18n.localize('XCC.Athlete.Grapple') + `" readonly="">
             <input class="disabled" type="text" value="` + this.getGrappleToHit() + `" readonly="">
-            <input class="weapon-damage disabled" style="width: auto;" type="text" value="` + this.getGrappleDamage() + `" readonly="">
+            <input class="weapon-damage disabled" type="text" value="` + this.getGrappleDamage() + `" readonly="">
             <input class="weapon-notes disabled" type="text" value="` + game.i18n.localize('XCC.Athlete.GrappleNotes') + `" readonly="">
             <input type="checkbox" data-dtype="Boolean" checked="" disabled="" class="disabled">
             <div class="disabled">-</div>

@@ -16,55 +16,40 @@
                 <input type="text" id="system.class.favoredWeapon" name="system.class.favoredWeapon"
                     value="{{system.class.favoredWeapon}}" data-dtype="String" />
             </div>
-<!--
-            <div class="grid-tpl-max-25 grid-col-gap-5">
-                <label for="system.class.shieldBashBonus" data-drag="false">
-                    {{localize "XCC.Dwarf.ShieldBashBonus"}}
-                </label>
-                <input type="text" id="system.class.shieldBashBonus" name="system.class.shieldBashBonus"
-                    value="{{system.class.shieldBashBonus}}" data-dtype="String" />
-            </div>
-            <div class="grid-tpl-max-25 grid-col-gap-5">
-                <label for="system.class.shieldBashDamage" data-drag="false">
-                    {{localize "XCC.Dwarf.ShieldBashDamage"}}
-                </label>
-                <input type="text" id="system.class.shieldBashDamage" name="system.class.shieldBashDamage"
-                    value="{{system.class.shieldBashDamage}}" data-dtype="String" />
-            </div>
-!-->
         </div>
     </div>
-<!--
     <div class="row-separator"></div>
-    <div class="box-title">{{localize "XCC.Abilities"}}</div>
-    <ol class="weapon-list athlete box-border" style="margin-bottom: 0;">
-        <li class="grid-col-span-6 weapon-list-header">
+    <div class="box-title">{{localize "XCC.ClassAbilities"}}</div>
+    <ol class="weapon-list dwarf box-border" style="margin-bottom: 0;">
+        <li class="grid-col-span-7 weapon-list-header">
             <div></div>
             <div title="{{localize 'DCC.Roll'}}"></div>
             <div>{{localize "DCC.Name"}}</div>
             <div>{{localize "DCC.ToHit"}}</div>
             <div>{{localize "DCC.Damage"}}</div>
             <div>{{localize "DCC.Notes"}}</div>
+            <div></div>
         </li>
-        <li class="grid-col-span-6 weapon grid-col-gap-5" data-item-id="xcc.dwarf.bash"
-            data-item-slot="xcc.dwarf.bash">
+        <li class="grid-col-span-7 weapon grid-col-gap-5" data-item-id="xcc.dwarf.bash" data-item-slot="xcc.dwarf.bash">
             <img class="icon-filter" src="{{getGameImage 'shield-bash.svg'}}"
                 title="{{localize 'XCC.Dwarf.ShieldBash'}}" alt="{{localize 'XCC.Dwarf.ShieldBash'}}" width="22"
-                height="22">
+                height="22"/>
             <div class="attack-buttons">
-                <div class="rollable free-attack-button icon-filter" data-action="rollShieldBashAttack" data-drag="false"
-                    title="Roll" draggable="false">&nbsp;</div>
+                <div class="rollable free-attack-button icon-filter" data-action="rollShieldBashAttack"
+                    data-drag="false" title="Roll" draggable="false">&nbsp;</div>
             </div>
             <input class="weapon-name" type="text" name="xcc.dwarf.bash.name"
                 value="{{localize 'XCC.Dwarf.ShieldBash'}}" readonly="">
             <input class="disabled" type="text" name="xcc.dwarf.bash.bonus" value="{{getShieldBashBonus actor}}"
                 readonly="">
-            <input class="weapon-damage disabled" style="width: auto;" type="text" name="xcc.dwarf.bash.damage"
+            <input class="weapon-damage disabled" type="text" name="xcc.dwarf.bash.damage"
                 value="{{getShieldBashDamage actor}}" readonly="">
             <input class="weapon-notes disabled" type="text" name="xcc.dwarf.bash.notes"
-                value="{{localize 'XCC.Dwarf.ShieldBashNote'}}" readonly="">
+                    value="{{localize 'XCC.Dwarf.ShieldBashNote'}}" readonly="">
+            <a class="item-control" style="margin-left:8px; margin-right:8px; font-size:18px;" title="{{localize 'XCC.Dwarf.ConfigureShieldBash'}}" data-action="configureShieldBash">
+                <i class="fas fa-gear"></i>
+            </a>
         </li>
     </ol>
-!-->
     {{> modules/xcc/templates/actor-partial-common.html }}
 </section>
