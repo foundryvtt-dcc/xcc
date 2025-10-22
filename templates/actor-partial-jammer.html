@@ -18,7 +18,7 @@
                     <label class="skill-check" data-drag="false">
                         {{localize "XCC.Jammer.ACBonus"}}
                     </label>
-                    <input type="text" value="{{getJammerACBonus this}}" data-dtype="String" disabled="" />
+                    <input type="text" value="{{getJammerACBonus actor}}" data-dtype="String" disabled="" />
                 </div>
                 <div class="grid-tpl-max-25" data-skill="system.class.devastatingAttack">
                     <label class="rollable" for="system.class.devastatingAttack"
@@ -108,9 +108,9 @@
             <div class="box-border">
                 <label for="system.class.performanceSpecialties" class="box-title">{{localize
                     "XCC.Jammer.PerformanceSpecialties"}}</label>
-                <textarea id="system.class.performanceSpecialties" rows="1" name="system.class.performanceSpecialties"
-                    style="background: none; border: none; min-height: 20px; padding:2px 0 0 6px; resize:none"
-                    data-dtype="String">{{system.class.performanceSpecialties}}</textarea>
+                <input id="system.class.performanceSpecialties" rows="1" name="system.class.performanceSpecialties"
+                    style="border-bottom:0; height: 22px; border-radius: 3px; background: var(--system-input-background); margin: 6px 8px; width: stretch; box-shadow: var(--input-box-shadow);"
+                    data-dtype="String" value="{{system.class.performanceSpecialties}}"/>
             </div>
         </div>
     </div>

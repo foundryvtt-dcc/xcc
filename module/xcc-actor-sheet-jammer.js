@@ -42,23 +42,35 @@ class XCCActorSheetJammer extends XCCActorSheet {
     }
   }
 
+  getJammerACBonus () {
+    let bonus = 0
+
+    // Add luck modifier if positive
+    const luckMod = this.actor.system?.abilities?.lck?.mod || 0
+    if (luckMod > 0) {
+      bonus += luckMod
+    }
+
+    let isArmorTooHeavy = false
+    for (const armorItem of this.actor.itemTypes.armor) {
+      if (armorItem.system.equipped && parseInt(armorItem.system.checkPenalty) <= -4) {
+        isArmorTooHeavy = true
+        break
+      }
+    }
+
+    // Add current level if chosen weapon is equipped
+    if (this.actor.system?.class?.chosenWeaponEquipped && !isArmorTooHeavy) {
+      const level = this.actor.system?.details?.level.value || 0
+      bonus += level
+    }
+
+    return '+' + bonus
+  }
+
   static addHooksAndHelpers () {
     Handlebars.registerHelper('getJammerACBonus', function (actor) {
-      let bonus = 0
-
-      // Add luck modifier if positive
-      const luckMod = actor.system?.abilities?.lck?.mod || 0
-      if (luckMod > 0) {
-        bonus += luckMod
-      }
-
-      // Add current level if chosen weapon is equipped
-      if (actor.system?.class?.chosenWeaponEquipped) {
-        const level = actor.system?.details?.level.value || 0
-        bonus += level
-      }
-
-      return '+' + bonus
+      return actor.sheet.getJammerACBonus()
     })
 
     Handlebars.registerHelper('getJammerPerformanceBonus', function (actor) {
@@ -72,6 +84,10 @@ class XCCActorSheetJammer extends XCCActorSheet {
       const level = actor.system?.details?.level?.value || 0
       bonus += level
 
+      // Add luck modifier
+      const lckMod = actor.system?.abilities?.lck?.mod || 0
+      bonus += lckMod
+
       return bonus >= 0 ? '+' + bonus : bonus
     })
   }
@@ -84,6 +100,11 @@ class XCCActorSheetJammer extends XCCActorSheet {
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Jammer.ClassLink'), { relativeTo: this.actor })
       })
     }
+
+    // Update jammer AC bonus
+    await this.actor.update({
+      'system.attributes.ac.otherMod': this.getJammerACBonus()
+    })
 
     const context = await super._prepareContext(options)
 
@@ -153,6 +174,7 @@ class XCCActorSheetJammer extends XCCActorSheet {
     // Calculate base bonus
     let bonus = this.actor.system?.abilities?.per?.mod || 0
     bonus += this.actor.system?.details?.level?.value || 0
+    bonus += this.actor.system?.abilities?.lck?.mod || 0
 
     // Create terms for the DCC roll system
     const terms = [
@@ -208,6 +230,7 @@ class XCCActorSheetJammer extends XCCActorSheet {
     // Calculate performance check bonus
     let bonus = this.actor.system?.abilities?.per?.mod || 0
     bonus += this.actor.system?.details?.level?.value || 0
+    bonus += this.actor.system?.abilities?.lck?.mod || 0
 
     // Create terms for the DCC roll system
     const terms = [
@@ -252,6 +275,7 @@ class XCCActorSheetJammer extends XCCActorSheet {
     // Calculate performance check bonus
     let bonus = this.actor.system?.abilities?.per?.mod || 0
     bonus += this.actor.system?.details?.level?.value || 0
+    bonus += this.actor.system?.abilities?.lck?.mod || 0
 
     // Create terms for the DCC roll system
     const terms = [
@@ -323,6 +347,16 @@ class XCCActorSheetJammer extends XCCActorSheet {
 
     return roll
   }
+
+  /* _onRender (context, options) {
+    if (this.actor.system.config.computeAC && this.actor.system.abilities.lck.mod > 0) {
+      console.log('Updating AC with LCK modifier')
+      const element = this.parts.character.firstElementChild.querySelector('input[id="system.attributes.ac.value"]')
+      if (this.actor.system.class.chosenWeaponEquipped && ) element.value = parseInt(this.actor.system.attributes.ac.value) + parseInt(this.actor.system.abilities.lck.mod) + parseInt(this.actor.system.details.level.value)
+      else element.value = parseInt(this.actor.system.attributes.ac.value) + parseInt(this.actor.system.abilities.lck.mod)
+    }
+    super._onRender(context, options)
+  } */
 }
 
 export default XCCActorSheetJammer
