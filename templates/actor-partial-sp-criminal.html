@@ -22,14 +22,101 @@
                     </label>
                     <input type="text" value="{{system.details.level.value}}" disabled="true" data-dtype="String" />
                 </div>
-                <div class="grid-tpl-max-25 grid-col-gap-5">
-                    <label class="bribery-expert rollable" title="{{localize 'XCC.Specialist.Criminal.BriberyExpert'}}"
-                        data-action="rollBriberyExpert" data-drag="false">
-                        {{localize "XCC.Specialist.Criminal.BriberyExpert"}}
-                    </label>
-                    <input type="text" value="0" data-dtype="String" />
-                </div>
             </div>
+        </div>
+        <div class="grid-col-span-12 dark-border">
+            <div class="row-separator"></div>
+            <div class="box-title">{{localize 'XCC.Specialist.Criminal.Abilities'}}</div>
+            <ol class="weapon-list sp-criminal box-border" style="margin-bottom: 0;">
+                <li class="grid-col-span-6 weapon-list-header">
+                    <div></div>
+                    <div title="{{localize 'DCC.Roll'}}"></div>
+                    <div>{{localize "DCC.Name"}}</div>
+                    <div>{{localize "DCC.Bonus"}}</div>
+                    <div>{{localize "XCC.Specialist.Criminal.CurrentTurf"}}</div>
+                    <div>{{localize "XCC.DC"}}</div>
+                </li>
+                <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <img class="icon-filter" src="{{getGameImage 'spy.svg'}}"
+                        title="{{localize 'DCC.system.skills.criminalConnections.value'}}"
+                        alt="{{localize 'DCC.system.skills.criminalConnections.value'}}" width="22" height="22">
+                    <div class="attack-buttons" data-skill="criminalConnections">
+                        <div class="rollable weapon-button icon-filter" data-action="rollSkillCheck" data-drag="false"
+                            title="Roll" draggable="false"></div>
+                    </div>
+                    <input class="weapon-name" type="text" value="{{localize 'XCC.Specialist.Criminal.SeekHelp'}}"
+                        readonly="">
+                    <input class="disabled" type="text"
+                        value="{{ensurePlus (sum system.abilities.per.mod system.skills.criminalConnections.value)}}"
+                        readonly="">
+                    <select name="system.class.currentTurf" id="system.class.currentTurf">
+                        <option value="TurfEasy" {{#if (eq system.class.currentTurf 'TurfEasy' ) }}selected{{/if}}>
+                            {{localize "XCC.Specialist.Criminal.TurfEasy"}}</option>
+                        <option value="TurfNormal" {{#if (eq system.class.currentTurf 'TurfNormal' ) }}selected{{/if}}>
+                            {{localize "XCC.Specialist.Criminal.TurfNormal"}}</option>
+                        <option value="TurfHard" {{#if (eq system.class.currentTurf 'TurfHard' ) }}selected{{/if}}>
+                            {{localize "XCC.Specialist.Criminal.TurfHard"}}</option>
+                        <option value="TurfVeryHard" {{#if (eq system.class.currentTurf 'TurfVeryHard' )
+                            }}selected{{/if}}>
+                            {{localize "XCC.Specialist.Criminal.TurfVeryHard"}}</option>
+                    </select>
+                    <input class="disabled" type="text"
+                        value="{{#if (eq system.class.currentTurf 'TurfEasy')}}5{{/if}}{{#if (eq system.class.currentTurf 'TurfNormal')}}10{{/if}}{{#if (eq system.class.currentTurf 'TurfHard')}}15{{/if}}{{#if (eq system.class.currentTurf 'TurfVeryHard')}}20{{/if}}"
+                        readonly="">
+                </li>
+                <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <img class="icon-filter" src="{{getGameImage 'bribe_cash.svg'}}"
+                        title="{{localize 'XCC.Specialist.Criminal.BriberyExpert'}}"
+                        alt="{{localize 'XCC.Specialist.Criminal.BriberyExpert'}}" width="22" height="22">
+                    <div class="attack-buttons" data-skill="briberyExpert">
+                        <div class="rollable weapon-button icon-filter" data-action="rollSkillCheck" data-drag="false"
+                            title="Roll" draggable="false"></div>
+                    </div>
+                    <input class="weapon-name" type="text" value="{{localize 'XCC.Specialist.Criminal.BriberyExpert'}}"
+                        readonly="">
+                    <input class="disabled" type="text"
+                        value="{{ensurePlus (sum system.abilities.int.mod system.details.level.value)}}" readonly="">
+                    <select name="system.class.currentContacts" id="system.class.currentContacts">
+                        <option value="ContactsEasy" {{#if (eq system.class.currentContacts 'ContactsEasy' )
+                            }}selected{{/if}}>
+                            {{localize "XCC.Specialist.Criminal.ContactsEasy"}}</option>
+                        <option value="ContactsNormal" {{#if (eq system.class.currentContacts 'ContactsNormal' )
+                            }}selected{{/if}}>
+                            {{localize "XCC.Specialist.Criminal.ContactsNormal"}}</option>
+                        <option value="ContactsHard" {{#if (eq system.class.currentContacts 'ContactsHard' )
+                            }}selected{{/if}}>
+                            {{localize "XCC.Specialist.Criminal.ContactsHard"}}</option>
+                    </select>
+                    <input class="disabled" type="text"
+                        value="{{#if (eq system.class.currentContacts 'ContactsEasy')}}10{{/if}}{{#if (eq system.class.currentContacts 'ContactsNormal')}}15{{/if}}{{#if (eq system.class.currentContacts 'ContactsHard')}}20{{/if}}"
+                        readonly="">
+                </li>
+                <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <img class="icon-filter" src="{{getGameImage 'prank-glasses.svg'}}"
+                        title="{{localize 'DCC.system.skills.disguiseSelf.value'}}"
+                        alt="{{localize 'DCC.system.skills.disguiseSelf.value'}}" width="22" height="22">
+                    <div class="attack-buttons" data-skill="disguiseSelf">
+                        <div class="rollable weapon-button icon-filter" data-action="rollSkillCheck" data-drag="false"
+                            title="Roll" draggable="false"></div>
+                    </div>
+                    <input class="weapon-name" type="text" value="{{localize 'DCC.system.skills.disguiseSelf.value'}}"
+                        readonly="">
+                    <input class="disabled" type="text" value="{{ensurePlus (sum system.skills.disguiseSelf.value system.abilities.per.mod)}}"
+                        readonly="">
+                    <select name="system.class.currentDisguise" id="system.class.currentDisguise">
+                        <option value="DisguiseEasy" {{#if (eq system.class.currentDisguise 'DisguiseEasy')}}selected{{/if}}>
+                            {{localize "XCC.Specialist.Criminal.DisguiseEasy"}}</option>
+                        <option value="DisguiseNormal" {{#if (eq system.class.currentDisguise 'DisguiseNormal')}}selected{{/if}}>
+                            {{localize "XCC.Specialist.Criminal.DisguiseNormal"}}</option>
+                        <option value="DisguiseHard" {{#if (eq system.class.currentDisguise 'DisguiseHard')}}selected{{/if}}>
+                            {{localize "XCC.Specialist.Criminal.DisguiseHard"}}</option>
+                        <option value="DisguiseVeryHard" {{#if (eq system.class.currentDisguise 'DisguiseVeryHard')}}selected{{/if}}>
+                            {{localize "XCC.Specialist.Criminal.DisguiseVeryHard"}}</option>
+                    </select>
+                    <input class="disabled" type="text"
+                        value="{{#if (eq system.class.currentDisguise 'DisguiseEasy')}}5{{/if}}{{#if (eq system.class.currentDisguise 'DisguiseNormal')}}10{{/if}}{{#if (eq system.class.currentDisguise 'DisguiseHard')}}15{{/if}}{{#if (eq system.class.currentDisguise 'DisguiseVeryHard')}}20{{/if}}" readonly="">
+                </li>
+            </ol>
         </div>
         <div class="grid-col-span-12 dark-border sp-skills">
             <div class="row-separator"></div>
@@ -106,16 +193,6 @@
                     <input type="text" id="system.skills.disguiseSelf.value" name="system.skills.disguiseSelf.value"
                         value="{{system.skills.disguiseSelf.value}}" data-dtype="String" />
                 </div>
-                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="criminalConnections">
-                    <label class="skill-check rollable" for="system.skills.criminalConnections.value"
-                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
-                        data-drag-action="skill">
-                        {{localize "DCC.system.skills.criminalConnections.value"}}
-                    </label>
-                    <input type="text" id="system.skills.criminalConnections.value"
-                        name="system.skills.criminalConnections.value"
-                        value="{{system.skills.criminalConnections.value}}" data-dtype="String" />
-                </div>
                 <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="handlePoison">
                     <label class="skill-check rollable" for="system.skills.handlePoison.value"
                         title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
@@ -133,6 +210,25 @@
                     </label>
                     <input type="text" id="system.skills.pickLock.value" name="system.skills.pickLock.value"
                         value="{{system.skills.pickLock.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="criminalConnections">
+                    <label class="skill-check rollable" for="system.skills.criminalConnections.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.system.skills.criminalConnections.value"}}
+                    </label>
+                    <input type="text" id="system.skills.criminalConnections.value"
+                        name="system.skills.criminalConnections.value"
+                        value="{{system.skills.criminalConnections.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-auto grid-col-gap-5" data-skill="briberyExpert">
+                    <label class="skill-check rollable" for="system.skills.briberyExpert.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.system.skills.briberyExpert.value"}}
+                    </label>
+                    <input type="text" id="system.skills.briberyExpert.value" name="system.skills.briberyExpert.value"
+                        value="{{system.skills.briberyExpert.value}}" data-dtype="String" />
                 </div>
             </div>
         </div>

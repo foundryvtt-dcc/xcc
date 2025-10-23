@@ -52,6 +52,12 @@ class XCCActorSheetSpCriminal extends XCCActorSheet {
       this.actor.system.skills.criminalConnections.ability = 'per'
       this.actor.system.skills.criminalConnections.label = 'DCC.system.skills.criminalConnections.value'
     }
+    // Criminal: Bribery expert skill
+    if (this.actor.system.skills.briberyExpert) {
+      this.actor.system.skills.briberyExpert.value = this.actor.system.details.level.value
+      this.actor.system.skills.briberyExpert.ability = 'int'
+      this.actor.system.skills.briberyExpert.label = 'DCC.system.skills.briberyExpert.value'
+    }
   }
 
   /** @override */
@@ -60,6 +66,16 @@ class XCCActorSheetSpCriminal extends XCCActorSheet {
     if (this.actor.system.details.sheetClass !== 'sp-criminal') {
       await this.actor.update({
         'system.class.classLink': await foundry.applications.ux.TextEditor.enrichHTML(game.i18n.localize('XCC.Specialist.Criminal.ClassLink'))
+      })
+    }
+    // We do it separately to make sure it's compatible with existing actors
+    if (!this.actor.system.skills.briberyExpert) {
+      await this.actor.update({
+        'system.skills.briberyExpert': {
+          value: this.actor.system.details.level.value,
+          ability: 'int',
+          label: 'DCC.system.skills.briberyExpert.value'
+        }
       })
     }
 

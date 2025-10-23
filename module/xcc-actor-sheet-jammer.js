@@ -347,16 +347,6 @@ class XCCActorSheetJammer extends XCCActorSheet {
 
     return roll
   }
-
-  /* _onRender (context, options) {
-    if (this.actor.system.config.computeAC && this.actor.system.abilities.lck.mod > 0) {
-      console.log('Updating AC with LCK modifier')
-      const element = this.parts.character.firstElementChild.querySelector('input[id="system.attributes.ac.value"]')
-      if (this.actor.system.class.chosenWeaponEquipped && ) element.value = parseInt(this.actor.system.attributes.ac.value) + parseInt(this.actor.system.abilities.lck.mod) + parseInt(this.actor.system.details.level.value)
-      else element.value = parseInt(this.actor.system.attributes.ac.value) + parseInt(this.actor.system.abilities.lck.mod)
-    }
-    super._onRender(context, options)
-  } */
 }
 
 export default XCCActorSheetJammer

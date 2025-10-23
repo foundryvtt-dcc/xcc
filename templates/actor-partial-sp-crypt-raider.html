@@ -66,7 +66,7 @@
                     <input class="weapon-name" type="text" value="{{localize 'XCC.Specialist.CryptRaider.TurnUnholy'}}"
                         readonly="">
                     <input class="disabled" type="text" value="{{system.class.turnUndeadDie}}" readonly="">
-                    <input class="disabled" type="text" value="{{system.abilities.per.mod}}" readonly="">
+                    <input class="disabled" type="text" value="{{ensurePlus system.abilities.per.mod}}" readonly="">
                     <input class="weapon-notes disabled" type="text"
                         value="{{localize 'XCC.Messenger.TurnUnholyNotes'}}" readonly="">
                 </li>
@@ -81,7 +81,7 @@
                     <input class="weapon-name" type="text"
                         value="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledge'}}" readonly="">
                     <input class="disabled" type="text" value="d24" readonly="">
-                    <input class="disabled" type="text" value="{{system.abilities.int.mod}}" readonly="">
+                    <input class="disabled" type="text" value="{{ensurePlus system.abilities.int.mod}}" readonly="">
                     <input class="weapon-notes disabled" type="text"
                         value="{{localize 'XCC.Specialist.CryptRaider.DarkKnowledgeNotes'}}" readonly="">
                 </li>
@@ -95,7 +95,7 @@
                     </div>
                     <input class="weapon-name" type="text" value="{{localize 'XCC.DetectSecretDoors'}}" readonly="">
                     <input class="disabled" type="text" value="d20" readonly="">
-                    <input class="disabled" type="text" value="{{system.details.level.value}}" readonly="">
+                    <input class="disabled" type="text" value="{{ensurePlus (sum system.details.level.value system.abilities.int.mod)}}" readonly="">
                     <input class="weapon-notes disabled" type="text"
                         value="{{localize 'XCC.Specialist.CryptRaider.DetectSecretDoorsNotes'}}" readonly="">
                 </li>

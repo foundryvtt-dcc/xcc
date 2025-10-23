@@ -430,8 +430,12 @@
   grid-template-columns: 30px min-content minmax(110px, 35%) 40px minmax(210px, 100%);
 }
 
+.dcc .weapon-list.sp-criminal {
+  grid-template-columns: 30px min-content minmax(120px, 35%) 40px minmax(150px, 100%) 40px;
+}
+
 .dcc .weapon-list.sp-crypt-raider-critical {
-  grid-template-columns: 30px min-content minmax(110px, 25%) 80px minmax(210px, 100%);
+  grid-template-columns: 30px min-content minmax(100px, 25%) 90px minmax(210px, 100%);
 }
 
 /* Frames for reminder blocks */
@@ -498,7 +502,7 @@ a[data-tab='rewards'] {
       .fa-sort-up,
       .fa-sort-down {
         cursor: pointer;
-        color: var(--system-primary-color);
+        color: var(--chat-primary-color);
         margin-left:3px;
         font-size:17px;
       }

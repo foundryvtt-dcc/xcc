@@ -56,7 +56,8 @@ class XCCActorSheetSpCryptRaider extends XCCActorSheet {
     // Crypt Raider: Dark knowledge and Detect secret doors skills
     if (this.actor.system.details.sheetClass === 'sp-crypt-raider') {
       this.actor.system.skills.darkKnowledge = {
-        value: this.actor.system.abilities.int.mod,
+        value: 0,
+        ability: 'int',
         label: 'XCC.Specialist.CryptRaider.DarkKnowledge',
         die: 'd24'
       }

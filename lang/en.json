@@ -39,10 +39,12 @@
     "system.skills.tightropeWalk.value": "Tightrope walk",
     "system.skills.dangerSense.value": "Danger sense",
     "system.skills.criminalConnections.value": "Criminal connections",
+    "system.skills.briberyExpert.value": "Bribery expert",
     "system.skills.pickPocket.value": "Pick Pocket",
     "system.details.wildCritRange": "Wild Crit Range"
   },
   "XCC": {
+    "DC": "DC",
     "DisplayValueHint": "Final check roll formula calculated from values above",
     "TableDrawEffect": "<b>Result</b>:<br/>",
     "MisfireRoll": "Misfire Roll",
@@ -57,8 +59,8 @@
     "ConfigureSpellCheck": "Configure Spell Check",
     "CalculatedSpellCheck": "Calculated Spell Check",
     "MojoDefault": [
-      "You earn a mojo point for rolling a natural 20 on your action die during combat.",
-      "You earn a mojo point for successfully completing an encounter."
+      "You earn a Mojo point for <b>rolling a natural 20</b> on your action die during combat.",
+      "You earn a Mojo point for <b>successfully completing an encounter.</b>"
     ],
     "Grandstanding": "Grandstanding",
     "GrandstandingHint": "Click to roll a Grandstanding check, CMD/CTRL click for more options",
@@ -141,18 +143,18 @@
         "You are trained with spear, club, dagger, quarterstaff, javelin, and sports equipment."
       ],
       "Benefits": [
-        "You can add your Training Die to athletics skill checks (SHIFT-click ability label),",
-        "Fast Movement increases your climbing and swimming movement rates by 50%,",
+        "You add your Training Die to athletics checks (simply <b>SHIFT-click</b> the ability label).",
+        "Fast Movement increases your climbing and swimming movement rates by 50%.",
         "Large creatures get only half of their size bonus against your grapples."
       ],
       "Restrictions": [
-        "Armor check penalty of -4 negates Scramble, Fast Movement, and Grapple Criticals,",
-        "You cannot grapple while holding a shield.",
-        "You must choose the Wrestling Technique BEFORE making the grapple check,",
-        "Athletic Durability only negates subdual damage."
+        "Armor check <b>penalty of -4 negates Scramble</b>, <b>Fast Movement</b>, and <b>Grapple Crits</b>.",
+        "You <b>cannot grapple while holding a shield</b>.",
+        "Wrestling Technique must be chosen <b>before</b> making the grapple check.",
+        "Athletic Durability only negates <b>subdual</b> damage."
       ],
       "Mojo": [
-        "You earn a Mojo point for any creature defeated with nothing but grapple damage."
+        "You earn a Mojo point for <b>any creature defeated with nothing but grapple damage.</b>"
       ]
     },
     "Blaster": {
@@ -165,15 +167,15 @@
         "You are trained with longsword, short sword, spear, club, dagger, and crossbow."
       ],
       "Benefits": [
-        "You automatically pick Spellweaver Blast as your first known spell."
+        "You automatically pick @UUID[Compendium.xcc-core-book.xcc-core-spells-blaster.Item.UPrrazur49RGTNIW]{Spellweaver Blast} as your first known spell."
       ],
       "Restrictions": [
-        "You cannot scribe scrolls (but you can still use them).",
-        "You can never summon permanent familiars nor create permanent magic items (even when using scrolls).",
-        "Your second action die can only be used for spell checks."
+        "You <b>cannot scribe scrolls</b> (but you can still use them).",
+        "You can <b>never summon permanent familiars nor create permanent magic items</b><br/>(even when using scrolls).",
+        "Your second action die can be used <b>only</b> for spell checks."
       ],
       "Mojo": [
-        "You earn a Mojo point for participating in defeating a magic user."
+        "You earn a Mojo point for <b>participating in defeating a magic user</b>."
       ]
     },
     "Brawler": {
@@ -195,16 +197,16 @@
         "You are trained in unarmed fighting, all melee weapons, bows (any) and crossbows."
       ],
       "Benefits": [
-        "When armed, and attacking in melee, you get a free unarmed attack [d14],",
-        "When unarmed, you make two unarmed attacks [d16] instead of one,",
-        "When unarmed, you crit on roll results of 16 and fumble on double 1s."
+        "When <b>armed</b>, and attacking in melee, you get a <b>free unarmed attack</b> (d14).",
+        "When <b>unarmed</b>, you make <b>two unarmed attacks</b> (d16) instead of one.",
+        "When <b>unarmed</b>, you <b>crit on roll results of 16</b> and <b>fumble on double 1s</b>."
       ],
       "Restrictions": [
-        "Toughness reduces only melee damage,",
-        "The free attack can be used only once per round, even with multiple action dice."
+        "Toughness reduces <b>only melee damage</b>.",
+        "The free attack can be used <b>only once per round</b>, even with multiple action dice."
       ],
       "Mojo": [
-        "You earn a Mojo point for every creature defeated using only unarmed attacks, as long as their HD is equal to, or greater, than your level."
+        "You earn a Mojo point for <b>every creature defeated using only unarmed attacks</b><br/>(as long as their HD is equal to, or greater, than your level)."
       ]
     },
     "Jammer": {
@@ -229,15 +231,15 @@
         "You are trained with the longsword, short sword, rapier, hand axe, dagger, spear, and crossbow."
       ],
       "Benefits": [
-        "You are trained in one performance specialty and can pick up one more for every level you earn."
+        "You are trained in <b>one</b> performance specialty and can pick up <b>one more</b> per level."
       ],
       "Restrictions": [
-        "Being unable to move or having an armor check penalty of -4 negates your chosen weapon AC bonus,",
-        "Disrespect is ineffective against inanimate objects, slimes, and constructed creatures, such as golems."
+        "Being unable to move or having an armor check penalty of -4 <b>negates your chosen weapon AC bonus</b>.",
+        "Disrespect is <b>ineffective</b> against inanimate objects, slimes, and constructed creatures, such as golems."
       ],
       "Mojo": [
-        "Unlike other classes, you can spend mojo AFTER your ally makes the die roll.",
-        "You earn a Mojo point whenever a disrespected enemy fails an attack/spell check."
+        "Unlike other classes, you can spend Mojo <b>after</b> your ally makes the die roll.",
+        "You earn a Mojo point whenever <b>a disrespected enemy's attack or spell fails</b>."
       ]
     },
     "Messenger": {
@@ -283,14 +285,14 @@
         "You are trained with deity's favored weapon, dagger, club, staff, and sling."
       ],
       "Benefits": [
-        "Your blood can act as a holy symbol for the encounter (cut yourself for 1 damage)."
+        "Your <b>blood can act as a holy symbol</b> for the encounter (cut yourself for <b>1</b> damage)."
       ],
       "Restrictions": [
-        "Scourge damage applies only to unholy creatures attacked with a favored weapon."
+        "Scourge damage applies <b>only to unholy creatures</b> attacked with a <b>favored weapon</b>."
       ],
       "Mojo": [
-        "You earn a Mojo point for healing a downed (0hp) ally.",
-        "You earn a Mojo point for each successful Turn Unholy."
+        "You earn a Mojo point for <b>healing a downed (0hp) ally</b>.",
+        "You earn a Mojo point for <b>each successful Turn Unholy</b>."
       ]
     },
     "HalfElf": {
@@ -301,18 +303,18 @@
         "You are trained in long sword, short sword, longbow, shortbow, and dagger."
       ],
       "Benefits": [
-        "You roll +1d for saving throws against magical sleep and paralysis effects",
-        "You automatically pick Cantrip as your first known spell.",
-        "You roll and add your Charisma Die to all Grandstanding checks and to Personality checks like negotiation, deception, etc.",
-        "You can spend your move action to make an Acrobatics check. You can still move half your movement rate (full at lvl 5+) as a part of this check.",
-        "Acrobatics check lets you DODGE incoming attacks, WITHDRAW from combat without provoking attacks, and MITIGATE fall damage (free check)."
+        "You roll <b>+1d</b> for saving throws <b>against magical sleep and paralysis</b> effects",
+        "You automatically pick @UUID[Compendium.xcc-core-book.xcc-core-spells-blaster.Item.2QXZpv7OWIgTR9te]{Cantrip} as your first known spell.",
+        "You <b>add your Charisma Die to Grandstanding checks and Personality checks</b>, including negotiation, deception, diffusing conflicts, etc.",
+        "Acrobatics check lets you <b>Dodge</b> incoming attacks, <b>Withdraw</b> from combat without provoking attacks, and <b>Mitigate</b> fall damage (free check).",
+        "Acrobatics check <b>costs a Move action</b>, but still lets you move half your normal rate<br>(this limit gets <b>negated at level 5</b>, letting you move at your normal speed)."
       ],
       "Restrictions": [
-        "-1 to hit when using cold-iron weapons, and -1 AC when wearing cold-iron armor.",
-        "When you choose a new spell make a Luck check. On success you get the spell, on failure you get a random spell of the same level."
+        "<b>-1 to hit</b> when using cold-iron weapons, and <b>-1 AC</b> when wearing cold-iron armor.",
+        "When you choose a new spell make a Luck check:<br><b>Success</b>: you get the spell. <b>Failure</b>: you get a random spell of the same level."
       ],
       "Mojo": [
-        "You earn a Mojo point for every point of Fame you earn."
+        "You earn a Mojo point for <b>every point of Fame you earn</b>."
       ]
     },
     "Dwarf": {
@@ -334,18 +336,18 @@
         "You are trained with battleaxe, hand axe, longsword, mace, short sword, spear, two-handed sword, warhammer, crossbow, javelin, shortbow, and sling."
       ],
       "Benefits": [
-        "You can see in the dark up to 60'.",
-        "Armor does not reduce your base movement speed.",
-        "You can smell gold/gems within 100’ (single coin/gem within 40' when focused).",
-        "You add your initial Luck modifier to all attack rolls made with your lucky weapon.",
-        "When underground, you add your character level to checks to detect traps, slanting passages, shifting walls, and new construction."
+        "You can <b>see in the dark up to 60'</b>.",
+        "Armor does <b>not</b> reduce your base movement speed.",
+        "You can smell <b>gold and gems within 100’</b> and a <b>single coin or gem within 40'</b></br>(single coins and gems only when focused).",
+        "You add your initial Luck modifier to all attack rolls made with your lucky weapon</br>(<b>edit the weapon in equipment tab and enter Weapon Bonus manually</b>).",
+        "When <b>underground</b>, add your character level to checks to detect traps, slanting passages, shifting walls, and new construction."
       ],
       "Restrictions": [
-        "You receive only one Shield Bash and one Mighty Deed attempt each round.",
-        "You have a base movement speed of 20’."
+        "You receive only <b>one Shield Bash</b> and <b>one Mighty Deed attempt</b> each round.",
+        "You have a <b>base movement speed of 20’</b>."
       ],
       "Mojo": [
-        "You earn a Mojo point for the defeat of every ogre, giant, or troll you participate in."
+        "You earn a Mojo point for the <b>defeat of every ogre, giant, or troll</b> you participate in."
       ]
     },
     "Gnome": {
@@ -361,16 +363,16 @@
         "You are trained in short sword, dagger, crossbow, shortbow and quarterstaff."
       ],
       "Benefits": [
-        "You are small. You are 3½ to 4½ feet (100-140cm) tall, and weigh between 40 and 90 pounds (20-40kg)."
+        "You are <b>small</b> (3.5-4.5 ft | 100-140 cm), and <b>light</b> (40-90 lb | 20-40 kg)."
       ],
       "Restrictions": [
-        "You have a base movement speed of 25’.",
-        "Draw Agro works only on sentient targets that can see and hear you."
+        "You have a <b>base movement speed of 25’</b>.",
+        "Draw Agro works only on <b>sentient targets that can see and hear you</b>."
       ],
       "Mojo": [
-        "Result of natural 20 on an attack roll or a spell checks earns you a number of Mojo Points determined by the roll of your Team Mascot Die.",
-        "You earn a Mojo point after the whole team loses Mojo due to a roll of natural 1.",
-        "You earn a Mojo point each time your Draw Agro causes an enemy to target you."
+        "Result of <b>natural 20 on an attack roll or a spell check</b> earns you a number of Mojo Points determined by the <b>roll of your Team Mascot Die</b>.",
+        "You earn a Mojo point <b>after the whole team loses Mojo due to a roll of natural 1</b>.",
+        "You earn a Mojo point each time your <b>Draw Agro causes an enemy to target you</b>."
       ]
     },
     "HalfOrc": {
@@ -383,23 +385,23 @@
         "You are trained in the use of axes (all), bows (all), crossbows, daggers, javelins, lances, polearms, spears, swords (all), and warhammers."
       ],
       "Benefits": [
-        "You can see in the dark up to 60'.",
-        "You make saving throws against disease and poison effects at +1d.",
-        "You heal 2 hit points and 2 physical ability points per night of rest (3 per full day).",
-        "+1d on Personality skill checks to frighten, bully, or intimidate.",
-        "Deed Die result treated as 1 higher for calculating effects of intimidation Deeds.",
-        "You make a Wild Attack if you provoked a free attack after your regular strike."
+        "You can <b>see in the dark up to 60'</b>.",
+        "You make saving throws <b>against disease and poison</b> effects at <b>+1d</b>.",
+        "You heal <b>2 HP and 2 physical ability points per night of rest</b> (3 per full day).",
+        "<b>+1d</b> on Personality skill checks to <b>frighten, bully, or intimidate</b>.",
+        "Deed Die result treated as <b>1</b> higher for calculating effects of intimidation Deeds.",
+        "You make a Wild Attack <b>if you provoked a free attack</b> after your regular strike."
       ],
       "Restrictions": [
-        "You can Wild Attack only once per round and only with a melee weapon in melee.",
-        "Opponents unable to attack in melee may never be targeted by a wild attack.",
-        "Opponents targeted by a wild attack must use the same attack as their last.",
-        "Intelligent opponents may forgo their free attack to avoid the wild attack.",
-        "You get -1d on Personality checks vs. mistrusting citizens. Negated at 3rd level.",
-        "You begin the game as a non-citizen of the NAE."
+        "You can Wild Attack <b>only once per round</b> and <b>only with a melee weapon</b> in melee.",
+        "Opponents unable to attack in melee <b>may never be targeted</b> by a wild attack.",
+        "Opponents targeted by a wild attack must use <b>the same attack as their last</b>.",
+        "Intelligent opponents <b>may forgo their free attack</b> to avoid the wild attack.",
+        "You get <b>-1d on Personality checks</b> vs. mistrusting citizens. Negated at 3rd level.",
+        "You begin the game as a <b>non-citizen of the NAE</b>."
       ],
       "Mojo": [
-        "You earn a Mojo point for every solo kill (all damage must come from you)."
+        "You earn a Mojo point for <b>every solo kill</b> (all damage must come from you)."
       ]
     },
     "Specialist": {
@@ -424,17 +426,17 @@
           "You are trained in  crossbow, dagger, dart, short sword, sling, and staff."
         ],
         "Benefits": [
-          "You can spend your move action to make an Acrobatics check. You can still move half your movement rate (full at lvl 5+) as a part of this check.",
-          "Acrobatics check lets you DODGE incoming attacks, WITHDRAW from combat without provoking attacks, and MITIGATE fall damage (free check).",
-          "Pole Vault check lets you jump over barriers as tall as your pole (up to 25’).",
-          "You can make a Tightrope walk check to move across narrow beams (DC 10), thick ropes (DC 15), and thin ropes (DC 20).",
+          "Acrobatics check lets you <b>Dodge</b> incoming attacks, <b>Withdraw</b> from combat without provoking attacks, and <b>Mitigate</b> fall damage (free check).",
+          "Acrobatics check <b>costs a Move action</b>, but still lets you move half your normal rate<br>(this limit gets <b>negated at level 5</b>, letting you move at your normal speed).",
+          "Pole Vault check lets you jump over barriers as tall as your pole (<b>up to 25’</b>).",
+          "You can make a Tightrope walk check to move across <b>narrow&nbsp;beams</b> (DC 10), <b>thick&nbsp;ropes</b> (DC 15), and <b>thin&nbsp;ropes</b> (DC 20).",
           "You add your Leap bonus to jump checks (including running jump, and high jump)."
         ],
         "Restrictions": [
-          "Tightrope walk DC mods: moderate wind (DC+5), strong wind (DC+10), 2/3 speed (DC+5), full speed (DC+10), double speed (DC+20), 20' balance pole (DC-5), 40' balance pole (DC-8), being hit (DC becomes 10+dmg)."
+          "<b>Tightrope walk DC mods</b>:<br><b>moderate&nbsp;wind&nbsp;</b>(DC+5), <b>strong&nbsp;wind&nbsp;</b>(DC+10), <b>full&nbsp;speed&nbsp;</b>(DC+10), <b>double&nbsp;speed&nbsp;</b>(DC+20), <b>20'&nbsp;balance&nbsp;pole&nbsp;</b>(DC‑5), <b>40'&nbsp;balance&nbsp;pole&nbsp;</b>(DC‑8), <b>being&nbsp;hit</b>&nbsp;(DC&nbsp;becomes&nbsp;10+dmg). <b>Repeat check on sudden changes</b>."
         ],
         "Mojo": [
-          "You earn a Mojo point for slaying an opponent you strike after a successful acrobatics check on the same round."
+          "You earn a Mojo point for <b>slaying an opponent you strike after a successful acrobatics check</b> on the same round."
         ]
       },
       "Commando": {
@@ -446,13 +448,27 @@
         ],
         "Benefits": [
           "You can backstab with a sling or hurled dagger at targets up to medium range, or an alchemist charge at short range.",
-          "If you spend Luck on damage, your Luck die increases by +1d on the chain."
+          "If you <b>spend Luck on damage</b>, your Luck die increases by <b>+1d</b> on the chain."
         ],
         "Mojo": [
-          "You earn a Mojo point for every opponent you put down with a backstab."
+          "You earn a Mojo point for <b>every opponent you put down with a backstab</b>."
         ]
       },
       "Criminal": {
+        "Abilities": "Expanded Skills",
+        "SeekHelp": "Criminal Connections",
+        "TurfEasy": "Home turf",
+        "TurfNormal": "Major city",
+        "TurfHard": "Small city",
+        "TurfVeryHard": "Small town",
+        "ContactsEasy": "Home turf",
+        "ContactsNormal": "Connections in area",
+        "ContactsHard": "Unfamiliar locale",
+        "CurrentTurf": "Difficulty modifier",
+        "DisguiseEasy": "Pass yourself off as someone else",
+        "DisguiseNormal": "Apply major face changes",
+        "DisguiseHard": "Fool target's acquaintances",
+        "DisguiseVeryHard": "Fool target's close friends",
         "BriberyExpert": "Bribery Expert",
         "DropdownLabel": "XCC Specialist - Criminal",
         "ClassLink": "@UUID[Compendium.xcc-core-book.xcc-core-text.JournalEntry.ogJvjOd3TuxzkoiH.JournalEntryPage.OMNVlgPya2Hcb8Gj]{Criminal}",
@@ -461,16 +477,15 @@
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows, pistols and revolvers."
         ],
         "Benefits": [
-          "You can make Criminal Connections check to seek help from your associates in the area (home turf DC 5, major city DC 10, small city DC 15, small town DC 20).",
-          "You can make a Disguise Self check to: DC 5 - resemble someone of the same species and dimensions. DC 10 - change significant facial features. DC 15 - Change mannerisms, height, etc. DC 20 - Fool someone close to the target.",
-          "Bribery Expert check lets you know if target would be receptive to a bribe, and how much it would take to bribe them for a given task. Home turf DC 10, Location with criminal connections DC 15, completely strange locale DC 20."
-        ],
+          "Criminal Connections check lets you <b>seek help from your associates</b> in the area.",
+          "Bribery Expert check lets you <b>know if the target would be receptive to a bribe</b>, and how much it would take to bribe them for a given task."
+          ],
         "Restrictions": [
-          "Criminal Connections can’t normally be used in the wilderness, at sea, etc.",
-          "Forging official documents requires 100 gp worth of equipment and costs 100-600 gp in bribes per year to keep stamps, seals, and licensing information current."
-        ],
+          "Forging official documents requires <b>equipment worth 100 gp</b> and a <b>DC 15+</b> check<br>(updating official stamps and seals requires <b>100-600 gp in bribes</b> each year).",
+          "Criminal Connections can’t normally be used in the wilderness, at sea, etc."
+          ],
         "Mojo": [
-          "You earn a Mojo point for Xcrawl rule breaking. The transgression must be helpful, and not get you into trouble. Particularly sweet score should increase the Mojo bonus up to 1d6 points."
+          "You earn a Mojo point for <b>Xcrawl rule breaking</b>. The transgression <b>must be helpful</b>, and <b>not get you into trouble</b>. Particularly sweet score should increase the Mojo bonus up to [[/r 1d6]] points."
         ]
       },
       "Scout": {
@@ -481,16 +496,16 @@
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
         ],
         "Benefits": [
-          "You can make a Danger Sense check to detect concealed enemies and their approximate location in 60' range. DC 10 for simple concealment, DC 15 for camouflaged or careful concealment, and a DC 20 against invisible creatures.",
-          "Shortbow backstab damage increases to 1d8 and Sling backstab damage to 1d6."
+          "Danger sense <b>detects hidden enemies and their approximate location</b> in 60' range<br>(<b>DC 10</b>: simple concealment, <b>DC 15</b>: camouflaged, <b>DC 20</b>: invisible).",
+          "<b>Backstab additional damage</b>: Shortbow [[/r 1d8]], Sling [[/r 1d6]]."
         ],
         "Restrictions": [
-          "Danger Sense works against creatures, not traps (even if they hold creatures).",
-          "Danger Sense doesn't tell you precisely what the threat is.",
-          "You may only backstab with a shortbow or sling at short range."
+          "Danger sense works against creatures, <b>not traps</b> (even if they hold creatures).",
+          "Danger sense <b>doesn't tell you precisely what the threat is</b>.",
+          "You can <b>only backstab with a shortbow or sling at short range</b>."
         ],
         "Mojo": [
-          "You earn a Mojo point for successfully spotting an ambush, or for finding and disarming a trap."
+          "You earn a Mojo point for <b>successfully spotting an ambush</b>, or for <b>finding and disarming a trap</b>."
         ]
       },
       "CryptRaider": {
@@ -511,16 +526,16 @@
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
         ],
         "Benefits": [
-          "You learn spoken and written Latin.",
-          "You increase your Luck Die by +2d when you spend luck to turn, attack, damage or save against un-dead or demons.",
-          "You can backstab with holy water hurled as a ranged attack within 10’."
+          "You learn spoken and written <b>Latin</b>.",
+          "You increase your Luck Die by <b>+2d when you spend luck to turn, attack, damage or save against un-dead or demons</b>.",
+          "You can <b>backstab with holy water</b> hurled as a ranged attack within 10’."
         ],
         "Restrictions": [
-          "You roll -1d on all Grandstanding checks."
+          "You roll <b>-1d on all Grandstanding checks</b>."
         ],
         "Mojo": [
-          "You earn a Mojo point for each successful Turn Unholy.",
-          "You earn a Mojo point for every un-dead creature or demon you directly participate in destroying."
+          "You earn a Mojo point for <b>each successful Turn Unholy</b>.",
+          "You earn a Mojo point for <b>every un-dead creature or demon you directly participate in destroying</b>."
         ]
       },
       "DwarfMechanic": {
@@ -531,19 +546,19 @@
           "You are trained in hand axes, short swords, daggers, slings, shortbows, hand crossbows."
         ],
         "Benefits": [
-          "You can see in the dark up to 60'.",
-          "You always know your approximate depth underground.",
-          "You speak a secret Dwarf Mechanic cant - The Shale.",
-          "You get +1d to Find and Disable Trap checks that involve pits, moving stonework, sliding walls, and structural deadfalls.",
-          "When underground, you add your character level to checks to detect sloping passageways, secret doors involving shifting walls, and new construction."
+          "You can <b>see in the dark up to 60'</b>.",
+          "You always know your <b>approximate</b> depth underground.",
+          "You speak a secret Dwarf Mechanic cant - <b>The Shale</b>.",
+          "You get <b>+1d</b> to Find and Disable Trap checks <b>that involve pits, moving stonework, sliding walls, and structural deadfalls</b>.",
+          "When <b>underground</b>, you add your character level to checks to detect sloping passageways, secret doors involving shifting walls, and new construction."
         ],
         "Restrictions": [
-          "You get -2d to social checks vs. dwarves. Becomes -1d at 3rd level, negated at 4th.",
-          "You never receive sponsorship from dwarven companies or nobility."
+          "You get <b>-2d to social checks vs. dwarves</b>. Becomes <b>-1d at 3rd level</b>, <b>negated at 4th</b>.",
+          "You <b>never</b> receive sponsorship from dwarven companies or nobility."
         ],
         "Mojo": [
-          "You earn two Mojo points when you disarm a trap on the first attempt and then grill its maker on the camera. Extra Mojo for particularly witty or cutting comments.",
-          "You earn a Mojo point for every giant, troll, or ogre you help your team destroy."
+          "You earn two Mojo points for <b>disarming a trap on the first attempt and grilling its maker on the camera</b>. Extra Mojo for particularly witty or cutting comments.",
+          "You earn a Mojo point for <b>every giant, troll, or ogre you help your team destroy</b>."
         ]
       },
       "ElfTrickster": {
@@ -557,18 +572,16 @@
           "You are trained in short swords, daggers, staff, and shortbows."
         ],
         "Benefits": [
-          "You can see in the dark up to 60'.",
-          "You are immune to magical sleep and paralysis.",
-          "You automatically pick Cantrip as your first known spell.",
-          "Your Cantrip effect lasts for up to 10 rounds, and you can always choose a lesser effect if it better suits your purposes.",
-          "On a Cantrip spell check of 18 or better the kinetic effect, allows you to pick locks, disarm traps, pick pockets, or affect other complicated operations at range."
+          "You can <b>see in the dark up to 60'</b>.",
+          "You are <b>immune to magical sleep and paralysis.</b>",
+          "You automatically pick @UUID[Compendium.xcc-core-book.xcc-core-spells-blaster.Item.op89L0HNKe6SOHfC]{Cantrip (variant)} as your first known spell."
         ],
         "Restrictions": [
-          "Direct contact of iron with your skin does 1 point of damage per day of exposure.",
-          "You cannot spellburn nor accept corruption for a bonus to your spell check."
+          "You <b>cannot spellburn</b> nor accept corruption for a bonus to your spell check.",
+          "Direct contact of <b>iron</b> with your skin does <b>1 point of damage per day</b> of exposure."
         ],
         "Mojo": [
-          "You earn 1–3 Mojo points for battlefield tricks that dupe, delay, divide, or neutralize opponents. The more elaborate and helpful the trick, the more Mojo you earn."
+          "You earn 1–3 Mojo points for <b>battlefield tricks</b> that dupe, delay, divide, or neutralize opponents. The more elaborate and helpful the trick, the more Mojo you earn."
         ]
       },
       "HalfOrcSlayer": {
@@ -579,18 +592,19 @@
           "You are trained in the use of the battleaxe, club, crossbow, dagger, dart, flail, hand axe, javelin, longsword, shortbow, sling, spear, and two-handed sword."
         ],
         "Benefits": [
-          "You can see in the dark up to 30'.",
-          "You make saving throws against disease and poison effects at +1d.",
-          "You heal two hit points and two physical ability points per night of rest (three with a full day of care and bed rest).",
-          "If you spend Luck on damage, your Luck die increases by +1d on the chain.",
-          "You can always backstab prone targets."
+          "You can <b>see in the dark up to 30'</b>.",
+          "You make saving throws <b>against disease and poison</b> effects at <b>+1d</b>.",
+          "You heal <b>2 HP and 2 physical ability points per night of rest</b> (3 per full day).",
+          "<b>+1d</b> on Personality skill checks to <b>frighten, bully, or intimidate</b>.",
+          "If you <b>spend Luck on damage</b>, your Luck die increases by <b>+1d</b> on the chain.",
+          "You <b>can always backstab prone targets</b>."
         ],
         "Restrictions": [
-          "You take a -1d penalty on Personality checks other than intimidation and Grandstanding.",
-          "You begin the game as a non-citizen of the NAE."
+          "You get <b>-1d on Personality checks</b> vs. mistrusting citizens. Negated at 3rd level.",
+          "You begin the game as a <b>non-citizen of the NAE</b>."
         ],
         "Mojo": [
-          "You earn a Mojo point for every creature you single-handedly kill."
+          "You earn a Mojo point for <b>every creature you single-handedly kill</b>."
         ]
       },
       "HalflingRogue": {
@@ -601,16 +615,16 @@
           "You are trained in short swords, daggers, slings, shortbows, hand crossbows."
         ],
         "Benefits": [
-          "You can see in the dark up to 30'.",
-          "You can backstab with slings, daggers, and hurled stones from up to short range.",
-          "Your backstab damage is increased: dagger (1d10), hurled stone (1d5), sling (1d8)."
+          "You can <b>see in the dark up to 30'</b>.",
+          "You can backstab with slings, daggers, and hurled stones <b>from up to short range.</b><br>(<b>Damage increase on backstab</b>: dagger [[/r 1d10]], stone [[/r 1d5]], sling [[/r 1d8]])."
         ],
         "Restrictions": [
-          "In public, you are treated as an outcast in halfling society. Privately, you are considered a heroic adventurer."
+          "You have a <b>base movement speed of 20’</b>.",
+          "In public, you are treated as an outcast in halfling society<br>(privately, you are considered a heroic adventurer)."
         ],
         "Mojo": [
-          "You earn a Mojo point for downing an opponent with a backstab",
-          "You earn a Mojo point for every successfully disarmed trap."
+          "You earn a Mojo point for <b>downing an opponent with a backstab</b>",
+          "You earn a Mojo point for <b>every successfully disarmed trap</b>."
         ]
       }
     },

@@ -32,6 +32,57 @@ const { loadTemplates } = foundry.applications.handlebars
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
 /* -------------------------------------------- */
+async function enrichClass (classKey, isGnome = false) {
+  CONFIG[classKey] = { enrichedArrays: {} }
+  CONFIG[classKey].enrichedArrays = {
+    Benefits: await enrichArrayHTML(classKey, 'Benefits', isGnome),
+    Restrictions: await enrichArrayHTML(classKey, 'Restrictions', isGnome),
+    Mojo: await enrichArrayHTML(classKey, 'Mojo', isGnome),
+    WeaponTraining: await enrichArrayHTML(classKey, 'WeaponTraining', isGnome)
+  }
+}
+
+async function enrichArrayHTML (classKey, name, isGnome) {
+  const key = classKey + '.' + name
+  const entries = game.i18n.localize(key)
+  console.log('Localizing key:', key, '->', entries)
+  // Split the key to navigate the nested structure
+  const parts = entries.split('.')
+  let current = game.i18n.translations
+  // Navigate through the nested object
+  for (const part of parts) {
+    if (current && typeof current === 'object' && part in current) {
+      current = current[part]
+    }
+  }
+  const list = Array.from(current)
+
+  // enrichHTML
+  for (let i = 0; i < list.length; i++) {
+    list[i] = await foundry.applications.ux.TextEditor.enrichHTML(list[i])
+  }
+
+  if (name === 'Mojo') {
+    const extraEntries = game.i18n.localize('XCC.MojoDefault')
+    const extraParts = extraEntries.split('.')
+    current = game.i18n.translations
+    // Navigate through the nested object
+    for (const part of extraParts) {
+      if (current && typeof current === 'object' && part in current) {
+        current = current[part]
+      }
+    }
+    const extraList = Array.from(current)
+    // Skip the first mojo entry for gnome
+    if (isGnome) {
+      extraList.shift()
+    }
+    for (let i = 0; i < extraList.length; i++) {
+      list.push(await foundry.applications.ux.TextEditor.enrichHTML(extraList[i]))
+    }
+  }
+  return list
+}
 
 Hooks.once('init', async function () {
   console.log('XCC | Initializing XCrawl Classics System')
@@ -155,6 +206,11 @@ Hooks.once('init', async function () {
 
   // Register partial templates
   loadTemplates([globals.templatesPath + 'actor-partial-common.html'])
+
+  // Register enrich helper
+  Handlebars.registerHelper('getEnrichedArray', function (actor, name) {
+    return CONFIG[actor.system.class.localizationPath]?.enrichedArrays[name] || []
+  })
 
   // Register debug helper
   Handlebars.registerHelper('debugItem', function (item) {
@@ -335,6 +391,26 @@ Hooks.once('dcc.ready', async function () {
   // Re-Initialize Fleeting Luck UI
   game.dcc.FleetingLuck.init()
   foundry.ui.controls.render()
+
+  // Enrich class arrays
+  await enrichClass('XCC.Athlete')
+  await enrichClass('XCC.Brawler')
+  await enrichClass('XCC.Blaster')
+  await enrichClass('XCC.Jammer')
+  await enrichClass('XCC.Messenger')
+  await enrichClass('XCC.HalfOrc')
+  await enrichClass('XCC.HalfElf')
+  await enrichClass('XCC.Dwarf')
+  await enrichClass('XCC.Gnome', true)
+  await enrichClass('XCC.Specialist.Acrobat')
+  await enrichClass('XCC.Specialist.Commando')
+  await enrichClass('XCC.Specialist.Criminal')
+  await enrichClass('XCC.Specialist.CryptRaider')
+  await enrichClass('XCC.Specialist.Scout')
+  await enrichClass('XCC.Specialist.DwarfMechanic')
+  await enrichClass('XCC.Specialist.ElfTrickster')
+  await enrichClass('XCC.Specialist.HalfOrcSlayer')
+  await enrichClass('XCC.Specialist.HalflingRogue')
 })
 
 // Override Actor Directory's Import Actor button to open our own import dialog
