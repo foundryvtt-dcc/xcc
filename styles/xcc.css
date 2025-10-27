@@ -1,37 +1,655 @@
-/* System Theme Variables */
-:root {
-  --system-header-link-color: #c8d7bd;
-  --system-logo-filter: brightness(89%) opacity(100%) sepia(100%) hue-rotate(51deg) saturate(43%);
-  --icon-wild: url("images/wildattack-black.svg");
-  --icon-d14: url("images/d14black.svg");
-  --icon-d16: url("images/d16black.svg");
-  --icon-scourge: url("images/skull-crack-black.svg");
-  --icon-misfire: url("images/misfire_black.svg");
+/* ----------------------------------------- */
+/*  Globals                                  */
+/* ----------------------------------------- */
+@font-face {
+  font-family: "Cooper Black";
+  src: url("fonts/Cooper.otf") format("opentype");
 }
 
-.dcc.sheet .sheet-tabs.tabs{
-  margin-bottom:0;
+@font-face {
+  font-family: "DuvallSmallCaps";
+  src: url("fonts/DuvallSmallCaps.otf") format("opentype");
 }
-.dcc .tab {
-  padding-top:7px;
+
+@font-face {
+  font-family: "DuvallSmallCaps";
+  src: url("fonts/DuvallSmallCapsBold.otf") format("opentype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Duvall";
+  src: url("fonts/Duvall.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Duvall";
+  src: url("fonts/DuvallBold.otf") format("opentype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "DuvallCondensed";
+  src: url("fonts/DuvallCondensed.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "DuvallCondensed";
+  src: url("fonts/DuvallCondensedBold.otf") format("opentype");
+  font-weight: bold;
+}
+
+/* System Theme Variables */
+:root {
+  .xcc{
+    --system-header-link-color: #c8d7bd;
+    --system-logo-filter: brightness(89%) opacity(100%) sepia(100%) hue-rotate(51deg) saturate(43%);
+    --icon-wild: url("images/wildattack-black.svg");
+    --icon-d14: url("images/d14black.svg");
+    --icon-d16: url("images/d16black.svg");
+    --icon-scourge: url("images/skull-crack-black.svg");
+    --icon-misfire: url("images/misfire_black.svg");
+  }
 }
 
 /*Override for dark theme */
 .theme-dark {
-  --system-header-link-color: #d0beaa;
-  --system-logo-filter: brightness(45%) opacity(100%) saturate(0%);
-  --icon-wild: url("images/wildattack-gray.svg");
-  --icon-d14: url("images/d14grey.svg");
-  --icon-d16: url("images/d16grey.svg");
-  --icon-scourge: url("images/skull-crack-grey.svg");
-  --icon-misfire: url("images/misfire_gray.svg");
+  .xcc{
+    --system-header-link-color: #d0beaa;
+    --system-logo-filter: brightness(45%) opacity(100%) saturate(0%);
+    --icon-wild: url("images/wildattack-gray.svg");
+    --icon-d14: url("images/d14grey.svg");
+    --icon-d16: url("images/d16grey.svg");
+    --icon-scourge: url("images/skull-crack-grey.svg");
+    --icon-misfire: url("images/misfire_gray.svg");
+  }
 }
 
-.dcc select option {
-  color: var(--input-text-color);
-  background-color: var(--input-background-color);
+/* Adjustable table result controls styling */
+.xcc-adjustable {
+  .table-results {
+    padding: 0;
+
+    .result-text p{
+      margin-top:0;
+    }
+
+    .result-range {
+      padding-top: 5px;
+      justify-items: center;
+      margin-right: 3px;
+
+      .fa-sort-up,
+      .fa-sort-down {
+        cursor: pointer;
+        color: var(--chat-primary-color);
+        margin-left:3px;
+        font-size:17px;
+      }
+      .fa-sort-up:hover,
+      .fa-sort-down:hover {
+        text-shadow: 0 0 8px var(--color-shadow-primary);
+      }
+      p.table-result-shift-up{
+        margin-bottom:0;
+      }
+      p.table-result-shift-down{
+        margin-top:0;
+      }
+    }
+  }
 }
 
+/*Only show rewards tab for PC*/
+.xcc a[data-tab='rewards'] {
+  display: none;
+}
+
+.xcc.pc a[data-tab='rewards'] {
+  display: inline-block;
+}
+
+.xcc {
+  .sheet-tabs.tabs{
+    margin-bottom: 0;
+  }
+  .tab {
+    padding-top: 7px;
+  }
+
+  select option {
+    color: var(--input-text-color);
+    background-color: var(--input-background-color);
+  }
+
+  a[data-tab] {
+    white-space: nowrap;
+  }
+
+  .box-title .content-link,
+  .box-title .content-link .fa-file-lines {
+    color: var(--system-header-link-color);
+  }
+
+  .wild-button {
+    background-image: var(--icon-wild);
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    grid-row: 1;
+    width: 25px;
+    height: 25px;
+    margin: -1px 0 0 -8px;
+  }
+
+  .scourge-button {
+    background-image: var(--icon-scourge);
+    background-repeat: no-repeat;
+    background-size: 25px 25px;
+    grid-row: 1;
+    width: 25px;
+    height: 25px;
+    margin: -1px 0 0 -10px;
+  }
+
+  .free-attack-button {
+    background-image: var(--icon-d14);
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+    grid-row: 1;
+    width: 22px;
+    height: 22px;
+    margin: 1px 2px 0 0;
+  }
+
+  .two-attack-button {
+    background-image: var(--icon-d16);
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+    grid-row: 1;
+    width: 22px;
+    height: 22px;
+    margin: 1px 2px 0 0;
+  }
+
+  .compound-damage-left {
+    text-align: right;
+    width: 55%;
+    overflow: visible;
+    padding-right: 0px;
+    padding-left: 0.25rem;
+  }
+
+  .compound-damage-right {
+    text-align: left;
+    width: 45%;
+    overflow: visible;
+    padding-left: 1px;
+    padding-right: 0.25rem;
+  }
+
+  .box-title .link-floater {
+    float: right;
+    display: block;
+    width: 0;
+    line-height: 16px;
+
+    .content-link {
+      border: 0;
+      float: right;
+      text-shadow: 1px 1px 1px black;
+    }
+  }
+
+  .grid-chosen-weapon {
+    display: grid;
+    grid-template-columns: max-content 105px 20px;
+    grid-row-gap: 5px;
+  }
+
+  .equipment .weapon-list .weapon .backstab-button {
+    margin-left: -6px;
+  }
+
+  .weapon-list {
+    grid-template-columns: min-content 30px min-content minmax(90px, auto) 55px 85px 90px 39px;
+    input.name, input.weapon-notes {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .weapon-list.brawler {
+    grid-template-columns: 30px min-content minmax(90px, auto) 40px 55px 85px 97px;
+  }
+
+  .weapon-list.athlete {
+    grid-template-columns: 30px min-content minmax(90px, auto) 65px 85px 120px;
+  }
+
+  .weapon-list.dwarf {
+    grid-template-columns: 30px min-content minmax(80px, auto) 80px 80px 90px 39px;
+  }
+
+  .weapon-list.jammer {
+    grid-template-columns: 30px min-content minmax(90px, 25%) min-content minmax(210px, 100%);
+  }
+
+  .weapon-list.sp-crypt-raider {
+    grid-template-columns: 30px min-content minmax(110px, 25%) 40px 40px minmax(210px, 100%);
+  }
+
+  .weapon-list.sp-elf-trickster {
+    grid-template-columns: 30px min-content minmax(110px, 35%) 40px minmax(210px, 100%);
+  }
+
+  .weapon-list.sp-criminal {
+    grid-template-columns: 30px min-content minmax(120px, 35%) 40px minmax(150px, 100%) 40px;
+  }
+
+  .weapon-list.sp-crypt-raider-critical {
+    grid-template-columns: 30px min-content minmax(100px, 25%) 90px minmax(210px, 100%);
+  }
+
+  /* Frames for reminder blocks */
+  .reminder-block {
+    border: var(--system-frame-border);
+    border-top: none;
+
+    ul {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+
+  .sp-skills .box-border {
+    padding-right: 0;
+
+    .row-separator {
+      margin-right: 5px;
+    }
+  }
+
+  .sp-skills input {
+    text-align: right;
+    width: auto;
+    margin-right: 8px;
+  }
+
+  .row-separator {
+      margin: 3px 0;
+      border-bottom: 2px dotted var(--system-secondary-color);
+  }
+
+  .item {
+    border-bottom: 0.5px solid var(--system-secondary-color)
+  }
+
+  .rewards-grid {
+    display: grid;
+    grid-template-rows: 59px 8px 59px 8px 26px 8px;
+    grid-template-columns: 180px auto;
+    grid-column-gap: 8px;
+  }
+
+  .rewards-grid .row-separator {
+    border-bottom: 2px dotted var(--system-secondary-color);
+    margin: 3px 0;
+  }
+
+  .contacts-block {
+    display: grid;
+    grid-template-rows: 19px 141px;
+    grid-row-end: span 3;
+
+    textarea {
+      text-align: left;
+      height: 141px;
+      border: var(--system-frame-border);
+      border-top: none;
+      resize: none;
+      background-color: transparent;
+      border-radius: 0;
+    }
+  }
+
+  .rewards-block {
+    display: grid;
+    grid-template-columns: 85px 35px 60px;
+    grid-template-rows: 19px 20px 20px;
+
+    .box-title {
+      grid-column-end: span 2;
+    }
+
+    .middle-label {
+      margin: auto 2px;
+      grid-row-end: span 2;
+    }
+
+    .lower-label {
+      margin: auto 2px;
+    }
+
+    input.base {
+      align-self: center;
+      justify-self: center;
+      font-size: 30px;
+      height: 59px;
+      width: 60px;
+      grid-row-end: span 3;
+      border: var(--system-frame-border);
+    }
+
+    .caret-up,
+    .caret-down {
+      display: inline-block;
+      font-size: 12px;
+    }
+
+    .caret-up::before {
+      font-family: var(--system-icon-font), serif;
+      content: '\f0d8';
+      float: left;
+      font-weight: bold;
+      font-size: 10px;
+      margin-top: 2px;
+      margin-left: 2px;
+    }
+
+    .caret-down::before {
+      font-family: var(--system-icon-font), serif;
+      content: '\f0d7';
+      float: left;
+      font-weight: bold;
+      font-size: 10px;
+      margin-top: 2px;
+      margin-left: 2px;
+    }
+
+    .info {
+      font-family: var(--system-icon-font), serif;
+      text-align: right;
+      margin-left: 3px;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+  }
+
+  /* Add icons to tabs */
+  a[data-tab='athlete']::before {
+    content: '\f432';
+  }
+
+  a[data-tab='blaster']::before {
+    content: '\e4e9';
+  }
+
+  a[data-tab='brawler']::before {
+    content: '\f6de';
+    font-weight: 900;
+  }
+
+  a[data-tab='jammer']::before {
+    content: '\f8be';
+    font-weight: 900;
+  }
+
+  a[data-tab='messenger']::before {
+    content: '\e689';
+  }
+
+  a[data-tab='sp-acrobat']::before {
+    content: '\e546';
+    transform: rotate(170deg);
+    display: inline-block;
+    padding-right: 0;
+    margin-right: 5px;
+    font-weight: 900;
+  }
+
+  a[data-tab='sp-commando']::before {
+    content: '\f6f5';
+  }
+
+  a[data-tab='sp-criminal']::before {
+    content: '\e19b';
+  }
+
+  a[data-tab='sp-scout']::before {
+    content: '\f06e';
+  }
+
+  a[data-tab='sp-crypt-raider']::before {
+    content: '\f5d8';
+  }
+
+  a[data-tab='sp-dwarf-mechanic']::before {
+    content: '\f0ad';
+  }
+
+  a[data-tab='sp-elf-trickster']::before {
+    content: '\e05d';
+  }
+
+  a[data-tab='sp-half-orc-slayer']::before {
+    content: '\f6c2';
+    font-weight: 900;
+  }
+
+  a[data-tab='sp-halfling-rogue']::before {
+    content: '\f6cb';
+    transform: rotate(315deg);
+    display: inline-block;
+    padding-right: 0;
+    margin-right: 5px;
+  }
+
+  a[data-tab='gnome']::before {
+    content: '\e139';
+    transform: rotate(-15deg);
+    display: inline-block;
+    padding-right: 0;
+    margin-right: 5px;
+    font-weight: bold;
+  }
+
+  a[data-tab='half-elf']::before {
+    content: '\f5c0';
+  }
+
+  a[data-tab='half-orc']::before {
+    content: '\22';
+    display: inline-block;
+    padding-right: 0;
+    margin-right: 5px;
+    rotate: 180deg;
+    line-height: 0;
+    margin-top:-12px;
+    font-size: 24px;
+    font-weight: 300;
+    padding-top:1px;  
+  }
+
+  a[data-tab='xcc-dwarf']::before {
+    content: '\e572';
+  }
+
+  a[data-tab='rewards']::before {
+    content: '\f066';
+    transform: rotate(45deg);
+    display: inline-block;
+    padding-right: 0;
+    margin-right: 5px;
+    font-weight: bold;
+  }
+
+  a[data-tab='sponsorship-item']::before {
+    content: '\f53d';
+  }
+
+  /* ----------------------------------------- */
+  /*  Items                                    */
+  /* ----------------------------------------- */
+  .sponsorship {
+    align-items: center;
+    border-bottom: 0.5px solid var(--system-secondary-color);
+    display: grid;
+    font-size: 13px;
+    justify-items: center;
+    grid-template-columns: subgrid;
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+  }
+
+  .sponsorship .sponsorship-control {
+    font-size: 14px;
+  }
+
+  .sponsorship:last-child {
+    border-bottom: 0;
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+  }
+
+  .sponsorship-heading {
+    border-bottom: var(--system-party-sheet-border);
+    font-family: var(--system-label-font), serif;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    line-height: 1.2rem;
+    margin: 8px 0 0;
+  }
+
+  .sponsorship-list-header {
+    border-bottom: 2px dotted var(--system-secondary-color);
+    display: grid;
+    font-family: var(--system-label-font), serif;
+    font-size: 12px;
+    grid-template-columns: subgrid;
+    margin: 0;
+    padding: 0 0 5px 0;
+  }
+
+  .sponsorship-list {
+    display: grid;
+    font-family: var(--system-data-font), serif;
+    font-size: 12px;
+    grid-template-columns: 30px minmax(100px, 100%) 65px 39px;
+    margin: 0 0 8px 0;
+    padding: 5px;
+    text-align: center;
+    max-height: 150px;
+    overflow: auto;
+  }
+
+  .sponsorship-list.sticky {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .sponsorship-item .left-label {
+    display: inline-block;
+    min-width: 60px;
+  }
+
+  .item-list-spellcheck {
+    grid-template-columns: 30px 22px 48px 1fr 1fr 0px 39px;
+    .spell-item-button {
+      background-image: var(--system-d20-icon);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 22px 22px;
+      height: 22px;
+      width: 22px;
+    }
+  }
+
+  .spell-misfire-button {
+    background-image: var(--icon-misfire);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+    height: 22px;
+    width: 22px;
+  }
+
+  .item-list-spells{
+    grid-template-columns:  30px 22px 28px 33px 1fr 1fr 40px 39px
+  }
+
+  .item-list-spells .item-list-header{
+    margin-bottom: 1px;
+  }
+
+  .item-notes .disabled{
+    opacity:1;
+    color:var(--color-form-hint);
+    border-bottom:none;
+  }
+
+  .weapon-list .disabled{
+    opacity:1;
+    color:var(--color-form-hint);
+  }
+
+  .spell-item .item-notes{
+    width: 100%;
+    color: var(--color-form-hint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .xcc-notes textarea {
+    min-height: 180px;
+    max-height: 100%;
+    background-color: transparent;
+    border-radius: 0;
+  }
+}
+
+/* ----------------------------------------- */
+/*  Acrobat Chat Messages                    */
+/* ----------------------------------------- */
+.dc-modifiers-grid {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 3px;
+  padding:3px;
+  background: rgba(0,0,0,0.5);
+}
+
+.modifier-item {
+  display: contents;
+  span{
+    padding: 2px;
+  background: var(--system-background);
+  }
+}
+
+.dc-condition {
+  text-align: left;
+}
+
+.dc-modifier {
+  text-align: right;
+  font-weight: bold;
+
+}
+
+/* ----------------------------------------- */
+/*  Mojo Icon                                */
+/* ----------------------------------------- */
+button[data-tool='fleetingLuck']::before {
+  content: '\f762';
+}
+
+/* ----------------------------------------- */
+/*  Pause Screen                             */
+/* ----------------------------------------- */
 #pause.small img {
   background-image: url("images/frame_small.png"), url("images/noise_small.png?v=5"), url("images/tv_small.png");
   animation-name: noise-small, tilt, float, floatin;
@@ -266,610 +884,4 @@
   100% {
     background-position: top left, top 5% left 0, top 32px left 32px;
   }
-}
-
-/* ----------------------------------------- */
-/*  Globals                                  */
-/* ----------------------------------------- */
-@font-face {
-  font-family: "Cooper Black";
-  src: url("fonts/Cooper.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "DuvallSmallCaps";
-  src: url("fonts/DuvallSmallCaps.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "DuvallSmallCaps";
-  src: url("fonts/DuvallSmallCapsBold.otf") format("opentype");
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: "Duvall";
-  src: url("fonts/Duvall.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "Duvall";
-  src: url("fonts/DuvallBold.otf") format("opentype");
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: "DuvallCondensed";
-  src: url("fonts/DuvallCondensed.otf") format("opentype");
-}
-
-@font-face {
-  font-family: "DuvallCondensed";
-  src: url("fonts/DuvallCondensedBold.otf") format("opentype");
-  font-weight: bold;
-}
-
-.dcc.sheet a[data-tab] {
-  white-space: nowrap;
-}
-
-.box-title .content-link,
-.box-title .content-link .fa-file-lines {
-  color: var(--system-header-link-color);
-}
-
-.wild-button {
-  background-image: var(--icon-wild);
-  background-repeat: no-repeat;
-  background-size: 25px 25px;
-  grid-row: 1;
-  width: 25px;
-  height: 25px;
-  margin: -1px 0 0 -8px;
-}
-
-.scourge-button {
-  background-image: var(--icon-scourge);
-  background-repeat: no-repeat;
-  background-size: 25px 25px;
-  grid-row: 1;
-  width: 25px;
-  height: 25px;
-  margin: -1px 0 0 -10px;
-}
-
-.free-attack-button {
-  background-image: var(--icon-d14);
-  background-repeat: no-repeat;
-  background-size: 22px 22px;
-  grid-row: 1;
-  width: 22px;
-  height: 22px;
-  margin: 1px 2px 0 0;
-}
-
-.two-attack-button {
-  background-image: var(--icon-d16);
-  background-repeat: no-repeat;
-  background-size: 22px 22px;
-  grid-row: 1;
-  width: 22px;
-  height: 22px;
-  margin: 1px 2px 0 0;
-}
-
-.compound-damage-left {
-  text-align: right;
-  width: 55%;
-  overflow: visible;
-  padding-right: 0px;
-  padding-left: 0.25rem;
-}
-
-.compound-damage-right {
-  text-align: left;
-  width: 45%;
-  overflow: visible;
-  padding-left: 1px;
-  padding-right: 0.25rem;
-}
-
-.box-title .link-floater {
-  float: right;
-  display: block;
-  width: 0;
-  line-height: 16px;
-
-  .content-link {
-    border: 0;
-    float: right;
-    text-shadow: 1px 1px 1px black;
-  }
-}
-
-.grid-chosen-weapon {
-  display: grid;
-  grid-template-columns: max-content 105px 20px;
-  grid-row-gap: 5px;
-}
-
-.dcc .equipment .weapon-list .weapon .backstab-button {
-  margin-left:-6px;
-}
-
-.dcc .weapon-list{
-  grid-template-columns: min-content 30px min-content minmax(90px, auto) 55px 85px 90px 39px;
-  input.name, input.weapon-notes {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-}
-
-.dcc .weapon-list.brawler {
-  grid-template-columns: 30px min-content minmax(90px, auto) 40px 55px 85px 97px;
-}
-
-.dcc .weapon-list.athlete {
-  grid-template-columns: 30px min-content minmax(90px, auto) 65px 85px 120px;
-}
-
-.dcc .weapon-list.dwarf {
-  grid-template-columns: 30px min-content minmax(80px, auto) 80px 80px 90px 39px;
-}
-
-.dcc .weapon-list.jammer {
-  grid-template-columns: 30px min-content minmax(90px, 25%) min-content minmax(210px, 100%);
-}
-
-.dcc .weapon-list.sp-crypt-raider {
-  grid-template-columns: 30px min-content minmax(110px, 25%) 40px 40px minmax(210px, 100%);
-}
-
-.dcc .weapon-list.sp-elf-trickster {
-  grid-template-columns: 30px min-content minmax(110px, 35%) 40px minmax(210px, 100%);
-}
-
-.dcc .weapon-list.sp-criminal {
-  grid-template-columns: 30px min-content minmax(120px, 35%) 40px minmax(150px, 100%) 40px;
-}
-
-.dcc .weapon-list.sp-crypt-raider-critical {
-  grid-template-columns: 30px min-content minmax(100px, 25%) 90px minmax(210px, 100%);
-}
-
-/* Frames for reminder blocks */
-.reminder-block {
-  border: var(--system-frame-border);
-  border-top: none;
-
-  ul {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-}
-
-.sp-skills .box-border {
-  padding-right: 0;
-
-  .row-separator {
-    margin-right: 5px;
-  }
-}
-
-.sp-skills input {
-  text-align: right;
-  width: auto;
-  margin-right: 8px;
-}
-
-.xcc {
-  .row-separator {
-    margin: 3px 0;
-    border-bottom: 2px dotted var(--system-secondary-color);
-  }
-}
-
-.dcc .item {
-  border-bottom: 0.5px solid var(--system-secondary-color)
-}
-
-/*Only show rewards tab for PC*/
-a[data-tab='rewards'] {
-  display: none;
-}
-
-.pc a[data-tab='rewards'] {
-  display: inline-block;
-}
-
-/* Adjustable table result controls styling */
-.xcc-adjustable {
-  .table-results {
-    padding: 0;
-
-    .result-text p{
-      margin-top:0;
-    }
-
-    .result-range {
-      padding-top: 5px;
-      justify-items: center;
-      margin-right: 3px;
-
-      .fa-sort-up,
-      .fa-sort-down {
-        cursor: pointer;
-        color: var(--chat-primary-color);
-        margin-left:3px;
-        font-size:17px;
-      }
-      .fa-sort-up:hover,
-      .fa-sort-down:hover {
-        text-shadow: 0 0 8px var(--color-shadow-primary);
-      }
-      p.table-result-shift-up{
-        margin-bottom:0;
-      }
-      p.table-result-shift-down{
-        margin-top:0;
-      }
-    }
-  }
-}
-
-.rewards-grid {
-  display: grid;
-  grid-template-rows: 59px 8px 59px 8px 26px 8px;
-  grid-template-columns: 180px auto;
-  grid-column-gap: 8px;
-}
-
-.rewards-grid .row-separator {
-  border-bottom: 2px dotted var(--system-secondary-color);
-  margin: 3px 0;
-}
-
-.contacts-block {
-  display: grid;
-  grid-template-rows: 19px 141px;
-  grid-row-end: span 3;
-
-  textarea {
-    text-align: left;
-    height: 141px;
-    border: var(--system-frame-border);
-    border-top: none;
-    resize: none;
-    background-color: transparent;
-    border-radius: 0;
-  }
-}
-
-.rewards-block {
-  display: grid;
-  grid-template-columns: 85px 35px 60px;
-  grid-template-rows: 19px 20px 20px;
-
-  .box-title {
-    grid-column-end: span 2;
-  }
-
-  .middle-label {
-    margin: auto 2px;
-    grid-row-end: span 2;
-  }
-
-  .lower-label {
-    margin: auto 2px;
-  }
-
-  input.base {
-    align-self: center;
-    justify-self: center;
-    font-size: 30px;
-    height: 59px;
-    width: 60px;
-    grid-row-end: span 3;
-    border: var(--system-frame-border);
-  }
-
-  .caret-up,
-  .caret-down {
-    display: inline-block;
-    font-size: 12px;
-  }
-
-  .caret-up::before {
-    font-family: var(--system-icon-font), serif;
-    content: '\f0d8';
-    float: left;
-    font-weight: bold;
-    font-size: 10px;
-    margin-top: 2px;
-    margin-left: 2px;
-  }
-
-  .caret-down::before {
-    font-family: var(--system-icon-font), serif;
-    content: '\f0d7';
-    float: left;
-    font-weight: bold;
-    font-size: 10px;
-    margin-top: 2px;
-    margin-left: 2px;
-  }
-
-  .info {
-    font-family: var(--system-icon-font), serif;
-    text-align: right;
-    margin-left: 3px;
-    margin-right: 10px;
-    font-weight: bold;
-  }
-}
-
-/* Add icons to tabs */
-a[data-tab='athlete']::before {
-  content: '\f432';
-}
-
-a[data-tab='blaster']::before {
-  content: '\e4e9';
-}
-
-a[data-tab='brawler']::before {
-  content: '\f6de';
-  font-weight: 900;
-}
-
-a[data-tab='jammer']::before {
-  content: '\f8be';
-  font-weight: 900;
-}
-
-a[data-tab='messenger']::before {
-  content: '\e689';
-}
-
-a[data-tab='sp-acrobat']::before {
-  content: '\e546';
-  transform: rotate(170deg);
-  display: inline-block;
-  padding-right: 0;
-  margin-right: 5px;
-  font-weight: 900;
-}
-
-a[data-tab='sp-commando']::before {
-  content: '\f6f5';
-}
-
-a[data-tab='sp-criminal']::before {
-  content: '\e19b';
-}
-
-a[data-tab='sp-scout']::before {
-  content: '\f06e';
-}
-
-a[data-tab='sp-crypt-raider']::before {
-  content: '\f5d8';
-}
-
-a[data-tab='sp-dwarf-mechanic']::before {
-  content: '\f0ad';
-}
-
-a[data-tab='sp-elf-trickster']::before {
-  content: '\e05d';
-}
-
-a[data-tab='sp-half-orc-slayer']::before {
-  content: '\f6c2';
-  font-weight: 900;
-}
-
-a[data-tab='sp-halfling-rogue']::before {
-  content: '\f6cb';
-  transform: rotate(315deg);
-  display: inline-block;
-  padding-right: 0;
-  margin-right: 5px;
-}
-
-a[data-tab='gnome']::before {
-  content: '\e139';
-  transform: rotate(-15deg);
-  display: inline-block;
-  padding-right: 0;
-  margin-right: 5px;
-  font-weight: bold;
-}
-
-a[data-tab='half-elf']::before {
-  content: '\f5c0';
-}
-
-a[data-tab='half-orc']::before {
-  content: '\22';
-  display: inline-block;
-  padding-right: 0;
-  margin-right: 5px;
-  rotate: 180deg;
-  line-height: 0;
-  margin-top:-12px;
-  font-size: 24px;
-  font-weight: 300;
-  padding-top:1px;  
-}
-
-a[data-tab='xcc-dwarf']::before {
-  content: '\e572';
-}
-
-a[data-tab='rewards']::before {
-  /* content: '\f5a2'; */
-  content: '\f066';
-  transform: rotate(45deg);
-  display: inline-block;
-  padding-right: 0;
-  margin-right: 5px;
-  font-weight: bold;
-}
-
-a[data-tab='sponsorship-item']::before {
-  content: '\f53d';
-}
-
-.fa-balance-scale-left::before {
-  content: '\f762';
-}
-
-/* ----------------------------------------- */
-/*  Items                                    */
-/* ----------------------------------------- */
-.dcc .sponsorship {
-  align-items: center;
-  border-bottom: 0.5px solid burlywood;
-  display: grid;
-  font-size: 13px;
-  justify-items: center;
-  grid-template-columns: subgrid;
-  padding-bottom: 2px;
-  margin-bottom: 2px;
-}
-
-.dcc .sponsorship .sponsorship-control {
-  font-size: 14px;
-}
-
-.dcc .sponsorship:last-child {
-  border-bottom: 0;
-  padding-bottom: 2px;
-  margin-bottom: 2px;
-}
-
-.dcc .sponsorship-heading {
-  border-bottom: var(--system-party-sheet-border);
-  font-family: var(--system-label-font), serif;
-  letter-spacing: 1px;
-  font-size: 1.1rem;
-  line-height: 1.2rem;
-  margin: 8px 0 0;
-}
-
-.dcc .sponsorship-list-header {
-  border-bottom: 2px dotted var(--system-secondary-color);
-  display: grid;
-  font-family: var(--system-label-font), serif;
-  font-size: 12px;
-  grid-template-columns: subgrid;
-  margin: 0;
-  padding: 0 0 5px 0;
-}
-
-.dcc .sponsorship-list {
-  display: grid;
-  font-family: var(--system-data-font), serif;
-  font-size: 12px;
-  grid-template-columns: 30px minmax(100px, 100%) 65px 39px;
-  margin: 0 0 8px 0;
-  padding: 5px;
-  text-align: center;
-  max-height: 150px;
-  overflow: auto;
-}
-
-.dcc .sponsorship-list.sticky {
-  padding-bottom: 0;
-  margin-bottom: 0;
-}
-
-.sponsorship-item .left-label {
-  display: inline-block;
-  min-width: 60px;
-}
-
-.item-list-spellcheck {
-  grid-template-columns: 30px 22px 48px 1fr 1fr 0px 39px;
-  .spell-item-button {
-    background-image: var(--system-d20-icon);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 22px 22px;
-    height: 22px;
-    width: 22px;
-  }
-}
-
-.spell-misfire-button {
-  background-image: var(--icon-misfire);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 22px 22px;
-  height: 22px;
-  width: 22px;
-}
-
-.dcc .item-list-spells{
-  grid-template-columns:  30px 22px 28px 33px 1fr 1fr 40px 39px
-}
-
-.item-list-spells .item-list-header{
-  margin-bottom: 1px;
-}
-
-.dcc .item-notes .disabled{
-  opacity:1;
-  color:var(--color-form-hint);
-  border-bottom:none;
-}
-
-.dcc .weapon-list .disabled{
-  opacity:1;
-  color:var(--color-form-hint);
-}
-
-.spell-item .item-notes{
-  width: 100%;
-  color: var(--color-form-hint);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.xcc-notes textarea {
-  min-height: 180px;
-  max-height: 100%;
-  background-color: transparent;
-  border-radius: 0;
-}
-
-.dc-modifiers-grid {
-  display: grid;
-  grid-template-columns: 60% 40%;
-  gap: 3px;
-  padding:3px;
-  background: rgba(0,0,0,0.5);
-}
-
-.modifier-item {
-  display: contents;
-  span{
-    padding: 2px;
-  background: var(--system-background);
-  }
-}
-
-.dc-condition {
-  text-align: left;
-}
-
-.dc-modifier {
-  text-align: right;
-  font-weight: bold;
-
 }

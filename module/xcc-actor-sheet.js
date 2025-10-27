@@ -803,6 +803,10 @@ export class XCCActorSheet extends DCCActorSheet {
   // Replace Title field with actor field and hide the notes tab if the setting is set
   _onRender (app, html, data) {
     super._onRender(app, html, data)
+
+    // Add XCC class to XCC character sheet window
+    this.parts.tabs.parentElement.parentElement.classList.add('xcc')
+
     // Replace the title field with the actor's name if it's a XCC sheet
     if (app.actor.system.class.localizationPath) {
       let element = this.parts.character.firstElementChild.querySelector('label[for="system.details.title.value"]')
