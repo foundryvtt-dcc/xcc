@@ -528,6 +528,16 @@ export class XCCActorSheet extends DCCActorSheet {
       }
     ]
 
+    // Add spell-specific other bonus if present
+    const otherBonus = item.system.spellCheck.otherBonus
+    if (otherBonus) {
+      terms.push({
+        type: 'Modifier',
+        label: game.i18n.localize('DCC.SpellOtherBonus'),
+        formula: otherBonus
+      })
+    }
+
     // Elf Tricksters cannot spellburn
     if (actor.system.details.sheetClass !== 'sp-elf-trickster') {
       terms.push({
