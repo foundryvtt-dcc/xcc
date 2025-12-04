@@ -27,6 +27,58 @@ import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals, registerModuleSettings } from './settings.js'
 
 const { Actors } = foundry.documents.collections
+const { SchemaField, StringField, NumberField } = foundry.data.fields
+
+/* -------------------------------------------- */
+/*  Schema Extensions                           */
+/* -------------------------------------------- */
+/**
+ * Extend the DCC base actor schema with XCC-specific fields.
+ * This hook runs during DCC system initialization, before module init.
+ */
+Hooks.on('dcc.defineBaseActorSchema', (schema) => {
+  // Add sheetClass to details - used to track which XCC class sheet is active
+  schema.details.fields.sheetClass = new StringField({ initial: '' })
+})
+
+/**
+ * Extend the DCC Player schema with XCC-specific class and reward fields.
+ * This hook runs during DCC system initialization, before module init.
+ */
+Hooks.on('dcc.definePlayerSchema', (schema) => {
+  // XCC class-specific fields
+  schema.class.fields.localizationPath = new StringField({ initial: '' })
+
+  // Athlete/Brawler fields
+  schema.class.fields.trainingDie = new StringField({ initial: '' })
+  schema.class.fields.scramble = new NumberField({ initial: 0, integer: true })
+  schema.class.fields.speed = new NumberField({ initial: 30, integer: true })
+  schema.class.fields.grappleCritRange = new NumberField({ initial: 20, integer: true })
+  schema.class.fields.grappleCritDie = new StringField({ initial: 'd4' })
+  schema.class.fields.unarmedDamage = new StringField({ initial: '' })
+
+  // Blaster fields
+  schema.class.fields.blasterDie = new StringField({ initial: '' })
+
+  // Jammer fields
+  schema.class.fields.teamMascotDie = new StringField({ initial: '' })
+
+  // Messenger fields
+  schema.class.fields.turnUndeadDie = new StringField({ initial: '' })
+
+  // Half-Orc fields
+  schema.class.fields.wildCritRange = new NumberField({ initial: 20, integer: true })
+
+  // Shared class link field (used by most XCC classes)
+  schema.class.fields.classLink = new StringField({ initial: '' })
+
+  // XCC Rewards system (Fame & Wealth)
+  schema.rewards = new SchemaField({
+    fame: new NumberField({ initial: 0, integer: true }),
+    baseWealth: new NumberField({ initial: 0, integer: true }),
+    totalWealth: new NumberField({ initial: 0, integer: true })
+  })
+})
 const { loadTemplates } = foundry.applications.handlebars
 
 /* -------------------------------------------- */
