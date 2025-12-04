@@ -98,6 +98,19 @@ class XCCActorSheetBrawler extends XCCActorSheet {
     return die + ensurePlus(ab) + ensurePlus(str + lck)
   }
 
+  /**
+   * Check if the actor is wearing armor that is too heavy for brawler abilities
+   * @returns {boolean} True if equipped armor has check penalty <= -4
+   */
+  isArmorTooHeavy () {
+    for (const armorItem of this.actor.itemTypes.armor) {
+      if (armorItem.system.equipped && parseInt(armorItem.system.checkPenalty) <= -4) {
+        return true
+      }
+    }
+    return false
+  }
+
   static async rollUnarmedAttack (event, target) {
     event.preventDefault()
     const options = XCCActorSheet.fillRollOptions(event)
@@ -177,7 +190,7 @@ class XCCActorSheetBrawler extends XCCActorSheet {
     /* Check for crit or fumble */
     const fumble = (actionDieRollResult === 1)
     const naturalCrit = (actionDieRollResult >= critRange)
-    const crit = (naturalCrit) && !(this.actor.system.class.armorTooHeavy)
+    const crit = (naturalCrit) && !this.isArmorTooHeavy()
 
     const attackRollResult = {
       actionDieRollResult,

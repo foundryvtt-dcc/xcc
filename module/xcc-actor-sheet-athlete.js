@@ -111,14 +111,7 @@ class XCCActorSheetAthlete extends XCCActorSheet {
       })
     }
 
-    let isArmorTooHeavy = false
-    for (const armorItem of this.actor.itemTypes.armor) {
-      if (armorItem.system.equipped && parseInt(armorItem.system.checkPenalty) <= -4) {
-        isArmorTooHeavy = true
-        break
-      }
-    }
-    this.actor.system.class.armorTooHeavy = isArmorTooHeavy
+    const isArmorTooHeavy = this.isArmorTooHeavy()
     if (!isArmorTooHeavy) {
       this.actor.update({
         'system.attributes.ac.otherMod': this.actor.system.class?.scramble || 0,
@@ -142,6 +135,19 @@ class XCCActorSheetAthlete extends XCCActorSheet {
   getGrappleDamage () {
     if (!this.actor.system.class?.trainingDie) return 'd4' + ensurePlus(this.actor.system.abilities.str.mod)
     if (this.actor.system.abilities.str.mod < 0) { return 'd4+' + this.actor.system.class.trainingDie + this.actor.system.abilities.str.mod } else if (this.actor.system.abilities.str.mod > 0) { return 'd4+' + this.actor.system.class.trainingDie + '+' + this.actor.system.abilities.str.mod } else { return 'd4+' + this.actor.system.class.trainingDie }
+  }
+
+  /**
+   * Check if the actor is wearing armor that is too heavy for athletic abilities
+   * @returns {boolean} True if equipped armor has check penalty <= -4
+   */
+  isArmorTooHeavy () {
+    for (const armorItem of this.actor.itemTypes.armor) {
+      if (armorItem.system.equipped && parseInt(armorItem.system.checkPenalty) <= -4) {
+        return true
+      }
+    }
+    return false
   }
 
   _onRender (context, options) {
@@ -296,7 +302,8 @@ class XCCActorSheetAthlete extends XCCActorSheet {
     /* Check for crit or fumble */
     const fumble = (d20RollResult === 1)
     const naturalCrit = (d20RollResult >= critRange)
-    const crit = (naturalCrit) && !(this.actor.system.class.armorTooHeavy)
+    const isArmorTooHeavy = this.isArmorTooHeavy()
+    const crit = (naturalCrit) && !isArmorTooHeavy
 
     const attackRollResult = {
       d20RollResult,
@@ -414,7 +421,7 @@ class XCCActorSheetAthlete extends XCCActorSheet {
       'dcc.isCrit': attackRollResult.crit,
       'dcc.isNaturalCrit': attackRollResult.naturalCrit,
       'dcc.isMelee': true,
-      'dcc.isArmorTooHeavy': this.actor.system.class.armorTooHeavy,
+      'dcc.isArmorTooHeavy': isArmorTooHeavy,
       'dcc.isGrapple': true,
       'dcc.isNoHeader': true
     }
@@ -449,7 +456,7 @@ class XCCActorSheetAthlete extends XCCActorSheet {
         targets: game.user.targets,
         weaponId: 'xcc.athlete.grapple',
         weaponName: 'xcc.athlete.grapple',
-        armorTooHeavy: this.actor.system.class.armorTooHeavy
+        armorTooHeavy: isArmorTooHeavy
       }
     }
     await Hooks.callAll('dcc.rollWeaponAttack', rolls, messageData)
