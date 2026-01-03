@@ -27,7 +27,7 @@ import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { globals, registerModuleSettings } from './settings.js'
 
 const { Actors } = foundry.documents.collections
-const { SchemaField, StringField, NumberField } = foundry.data.fields
+const { SchemaField, StringField, NumberField, BooleanField } = foundry.data.fields
 
 /* -------------------------------------------- */
 /*  Schema Extensions                           */
@@ -48,29 +48,58 @@ Hooks.on('dcc.defineBaseActorSchema', (schema) => {
 Hooks.on('dcc.definePlayerSchema', (schema) => {
   // XCC class-specific fields
   schema.class.fields.localizationPath = new StringField({ initial: '' })
+  schema.class.fields.classLink = new StringField({ initial: '' })
+  schema.class.fields.spellCheckAbility = new StringField({ initial: '' })
 
-  // Athlete/Brawler fields
+  // Athlete fields
   schema.class.fields.trainingDie = new StringField({ initial: '' })
   schema.class.fields.scramble = new NumberField({ initial: 0, integer: true })
   schema.class.fields.speed = new NumberField({ initial: 30, integer: true })
   schema.class.fields.grappleCritRange = new NumberField({ initial: 20, integer: true })
   schema.class.fields.grappleCritDie = new StringField({ initial: 'd4' })
+  schema.class.fields.athleticDurability = new StringField({ initial: '' })
+
+  // Brawler fields
   schema.class.fields.unarmedDamage = new StringField({ initial: '' })
+  schema.class.fields.toughness = new StringField({ initial: '' })
 
   // Blaster fields
   schema.class.fields.blasterDie = new StringField({ initial: '' })
+  schema.class.fields.maxSpellLevel = new StringField({ initial: '' })
+  schema.class.fields.knownSpells = new StringField({ initial: '' })
 
   // Jammer fields
   schema.class.fields.teamMascotDie = new StringField({ initial: '' })
+  schema.class.fields.devastatingAttack = new StringField({ initial: '' })
+  schema.class.fields.disrespectPenalty = new StringField({ initial: '' })
+  schema.class.fields.chosenWeapon = new StringField({ initial: '' })
+  schema.class.fields.chosenWeaponEquipped = new BooleanField({ initial: false })
+  schema.class.fields.performanceSpecialties = new StringField({ initial: '' })
 
   // Messenger fields
   schema.class.fields.turnUndeadDie = new StringField({ initial: '' })
+  schema.class.fields.disapproval = new NumberField({ initial: 1, integer: true })
+  schema.class.fields.disapprovalTable = new StringField({ initial: '' })
+  schema.class.fields.scourge = new StringField({ initial: '' })
+  schema.class.fields.favoredWeapon = new StringField({ initial: '' })
+  schema.class.fields.deity = new StringField({ initial: '' })
+  schema.class.fields.corruption = new StringField({ initial: '' })
 
   // Half-Orc fields
   schema.class.fields.wildCritRange = new NumberField({ initial: 20, integer: true })
 
-  // Shared class link field (used by most XCC classes)
-  schema.class.fields.classLink = new StringField({ initial: '' })
+  // Half-Elf fields
+  schema.class.fields.charismaDie = new StringField({ initial: '' })
+  schema.class.fields.saveBonus = new StringField({ initial: '' })
+
+  // Specialist fields (shared across multiple specialist classes)
+  schema.class.fields.luckDie = new StringField({ initial: '' })
+  schema.class.fields.backstab = new StringField({ initial: '' })
+
+  // Criminal specialist fields
+  schema.class.fields.currentTurf = new StringField({ initial: '' })
+  schema.class.fields.currentContacts = new StringField({ initial: '' })
+  schema.class.fields.currentDisguise = new StringField({ initial: '' })
 
   // XCC Rewards system (Fame & Wealth)
   schema.rewards = new SchemaField({
