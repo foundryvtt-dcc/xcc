@@ -8,24 +8,25 @@ import { calculateSpellCheckBonus } from './xcc-utils.js'
 
 // Extends the DCCActorSheet and adds 'XCrawl' tab and its functionality.
 export class XCCActorSheet extends DCCActorSheet {
-  // Add rewards tab.
+  // Add rewards tab alongside effects and notes from DCC.
   static END_TABS = {
     sheet: {
       tabs:
         [
           { id: 'rewards', group: 'sheet', label: 'XCC.Rewards.RewardsTitle' },
+          { id: 'effects', group: 'sheet', label: 'DCC.Effects' },
           { id: 'notes', group: 'sheet', label: 'DCC.Notes' }
         ]
     }
   }
 
-  // Add rewards html template.
+  // Add rewards html template (use inplace: false to avoid mutating DCCActorSheet.PARTS).
   static PARTS = foundry.utils.mergeObject(DCCActorSheet.PARTS, {
     rewards: {
       id: 'rewards',
       template: globals.templatesPath + 'actor-partial-rewards.html'
     }
-  })
+  }, { inplace: false })
 
   // Define actions for wealth management and sponsorship creation.
   static async increaseWealth (event, target) {
@@ -682,8 +683,8 @@ export class XCCActorSheet extends DCCActorSheet {
     }
   }
 
-  // Add the wealth and sponsorship input actions to the DCCActorSheet
-  static DEFAULT_OPTIONS = foundry.utils.mergeObject(DCCActorSheet.DEFAULT_OPTIONS, {
+  // Add XCC-specific actions (Foundry v13 merges DEFAULT_OPTIONS up the class hierarchy automatically).
+  static DEFAULT_OPTIONS = {
     actions: {
       increaseWealth: this.increaseWealth,
       decreaseWealth: this.decreaseWealth,
@@ -695,7 +696,7 @@ export class XCCActorSheet extends DCCActorSheet {
       rollSpellCheck: this.rollSpellCheck,
       rollSpellMisfire: this.rollSpellMisfire
     }
-  })
+  }
 
   // Add parent helper function
   static addHooksAndHelpers () {
