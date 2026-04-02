@@ -305,7 +305,7 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
     const options = XCCActorSheet.fillRollOptions(event)
 
     const automateDamageFumblesCrits = game.settings.get('dcc', 'automateDamageFumblesCrits')
-    const rollMode = game.settings.get('core', 'rollMode')
+    const rollMode = game.settings.get('core', 'messageMode')
 
     // If weapon is not found, give up and show a warning
     if (!weapon) {
@@ -508,7 +508,7 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
     messageData.content = await foundry.applications.handlebars.renderTemplate('systems/dcc/templates/chat-card-attack-result.html', { message: messageData })
 
     // Output the results
-    ChatMessage.applyRollMode(messageData, rollMode)
+    ChatMessage.applyMode(messageData, rollMode)
     ChatMessage.create(messageData)
   }
 
