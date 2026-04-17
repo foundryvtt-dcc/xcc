@@ -228,7 +228,7 @@ class XCCActorSheetAthlete extends XCCActorSheet {
     })
 
     const automateDamageFumblesCrits = game.settings.get('dcc', 'automateDamageFumblesCrits')
-    const rollMode = game.settings.get('core', 'rollMode')
+    const rollMode = game.settings.get('core', 'messageMode')
 
     // Accumulate all rolls for sending to the chat message
     const rolls = []
@@ -463,7 +463,7 @@ class XCCActorSheetAthlete extends XCCActorSheet {
 
     messageData.content = await foundry.applications.handlebars.renderTemplate('systems/dcc/templates/chat-card-attack-result.html', { message: messageData })
     // Output the results
-    ChatMessage.applyRollMode(messageData, rollMode)
+    ChatMessage.applyMode(messageData, rollMode)
     ChatMessage.create(messageData)
   }
 

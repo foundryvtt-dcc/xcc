@@ -60,7 +60,7 @@ export class XCCActorSheet extends DCCActorSheet {
   static async sponsorshipCreate (event, target) {
     const type = 'xcc-core-book.sponsorship'
     // Grab any data associated with this control.
-    const system = foundry.utils.duplicate(target.dataset)
+    const system = foundry.utils.deepClone(target.dataset)
     // Initialize a default name.
     const name = game.i18n.localize('XCC.Rewards.NewOffer')
     system.rewards = {
@@ -672,7 +672,7 @@ export class XCCActorSheet extends DCCActorSheet {
         const existingEndText = existingEndElement ? existingEndElement.innerHTML : null
 
         const newContent = await foundry.applications.handlebars.renderTemplate(globals.templatesPath + 'chat-card-table-result.html', {
-          results: newResults.map(r => foundry.utils.duplicate(r)),
+          results: newResults.map(r => foundry.utils.deepClone(r)),
           table: rollTable,
           emoteMessage: existingEmoteMessage,
           endText: existingEndText
@@ -778,7 +778,7 @@ export class XCCActorSheet extends DCCActorSheet {
       }
 
       const messageContent = await foundry.applications.handlebars.renderTemplate(globals.templatesPath + 'chat-card-table-result.html', {
-        results: tableResults.map(r => foundry.utils.duplicate(r)),
+        results: tableResults.map(r => foundry.utils.deepClone(r)),
         table: rollTable,
         actorName: this.actor.name,
         endText: endKey ? game.i18n.format(endKey, variables) : '',
