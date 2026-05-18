@@ -65,7 +65,6 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
   // XCC class-specific fields
   schema.class.fields.localizationPath = new StringField({ initial: '' })
   schema.class.fields.classLink = new StringField({ initial: '' })
-  schema.class.fields.spellCheckAbility = new StringField({ initial: '' })
 
   // Athlete fields
   schema.class.fields.trainingDie = new StringField({ initial: '' })
@@ -81,8 +80,6 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
 
   // Blaster fields
   schema.class.fields.blasterDie = new StringField({ initial: '' })
-  schema.class.fields.maxSpellLevel = new StringField({ initial: '' })
-  schema.class.fields.knownSpells = new StringField({ initial: '' })
 
   // Jammer fields
   schema.class.fields.teamMascotDie = new StringField({ initial: '' })
@@ -94,12 +91,8 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
 
   // Messenger fields
   schema.class.fields.turnUndeadDie = new StringField({ initial: '' })
-  schema.class.fields.disapproval = new NumberField({ initial: 1, integer: true })
-  schema.class.fields.disapprovalTable = new StringField({ initial: '' })
   schema.class.fields.scourge = new StringField({ initial: '' })
   schema.class.fields.favoredWeapon = new StringField({ initial: '' })
-  schema.class.fields.deity = new StringField({ initial: '' })
-  schema.class.fields.corruption = new StringField({ initial: '' })
 
   // Half-Orc fields
   schema.class.fields.wildCritRange = new NumberField({ initial: 20, integer: true })
@@ -107,9 +100,6 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
   // Half-Elf fields
   schema.class.fields.charismaDie = new StringField({ initial: '' })
   schema.class.fields.saveBonus = new StringField({ initial: '' })
-
-  // Specialist fields (shared across multiple specialist classes)
-  schema.class.fields.luckDie = new StringField({ initial: '' })
 
   // Criminal specialist fields
   schema.class.fields.currentTurf = new StringField({ initial: '' })
