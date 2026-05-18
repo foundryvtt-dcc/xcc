@@ -522,12 +522,6 @@ Hooks.on('initializeDynamicTokenRingConfig', ringConfig => {
 })
 
 // Debug logs
-Hooks.on('dcc.update', async function (actor, data) {
-  if (game.settings.get(globals.id, 'isDebug')) {
-    console.log(`XCC: update hook triggered for actor: ${actor.name}`)
-  }
-})
-
 Hooks.on('updateActor', (actor, data, action, userId) => {
   if (game.settings.get(globals.id, 'isDebug')) {
     console.log('XCC: actor updated:', actor.name, 'Data:', data, 'Action:', action, 'User ID:', userId)
