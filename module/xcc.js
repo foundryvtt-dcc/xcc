@@ -110,7 +110,6 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
 
   // Specialist fields (shared across multiple specialist classes)
   schema.class.fields.luckDie = new StringField({ initial: '' })
-  schema.class.fields.backstab = new StringField({ initial: '' })
 
   // Criminal specialist fields
   schema.class.fields.currentTurf = new StringField({ initial: '' })
