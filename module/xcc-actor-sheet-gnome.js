@@ -61,11 +61,6 @@ class XCCActorSheetGnome extends XCCActorSheet {
   }
 
   setSpecialistSkills () {
-    // DCC System had a bug with pickPocket skill, we're setting a custom one for now
-    if (this.actor.system.skills.pickPocket) {
-      this.actor.system.skills.pickPocket.ability = 'agl'
-      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value'
-    }
   }
 
   /** @override */
