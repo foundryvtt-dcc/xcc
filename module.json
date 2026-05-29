@@ -3,9 +3,9 @@
   "title": "XCrawl Classics System",
   "version": "0.4.1.4",
   "compatibility": {
-    "minimum": "13",
-    "maximum": "13",
-    "verified": "13"
+    "minimum": "14",
+    "maximum": "14",
+    "verified": "14"
   },
   "description": "<p>Adds XCrawl Classics support to the Dungeon Crawl Classics system</p>",
   "authors": [
