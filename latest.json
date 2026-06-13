@@ -1,11 +1,11 @@
 {
   "id": "xcc",
   "title": "XCrawl Classics System",
-  "version": "0.4.1.4",
+  "version": "0.5.0",
   "compatibility": {
-    "minimum": "13",
-    "maximum": "13",
-    "verified": "13"
+    "minimum": "14",
+    "maximum": "14",
+    "verified": "14"
   },
   "description": "<p>Adds XCrawl Classics support to the Dungeon Crawl Classics system</p>",
   "authors": [
@@ -57,8 +57,8 @@
     }
   ],
   "url": "https://github.com/foundryvtt-dcc/xcc",
-  "manifest": "https://github.com/foundryvtt-dcc/xcc/releases/download/v0.4.1.4/module.json",
-  "download": "https://github.com/foundryvtt-dcc/xcc/releases/download/v0.4.1.4/xcc.zip",
+  "manifest": "https://raw.githubusercontent.com/foundryvtt-dcc/xcc/main/latest.json",
+  "download": "https://github.com/foundryvtt-dcc/xcc/releases/download/v0.5.0/xcc.zip",
   "protected": false,
   "bugs": "https://github.com/foundryvtt-dcc/xcc/issues"
 }
