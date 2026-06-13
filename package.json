@@ -1,6 +1,6 @@
 {
   "name": "xcc",
-  "version": "0.2.0",
+  "version": "0.5.0",
   "description": "XCrawl Classics Support for the Dungeon Crawl Classics System",
   "scripts": {
     "format": "standard --fix",
