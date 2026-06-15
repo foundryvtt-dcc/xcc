@@ -174,6 +174,14 @@ Hooks.once('init', async function () {
   console.log('XCC | Initializing XCrawl Classics System')
   CONFIG.XCC = XCC
 
+  // Register module settings here (init) rather than in the later `dcc.ready`
+  // hook. The updateActor/updateItem hooks and the `debugItem` Handlebars
+  // helper read `isDebug` unguarded, so an actor/item update during the boot
+  // window (before `dcc.ready` fired) threw "xcc.isDebug is not a registered
+  // game setting". Registering at init guarantees the settings exist before any
+  // runtime read.
+  await registerModuleSettings()
+
   // Register ActorSheets and their Helper functions
   game.dcc.registerActorSheet('Player', XCCActorSheetAthlete, {
     scope: 'xcc',
@@ -456,9 +464,6 @@ Hooks.once('dcc.ready', async function () {
   Object.defineProperty(game.dcc.FleetingLuck, 'enabled', {
     get: function () { return true }
   })
-
-  // Register module settings
-  await registerModuleSettings()
 
   // Override Fleeting Luck Automation with our setting
   Object.defineProperty(game.dcc.FleetingLuck, 'automationEnabled', {
