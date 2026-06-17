@@ -1,7 +1,7 @@
 {
   "id": "xcc",
   "title": "XCrawl Classics System",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "compatibility": {
     "minimum": "14",
     "maximum": "14",
@@ -61,7 +61,7 @@
   ],
   "url": "https://github.com/foundryvtt-dcc/xcc",
   "manifest": "https://raw.githubusercontent.com/foundryvtt-dcc/xcc/main/latest.json",
-  "download": "https://github.com/foundryvtt-dcc/xcc/releases/download/v0.5.0/xcc.zip",
+  "download": "https://github.com/foundryvtt-dcc/xcc/releases/download/v0.5.1/xcc.zip",
   "protected": false,
   "bugs": "https://github.com/foundryvtt-dcc/xcc/issues"
 }
