@@ -21,13 +21,29 @@ import XCCActorSheetDwarf from './xcc-actor-sheet-dwarf.js'
 import XCCActorSheetGeneric from './xcc-actor-sheet-generic.js'
 import XCCActorParser from './xcc-parser.js'
 import XCC from '../config.js'
-import XCCActor from './xcc-actor.js'
 
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
+import { calculateSpellCheckBonus } from './xcc-utils.js'
 import { globals, registerModuleSettings } from './settings.js'
 
-const { Actors } = foundry.documents.collections
 const { SchemaField, StringField, NumberField, BooleanField } = foundry.data.fields
+
+/**
+ * Override `system.class.spellCheck` with XCC's class-specific bonus
+ * (blaster-die, sp-elf-trickster luck mod, etc.) after DCC's default
+ * computation has run. DCC handles the `spellCheckOverride` case
+ * itself, so we only step in for the fallback path.
+ *
+ * Replaces the `XCCActor` subclass + global
+ * `CONFIG.Actor.documentClass` replacement retired 2026-05-18 — DCC
+ * shipped the `dcc.afterComputeSpellCheck` extension hook for exactly
+ * this use case. See dcc/docs/dev/EXTENSION_API.md.
+ */
+Hooks.on('dcc.afterComputeSpellCheck', (actor) => {
+  if (!actor.system.class.spellCheckOverride) {
+    actor.system.class.spellCheck = calculateSpellCheckBonus(actor)
+  }
+})
 
 /* -------------------------------------------- */
 /*  Schema Extensions                           */
@@ -49,7 +65,6 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
   // XCC class-specific fields
   schema.class.fields.localizationPath = new StringField({ initial: '' })
   schema.class.fields.classLink = new StringField({ initial: '' })
-  schema.class.fields.spellCheckAbility = new StringField({ initial: '' })
 
   // Athlete fields
   schema.class.fields.trainingDie = new StringField({ initial: '' })
@@ -65,8 +80,6 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
 
   // Blaster fields
   schema.class.fields.blasterDie = new StringField({ initial: '' })
-  schema.class.fields.maxSpellLevel = new StringField({ initial: '' })
-  schema.class.fields.knownSpells = new StringField({ initial: '' })
 
   // Jammer fields
   schema.class.fields.teamMascotDie = new StringField({ initial: '' })
@@ -78,12 +91,8 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
 
   // Messenger fields
   schema.class.fields.turnUndeadDie = new StringField({ initial: '' })
-  schema.class.fields.disapproval = new NumberField({ initial: 1, integer: true })
-  schema.class.fields.disapprovalTable = new StringField({ initial: '' })
   schema.class.fields.scourge = new StringField({ initial: '' })
   schema.class.fields.favoredWeapon = new StringField({ initial: '' })
-  schema.class.fields.deity = new StringField({ initial: '' })
-  schema.class.fields.corruption = new StringField({ initial: '' })
 
   // Half-Orc fields
   schema.class.fields.wildCritRange = new NumberField({ initial: 20, integer: true })
@@ -91,10 +100,6 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
   // Half-Elf fields
   schema.class.fields.charismaDie = new StringField({ initial: '' })
   schema.class.fields.saveBonus = new StringField({ initial: '' })
-
-  // Specialist fields (shared across multiple specialist classes)
-  schema.class.fields.luckDie = new StringField({ initial: '' })
-  schema.class.fields.backstab = new StringField({ initial: '' })
 
   // Criminal specialist fields
   schema.class.fields.currentTurf = new StringField({ initial: '' })
@@ -168,119 +173,126 @@ async function enrichArrayHTML (classKey, name, isGnome) {
 Hooks.once('init', async function () {
   console.log('XCC | Initializing XCrawl Classics System')
   CONFIG.XCC = XCC
-  CONFIG.Actor.documentClass = XCCActor
+
+  // Register module settings here (init) rather than in the later `dcc.ready`
+  // hook. The updateActor/updateItem hooks and the `debugItem` Handlebars
+  // helper read `isDebug` unguarded, so an actor/item update during the boot
+  // window (before `dcc.ready` fired) threw "xcc.isDebug is not a registered
+  // game setting". Registering at init guarantees the settings exist before any
+  // runtime read.
+  await registerModuleSettings()
 
   // Register ActorSheets and their Helper functions
-  Actors.registerSheet('xcc', XCCActorSheetAthlete, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetAthlete, {
+    scope: 'xcc',
     label: 'XCC.Athlete.DropdownLabel'
   })
   XCCActorSheetAthlete.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetBlaster, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetBlaster, {
+    scope: 'xcc',
     label: 'XCC.Blaster.DropdownLabel'
   })
   XCCActorSheetBlaster.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetBrawler, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetBrawler, {
+    scope: 'xcc',
     label: 'XCC.Brawler.DropdownLabel'
   })
   XCCActorSheetBrawler.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetJammer, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetJammer, {
+    scope: 'xcc',
     label: 'XCC.Jammer.DropdownLabel'
   })
   XCCActorSheetJammer.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetMessenger, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetMessenger, {
+    scope: 'xcc',
     label: 'XCC.Messenger.DropdownLabel'
   })
   XCCActorSheetMessenger.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetSpAcrobat, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetSpAcrobat, {
+    scope: 'xcc',
     label: 'XCC.Specialist.Acrobat.DropdownLabel'
   })
   XCCActorSheetSpAcrobat.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetSpCommando, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetSpCommando, {
+    scope: 'xcc',
     label: 'XCC.Specialist.Commando.DropdownLabel'
   })
   XCCActorSheetSpCommando.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetSpCriminal, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetSpCriminal, {
+    scope: 'xcc',
     label: 'XCC.Specialist.Criminal.DropdownLabel'
   })
   XCCActorSheetSpCriminal.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetSpCryptRaider, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetSpCryptRaider, {
+    scope: 'xcc',
     label: 'XCC.Specialist.CryptRaider.DropdownLabel'
   })
   XCCActorSheetSpCryptRaider.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetSpScout, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetSpScout, {
+    scope: 'xcc',
     label: 'XCC.Specialist.Scout.DropdownLabel'
   })
   XCCActorSheetSpScout.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetSpDwarfMechanic, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetSpDwarfMechanic, {
+    scope: 'xcc',
     label: 'XCC.Specialist.DwarfMechanic.DropdownLabel'
   })
   XCCActorSheetSpDwarfMechanic.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetSpElfTrickster, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetSpElfTrickster, {
+    scope: 'xcc',
     label: 'XCC.Specialist.ElfTrickster.DropdownLabel'
   })
   XCCActorSheetSpElfTrickster.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetSpHalfOrcSlayer, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetSpHalfOrcSlayer, {
+    scope: 'xcc',
     label: 'XCC.Specialist.HalfOrcSlayer.DropdownLabel'
   })
   XCCActorSheetSpHalfOrcSlayer.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetSpHalflingRogue, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetSpHalflingRogue, {
+    scope: 'xcc',
     label: 'XCC.Specialist.HalflingRogue.DropdownLabel'
   })
   XCCActorSheetSpHalflingRogue.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetHalfOrc, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetHalfOrc, {
+    scope: 'xcc',
     label: 'XCC.HalfOrc.DropdownLabel'
   })
   XCCActorSheetHalfOrc.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetHalfElf, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetHalfElf, {
+    scope: 'xcc',
     label: 'XCC.HalfElf.DropdownLabel'
   })
   XCCActorSheetHalfElf.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetDwarf, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetDwarf, {
+    scope: 'xcc',
     label: 'XCC.Dwarf.DropdownLabel'
   })
   XCCActorSheetDwarf.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetGnome, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetGnome, {
+    scope: 'xcc',
     label: 'XCC.Gnome.DropdownLabel'
   })
   XCCActorSheetGnome.addHooksAndHelpers()
 
-  Actors.registerSheet('xcc', XCCActorSheetGeneric, {
-    types: ['Player'],
+  game.dcc.registerActorSheet('Player', XCCActorSheetGeneric, {
+    scope: 'xcc',
     label: 'XCC.GenericSheet.DropdownLabel'
   })
   XCCActorSheetGeneric.addHooksAndHelpers()
@@ -453,9 +465,6 @@ Hooks.once('dcc.ready', async function () {
     get: function () { return true }
   })
 
-  // Register module settings
-  await registerModuleSettings()
-
   // Override Fleeting Luck Automation with our setting
   Object.defineProperty(game.dcc.FleetingLuck, 'automationEnabled', {
     get: function () { return game.settings.get(globals.id, 'enableMojoAutomation') }
@@ -522,12 +531,6 @@ Hooks.on('initializeDynamicTokenRingConfig', ringConfig => {
 })
 
 // Debug logs
-Hooks.on('dcc.update', async function (actor, data) {
-  if (game.settings.get(globals.id, 'isDebug')) {
-    console.log(`XCC: update hook triggered for actor: ${actor.name}`)
-  }
-})
-
 Hooks.on('updateActor', (actor, data, action, userId) => {
   if (game.settings.get(globals.id, 'isDebug')) {
     console.log('XCC: actor updated:', actor.name, 'Data:', data, 'Action:', action, 'User ID:', userId)

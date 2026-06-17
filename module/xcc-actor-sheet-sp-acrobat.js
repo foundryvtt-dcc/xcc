@@ -38,11 +38,9 @@ class XCCActorSheetSpAcrobat extends XCCActorSheet {
   }
 
   setSpecialistSkills () {
-    // DCC System had a bug with pickPocket skill, we're setting a custom one for now
-    if (this.actor.system.skills.pickPocket) {
-      this.actor.system.skills.pickPocket.ability = 'agl'
-      this.actor.system.skills.pickPocket.config = { applyCheckPenalty: true }
-      this.actor.system.skills.pickPocket.label = 'DCC.system.skills.pickPocket.value'
+    // Acrobat: pickpocket suffers armor check penalty
+    if (this.actor.system.skills.pickPockets) {
+      this.actor.system.skills.pickPockets.config = { applyCheckPenalty: true }
     }
     // XCC uses int for forge document skill
     if (this.actor.system.skills.forgeDocument) {
