@@ -40,8 +40,8 @@
   ],
   "homepage": "https://github.com/foundryvtt-dcc/xcc#readme",
   "devDependencies": {
-    "@foundryvtt/foundryvtt-cli": "^3.0.0",
-    "eslint": "^9.36.0",
+    "@foundryvtt/foundryvtt-cli": "^3.0.4",
+    "eslint": "^10.7.0",
     "standard": "^17.1.2"
   },
   "type": "module"
