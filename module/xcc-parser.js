@@ -144,7 +144,10 @@ async function createActors (type, folderId, actorData) {
     }
   }
 
-  // Cache available items if importing players
+  // Cache available items if importing players, keyed by normalized name so
+  // Purple Sorcerer names like "Rope - 50'" match pack names like "Rope, 50’"
+  // (ported from the DCC system fix for foundryvtt-dcc/dcc#817). XCC pack
+  // entries intentionally overwrite DCC entries with the same name.
   // @TODO Implement a configuration mechanism for providing additional packs
   const itemMap = {}
   if (type === 'Player') {
@@ -153,7 +156,7 @@ async function createActors (type, folderId, actorData) {
       if (!pack) continue
 
       for (const entry of pack.index) {
-        itemMap[entry.name.toLowerCase()] = entry
+        itemMap[_normalizeItemName(entry.name)] = entry
       }
     }
     for (const packPath of CONFIG.XCC.actorImporterItemPacks) {
@@ -161,7 +164,7 @@ async function createActors (type, folderId, actorData) {
       if (!pack) continue
 
       for (const entry of pack.index) {
-        itemMap[entry.name.toLowerCase()] = entry
+        itemMap[_normalizeItemName(entry.name)] = entry
       }
     }
   }
@@ -263,7 +266,7 @@ async function createActors (type, folderId, actorData) {
             name = name.substring(0, qtyMatch)
           }
           // We have the final item name. Search for it in the cache
-          const mapEntry = itemMap[name.toLowerCase()]
+          const mapEntry = itemMap[_normalizeItemName(name)]
           if (mapEntry) {
             // Lookup the item document
             const compendiumItem = await fromUuid(mapEntry.uuid)
@@ -320,6 +323,24 @@ async function createActors (type, folderId, actorData) {
   }
 
   return actors
+}
+
+/**
+ * Normalize an item name for compendium matching: lower-case, straighten curly
+ * apostrophes, and collapse commas, hyphens, parentheses, and asterisks to
+ * spaces, so Purple Sorcerer names like "Rope - 50'" or "Flashlight - combat"
+ * match pack names like "Rope, 50’" and "Flashlight, combat".
+ * (Ported from the DCC system fix for foundryvtt-dcc/dcc#817.)
+ * @param {string} name - The item name to normalize
+ * @return {string} The normalized name
+ */
+function _normalizeItemName (name) {
+  return name
+    .toLowerCase()
+    .replace(/[’‘]/g, "'")
+    .replace(/[-,()*]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 // Returns the name of a random piece of equipment from the equipment compendium
