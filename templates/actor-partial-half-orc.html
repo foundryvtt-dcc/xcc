@@ -10,12 +10,11 @@
                 <input type="text" value="{{system.details.attackBonus}}" data-dtype="String" disabled="" />
             </div>
             <div class="grid-tpl-max-25" data-skill="wildCritRange">
-                <label class="skill-check" for="system.details.wildCritRange" data-action="rollSkillCheck"
-                    data-drag="true" data-drag-action="skill">
-                    {{localize "DCC.system.details.wildCritRange"}}
+                <label for="system.class.wildCritRange">
+                    {{localize "XCC.HalfOrc.WildCritRange"}}
                 </label>
-                <input type="text" id="system.details.wildCritRange" name="system.details.wildCritRange"
-                    value="{{system.details.wildCritRange}}" data-dtype="String" />
+                <input type="number" id="system.class.wildCritRange" name="system.class.wildCritRange"
+                    value="{{system.class.wildCritRange}}" data-dtype="Number" min="1" max="20" step="1" />
             </div>
         </div>
     </div>

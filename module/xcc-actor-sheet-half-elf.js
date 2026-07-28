@@ -290,7 +290,7 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
         await XCCActorSheetHalfElf.rollDowngradedBackstab(event, weapon, this.actor)
       } else {
         // Call the original roll weapon attack action
-        await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
+        await XCCActorSheet.rollStandardWeaponAttack.call(this, event, target)
       }
     } else { console.warn(`Weapon not found: ${itemId} `) }
   }

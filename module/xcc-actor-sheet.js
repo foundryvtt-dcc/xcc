@@ -81,6 +81,20 @@ export class XCCActorSheet extends DCCActorSheet {
     return this.actor.createEmbeddedDocuments('Item', [itemData])
   }
 
+  // Roll a standard DCC weapon attack. The DCC system's own rollWeaponAttack
+  // action handler is a private method, so subclass actions that wrap a
+  // regular attack call this equivalent helper instead.
+  static async rollStandardWeaponAttack (event, target) {
+    event.preventDefault()
+    const itemId = DCCActorSheet.findDataset(target, 'itemId')
+    const options = DCCActorSheet.fillRollOptions(event)
+    Object.assign(options, {
+      backstab: target.classList.contains('backstab-button'),
+      thrown: target.dataset.thrown === 'true'
+    })
+    await this.actor.rollWeaponAttack(itemId, options)
+  }
+
   // Define action for rolling a fame check
   static async rollFameCheck (event, target) {
     event.preventDefault()

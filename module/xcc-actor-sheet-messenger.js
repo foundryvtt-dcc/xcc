@@ -488,16 +488,14 @@ class XCCActorSheetMessenger extends XCCActorSheet {
       weapon.system.damage = weapon.system.damage ? `${weapon.system.damage}+${scourgeAmount}` : `${scourgeAmount}`
       // Adjust weapon name to indicate scourge damage
       weapon.name += game.i18n.localize('XCC.Messenger.WithScourge')
-      // Add hook to restore original weapon data
-      Hooks.once('dcc.rollWeaponAttack', async (rolls, messageData) => {
-        if (weapon && messageData.system.weaponId === weapon.id) {
-          weapon.system.damage = oldDamage
-          weapon.system.critRange = oldCrit
-          weapon.name = oldName
-        }
-      })
-      // Call the original roll weapon attack action
-      await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
+      // Roll the attack, then restore the original weapon data
+      try {
+        await XCCActorSheet.rollStandardWeaponAttack.call(this, event, target)
+      } finally {
+        weapon.system.damage = oldDamage
+        weapon.system.critRange = oldCrit
+        weapon.name = oldName
+      }
     } else { console.warn(`Weapon not found: ${itemId}`) }
   }
 
@@ -521,10 +519,12 @@ class XCCActorSheetMessenger extends XCCActorSheet {
     }
     // Add the fake weapon to the actor's items
     this.actor.items.set(weapon.key, weapon.value, { modifySource: false })
-    // Pass the fake weapon
-    await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
-    // Remove the fake weapon from items after we're done
-    this.actor.items.delete(weapon.id, { modifySource: false })
+    // Pass the fake weapon, then remove it from items when we're done
+    try {
+      await XCCActorSheet.rollStandardWeaponAttack.call(this, event, target)
+    } finally {
+      this.actor.items.delete(weapon.key, { modifySource: false })
+    }
   }
 
   static async rollFreeAttack (event, target) {
@@ -546,10 +546,12 @@ class XCCActorSheetMessenger extends XCCActorSheet {
     }
     // Add the fake weapon to the actor's items
     this.actor.items.set(weapon.key, weapon.value, { modifySource: false })
-    // Pass the fake weapon
-    await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
-    // Remove the fake weapon from items after we're done
-    this.actor.items.delete(weapon.id, { modifySource: false })
+    // Pass the fake weapon, then remove it from items when we're done
+    try {
+      await XCCActorSheet.rollStandardWeaponAttack.call(this, event, target)
+    } finally {
+      this.actor.items.delete(weapon.key, { modifySource: false })
+    }
   }
 
   _onRender (context, options) {

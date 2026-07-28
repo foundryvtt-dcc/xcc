@@ -110,16 +110,14 @@ class XCCActorSheetHalfOrc extends XCCActorSheet {
       if (this.actor.system.abilities.lck.mod > 0) {
         weapon.system.damage = weapon.system.damage ? `${weapon.system.damage}+${this.actor.system.abilities.lck.mod}` : `+${this.actor.system.abilities.lck.mod}`
       }
-      // Add hook to restore original weapon data
-      Hooks.once('dcc.rollWeaponAttack', async (rolls, messageData) => {
-        if (weapon && messageData.system.weaponId === weapon.id) {
-          weapon.system.damage = oldDamage
-          weapon.system.critRange = oldCrit
-          weapon.system.toHit = oldBonus
-        }
-      })
-      // Call the original roll weapon attack action
-      await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
+      // Roll the attack, then restore the original weapon data
+      try {
+        await XCCActorSheet.rollStandardWeaponAttack.call(this, event, target)
+      } finally {
+        weapon.system.damage = oldDamage
+        weapon.system.critRange = oldCrit
+        weapon.system.toHit = oldBonus
+      }
     } else { console.warn(`Weapon not found: ${itemId}`) }
   }
 }
