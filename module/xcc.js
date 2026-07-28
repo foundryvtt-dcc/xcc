@@ -113,6 +113,25 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
     totalWealth: new NumberField({ initial: 0, integer: true })
   })
 })
+
+/**
+ * DCC Tools sidebar tab (DCC issue #833): in XCrawl the fleeting-luck
+ * mechanic is Mojo — our lang overrides already relabel the whole
+ * DCC.FleetingLuck vocabulary — and it is always on (see the `enabled`
+ * override in the `dcc.ready` block below). The core tool is gated on the
+ * `dcc.enableFleetingLuck` setting, so re-seed it unconditionally with a
+ * Mojo-flavored icon. Registered at import time so the sidebar's first
+ * render (during `Game#initializeUI`, before `ready`) already includes it;
+ * on DCC versions without the sidebar tab the hook simply never fires.
+ */
+Hooks.on('dcc.getSidebarTools', (tools) => {
+  tools.fleetingLuck = {
+    label: 'DCC.FleetingLuck',
+    icon: 'fas fa-hand-sparkles',
+    onClick: () => game.dcc.FleetingLuck.show()
+  }
+})
+
 const { loadTemplates } = foundry.applications.handlebars
 
 /* -------------------------------------------- */
@@ -478,9 +497,11 @@ Hooks.once('dcc.ready', async function () {
     if (caption) caption.textContent = game.i18n.localize('DCC.FancyPause')
   })
 
-  // Re-Initialize Fleeting Luck UI
+  // Re-Initialize Fleeting Luck UI (the Mojo tracker). The scene-controls
+  // re-render that used to surface the Fleeting Luck button is gone — the
+  // launcher now lives in the DCC Tools sidebar tab via the
+  // `dcc.getSidebarTools` listener registered at import time.
   game.dcc.FleetingLuck.init()
-  foundry.ui.controls.render()
 
   // Enrich class arrays
   await enrichClass('XCC.Athlete')
