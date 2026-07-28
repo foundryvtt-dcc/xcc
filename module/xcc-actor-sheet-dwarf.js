@@ -163,10 +163,12 @@ class XCCActorSheetDwarf extends XCCActorSheet {
     }
     // Add the fake weapon to the actor's items
     this.actor.items.set(weapon.key, weapon.value, { modifySource: false })
-    // Pass the fake weapon
-    await XCCActorSheet.DEFAULT_OPTIONS.actions.rollWeaponAttack.call(this, event, target)
-    // Remove the fake weapon from items after we're done
-    this.actor.items.delete(weapon.id, { modifySource: false })
+    // Pass the fake weapon, then remove it from items when we're done
+    try {
+      await XCCActorSheet.rollStandardWeaponAttack.call(this, event, target)
+    } finally {
+      this.actor.items.delete(weapon.key, { modifySource: false })
+    }
   }
 }
 export default XCCActorSheetDwarf

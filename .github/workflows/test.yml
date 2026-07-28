@@ -1,0 +1,40 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Lint & Test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # The module imports the DCC system via /systems/dcc/ paths;
+      # the tests resolve those against this checkout (see vitest.config.js)
+      - name: Checkout DCC system
+        uses: actions/checkout@v6
+        with:
+          repository: foundryvtt-dcc/dcc
+          path: .dcc-system
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npx standard
+
+      - name: Test
+        run: npm test
+        env:
+          DCC_PATH: ${{ github.workspace }}/.dcc-system
