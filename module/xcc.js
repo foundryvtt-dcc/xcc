@@ -26,6 +26,7 @@ import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { calculateSpellCheckBonus } from './xcc-utils.js'
 import { globals, registerModuleSettings } from './settings.js'
 import { checkReleaseNotes } from './xcc-release-notes.js'
+import { registerI18nOverrides } from './xcc-i18n.js'
 
 const { SchemaField, StringField, NumberField, BooleanField } = foundry.data.fields
 
@@ -117,8 +118,8 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
 
 /**
  * DCC Tools sidebar tab (DCC issue #833): in XCrawl the fleeting-luck
- * mechanic is Mojo — our lang overrides already relabel the whole
- * DCC.FleetingLuck vocabulary — and it is always on (see the `enabled`
+ * mechanic is Mojo — our i18nInit overrides (module/xcc-i18n.js) relabel
+ * the whole DCC.FleetingLuck vocabulary — and it is always on (see the `enabled`
  * override in the `dcc.ready` block below). The core tool is gated on the
  * `dcc.enableFleetingLuck` setting, so re-seed it unconditionally with a
  * Mojo-flavored icon. Registered at import time so the sidebar's first
@@ -127,9 +128,11 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
  *
  * The tab itself is rebranded for XCrawl in the `init` hook below: the
  * tab-strip icon swaps from the DCC wordmark to our "X" (see the DCC Tools
- * Sidebar Tab section of styles/xcc.css) and the DCC.SidebarTab lang
- * override retitles it "XCC Tools".
+ * Sidebar Tab section of styles/xcc.css) and the DCC.SidebarTab override
+ * in module/xcc-i18n.js retitles it "XCC Tools".
  */
+registerI18nOverrides()
+
 Hooks.on('dcc.getSidebarTools', (tools) => {
   tools.fleetingLuck = {
     label: 'DCC.FleetingLuck',
