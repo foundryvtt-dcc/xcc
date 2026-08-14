@@ -641,10 +641,25 @@
 }
 
 /* ----------------------------------------- */
-/*  Mojo Icon                                */
+/*  DCC Tools Sidebar Tab                    */
 /* ----------------------------------------- */
-button[data-tool='fleetingLuck']::before {
-  content: '\f762';
+
+/* The tab-strip icon, rebranded from the system's DCC wordmark to the
+   XCrawl "X" (images/xcc-sidebar-icon.svg — drawn in the logo's
+   trade-dress lettering style, which none of the bundled fonts match).
+   The system paints its wordmark PNG on the tab button's ::before under
+   the .dcc-sidebar-icon class; xcc.js swaps that class for
+   .xcc-sidebar-icon during init, so the system rule never applies and
+   this one draws the image on the same pseudo-element, leaving the
+   button's normal hover/active states untouched. */
+#sidebar-tabs button.ui-control.xcc-sidebar-icon::before {
+  content: '';
+  display: block;
+  width: 26px;
+  height: 26px;
+  margin: auto;
+  background: url("images/xcc-sidebar-icon.svg") no-repeat center;
+  background-size: contain;
 }
 
 /* ----------------------------------------- */

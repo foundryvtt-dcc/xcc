@@ -2,7 +2,8 @@ export const globals = {
   id: 'xcc',
   templatesPath: 'modules/xcc/templates/',
   imagesPath: 'modules/xcc/styles/images/',
-  title: 'XCrawl Classics System'
+  title: 'XCrawl Classics System',
+  userGuideUrl: 'https://foundryvtt-xcrawl-classics-user-guide.readthedocs.io/en/latest/'
 }
 
 export const registerModuleSettings = async function () {

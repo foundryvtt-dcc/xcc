@@ -17,6 +17,7 @@
     "FleetingLuckTakeTitle": "Take a point of Mojo from this user",
     "FleetingLuckTakeMessage": "{user} lost {amount} Mojo",
     "FleetingLuckTerm": "Mojo Amount",
+    "SidebarTab": "XCC Tools",
     "system.class.disrespectPenalty": "Disrespect Penalty",
     "system.class.devastatingAttack": "Devastating Attack",
     "system.class.unarmedDamage": "Unarmed Damage",
@@ -42,6 +43,9 @@
     "system.skills.briberyExpert.value": "Bribery expert"
   },
   "XCC": {
+    "Welcome": {
+      "Title": "XCrawl Classics"
+    },
     "DC": "DC",
     "DisplayValueHint": "Final check roll formula calculated from values above",
     "TableDrawEffect": "<b>Result</b>:<br/>",

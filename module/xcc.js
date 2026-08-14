@@ -25,6 +25,7 @@ import XCC from '../config.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { calculateSpellCheckBonus } from './xcc-utils.js'
 import { globals, registerModuleSettings } from './settings.js'
+import { checkReleaseNotes } from './xcc-release-notes.js'
 
 const { SchemaField, StringField, NumberField, BooleanField } = foundry.data.fields
 
@@ -123,12 +124,18 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
  * Mojo-flavored icon. Registered at import time so the sidebar's first
  * render (during `Game#initializeUI`, before `ready`) already includes it;
  * on DCC versions without the sidebar tab the hook simply never fires.
+ *
+ * The tab itself is rebranded for XCrawl in the `init` hook below: the
+ * tab-strip icon swaps from the DCC wordmark to our "X" (see the DCC Tools
+ * Sidebar Tab section of styles/xcc.css) and the DCC.SidebarTab lang
+ * override retitles it "XCC Tools".
  */
 Hooks.on('dcc.getSidebarTools', (tools) => {
   tools.fleetingLuck = {
     label: 'DCC.FleetingLuck',
     icon: 'fas fa-hand-sparkles',
-    onClick: () => game.dcc.FleetingLuck.show()
+    onClick: () => game.dcc.FleetingLuck.show(),
+    help: `${globals.userGuideUrl}Mojo/`
   }
 })
 
@@ -192,6 +199,16 @@ async function enrichArrayHTML (classKey, name, isGnome) {
 Hooks.once('init', async function () {
   console.log('XCC | Initializing XCrawl Classics System')
   CONFIG.XCC = XCC
+
+  // Rebrand the DCC Tools sidebar tab for XCrawl. The system registered the
+  // tab in its own init hook (which runs before module init hooks), so its
+  // Sidebar.TABS entry exists here; swap the DCC wordmark tab-strip icon
+  // class for our "X" (styled in styles/xcc.css). Guarded so older DCC
+  // versions without the sidebar tab are a no-op.
+  const dccSidebarTab = foundry.applications.sidebar.Sidebar.TABS.dcc
+  if (dccSidebarTab) {
+    dccSidebarTab.icon = 'xcc-sidebar-icon'
+  }
 
   // Register module settings here (init) rather than in the later `dcc.ready`
   // hook. The updateActor/updateItem hooks and the `debugItem` Handlebars
@@ -502,6 +519,11 @@ Hooks.once('dcc.ready', async function () {
   // launcher now lives in the DCC Tools sidebar tab via the
   // `dcc.getSidebarTools` listener registered at import time.
   game.dcc.FleetingLuck.init()
+
+  // Whisper the once-per-version release-notes/user-guide chat card.
+  // Fire-and-forget (like the system's checkReleaseNotes): the card is
+  // cosmetic and must not delay or abort the class enrichment below.
+  checkReleaseNotes()
 
   // Enrich class arrays
   await enrichClass('XCC.Athlete')
