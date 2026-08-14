@@ -520,8 +520,10 @@ Hooks.once('dcc.ready', async function () {
   // `dcc.getSidebarTools` listener registered at import time.
   game.dcc.FleetingLuck.init()
 
-  // Whisper the once-per-version release-notes/user-guide chat card
-  await checkReleaseNotes()
+  // Whisper the once-per-version release-notes/user-guide chat card.
+  // Fire-and-forget (like the system's checkReleaseNotes): the card is
+  // cosmetic and must not delay or abort the class enrichment below.
+  checkReleaseNotes()
 
   // Enrich class arrays
   await enrichClass('XCC.Athlete')

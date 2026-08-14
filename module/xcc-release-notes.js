@@ -13,16 +13,23 @@ const { renderTemplate } = foundry.applications.handlebars
  * the title and link targets are XCC's own.
  */
 export async function checkReleaseNotes () {
-  const lastSeenVersion = game.user.getFlag(globals.id, 'lastSeenModuleVersion')
-  const currentVersion = game.modules.get(globals.id).version
+  // Never let a chat-card failure (e.g. ChatMessage.create rejecting on
+  // permissions) escape: this runs inside the dcc.ready listener, and an
+  // unhandled rejection there would abort the rest of XCC's ready work.
+  try {
+    const lastSeenVersion = game.user.getFlag(globals.id, 'lastSeenModuleVersion')
+    const currentVersion = game.modules.get(globals.id).version
 
-  if (lastSeenVersion !== currentVersion) {
-    const html = await renderTemplate(globals.templatesPath + 'chat-card-release-notes.html', {})
-    await ChatMessage.create({
-      whisper: [game.user.id],
-      content: html
-    })
-    await game.user.setFlag(globals.id, 'lastSeenModuleVersion', currentVersion)
+    if (lastSeenVersion !== currentVersion) {
+      const html = await renderTemplate(globals.templatesPath + 'chat-card-release-notes.html', {})
+      await ChatMessage.create({
+        whisper: [game.user.id],
+        content: html
+      })
+      await game.user.setFlag(globals.id, 'lastSeenModuleVersion', currentVersion)
+    }
+  } catch (e) {
+    console.error('XCC | Failed to show the release notes chat card:', e)
   }
 
   // Register listeners for the card's buttons. Unlike the system's listener,
