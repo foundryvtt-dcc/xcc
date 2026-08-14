@@ -25,6 +25,7 @@ import XCC from '../config.js'
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
 import { calculateSpellCheckBonus } from './xcc-utils.js'
 import { globals, registerModuleSettings } from './settings.js'
+import { checkReleaseNotes } from './xcc-release-notes.js'
 
 const { SchemaField, StringField, NumberField, BooleanField } = foundry.data.fields
 
@@ -518,6 +519,9 @@ Hooks.once('dcc.ready', async function () {
   // launcher now lives in the DCC Tools sidebar tab via the
   // `dcc.getSidebarTools` listener registered at import time.
   game.dcc.FleetingLuck.init()
+
+  // Whisper the once-per-version release-notes/user-guide chat card
+  await checkReleaseNotes()
 
   // Enrich class arrays
   await enrichClass('XCC.Athlete')

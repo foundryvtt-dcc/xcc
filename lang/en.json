@@ -43,6 +43,9 @@
     "system.skills.briberyExpert.value": "Bribery expert"
   },
   "XCC": {
+    "Welcome": {
+      "Title": "XCrawl Classics"
+    },
     "DC": "DC",
     "DisplayValueHint": "Final check roll formula calculated from values above",
     "TableDrawEffect": "<b>Result</b>:<br/>",
