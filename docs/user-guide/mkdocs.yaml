@@ -1,0 +1,10 @@
+site_name: FoundryVTT XCrawl Classics User Guide
+
+docs_dir: .
+
+exclude_docs: |
+  mkdocs.yaml
+
+theme:
+  name: readthedocs
+  highlightjs: true
