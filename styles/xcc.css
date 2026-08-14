@@ -645,23 +645,21 @@
 /* ----------------------------------------- */
 
 /* The tab-strip icon, rebranded from the system's DCC wordmark to the
-   XCrawl "X": Duvall Bold in the logo's yellow with its red-orange
-   outline. The system paints its wordmark PNG on the tab button's
-   ::before under the .dcc-sidebar-icon class; xcc.js swaps that class
-   for .xcc-sidebar-icon during init, so the system rule never applies
-   and this one draws the glyph on the same pseudo-element, leaving the
+   XCrawl "X" (images/xcc-sidebar-icon.svg — drawn in the logo's
+   trade-dress lettering style, which none of the bundled fonts match).
+   The system paints its wordmark PNG on the tab button's ::before under
+   the .dcc-sidebar-icon class; xcc.js swaps that class for
+   .xcc-sidebar-icon during init, so the system rule never applies and
+   this one draws the image on the same pseudo-element, leaving the
    button's normal hover/active states untouched. */
 #sidebar-tabs button.ui-control.xcc-sidebar-icon::before {
-  content: "X";
+  content: '';
   display: block;
+  width: 26px;
+  height: 26px;
   margin: auto;
-  font-family: Duvall, sans-serif;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 28px;
-  color: #fdc821;
-  -webkit-text-stroke: 2px #cc3936;
-  paint-order: stroke;
+  background: url("images/xcc-sidebar-icon.svg") no-repeat center;
+  background-size: contain;
 }
 
 /* ----------------------------------------- */

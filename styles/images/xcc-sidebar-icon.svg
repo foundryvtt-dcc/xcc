@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- XCrawl "X" tab-strip icon: letterform in the logo's trade-dress style
+     (heavy slanted sans, yellow fill, red-orange outline, charcoal outer
+     stroke) rather than any bundled font, since none of the module's fonts
+     (Duvall variants, Cooper Black) match the logo lettering. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-14 -14 128 168">
+  <g transform="translate(50,70) skewX(-10) translate(-50,-70)">
+    <path d="M0,0 L34,0 L50,34 L66,0 L100,0 L63,70 L100,140 L66,140 L50,106 L34,140 L0,140 L37,70 Z"
+          fill="#fdc311" stroke="#3a3f47" stroke-width="22" stroke-linejoin="round" paint-order="stroke"/>
+    <path d="M0,0 L34,0 L50,34 L66,0 L100,0 L63,70 L100,140 L66,140 L50,106 L34,140 L0,140 L37,70 Z"
+          fill="#fdc311" stroke="#d8402f" stroke-width="9" stroke-linejoin="round" paint-order="stroke"/>
+  </g>
+</svg>
