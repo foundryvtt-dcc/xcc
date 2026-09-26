@@ -7,12 +7,13 @@ import {
 } from '/systems/dcc/module/utilities.js'
 import { globals } from './settings.js'
 import DiceChain from '/systems/dcc/module/dice-chain.js'
+import { signedFormula } from './xcc-utils.js'
 
 class XCCActorSheetHalfElf extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
-      height: 640
+      height: 670
     },
     actions: {
       rollSavingThrow: this.rollSavingThrow,
@@ -531,6 +532,7 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
   // Define action for rolling grandstanding check.
   static async rollGrandstandingCheck (event, target) {
     event.preventDefault()
+    if (XCCActorSheet.hasGrandstanded(this.actor)) { return }
 
     // Get roll options from the DCC system (handles CTRL-click dialog)
     const options = XCCActorSheet.fillRollOptions(event)
@@ -549,7 +551,13 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
       fameMod = 1
     }
 
-    // Create terms for the DCC roll system
+    // Active Effect contributions - see the rewards schema in xcc.js
+    const dieSteps = this.actor.system.rewards?.grandstandingDieSteps || 0
+    if (dieSteps) fameDie = DiceChain.bumpDie(fameDie, dieSteps)
+    const effectMod = signedFormula(this.actor.system.rewards?.grandstandingMod)
+
+    // Create terms for the DCC roll system. The crowd DC stays last - it is
+    // peeled back off the assembled roll below.
     const terms = [
       {
         type: 'Die',
@@ -565,13 +573,24 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
         type: 'Modifier',
         label: game.i18n.localize('DCC.Modifier'),
         formula: ensurePlus(this.actor.system.abilities.per.mod + this.actor.system.details.level.value + fameMod)
-      },
-      {
-        type: 'Modifier',
-        label: game.i18n.localize('XCC.GrandstandingCrowd'),
-        formula: '+14'
       }
     ]
+    if (effectMod) {
+      terms.push({
+        type: 'Compound',
+        dieLabel: game.i18n.localize('DCC.Bonus'),
+        modifierLabel: game.i18n.localize('DCC.Bonus'),
+        formula: effectMod
+      })
+    }
+    // Default crowd DC, from the world setting. parseInt guards an emptied
+    // number input, which comes back null rather than the registered default.
+    const crowdDCDefault = parseInt(game.settings.get(globals.id, 'grandstandingCrowdDC')) || 0
+    terms.push({
+      type: 'Modifier',
+      label: game.i18n.localize('XCC.GrandstandingCrowd'),
+      formula: ensurePlus(crowdDCDefault)
+    })
 
     // Roll options for the DCC roll system
     const rollOptions = Object.assign(
@@ -583,45 +602,13 @@ class XCCActorSheetHalfElf extends XCCActorSheet {
 
     // Create and evaluate the roll using DCC system
     const roll = await game.dcc.DCCRoll.createRoll(terms, this.actor.getRollData(), rollOptions)
-    const crowdDC = parseInt(roll.terms[5].operator + roll.terms[6].number)
-    roll.terms = roll.terms.slice(0, 3)
+    // Read the crowd DC off the end rather than by index: a Compound bonus
+    // term expands to a variable number of Roll terms.
+    const crowdDC = parseInt(roll.terms.at(-2).operator + roll.terms.at(-1).number)
+    roll.terms = roll.terms.slice(0, -2)
     await roll.evaluate()
-    // Create the grandstanding message
-    const grandstandingMessage = game.i18n.format(
-      'XCC.GrandstandingMessage',
-      {
-        actorName: this.actor.name,
-        rollHTML: roll.toAnchor().outerHTML,
-        result: roll.total >= crowdDC ? game.i18n.localize('XCC.GrandstandingSuccess') : game.i18n.localize('XCC.GrandstandingFailure'),
-        crowd: crowdDC
-      }
-    )
 
-    // Add DCC flags
-    const flags = {
-      'dcc.isGrandstandingCheck': true,
-      'dcc.RollType': 'GrandstandingCheck',
-      'dcc.isNoHeader': true
-    }
-
-    // Create message data
-    const messageData = {
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: grandstandingMessage,
-      sound: CONFIG.sounds.dice,
-      flags,
-      flavor: `${this.actor.name} - ${game.i18n.localize('XCC.Grandstanding')}`
-    }
-
-    await ChatMessage.create(messageData)
-
-    // If we succeeded, increase fame by 1
-    if (roll.total >= crowdDC) {
-      this.actor.update({ 'system.rewards.fame': (this.actor.system.rewards?.fame || 0) + 1 })
-    }
-
-    return roll
+    return XCCActorSheet.finishGrandstanding(this.actor, roll, crowdDC)
   }
 
   static rollAbilityCheck (event, target) {

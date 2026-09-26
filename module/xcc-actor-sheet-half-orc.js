@@ -7,7 +7,7 @@ class XCCActorSheetHalfOrc extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
-      height: 640
+      height: 670
     },
     actions: {
       rollWeaponAttackWithWild: this.rollWeaponAttackWithWild

@@ -7,7 +7,7 @@ class XCCActorSheetGnome extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
-      height: 640
+      height: 670
     },
     actions: {
       rollDrawAgro: this.rollDrawAgro,
@@ -137,9 +137,10 @@ class XCCActorSheetGnome extends XCCActorSheet {
       'dcc.isNoHeader': true
     }
 
-    // Update with fleeting luck
+    // Update with fleeting luck. The Mascot Die pays the gnome who rolled it,
+    // not whoever is sitting at the keyboard - Mojo is the character's.
     game.dcc.FleetingLuck.updateFlags(flags, roll)
-    game.dcc.FleetingLuck.give(game.user.id, roll.total)
+    await game.dcc.FleetingLuck.give(this.actor.id, roll.total)
 
     // Create message data
     const messageData = {

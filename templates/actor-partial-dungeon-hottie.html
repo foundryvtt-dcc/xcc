@@ -1,0 +1,148 @@
+{{!-- Class Tab. The One Move decides which of the three blocks below shows. --}}
+<section class="xcc tab dungeon-hottie {{tabs.dungeon-hottie.cssClass}}" data-tab="{{tabs.dungeon-hottie.id}}"
+    data-group="{{tabs.dungeon-hottie.group}}" id="dungeon-hottie">
+    <div class="grid-container">
+        <div class="grid-col-span-12 dark-border reminder-block">
+            <div class="box-title">{{localize "XCC.ClassProperties"}}</div>
+            <div class="grid-tpl-two grid-row-gap-8 p-5">
+                <div class="grid-tpl-max-25">
+                    <label for="system.class.oneMove">{{localize "XCC.DungeonHottie.OneMove"}}</label>
+                    <select id="system.class.oneMove" name="system.class.oneMove"
+                        style="width: 110px; font-size: 12px; height: 17px;">
+                        <option value="" {{#unless system.class.oneMove}}selected="selected"{{/unless}}>{{localize "XCC.DungeonHottie.OneMoveNone"}}</option>
+                        <option value="arcane" {{#if (eq system.class.oneMove "arcane")}}selected="selected"{{/if}}>{{localize "XCC.DungeonHottie.OneMoveArcane"}}</option>
+                        <option value="deed" {{#if (eq system.class.oneMove "deed")}}selected="selected"{{/if}}>{{localize "XCC.DungeonHottie.OneMoveDeed"}}</option>
+                        <option value="sneaking" {{#if (eq system.class.oneMove "sneaking")}}selected="selected"{{/if}}>{{localize "XCC.DungeonHottie.OneMoveSneaking"}}</option>
+                    </select>
+                </div>
+                <div class="grid-tpl-max-25">
+                    <label title="{{localize 'XCC.DungeonHottie.AttractivenessHint'}}">{{localize "XCC.DungeonHottie.Attractiveness"}}</label>
+                    <input type="text" value="{{numberFormat system.details.level.value decimals=0 sign=true}}" data-dtype="String" disabled="" />
+                </div>
+                <div class="grid-tpl-max-25">
+                    <label for="system.class.notInTheFace" title="{{localize 'XCC.DungeonHottie.NotInTheFaceHint'}}">{{localize "XCC.DungeonHottie.NotInTheFace"}}</label>
+                    <input type="text" id="system.class.notInTheFace" name="system.class.notInTheFace"
+                        value="{{system.class.notInTheFace}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-25">
+                    <label for="xcc-hottie-defending" title="{{localize 'XCC.DungeonHottie.NotInTheFaceHint'}}">{{localize "XCC.DungeonHottie.NotInTheFaceActive"}}</label>
+                    <input type="checkbox" id="xcc-hottie-defending" data-action="toggleNotInTheFace"
+                        {{#if (isHottieDefending actor)}}checked{{/if}} style="margin:0">
+                </div>
+                <div class="grid-tpl-max-25">
+                    <label for="system.class.entourage" title="{{localize 'XCC.DungeonHottie.EntourageHint'}}">{{localize "XCC.DungeonHottie.Entourage"}}</label>
+                    <input type="text" id="system.class.entourage" name="system.class.entourage"
+                        value="{{system.class.entourage}}" data-dtype="Number" />
+                </div>
+                <div class="grid-tpl-max-25">
+                    <label for="system.class.tooCuteUsed" title="{{localize 'XCC.DungeonHottie.TooCuteToDieHint'}}">{{localize "XCC.DungeonHottie.TooCuteToDieUsed"}}</label>
+                    <input type="checkbox" id="system.class.tooCuteUsed" name="system.class.tooCuteUsed"
+                        data-dtype="Boolean" {{#if system.class.tooCuteUsed}}checked{{/if}} style="margin:0">
+                </div>
+
+                {{#if (eq system.class.oneMove "arcane")}}
+                <div class="grid-tpl-max-25">
+                    <label title="{{localize 'XCC.DungeonHottie.ArcaneSpellHint'}}">{{localize "DCC.SpellCheck"}}</label>
+                    <input type="text" value="{{system.class.spellCheck}}" data-dtype="String" disabled="" />
+                </div>
+                {{/if}}
+
+                {{#if (eq system.class.oneMove "deed")}}
+                <div class="grid-tpl-max-25">
+                    <label for="system.class.deedDie">{{localize "DCC.DeedDie"}}</label>
+                    <input type="text" id="system.class.deedDie" name="system.class.deedDie"
+                        value="{{system.class.deedDie}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-25">
+                    <label for="system.class.deedWeapon">{{localize "XCC.DungeonHottie.DeedWeapon"}}</label>
+                    <select id="system.class.deedWeapon" name="system.class.deedWeapon"
+                        style="width: 110px; font-size: 12px; height: 17px;">
+                        <option value="" {{#unless system.class.deedWeapon}}selected="selected"{{/unless}}>{{localize "XCC.DungeonHottie.OneMoveNone"}}</option>
+                        {{#each (hottieDeedWeapons) as |weapon|}}
+                        <option value="{{weapon}}" {{#if (eq ../system.class.deedWeapon weapon)}}selected="selected"{{/if}}>{{weapon}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                {{/if}}
+
+                {{#if (eq system.class.oneMove "sneaking")}}
+                <div class="grid-tpl-max-25">
+                    <label class="skill-check" for="system.class.backstab"
+                        title="{{#if (hottieBackstabBlocked actor)}}{{localize 'XCC.DungeonHottie.BackstabUnavailable'}}{{else}}{{localize 'DCC.ThiefBackstabSkillHint'}}{{/if}}">
+                        {{localize "DCC.Backstab"}}{{#if (hottieBackstabBlocked actor)}} <i class="fas fa-ban" inert></i>{{/if}}
+                    </label>
+                    <input type="text" id="system.class.backstab" name="system.class.backstab"
+                        value="{{system.class.backstab}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-25" data-skill="sneakSilently">
+                    <label class="skill-check rollable" for="system.skills.sneakSilently.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.SneakSilently"}}
+                    </label>
+                    <input type="text" id="system.skills.sneakSilently.value" name="system.skills.sneakSilently.value"
+                        value="{{system.skills.sneakSilently.value}}" data-dtype="String" />
+                </div>
+                <div class="grid-tpl-max-25" data-skill="hideInShadows">
+                    <label class="skill-check rollable" for="system.skills.hideInShadows.value"
+                        title="{{localize 'DCC.ThiefSkillHint'}}" data-action="rollSkillCheck" data-drag="true"
+                        data-drag-action="skill">
+                        {{localize "DCC.HideInShadows"}}
+                    </label>
+                    <input type="text" id="system.skills.hideInShadows.value" name="system.skills.hideInShadows.value"
+                        value="{{system.skills.hideInShadows.value}}" data-dtype="String" />
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        <div class="grid-col-span-12 dark-border">
+            <div class="row-separator"></div>
+            <div class="box-title">{{localize "XCC.DungeonHottie.ActorSheetDungeonHottie"}}</div>
+            <ol class="weapon-list dungeon-hottie box-border" style="margin-bottom: 0;">
+                <li class="grid-col-span-6 weapon-list-header">
+                    <div></div>
+                    <div title="{{localize 'DCC.Roll'}}"></div>
+                    <div>{{localize "DCC.Name"}}</div>
+                    <div>{{localize "DCC.Bonus"}}</div>
+                    <div>{{localize "DCC.Notes"}}</div>
+                </li>
+                <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <img class="icon-filter" src="{{getGameImage 'sparkles.svg'}}"
+                        title="{{localize 'XCC.DungeonHottie.Allure'}}" alt="{{localize 'XCC.DungeonHottie.Allure'}}"
+                        width="22" height="22">
+                    <div class="attack-buttons">
+                        <div class="rollable weapon-button icon-filter" data-action="rollAllure" data-drag="false"
+                            title="Roll" draggable="false">&nbsp;</div>
+                    </div>
+                    <input class="weapon-name" type="text" value="{{localize 'XCC.DungeonHottie.Allure'}}" readonly="">
+                    <input class="disabled" type="text" value="{{getHottieAllureBonus actor}}" readonly="">
+                    <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.DungeonHottie.AllureNotes'}}"
+                        readonly="">
+                </li>
+                <li class="grid-col-span-6 weapon grid-col-gap-5">
+                    <img class="icon-filter" src="{{getGameImage 'tongue.svg'}}"
+                        title="{{localize 'XCC.DungeonHottie.Persuade'}}" alt="{{localize 'XCC.DungeonHottie.Persuade'}}"
+                        width="22" height="22">
+                    <div class="attack-buttons">
+                        <div class="rollable weapon-button icon-filter" data-action="rollPersuade" data-drag="false"
+                            title="Roll" draggable="false">&nbsp;</div>
+                    </div>
+                    <input class="weapon-name" type="text" value="{{localize 'XCC.DungeonHottie.Persuade'}}" readonly="">
+                    <input class="disabled" type="text" value="{{getHottiePersuadeBonus actor}}" readonly="">
+                    <input class="weapon-notes disabled" type="text" value="{{localize 'XCC.DungeonHottie.PersuadeNotes'}}"
+                        readonly="">
+                </li>
+            </ol>
+            <div class="row-separator"></div>
+            <div class="box-border">
+                <label for="system.class.entourageMembers" class="box-title"
+                    title="{{localize 'XCC.DungeonHottie.EntourageHint'}}">{{localize
+                    "XCC.DungeonHottie.EntourageMembers"}}</label>
+                <input id="system.class.entourageMembers" name="system.class.entourageMembers"
+                    style="border-bottom:0; height: 22px; border-radius: 3px; background: var(--system-input-background); margin: 6px 8px; width: stretch; box-shadow: var(--input-box-shadow);"
+                    data-dtype="String" value="{{system.class.entourageMembers}}"/>
+            </div>
+        </div>
+    </div>
+    {{> modules/xcc/templates/actor-partial-common.html }}
+</section>

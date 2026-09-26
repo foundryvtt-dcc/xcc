@@ -6,7 +6,7 @@ import { globals } from './settings.js'
 class XCCActorSheetMessenger extends XCCActorSheet {
   static DEFAULT_OPTIONS = {
     position: {
-      height: 650
+      height: 670
     },
     actions: {
       rollHolyAct: this.rollHolyAct,

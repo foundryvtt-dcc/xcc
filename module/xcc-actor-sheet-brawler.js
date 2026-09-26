@@ -6,7 +6,7 @@ import { globals } from './settings.js'
 class XCCActorSheetBrawler extends XCCActorSheet {
   static DEFAULT_OPTIONS = {
     position: {
-      height: 640
+      height: 670
     },
     actions: {
       rollUnarmedAttack: this.rollUnarmedAttack

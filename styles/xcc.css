@@ -65,6 +65,32 @@
   }
 }
 
+/* ----------------------------------------- */
+/*  Chat Card Accent                         */
+/* ----------------------------------------- */
+
+/*
+ * Highlight color for our chat messages. Not `--system-accent-color`: Foundry
+ * stamps `theme-light` on `ol.chat-log`, so that resolves to its light value
+ * (#222) inside chat whatever the theme, while the card keeps DCC's dark
+ * `--chat-background`. Declared on `body`, as DCC's `--chat-*` names are, and
+ * as literals - a var() would be substituted where it is used and resolve
+ * light again.
+ */
+body.theme-light {
+  --chat-accent-color: #222;
+}
+
+body.theme-dark {
+  --chat-accent-color: #ef4444;
+}
+
+/* Mirrors DCC's own `--chat-*` handling for the "chat cards use UI theme"
+   setting, so the accent follows the same theme as the card around it. */
+.chat-cards-use-ui-theme #interface {
+  --chat-accent-color: var(--system-accent-color);
+}
+
 /* Adjustable table result controls styling */
 .xcc-adjustable {
   .table-results {
@@ -235,6 +261,10 @@
     grid-template-columns: 30px min-content minmax(90px, 25%) min-content minmax(210px, 100%);
   }
 
+  .weapon-list.dungeon-hottie {
+    grid-template-columns: 30px min-content minmax(90px, 25%) min-content minmax(210px, 100%);
+  }
+
   .weapon-list.sp-crypt-raider {
     grid-template-columns: 30px min-content minmax(110px, 25%) 40px 40px minmax(210px, 100%);
   }
@@ -287,9 +317,69 @@
     border-bottom: 0.5px solid var(--system-secondary-color)
   }
 
+  /* Lucky Roll gives up its right-hand end to a Mojo box. Both come out of the
+     system's character tab, which this module does not fork, so the pair is
+     wrapped at render time (see `_onRender` in xcc-actor-sheet.js) and the
+     wrapper takes over the cell Lucky Roll used to hold on its own - columns
+     2-4 of `.character-grid`. 78px for Mojo is the width of the two narrow
+     columns that cell spans, so the split lands on the grid's own seam. */
+  .character .xcc-lucky-mojo {
+    column-gap: 8px;
+    display: grid;
+    grid-column: 2 / span 3;
+    grid-template-columns: auto 78px;
+  }
+
+  /* Lucky Roll carries the placement it needed as an item of `.character-grid`
+     - column 2, spanning 3. Inside the wrapper those numbers mean the wrapper's
+       own columns, which lands it on the 78px track and bumps Mojo to a row of
+       its own, so both children are placed explicitly here. */
+  .character .xcc-lucky-mojo .lucky-roll {
+    grid-column: 1;
+    grid-column-end: span 1;
+  }
+
+  .character .xcc-lucky-mojo .xcc-mojo {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* Deliberately shaped like `.lucky-roll` beside it - same frame, same 19px
+     title row, same 79px height - so the two read as one pair of boxes rather
+     than a system box with something bolted on. */
+  .character .xcc-mojo {
+    border: var(--system-frame-border);
+    border-top: 0;
+    display: grid;
+    font-size: 12px;
+    grid-template-rows: 19px auto;
+    height: 79px;
+    text-align: left;
+  }
+
+  .character .xcc-mojo label {
+    padding-left: 3px;
+    text-align: left;
+  }
+
+  .character .xcc-mojo input {
+    align-self: center;
+    background: none;
+    border: 0;
+    font-family: var(--system-data-font), serif;
+    font-size: 24px;
+    justify-self: center;
+    text-align: center;
+    width: 100%;
+  }
+
   .rewards-grid {
     display: grid;
-    grid-template-rows: 59px 8px 59px 8px 26px 8px;
+    /* Row 5 holds the stacked roll buttons (Grandstanding, Xcrawl Knowledge)
+       and the 4px gap between them. Rows 1-5 must sum to the height of the
+       Contacts block beside them, which spans 1/6 - see `.contacts-block`
+       below. */
+    grid-template-rows: 59px 8px 59px 8px 50px 8px;
     grid-template-columns: 180px auto;
     grid-column-gap: 8px;
   }
@@ -299,14 +389,52 @@
     margin: 3px 0;
   }
 
+  /* The two roll buttons in row 5. Their height is pinned rather than left to
+     the line box so the icon beside the label cannot push row 5 past the 50px
+     it is allowed - 22 + 4 gap + 22 = 48. That is also why the wrapper in the
+     template drops its `p-5`, which would have spent 10 of the 50 on padding. */
+  .rewards-grid .xcc-roll-button {
+    align-items: center;
+    display: flex;
+    gap: 5px;
+    height: 22px;
+    justify-content: flex-start;
+    padding-left: 3px;
+  }
+
+  /* A game-icons.net SVG in place of a Font Awesome glyph. These files are a
+     drawing inset in a black tile, so a box matched to a glyph shows noticeably
+     less art than the glyph did - 20px of tile is about 15px of drawing. */
+  .rewards-grid .xcc-roll-icon {
+    height: 20px;
+    width: 20px;
+  }
+
+  /* The "already grandstanded" box follows the label, so the rollable element
+     stops at the end of its own text - a click lands on the button or on the
+     box, never ambiguously between them - and `margin-left: auto` then pushes
+     the box out to the right edge, leaving the gap between them empty. */
+  .rewards-grid .xcc-grandstanding-row {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .rewards-grid .xcc-grandstanding-row .xcc-grandstanded {
+    flex: none;
+    margin: 0 3px 0 auto;
+  }
+
   .contacts-block {
     display: grid;
-    grid-template-rows: 19px 141px;
+    /* 19 + 165 = 184 = rows 1-5 of `.rewards-grid`. Keep the two in step: a
+       taller button row there leaves the textarea short of the separator. */
+    grid-template-rows: 19px 165px;
     grid-row-end: span 3;
 
     textarea {
       text-align: left;
-      height: 141px;
+      height: 165px;
       border: var(--system-frame-border);
       border-top: none;
       resize: none;
@@ -434,6 +562,11 @@
     content: '\e05d';
   }
 
+  a[data-tab='dungeon-hottie']::before {
+    content: '\f584';
+    font-weight: 900;
+  }
+
   a[data-tab='sp-half-orc-slayer']::before {
     content: '\f6c2';
     font-weight: 900;
@@ -537,7 +670,7 @@
     display: grid;
     font-family: var(--system-data-font), serif;
     font-size: 12px;
-    grid-template-columns: 30px minmax(100px, 100%) 65px 39px;
+    grid-template-columns: 30px minmax(100px, 100%) 65px 46px;
     margin: 0 0 8px 0;
     padding: 5px;
     text-align: center;
@@ -660,6 +793,44 @@
   margin: auto;
   background: url("images/xcc-sidebar-icon.svg") no-repeat center;
   background-size: contain;
+}
+
+/* ----------------------------------------- */
+/*  Skill Check DCs                          */
+/* ----------------------------------------- */
+
+/* Rulebook DCs under skill check cards (module/xcc-skill-dcs.js) */
+.chat-message .xcc-skill-dcs {
+  margin-top: 4px;
+  font-size: var(--font-size-12);
+  line-height: 1.4;
+}
+
+.chat-message .xcc-skill-dc-heading {
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+.chat-message .xcc-skill-dc.success i {
+  color: var(--color-level-success, #282);
+}
+
+.chat-message .xcc-skill-dc.failure i {
+  color: var(--color-level-error, #b22);
+}
+
+/* ----------------------------------------- */
+/*  Chat Content Links                       */
+/* ----------------------------------------- */
+
+/*
+ * `theme-light` on `ol.chat-log` leaves `--content-link-background` the light
+ * #ddd in both themes, and DCC only strips that chip for `a.inline-roll` and
+ * `.dcc .content-link` - so a bare `a.content-link` is light on light. Set on
+ * the anchor, where a custom property beats any inherited one.
+ */
+.chat-message a.content-link {
+  --content-link-background: transparent;
 }
 
 /* ----------------------------------------- */
@@ -899,4 +1070,365 @@
   100% {
     background-position: top left, top 5% left 0, top 32px left 32px;
   }
+}
+
+/* XCC roll buttons on the Token HUD (see the `renderTokenHUD` hook in xcc.js).
+
+   Parked in `.col.middle`, which core stretches across the token's full width
+   and 50px past it at each end (`#token-hud .col`), with bar2 pinned to its top
+   and bar1 to its bottom by `justify-content: space-between`. Absolute
+   positioning takes this row out of that flex flow - a third flex child would
+   have redistributed both bars instead of sitting below them.
+
+   The offset is one control plus the column's own 8px gap, so the row clears
+   the bar1/HP input with the same spacing the rest of the HUD uses. Both
+   `--control-size` and the sizing of `.control-icon` itself come from core, so
+   the row tracks any change to the HUD's control scale. */
+/* The DCC Tools sidebar tab, wearing XCrawl's badge. The system paints its own
+   logo onto a `::before` pseudo-element rather than using a Font Awesome glyph;
+   overriding just the `background` keeps the size, centring and hover states it
+   sets up around it. Equal specificity, so this depends on the module
+   stylesheet loading after the system's - which it does. */
+#sidebar-tabs button.ui-control.dcc-sidebar-icon::before {
+  background: url("images/xcc.webp") no-repeat center;
+  background-size: contain;
+}
+
+/* The running Mojo total, parked at the foot of the scene controls. Its
+   neighbours carry an `icon` class that switches them to the Font Awesome face;
+   this one shows a number instead, so it sets its own type and leans on
+   `--control-size` for the square it has to fill.
+
+   The colours go through core's `--control-*` variables rather than straight
+   onto `background`/`color`: those variables are what the button's own normal,
+   hover and active rules read, so setting them recolours the control without
+   having to restate any of its behaviour. Hover inverts the pair, which is the
+   feedback the shared hover styles would otherwise have provided. */
+#xcc-mojo-total {
+  --control-bg-color: #cd433d;
+  --control-border-color: #fed102;
+  --control-icon-color: #fed102;
+  --control-hover-bg-color: #fed102;
+  --control-hover-border-color: #fed102;
+  --control-hover-icon-color: #cd433d;
+  --control-active-bg-color: #fed102;
+  --control-active-border-color: #fed102;
+  --control-active-icon-color: #cd433d;
+  font-size: var(--font-size-18);
+  font-weight: bold;
+  line-height: var(--control-size);
+  text-align: center;
+}
+
+/* The standalone roll controls, shown under a token the moment it is selected.
+   `BasePlaceableHUD` sizes this box to the token's bounds, so the row hangs off
+   the bottom of it - the same place it occupies in the full HUD. No background
+   of its own: only the buttons should be visible over the canvas. */
+#xcc-token-controls {
+  pointer-events: none;
+  position: relative;
+}
+
+#xcc-token-controls .xcc-hud-rolls {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+#token-hud .col.middle .xcc-hud-rolls {
+  position: absolute;
+  left: 0;
+  bottom: calc(-1 * var(--control-size) - 8px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* A game-icons.net SVG standing in for a Font Awesome glyph on a HUD control.
+   Those icons are a white drawing painted over an opaque black tile, so dropped
+   in as-is one reads as a black square. `screen` leaves the backdrop untouched
+   wherever the source is black and keeps the white drawing white, which is the
+   tile gone without repainting the file. Sized off `--control-size` so it holds
+   its proportion if the HUD's control scale changes.
+
+   0.85 rather than something glyph-sized: with the tile blended out only the
+   drawing shows, and these files inset it by roughly a tenth on every side, so
+   the box has to run most of the width of the control for the art to weigh the
+   same as the Font Awesome icons around it. */
+/* The Mojo stepper lives inside bar2's slot, so it needs no placement of its
+   own - it rides the middle column's flex flow and lands above the token the
+   same way bar1 lands below it. */
+#token-hud .col.middle .attribute.xcc-mojo-slot {
+  width: 100%;
+}
+
+#token-hud .col.middle .xcc-hud-mojo {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Core gives HUD text inputs their own intrinsic width - fine for a bar that is
+   the only thing in its slot, but here it would push the row wider than the
+   token and out under the right-hand column. Let it take what is left between
+   the two steppers instead; `min-width: 0` is what permits a flex item to
+   shrink below that intrinsic size. */
+#token-hud .xcc-hud-mojo input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Unless the token already displays a second bar. That slot being taken, the
+   stepper is lifted out of the flow and clear of it, one control plus the
+   column's own gap above. */
+#token-hud .col.middle .xcc-hud-mojo.stacked {
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: calc(-1 * var(--control-size) - 8px);
+  width: 100%;
+}
+
+/* The steppers are secondary to the number between them, so they are undersized
+   against the HUD's control scale rather than matching it - and the glyph is
+   pulled in further still, so the +/- sits inside its box with room around it
+   rather than filling the face at core's 24px. `line-height` has to come down
+   with the box or the glyph rides low in it. */
+#token-hud .xcc-hud-mojo .control-icon {
+  /* `flex`, not just `width` - core sets `flex: 0 0 var(--control-size)` on
+     every control icon, and a flex-basis outranks a width on the main axis. */
+  flex: 0 0 calc(var(--control-size) * 0.7);
+  font-size: var(--font-size-16);
+  height: calc(var(--control-size) * 0.7);
+  line-height: calc(var(--control-size) * 0.7);
+  padding: 0;
+  width: calc(var(--control-size) * 0.7);
+}
+
+/* A check the crawler has already used up. Left in place rather than removed so
+   the row does not reshuffle under the pointer mid-encounter. */
+#token-hud .xcc-hud-rolls .control-icon:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+#token-hud .xcc-hud-rolls .xcc-hud-icon {
+  width: calc(var(--control-size) * 0.85);
+  height: calc(var(--control-size) * 0.85);
+  mix-blend-mode: screen;
+}
+
+/* Colour markers. They are ordinary entries in the effects palette - the first
+   five, so core's five-column grid lays them out as its top row - and core
+   styles them as it styles every other status icon. One exception:
+   `--control-icon-filter` is what the palette puts on its icons to bring a
+   mixed set of line art to a single tone. Here the tone *is* the content, so
+   the markers opt out and are dimmed by core's opacity alone, lighting up to
+   full colour when they are on the token. */
+#token-hud .status-effects .effect-control[data-status-id^="xcc-marker-"] {
+  filter: none;
+}
+
+/* Mojo tracker. The rows show crawlers rather than the people running them,
+   so the picture in column 1 is an actor portrait - taller than wide as often
+   as not, where a user avatar is square. Crop it to the square the system's
+   own layout reserves, and mark it as the handle it now is: clicking a
+   portrait opens that character's sheet. */
+.dcc .fleeting-luck .fleeting-luck-row .avatar img {
+  border: none;
+  cursor: pointer;
+  height: 54px;
+  object-fit: cover;
+  width: 54px;
+}
+
+/* Let the roster grow with the window. The system sizes its list with a flat
+   `max-height: 400px` and no height chain behind it, so dragging the window
+   taller adds empty space under the box instead of showing more of it. Give
+   the chain a height to inherit and hand the list the leftover row: the header
+   takes what it needs, `1fr` takes the rest, and `min-height: 0` is what allows
+   a grid row to be shorter than its content and therefore to scroll. */
+#fleeting-luck .window-content {
+  overflow: hidden;
+}
+
+#fleeting-luck .window-content > section {
+  height: 100%;
+}
+
+#fleeting-luck .fleeting-luck {
+  grid-template-rows: minmax(40px, auto) 1fr;
+  height: 100%;
+}
+
+#fleeting-luck .fleeting-luck .fleeting-luck-users {
+  max-height: none;
+  min-height: 0;
+}
+
+/* The system sets these names at 2rem, which suited one row per player. One row
+   per crawler makes for a longer list of longer names, and at that size they
+   wrapped to two lines apiece. */
+#fleeting-luck .fleeting-luck .fleeting-luck-row .name {
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ----------------------------------------- */
+/*  Outfits                                  */
+/* ----------------------------------------- */
+
+/* The token HUD's wardrobe palette. Wider cells than the status effects grid
+   beside it: those are line art that reads at 24px, these are token portraits
+   that do not. Same eight-row cap before it scrolls. */
+#token-hud .xcc-outfits-palette {
+  --outfit-columns: 3;
+  --outfit-size: 48px;
+  --outfit-gap: 4px;
+  display: grid;
+  grid-template-columns: repeat(var(--outfit-columns), var(--outfit-size));
+  max-height: calc(5 * (var(--outfit-size) + var(--outfit-gap)) + 2 * var(--outfit-gap));
+  padding: var(--outfit-gap);
+  gap: var(--outfit-gap);
+  overflow: hidden auto;
+}
+
+#token-hud .xcc-outfits-palette .xcc-outfit-control {
+  width: var(--outfit-size);
+  height: var(--outfit-size);
+  margin: 0;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  object-fit: cover;
+  opacity: 0.6;
+  cursor: var(--cursor-pointer);
+}
+
+#token-hud .xcc-outfits-palette .xcc-outfit-control:hover {
+  opacity: 0.85;
+}
+
+/* The one the token is wearing. Unlike a status effect, exactly one is always
+   on, so this needs to read as a selection rather than a highlight. */
+#token-hud .xcc-outfits-palette .xcc-outfit-control.active {
+  opacity: 1;
+  border-color: var(--control-active-border-color, #ff6400);
+}
+
+/* The wardrobe window. */
+.xcc-outfits-dialog .xcc-outfits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 8px;
+  padding: 8px;
+}
+
+.xcc-outfits-dialog .xcc-outfit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.xcc-outfits-dialog .xcc-outfit img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: var(--cursor-pointer);
+}
+
+.xcc-outfits-dialog .xcc-outfit img:hover {
+  border-color: var(--color-border-highlight, #ff6400);
+}
+
+.xcc-outfits-dialog .xcc-outfit.active img {
+  border-color: var(--color-border-highlight-alt, #ff6400);
+}
+
+.xcc-outfits-dialog .xcc-outfit-label {
+  font-size: var(--font-size-11);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Kept off the artwork until the tile is hovered, so a wall of thumbnails is
+   not also a wall of delete buttons. */
+.xcc-outfits-dialog .xcc-outfit-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  line-height: 1;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.xcc-outfits-dialog .xcc-outfit:hover .xcc-outfit-remove,
+.xcc-outfits-dialog .xcc-outfit-remove:focus-visible {
+  opacity: 1;
+}
+
+.xcc-outfits-dialog .xcc-outfits-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 8px;
+}
+
+.xcc-outfits-dialog .xcc-outfits-footer button {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.xcc-outfits-dialog .xcc-outfits-footer .hint {
+  margin: 0;
+  font-size: var(--font-size-12);
+  opacity: 0.8;
+}
+
+/* While files are being dragged over the window. */
+.xcc-outfits-dialog.dropping {
+  outline: 2px dashed var(--color-border-highlight, #ff6400);
+  outline-offset: -4px;
+}
+
+/* Marks whichever outfit the prototype token currently points at. A badge
+   rather than a kind of tile: the default moves, and every tile is removable. */
+.xcc-outfits-dialog .xcc-outfit-badge {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: var(--color-warm-2, #7a7971);
+  color: var(--color-light-1, #fff);
+  font-size: var(--font-size-10);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+}
+
+/* Core styles anything classed `disabled` with `pointer-events: none`, which
+   also kills the hover a tooltip needs. These fields are readonly rather than
+   genuinely disabled - there is nothing to type into them - so give the hover
+   back. It cannot be conditional on the tooltip being there: the tooltip is
+   decided on hover, which needs the hover to arrive first. */
+.weapon-list input.disabled {
+  pointer-events: auto;
 }
