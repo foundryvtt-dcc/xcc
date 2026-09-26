@@ -5,7 +5,7 @@ import { globals } from './settings.js'
 class XCCActorSheetJammer extends XCCActorSheet {
   static DEFAULT_OPTIONS = {
     position: {
-      height: 650
+      height: 670
     },
     actions: {
       rollPerformanceCheck: this.rollPerformanceCheck,

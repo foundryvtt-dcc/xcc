@@ -6,7 +6,7 @@ class XCCActorSheetSpCriminal extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
-      height: 640
+      height: 670
     }
   }
 

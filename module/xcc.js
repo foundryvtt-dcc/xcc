@@ -1,10 +1,11 @@
 /* eslint-disable import/no-absolute-path */
-/* global CONFIG, foundry, game, Hooks */
+/* global CONFIG, document, foundry, game, getComputedStyle, Hooks */
 import XCCActorSheetAthlete from './xcc-actor-sheet-athlete.js'
 import XCCActorSheetBlaster from './xcc-actor-sheet-blaster.js'
 import XCCActorSheetBrawler from './xcc-actor-sheet-brawler.js'
 import XCCActorSheetJammer from './xcc-actor-sheet-jammer.js'
 import XCCActorSheetMessenger from './xcc-actor-sheet-messenger.js'
+import XCCActorSheetDungeonHottie from './xcc-actor-sheet-dungeon-hottie.js'
 import XCCActorSheetSpAcrobat from './xcc-actor-sheet-sp-acrobat.js'
 import XCCActorSheetSpCommando from './xcc-actor-sheet-sp-commando.js'
 import XCCActorSheetSpCriminal from './xcc-actor-sheet-sp-criminal.js'
@@ -23,12 +24,20 @@ import XCCActorParser from './xcc-parser.js'
 import XCC from '../config.js'
 
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
-import { calculateSpellCheckBonus } from './xcc-utils.js'
+import { calculateSpellCheckBonus, signedFormula } from './xcc-utils.js'
 import { globals, registerModuleSettings } from './settings.js'
 import { checkReleaseNotes } from './xcc-release-notes.js'
 import { registerI18nOverrides } from './xcc-i18n.js'
+import { installMojo } from './xcc-mojo.js'
+import { addGrandstandingSidebarTools, registerGrandstandingHooks } from './xcc-grandstanding.js'
+import { registerTokenHudHooks } from './xcc-token-hud.js'
+import { defineStatusEffects, registerColorMarkerHooks } from './xcc-status-effects.js'
+import { registerOutfitHooks } from './xcc-outfits.js'
 
-const { SchemaField, StringField, NumberField, BooleanField } = foundry.data.fields
+const { SchemaField, StringField, NumberField, BooleanField, HTMLField } = foundry.data.fields
+
+/** `{token}` placeholders a class sheet can fill in its own rules text. */
+const TOKEN = /\{(\w+)\}/g
 
 /**
  * Override `system.class.spellCheck` with XCC's class-specific bonus
@@ -47,6 +56,23 @@ Hooks.on('dcc.afterComputeSpellCheck', (actor) => {
   }
 })
 
+/**
+ * Let an Active Effect append a roll formula to `system.rewards.grandstandingMod`.
+ *
+ * DCC replaces core's `applyActiveEffects` wholesale (see
+ * `dcc/module/actor/active-effects-mixin.mjs`) and its `add` handler drops a
+ * change carrying a die, since `Number('+1d3')` is NaN. The `applyActiveEffect`
+ * hook fired for `custom` changes is its one extension point, so formula
+ * fragments come in through here. Concatenating is what makes them stack:
+ * '+2' and '+1d3' compose into '+2+1d3'.
+ */
+Hooks.on('applyActiveEffect', (actor, change, current, value) => {
+  if (change.key !== 'system.rewards.grandstandingMod') return
+  const addition = signedFormula(value)
+  if (!addition) return
+  foundry.utils.setProperty(actor, change.key, `${signedFormula(current)}${addition}`)
+})
+
 /* -------------------------------------------- */
 /*  Schema Extensions                           */
 /* -------------------------------------------- */
@@ -57,6 +83,10 @@ Hooks.on('dcc.afterComputeSpellCheck', (actor) => {
 Hooks.on('dcc.defineBaseActorSchema', (schema) => {
   // Add sheetClass to details - used to track which XCC class sheet is active
   schema.details.fields.sheetClass = new StringField({ initial: '' })
+  // The XCC sheet repurposes DCC's Title input as the actor's casting, so the
+  // value needs somewhere of its own to live - an undeclared field is dropped
+  // on validation and the input silently reverts to its placeholder
+  schema.details.fields.casting = new StringField({ initial: '' })
 })
 
 /**
@@ -95,6 +125,26 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
   schema.class.fields.turnUndeadDie = new StringField({ initial: '' })
   schema.class.fields.scourge = new StringField({ initial: '' })
   schema.class.fields.favoredWeapon = new StringField({ initial: '' })
+  schema.class.fields.freeAttackDamage = new StringField({ initial: '' })
+
+  // Dungeon Hottie fields (XCC Insider #1). The level data fills
+  // notInTheFace, entourage and deedDie; the rest are the player's choices.
+  schema.class.fields.oneMove = new StringField({ initial: '' })
+  schema.class.fields.notInTheFace = new StringField({ initial: '' })
+  schema.class.fields.entourage = new NumberField({ initial: 0, integer: true })
+  schema.class.fields.entourageMembers = new StringField({ initial: '' })
+  schema.class.fields.deedDie = new StringField({ initial: '' })
+  schema.class.fields.deedWeapon = new StringField({ initial: '' })
+  schema.class.fields.tooCuteUsed = new BooleanField({ initial: false })
+
+  // Dwarf fields - the shield bash config dialog writes both
+  schema.class.fields.shieldBashBonus = new StringField({ initial: '' })
+  schema.class.fields.shieldBashDamage = new StringField({ initial: '' })
+
+  // DCC's wizard/elf mixin declares `spellCheckDieOverride`, but every read -
+  // ours and the system's - uses `spellCheckOverrideDie`, which nothing
+  // declares. Declared here so the dialog's override survives validation.
+  schema.class.fields.spellCheckOverrideDie = new StringField({ initial: '' })
 
   // Half-Orc fields
   schema.class.fields.wildCritRange = new NumberField({ initial: 20, integer: true })
@@ -108,38 +158,69 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
   schema.class.fields.currentContacts = new StringField({ initial: '' })
   schema.class.fields.currentDisguise = new StringField({ initial: '' })
 
+  // The skills only XCC's sheets use; DCC declares its own from the class mixin
+  // registry. Shaped like DCC's thief skills - Active Effects target
+  // `otherMod`, never the editable `value`.
+  const xccSkill = (label, ability) => new SchemaField({
+    label: new StringField({ initial: label }),
+    ability: new StringField({ initial: ability }),
+    value: new StringField({ initial: '0' }),
+    otherMod: new NumberField({ initial: 0, integer: true })
+  })
+  schema.skills.fields.acrobatics = xccSkill('DCC.system.skills.acrobatics.value', 'agl')
+  schema.skills.fields.poleVault = xccSkill('DCC.system.skills.poleVault.value', 'str')
+  schema.skills.fields.tightropeWalk = xccSkill('DCC.system.skills.tightropeWalk.value', 'agl')
+  schema.skills.fields.leap = xccSkill('DCC.system.skills.leap.value', 'str')
+  schema.skills.fields.dangerSense = xccSkill('DCC.system.skills.dangerSense.value', '')
+  schema.skills.fields.criminalConnections = xccSkill('DCC.system.skills.criminalConnections.value', 'per')
+  schema.skills.fields.briberyExpert = xccSkill('DCC.system.skills.briberyExpert.value', 'int')
+
+  // Rewards tab notes box. HTMLField to match DCC's `details.notes.value` -
+  // the sheet runs the stored text through `TextEditor.enrichHTML`.
+  schema.details.fields.xccnotes = new HTMLField({ initial: '' })
+
   // XCC Rewards system (Fame & Wealth)
+  //
+  // Both `grandstanding*` fields exist purely as Active Effect targets; nothing
+  // on the sheet edits them.
+  //
+  //   grandstandingMod       formula appended to the check ('+2', '+1d3'), fed
+  //                          to DCC's Compound term verbatim. Text rather than
+  //                          a number so it can carry a die - written by a
+  //                          `custom` change, see the listener above.
+  //   grandstandingDieSteps  dice-chain shift of the action die, d20 -> d24
   schema.rewards = new SchemaField({
     fame: new NumberField({ initial: 0, integer: true }),
     baseWealth: new NumberField({ initial: 0, integer: true }),
-    totalWealth: new NumberField({ initial: 0, integer: true })
+    totalWealth: new NumberField({ initial: 0, integer: true }),
+    contacts: new StringField({ initial: '' }),
+    grandstandingMod: new StringField({ initial: '' }),
+    grandstandingDieSteps: new NumberField({ initial: 0, integer: true }),
+    // One turn in the spotlight per crawl. Set by the roll itself, win or
+    // lose, and cleared for the whole roster from the DCC Tools sidebar.
+    grandstanded: new BooleanField({ initial: false })
   })
 })
 
 /**
- * DCC Tools sidebar tab (DCC issue #833): in XCrawl the fleeting-luck
- * mechanic is Mojo — our i18nInit overrides (module/xcc-i18n.js) relabel
- * the whole DCC.FleetingLuck vocabulary — and it is always on (see the `enabled`
- * override in the `dcc.ready` block below). The core tool is gated on the
- * `dcc.enableFleetingLuck` setting, so re-seed it unconditionally with a
- * Mojo-flavored icon. Registered at import time so the sidebar's first
- * render (during `Game#initializeUI`, before `ready`) already includes it;
- * on DCC versions without the sidebar tab the hook simply never fires.
+ * DCC Tools sidebar tab (DCC issue #833). The core tool is gated on
+ * `dcc.enableFleetingLuck`, but Mojo is always on here, so re-seed it
+ * unconditionally. Registered at import time so the sidebar's first render
+ * (during `Game#initializeUI`) already includes it.
  *
- * The tab itself is rebranded for XCrawl in the `init` hook below: the
- * tab-strip icon swaps from the DCC wordmark to our "X" (see the DCC Tools
- * Sidebar Tab section of styles/xcc.css) and the DCC.SidebarTab override
- * in module/xcc-i18n.js retitles it "XCC Tools".
+ * The tab itself is rebranded for XCrawl in the `init` hook below (tab-strip
+ * icon in styles/xcc.css, "XCC Tools" title in module/xcc-i18n.js).
  */
 registerI18nOverrides()
 
 Hooks.on('dcc.getSidebarTools', (tools) => {
   tools.fleetingLuck = {
     label: 'DCC.FleetingLuck',
-    icon: 'fas fa-hand-sparkles',
+    icon: 'fas fa-star',
     onClick: () => game.dcc.FleetingLuck.show(),
     help: `${globals.userGuideUrl}Mojo/`
   }
+  addGrandstandingSidebarTools(tools)
 })
 
 const { loadTemplates } = foundry.applications.handlebars
@@ -213,13 +294,25 @@ Hooks.once('init', async function () {
     dccSidebarTab.icon = 'xcc-sidebar-icon'
   }
 
-  // Register module settings here (init) rather than in the later `dcc.ready`
-  // hook. The updateActor/updateItem hooks and the `debugItem` Handlebars
-  // helper read `isDebug` unguarded, so an actor/item update during the boot
-  // window (before `dcc.ready` fired) threw "xcc.isDebug is not a registered
-  // game setting". Registering at init guarantees the settings exist before any
-  // runtime read.
+  // At init rather than `dcc.ready`: the updateActor/updateItem hooks and the
+  // `debugItem` helper read `isDebug` unguarded, and an update during the boot
+  // window threw "xcc.isDebug is not a registered game setting".
   await registerModuleSettings()
+
+  // Puts XCrawl in the system's "Ruleset Variant" setting, whose choices are
+  // built from this registry. Called optionally - `registerVariant` is absent
+  // on the oldest DCC release this module supports. The class list is
+  // declarative metadata; nothing is enforced against it.
+  game.dcc.registerVariant?.({
+    id: 'xcc',
+    label: 'XCC.VariantXCC',
+    classes: [
+      'athlete', 'blaster', 'brawler', 'jammer', 'messenger', 'dungeon-hottie',
+      'dwarf', 'gnome', 'half-elf', 'half-orc',
+      'acrobat', 'commando', 'criminal', 'crypt-raider', 'dwarf-mechanic',
+      'elf-trickster', 'half-orc-slayer', 'halfling-rogue', 'scout'
+    ]
+  })
 
   // Register ActorSheets and their Helper functions
   game.dcc.registerActorSheet('Player', XCCActorSheetAthlete, {
@@ -251,6 +344,12 @@ Hooks.once('init', async function () {
     label: 'XCC.Messenger.DropdownLabel'
   })
   XCCActorSheetMessenger.addHooksAndHelpers()
+
+  game.dcc.registerActorSheet('Player', XCCActorSheetDungeonHottie, {
+    scope: 'xcc',
+    label: 'XCC.DungeonHottie.DropdownLabel'
+  })
+  XCCActorSheetDungeonHottie.addHooksAndHelpers()
 
   game.dcc.registerActorSheet('Player', XCCActorSheetSpAcrobat, {
     scope: 'xcc',
@@ -341,7 +440,18 @@ Hooks.once('init', async function () {
 
   // Register enrich helper
   Handlebars.registerHelper('getEnrichedArray', function (actor, name) {
-    return CONFIG[actor.system.class.localizationPath]?.enrichedArrays[name] || []
+    const list = CONFIG[actor.system.class.localizationPath]?.enrichedArrays[name] || []
+    // The entries are enriched once per class, so anything that depends on the
+    // character is left as a {token} for its sheet to fill in here - see
+    // `classTokens` on the Dungeon Hottie sheet.
+    const tokens = actor.sheet?.constructor?.classTokens?.(actor)
+    if (!tokens) return list
+    return list
+      .map(entry => entry.replace(TOKEN, (match, key) => tokens[key] ?? match))
+      // An entry that is nothing but a token drops out when the token comes
+      // back empty - that is how a rule tied to one build stays hidden for
+      // the others.
+      .filter(entry => entry.trim())
   })
 
   // Register debug helper
@@ -509,6 +619,14 @@ Hooks.once('dcc.ready', async function () {
     get: function () { return game.settings.get(globals.id, 'enableMojoAutomation') }
   })
 
+  // Move the Mojo ledger from the player to the crawler - see
+  // module/xcc-mojo.js. Must land before the `init()` below, which it replaces.
+  installMojo()
+
+  // Hand the spotlight back to the whole roster when an encounter starts or
+  // ends - see module/xcc-grandstanding.js.
+  registerGrandstandingHooks()
+
   // Setup pause
   Hooks.on('renderApplicationV2', (app, html, context, options) => {
     const caption = document.querySelector('#pause > figcaption')
@@ -517,10 +635,8 @@ Hooks.once('dcc.ready', async function () {
     if (caption) caption.textContent = game.i18n.localize('DCC.FancyPause')
   })
 
-  // Re-Initialize Fleeting Luck UI (the Mojo tracker). The scene-controls
-  // re-render that used to surface the Fleeting Luck button is gone — the
-  // launcher now lives in the DCC Tools sidebar tab via the
-  // `dcc.getSidebarTools` listener registered at import time.
+  // Re-initialise the Mojo tracker. Its launcher lives in the DCC Tools
+  // sidebar tab, seeded by the `dcc.getSidebarTools` listener above.
   game.dcc.FleetingLuck.init()
 
   // Whisper the once-per-version release-notes/user-guide chat card.
@@ -534,6 +650,7 @@ Hooks.once('dcc.ready', async function () {
   await enrichClass('XCC.Blaster')
   await enrichClass('XCC.Jammer')
   await enrichClass('XCC.Messenger')
+  await enrichClass('XCC.DungeonHottie')
   await enrichClass('XCC.HalfOrc')
   await enrichClass('XCC.HalfElf')
   await enrichClass('XCC.Dwarf')
@@ -559,6 +676,53 @@ Hooks.on('renderActorDirectory', (app, html) => {
     new XCCActorParser().render(true)
   })
 })
+
+// The Token HUD additions - roll buttons, the Mojo stepper, and the standalone
+// controls that appear under a selected token - live in their own module.
+registerTokenHudHooks()
+
+// The status effect palette - see module/xcc-status-effects.js. On `dcc.ready`
+// rather than `setup`, because DCC appends its own combat results from its
+// ready hook and has to have done so before the list is rebuilt.
+Hooks.once('dcc.ready', () => defineStatusEffects())
+registerColorMarkerHooks()
+
+// The token HUD's wardrobe palette - see module/xcc-outfits.js. The button only
+// appears for a character that has outfits.
+registerOutfitHooks()
+
+/**
+ * Show the full text of a notes or name field, but only while it is too narrow
+ * to show it itself.
+ *
+ * Those columns are ellipsised (`.weapon-list` in xcc.css), on our class tabs
+ * and in the system's own equipment list alike.
+ *
+ * Measured on hover, which is the one moment the field is certain to be laid
+ * out - measuring at render catches tabs that are still hidden, where every
+ * field reports zero width - and it keeps up with the sheet being resized.
+ *
+ * Registered on `document` during the capture phase so it runs before
+ * Foundry's tooltip manager, which reads the attribute from its own capture
+ * listener on `document.body`. Anything later would be too late.
+ */
+const TRUNCATABLE_FIELDS = 'input.weapon-notes, input.name'
+let textPen = null
+
+document.addEventListener('pointerenter', (event) => {
+  const field = event.target
+  if (!field?.matches?.(TRUNCATABLE_FIELDS)) return
+
+  textPen ??= document.createElement('canvas').getContext('2d')
+  const style = getComputedStyle(field)
+  textPen.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`
+  const inner = field.clientWidth - parseFloat(style.paddingLeft || 0) - parseFloat(style.paddingRight || 0)
+
+  // `data-tooltip-text` takes literal text; `data-tooltip` is looked up as a
+  // localization key.
+  if (textPen.measureText(field.value).width > inner) field.dataset.tooltipText = field.value
+  else delete field.dataset.tooltipText
+}, { capture: true })
 
 // Register Dynamic Token Rings
 Hooks.on('initializeDynamicTokenRingConfig', ringConfig => {

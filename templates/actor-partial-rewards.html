@@ -31,15 +31,29 @@
     </div>
 
 
-    <!-- Grandstanding check button (styled like “roll spell check”) -->
+    <!-- Grandstanding / Xcrawl Knowledge check buttons (styled like “roll spell check”) -->
     <div style="grid-row: 5; grid-column: 1;" class="grid-container">
       <div class="grid-col-span-12">
-        <div class="grid-container grid-col-gap-8 grid-align-center p-5">
-          <div class="label-font rollable grid-col-span-12 center"
-               title="{{localize 'XCC.RollGrandstandingCheckHint'}}"
-               data-action="rollGrandstandingCheck"
+        <div class="grid-container grid-col-gap-8 grid-align-center">
+          <div class="grid-col-span-12 xcc-grandstanding-row">
+            <div class="label-font rollable"
+                 title="{{localize 'XCC.GrandstandingHint'}}"
+                 data-action="rollGrandstandingCheck"
+                 data-drag="false">
+              <div class="xcc-roll-button"><img class="icon-filter xcc-roll-icon" src="{{getGameImage 'medallist.svg'}}"
+                         alt="{{localize 'XCC.Grandstanding'}}"> {{localize "XCC.Grandstanding"}}</div>
+            </div>
+            {{!-- Outside the rollable element on purpose: a click meant for the
+                  checkbox must not also roll the check. --}}
+            <input type="checkbox" class="xcc-grandstanded" name="system.rewards.grandstanded"
+                   title="{{localize 'XCC.GrandstandedHint'}}" {{checked system.rewards.grandstanded}}>
+          </div>
+          <div class="label-font rollable grid-col-span-12" style="margin-top: 4px;"
+               title="{{localize 'XCC.XcrawlKnowledgeHint'}}"
+               data-action="rollXcrawlKnowledgeCheck"
                data-drag="false">
-            <div ><i class="fas fa-dice-d20"></i> {{localize "XCC.Grandstanding"}}</div>
+            <div class="xcc-roll-button"><img class="icon-filter xcc-roll-icon" src="{{getGameImage 'xbook.svg'}}"
+                       alt="{{localize 'XCC.XcrawlKnowledge'}}"> {{localize "XCC.XcrawlKnowledge"}}</div>
           </div>
         </div>
       </div>

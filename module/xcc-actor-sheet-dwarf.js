@@ -8,7 +8,7 @@ class XCCActorSheetDwarf extends XCCActorSheet {
   /** @inheritDoc */
   static DEFAULT_OPTIONS = {
     position: {
-      height: 640
+      height: 670
     },
     actions: {
       rollShieldBashAttack: this.rollShieldBashAttack,

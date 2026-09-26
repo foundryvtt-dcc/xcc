@@ -1,0 +1,35 @@
+{{!--
+  The wardrobe. Thumbnails rather than a list: token art is what the player
+  recognises, and the same grid appears in the token HUD palette.
+--}}
+<section class="xcc-outfits">
+  <div class="xcc-outfits-grid">
+    {{#each outfits}}
+      <div class="xcc-outfit{{#if isActive}} active{{/if}}">
+        <img src="{{img}}" alt="{{label}}" {{#if @root.editable}}data-action="setDefaultOutfit" data-img="{{img}}"
+             data-tooltip-text="{{localize 'XCC.Outfits.MakeDefault'}}"{{else}}data-tooltip-text="{{label}}"{{/if}}>
+        {{#if @root.editable}}
+          <button type="button" class="xcc-outfit-remove" data-action="removeOutfit" data-index="{{index}}"
+                  data-tooltip="XCC.Outfits.Remove" aria-label="{{localize 'XCC.Outfits.Remove'}}">
+            <i class="fa-solid fa-xmark" inert></i>
+          </button>
+        {{/if}}
+        {{#if isDefault}}<span class="xcc-outfit-badge">{{localize 'XCC.Outfits.Default'}}</span>{{/if}}
+        <span class="xcc-outfit-label">{{label}}</span>
+      </div>
+    {{/each}}
+  </div>
+
+  {{#if editable}}
+    <footer class="xcc-outfits-footer">
+      <button type="button" data-action="browseOutfit">
+        <i class="fa-solid fa-folder-open" inert></i> {{localize 'XCC.Outfits.Browse'}}
+      </button>
+      {{#if canUpload}}
+        <p class="hint">{{localize 'XCC.Outfits.DropHint'}}</p>
+      {{else}}
+        <p class="hint">{{localize 'XCC.Outfits.BrowseHint'}}</p>
+      {{/if}}
+    </footer>
+  {{/if}}
+</section>
