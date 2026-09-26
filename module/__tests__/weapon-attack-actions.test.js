@@ -99,17 +99,23 @@ test('wild attack keeps a wider weapon crit range', async () => {
 test('shield bash rolls a fake weapon and always removes it again', async () => {
   const items = new Map()
   let sizeDuringRoll = null
-  const rollWeaponAttack = vi.fn(async () => { sizeDuringRoll = items.size })
+  let dieDuringRoll = null
+  const rollWeaponAttack = vi.fn(async (id) => {
+    sizeDuringRoll = items.size
+    dieDuringRoll = items.get(id)?.system.actionDie
+  })
   const sheet = {
     actor: { items, rollWeaponAttack },
     getShieldBashDamage: () => '1d3+1',
-    getShieldBashToHit: () => '+2'
+    getShieldBashToHit: () => '+2',
+    getShieldBashActionDie: () => '1d16'
   }
 
   await XCCActorSheetDwarf.rollShieldBashAttack.call(sheet, makeEvent(), makeTarget('bash1'))
 
   expect(rollWeaponAttack).toHaveBeenCalledWith('bash1', expect.anything())
   expect(sizeDuringRoll).toEqual(1)
+  expect(dieDuringRoll).toEqual('1d16')
   expect(items.size).toEqual(0)
 
   // Cleanup also happens when the roll fails
@@ -118,6 +124,34 @@ test('shield bash rolls a fake weapon and always removes it again', async () => 
     XCCActorSheetDwarf.rollShieldBashAttack.call(sheet, makeEvent(), makeTarget('bash1'))
   ).rejects.toThrow('roll failed')
   expect(items.size).toEqual(0)
+})
+
+function makeDwarfSheet (classData, strMod = 1) {
+  return {
+    actor: {
+      system: {
+        details: { attackBonus: '+d3' },
+        abilities: { str: { mod: strMod } },
+        class: classData
+      }
+    }
+  }
+}
+
+test('shield bash uses the configured override die, else a d14', () => {
+  const { getShieldBashActionDie } = XCCActorSheetDwarf.prototype
+  expect(getShieldBashActionDie.call(makeDwarfSheet({}))).toEqual('1d14')
+  expect(getShieldBashActionDie.call(makeDwarfSheet({ shieldBashOverrideDie: '' }))).toEqual('1d14')
+  expect(getShieldBashActionDie.call(makeDwarfSheet({ shieldBashOverrideDie: ' 1d16 ' }))).toEqual('1d16')
+})
+
+test('shield bash to-hit keeps the deed die first and handles any shield bonus', () => {
+  const { getShieldBashToHit } = XCCActorSheetDwarf.prototype
+  expect(getShieldBashToHit.call(makeDwarfSheet({ shieldBashBonus: '0' }))).toEqual('+d3+1')
+  expect(getShieldBashToHit.call(makeDwarfSheet({ shieldBashBonus: '1' }))).toEqual('+d3+2')
+  expect(getShieldBashToHit.call(makeDwarfSheet({ shieldBashBonus: '' }, -1))).toEqual('+d3-1')
+  expect(getShieldBashToHit.call(makeDwarfSheet({}, 0))).toEqual('+d3+0')
+  expect(getShieldBashToHit.call(makeDwarfSheet({ shieldBashBonus: 'd4' }))).toEqual('+d3+d4+1')
 })
 
 test('half-orc partial binds wild crit range to the schema field', () => {

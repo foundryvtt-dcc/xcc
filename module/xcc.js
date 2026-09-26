@@ -137,9 +137,10 @@ Hooks.on('dcc.definePlayerSchema', (schema) => {
   schema.class.fields.deedWeapon = new StringField({ initial: '' })
   schema.class.fields.tooCuteUsed = new BooleanField({ initial: false })
 
-  // Dwarf fields - the shield bash config dialog writes both
+  // Dwarf fields - written by the shield bash config dialog
   schema.class.fields.shieldBashBonus = new StringField({ initial: '' })
   schema.class.fields.shieldBashDamage = new StringField({ initial: '' })
+  schema.class.fields.shieldBashOverrideDie = new StringField({ initial: '' })
 
   // DCC's wizard/elf mixin declares `spellCheckDieOverride`, but every read -
   // ours and the system's - uses `spellCheckOverrideDie`, which nothing

@@ -47,7 +47,8 @@ class XCCShieldBashConfig extends HandlebarsApplicationMixin(ApplicationV2) {
     if (!this.temporaryValues) {
       this.temporaryValues = {
         shieldBashDamage: actor.system.class.shieldBashDamage,
-        shieldBashBonus: actor.system.class.shieldBashBonus
+        shieldBashBonus: actor.system.class.shieldBashBonus,
+        shieldBashOverrideDie: actor.system.class.shieldBashOverrideDie
       }
     }
     this.temporaryValues.shieldBashCheck = this.calculateShieldBashBonus()
@@ -75,7 +76,8 @@ class XCCShieldBashConfig extends HandlebarsApplicationMixin(ApplicationV2) {
       const actor = this.options.document
       await actor.update({
         'system.class.shieldBashBonus': this.temporaryValues.shieldBashBonus,
-        'system.class.shieldBashDamage': this.temporaryValues.shieldBashDamage
+        'system.class.shieldBashDamage': this.temporaryValues.shieldBashDamage,
+        'system.class.shieldBashOverrideDie': String(this.temporaryValues.shieldBashOverrideDie ?? '').trim()
       })
       // Re-draw the updated sheet
       await actor.sheet.render(true)

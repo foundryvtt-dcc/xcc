@@ -133,7 +133,18 @@ class XCCActorSheetDwarf extends XCCActorSheet {
   }
 
   getShieldBashToHit () {
-    return ensurePlus(this.actor.system.details.attackBonus) + ensurePlus(parseInt(this.actor.system.abilities.str.mod || 0) + parseInt(this.actor.system.class.shieldBashBonus))
+    const str = parseInt(this.actor.system.abilities.str.mod || 0)
+    const bonus = String(this.actor.system.class.shieldBashBonus ?? '').trim()
+    // Same rules as the config dialog's preview: a dice bonus (e.g. "d4") is
+    // kept as a term, a number is folded into the Strength modifier
+    if (bonus && isNaN(parseInt(bonus))) {
+      return ensurePlus(this.actor.system.details.attackBonus) + ensurePlus(bonus) + ensurePlus(str)
+    }
+    return ensurePlus(this.actor.system.details.attackBonus) + ensurePlus(str + (parseInt(bonus) || 0))
+  }
+
+  getShieldBashActionDie () {
+    return String(this.actor.system.class.shieldBashOverrideDie || '').trim() || '1d14'
   }
 
   getShieldBashDamage () {
@@ -152,7 +163,7 @@ class XCCActorSheetDwarf extends XCCActorSheet {
       value: {
         name: game.i18n.localize('XCC.Dwarf.ShieldBash').toLowerCase(),
         system: {
-          actionDie: '1d14',
+          actionDie: this.getShieldBashActionDie(),
           damage: this.getShieldBashDamage(),
           critRange: 20,
           toHit: this.getShieldBashToHit()
