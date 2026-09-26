@@ -47,6 +47,14 @@ export const registerModuleSettings = async function () {
     default: true,
     type: Boolean
   })
+  game.settings.register(globals.id, 'showSkillDCs', {
+    name: 'XCC.Settings.ShowSkillDCs',
+    hint: 'XCC.Settings.ShowSkillDCsHint',
+    scope: 'world',
+    config: true,
+    default: true,
+    type: Boolean
+  })
   game.settings.register(globals.id, 'useSameDeedHalfOrc', {
     name: 'XCC.Settings.UseSameDeedHalfOrc',
     hint: 'XCC.Settings.UseSameDeedHalfOrcHint',

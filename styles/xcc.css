@@ -796,6 +796,30 @@ body.theme-dark {
 }
 
 /* ----------------------------------------- */
+/*  Skill Check DCs                          */
+/* ----------------------------------------- */
+
+/* Rulebook DCs under skill check cards (module/xcc-skill-dcs.js) */
+.chat-message .xcc-skill-dcs {
+  margin-top: 4px;
+  font-size: var(--font-size-12);
+  line-height: 1.4;
+}
+
+.chat-message .xcc-skill-dc-heading {
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+.chat-message .xcc-skill-dc.success i {
+  color: var(--color-level-success, #282);
+}
+
+.chat-message .xcc-skill-dc.failure i {
+  color: var(--color-level-error, #b22);
+}
+
+/* ----------------------------------------- */
 /*  Chat Content Links                       */
 /* ----------------------------------------- */
 

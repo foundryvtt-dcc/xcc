@@ -33,6 +33,7 @@ import { addGrandstandingSidebarTools, registerGrandstandingHooks } from './xcc-
 import { registerTokenHudHooks } from './xcc-token-hud.js'
 import { defineStatusEffects, registerColorMarkerHooks } from './xcc-status-effects.js'
 import { registerOutfitHooks } from './xcc-outfits.js'
+import { registerSkillDCHooks } from './xcc-skill-dcs.js'
 
 const { SchemaField, StringField, NumberField, BooleanField, HTMLField } = foundry.data.fields
 
@@ -691,6 +692,9 @@ registerColorMarkerHooks()
 // The token HUD's wardrobe palette - see module/xcc-outfits.js. The button only
 // appears for a character that has outfits.
 registerOutfitHooks()
+
+// Rulebook skill DCs under skill check chat cards - see module/xcc-skill-dcs.js.
+registerSkillDCHooks()
 
 /**
  * Show the full text of a notes or name field, but only while it is too narrow
