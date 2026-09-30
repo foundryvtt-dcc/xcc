@@ -188,7 +188,9 @@ class XCCActorSheetBrawler extends XCCActorSheet {
       deedSucceed = deedDieRollResult > 2
     }
     /* Check for crit or fumble */
-    const fumble = (actionDieRollResult === 1)
+    // Fighting unarmed (two d16 attacks) only fumbles on double 1s, which a
+    // single attack can't know about - so that option never fumbles on its own
+    const fumble = (actionDieRollResult === 1) && type !== 'xcc.brawler.unarmedRegular'
     const naturalCrit = (actionDieRollResult >= critRange)
     const crit = (naturalCrit) && !this.isArmorTooHeavy()
 
@@ -314,9 +316,9 @@ class XCCActorSheetBrawler extends XCCActorSheet {
     if (attackRollResult.fumble) {
       fumbleRollFormula = `${this.actor.system.attributes.fumble.die}${inverseLuckMod}`
       fumbleInlineRoll = await foundry.applications.ux.TextEditor.enrichHTML(`[[/r ${fumbleRollFormula} # Fumble (${fumbleTableName})]] (${fumbleTableName})`)
-      if (type === 'xcc.brawler.unarmedRegular') { fumblePrompt = game.i18n.localize('XCC.RollFumbleTwoWeapons') } else { fumblePrompt = game.i18n.localize('DCC.RollFumble') }
+      fumblePrompt = game.i18n.localize('DCC.RollFumble')
       if (automateDamageFumblesCrits) {
-        if (type === 'xcc.brawler.unarmedRegular') { fumblePrompt = game.i18n.localize('XCC.FumbleTwoWeapons') } else { fumblePrompt = game.i18n.localize('DCC.Fumble') }
+        fumblePrompt = game.i18n.localize('DCC.Fumble')
         fumbleRoll = game.dcc.DCCRoll.createRoll([
           {
             type: 'Compound',
