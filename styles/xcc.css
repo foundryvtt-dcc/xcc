@@ -819,6 +819,20 @@ body.theme-dark {
   color: var(--color-level-error, #b22);
 }
 
+/* Brawler's "Roll Fumble?" under an unarmed natural 1 (xcc-actor-sheet-brawler.js) */
+.chat-message .xcc-double-ones-fumble {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: var(--font-size-12);
+}
+
+.chat-message .xcc-double-ones-fumble button {
+  flex: 0 0 auto;
+  width: auto;
+}
+
 /* ----------------------------------------- */
 /*  Chat Content Links                       */
 /* ----------------------------------------- */

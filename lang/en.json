@@ -237,6 +237,8 @@
       "UnarmedRegularNote": "two attacks",
       "UnarmedAttacks": "Unarmed Fighting",
       "UnarmedAttack": "Unarmed Attack",
+      "RollFumbleQuestion": "Roll Fumble?",
+      "OnlyDoubleOnes": "(only double 1s)",
       "UnarmedType": "Option",
       "WeaponTraining": [
         "You are trained in unarmed fighting, all melee weapons, bows (any) and crossbows."
