@@ -31,6 +31,7 @@ import { registerI18nOverrides } from './xcc-i18n.js'
 import { installMojo } from './xcc-mojo.js'
 import { addGrandstandingSidebarTools, registerGrandstandingHooks } from './xcc-grandstanding.js'
 import { addLuckOverviewSidebarTool, registerLuckOverviewHooks } from './xcc-luck-overview.js'
+import { registerDeedDieDialogHooks } from './xcc-deed-die-dialog.js'
 import { registerTokenHudHooks } from './xcc-token-hud.js'
 import { defineStatusEffects, registerColorMarkerHooks } from './xcc-status-effects.js'
 import { registerOutfitHooks } from './xcc-outfits.js'
@@ -700,6 +701,10 @@ registerSkillDCHooks()
 
 // Live refresh for the Luck overview window - see module/xcc-luck-overview.js.
 registerLuckOverviewHooks()
+
+// Keep the deed die in DCC's roll modifier dialog in step between the attack
+// and damage rows - see module/xcc-deed-die-dialog.js.
+registerDeedDieDialogHooks()
 
 /**
  * Show the full text of a notes or name field, but only while it is too narrow
