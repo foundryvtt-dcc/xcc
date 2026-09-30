@@ -30,6 +30,7 @@ import { checkReleaseNotes } from './xcc-release-notes.js'
 import { registerI18nOverrides } from './xcc-i18n.js'
 import { installMojo } from './xcc-mojo.js'
 import { addGrandstandingSidebarTools, registerGrandstandingHooks } from './xcc-grandstanding.js'
+import { addLuckOverviewSidebarTool, registerLuckOverviewHooks } from './xcc-luck-overview.js'
 import { registerTokenHudHooks } from './xcc-token-hud.js'
 import { defineStatusEffects, registerColorMarkerHooks } from './xcc-status-effects.js'
 import { registerOutfitHooks } from './xcc-outfits.js'
@@ -222,6 +223,7 @@ Hooks.on('dcc.getSidebarTools', (tools) => {
     onClick: () => game.dcc.FleetingLuck.show(),
     help: `${globals.userGuideUrl}Mojo/`
   }
+  addLuckOverviewSidebarTool(tools)
   addGrandstandingSidebarTools(tools)
 })
 
@@ -695,6 +697,9 @@ registerOutfitHooks()
 
 // Rulebook skill DCs under skill check chat cards - see module/xcc-skill-dcs.js.
 registerSkillDCHooks()
+
+// Live refresh for the Luck overview window - see module/xcc-luck-overview.js.
+registerLuckOverviewHooks()
 
 /**
  * Show the full text of a notes or name field, but only while it is too narrow

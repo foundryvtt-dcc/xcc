@@ -98,6 +98,12 @@
       "Four": "Marker 4",
       "Five": "Marker 5"
     },
+    "LuckOverview": {
+      "Title": "Luck",
+      "ValueHint": "Current Luck / natural maximum",
+      "ModHint": "Luck modifier",
+      "Empty": "No player characters on this scene."
+    },
     "SkillDCs": {
       "SneakSoft": "soft surfaces such as grass or carpet",
       "SneakNormal": "normal arena floors, including floors of stone or wood",

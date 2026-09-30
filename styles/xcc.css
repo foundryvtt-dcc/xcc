@@ -796,6 +796,40 @@ body.theme-dark {
 }
 
 /* ----------------------------------------- */
+/*  Luck Overview                            */
+/* ----------------------------------------- */
+
+/* Rows reuse the system's fleeting-luck row, with columns for portrait, name,
+   luck and modifier instead of the Mojo buttons (module/xcc-luck-overview.js) */
+.xcc-luck-overview .fleeting-luck-row {
+  grid-template-columns: 60px 1fr auto auto;
+  column-gap: 10px;
+}
+
+.xcc-luck-overview .luck-value {
+  grid-column: 3;
+  text-align: right;
+  font-weight: bold;
+}
+
+.xcc-luck-overview .luck-value.spent {
+  color: var(--color-level-error, #b22);
+}
+
+.xcc-luck-overview .luck-mod {
+  grid-column: 4;
+  min-width: 28px;
+  text-align: right;
+  opacity: 0.75;
+}
+
+.xcc-luck-overview .luck-empty {
+  margin: 8px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ----------------------------------------- */
 /*  Skill Check DCs                          */
 /* ----------------------------------------- */
 

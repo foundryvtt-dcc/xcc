@@ -1,0 +1,22 @@
+{{!--
+  Luck overview: current / max Luck and the modifier for every crawler on the
+  scene. Uses the system's `fleeting-luck` row layout, like the Mojo tracker.
+--}}
+<section class="{{cssClass}}">
+  <div class="fleeting-luck">
+    <div class="fleeting-luck-users">
+      {{#each actors}}
+        <div class="fleeting-luck-row">
+          <div class="avatar" data-action="openActorSheet" data-actor-id="{{actorId}}">
+            <img src="{{img}}" title="{{name}}" alt="{{name}}"/>
+          </div>
+          <label class="name">{{name}}</label>
+          <label class="luck-value{{#if spent}} spent{{/if}}" title="{{localize 'XCC.LuckOverview.ValueHint'}}">{{value}} / {{max}}</label>
+          <label class="luck-mod" title="{{localize 'XCC.LuckOverview.ModHint'}}">{{mod}}</label>
+        </div>
+      {{else}}
+        <p class="luck-empty">{{localize 'XCC.LuckOverview.Empty'}}</p>
+      {{/each}}
+    </div>
+  </div>
+</section>
