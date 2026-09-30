@@ -4,6 +4,14 @@
 --}}
 <section class="{{cssClass}}">
   <div class="fleeting-luck">
+    <div class="luck-sort">
+      <span>{{localize 'XCC.LuckOverview.SortBy'}}</span>
+      <button type="button" data-action="sortBy" data-sort="name" class="{{#if (eq sort.by 'name')}}active{{/if}}">{{localize 'XCC.LuckOverview.SortName'}}</button>
+      <button type="button" data-action="sortBy" data-sort="luck" class="{{#if (eq sort.by 'luck')}}active{{/if}}" title="{{localize 'XCC.LuckOverview.SortLuckHint'}}">
+        {{localize 'XCC.LuckOverview.SortLuck'}}
+        {{#if (eq sort.by 'luck')}}<i class="fas {{#if (eq sort.dir 'asc')}}fa-arrow-up-1-9{{else}}fa-arrow-down-9-1{{/if}}"></i>{{/if}}
+      </button>
+    </div>
     <div class="fleeting-luck-users">
       {{#each actors}}
         <div class="fleeting-luck-row">

@@ -32,12 +32,34 @@ export function getLuckActors () {
   return actors
 }
 
+// How the viewer likes the list sorted - their preference, so it lives on them.
+const SORT_FLAG = 'luckOverviewSort'
+const DEFAULT_SORT = { by: 'name', dir: 'desc' }
+
+/** @returns {{by: 'name'|'luck', dir: 'asc'|'desc'}} */
+export function getLuckSort () {
+  return { ...DEFAULT_SORT, ...(game.user?.getFlag?.(globals.id, SORT_FLAG) ?? {}) }
+}
+
 /**
- * One row per crawler, sorted by name.
+ * The sort after clicking a sort button: Name sorts A-Z; Luck sorts highest
+ * first, and clicking Luck again flips the direction.
+ */
+export function nextLuckSort (current, by) {
+  if (by !== 'luck') { return { by: 'name', dir: current.dir } }
+  if (current.by !== 'luck') { return { by: 'luck', dir: 'desc' } }
+  return { by: 'luck', dir: current.dir === 'desc' ? 'asc' : 'desc' }
+}
+
+/**
+ * One row per crawler, sorted by name or by current Luck (ties by name).
  * @param {Actor[]} actors
+ * @param {{by: string, dir: string}} [sort]
  * @returns {object[]}
  */
-export function luckRows (actors) {
+export function luckRows (actors, sort = DEFAULT_SORT) {
+  const byName = (a, b) => a.name.localeCompare(b.name)
+  const byLuck = (a, b) => (sort.dir === 'asc' ? a.value - b.value : b.value - a.value) || byName(a, b)
   return actors.map(actor => {
     const lck = actor.system.abilities?.lck ?? {}
     const value = Number(lck.value ?? 0)
@@ -52,7 +74,7 @@ export function luckRows (actors) {
       mod: mod >= 0 ? `+${mod}` : `${mod}`,
       spent: value < max
     }
-  }).sort((a, b) => a.name.localeCompare(b.name))
+  }).sort(sort.by === 'luck' ? byLuck : byName)
 }
 
 class LuckOverviewDialog extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -64,7 +86,8 @@ class LuckOverviewDialog extends HandlebarsApplicationMixin(ApplicationV2) {
       height: 'auto'
     },
     actions: {
-      openActorSheet: this.#onOpenActorSheet
+      openActorSheet: this.#onOpenActorSheet,
+      sortBy: this.#onSortBy
     },
     window: {
       resizable: true,
@@ -79,7 +102,13 @@ class LuckOverviewDialog extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   async _prepareContext (options = {}) {
-    return { cssClass: 'dcc', actors: luckRows(getLuckActors()) }
+    const sort = getLuckSort()
+    return { cssClass: 'dcc', sort, actors: luckRows(getLuckActors(), sort) }
+  }
+
+  static async #onSortBy (event, target) {
+    await game.user.setFlag(globals.id, SORT_FLAG, nextLuckSort(getLuckSort(), target.dataset.sort))
+    this.render(false)
   }
 
   static async #onOpenActorSheet (event, target) {

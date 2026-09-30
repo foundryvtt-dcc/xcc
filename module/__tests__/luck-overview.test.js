@@ -3,7 +3,7 @@
 import { expect, test } from 'vitest'
 import '/systems/dcc/module/__mocks__/foundry.js'
 
-import { getLuckActors, luckRows, addLuckOverviewSidebarTool } from '../xcc-luck-overview.js'
+import { getLuckActors, luckRows, nextLuckSort, addLuckOverviewSidebarTool } from '../xcc-luck-overview.js'
 
 function makeActor (id, name, lck, { type = 'Player', hasPlayerOwner = true } = {}) {
   return { id, name, img: `${id}.png`, type, hasPlayerOwner, system: { abilities: { lck } } }
@@ -31,6 +31,25 @@ test('rows show current / max luck and a signed modifier, sorted by name', () =>
   expect(rows.map(r => r.name)).toEqual(['Bear', 'Xardax'])
   expect(rows[0]).toMatchObject({ value: 6, max: 11, mod: '-1', spent: true })
   expect(rows[1]).toMatchObject({ value: 13, max: 13, mod: '+1', spent: false })
+})
+
+test('sorting by luck orders by current luck, ties by name, in either direction', () => {
+  const actors = [
+    makeActor('a', 'Cheese', { value: 8, max: 10, mod: 0 }),
+    makeActor('b', 'Antonio', { value: 12, max: 12, mod: 0 }),
+    makeActor('c', 'Bear', { value: 8, max: 11, mod: 0 })
+  ]
+  expect(luckRows(actors, { by: 'luck', dir: 'desc' }).map(r => r.name)).toEqual(['Antonio', 'Bear', 'Cheese'])
+  expect(luckRows(actors, { by: 'luck', dir: 'asc' }).map(r => r.name)).toEqual(['Bear', 'Cheese', 'Antonio'])
+  expect(luckRows(actors, { by: 'name', dir: 'asc' }).map(r => r.name)).toEqual(['Antonio', 'Bear', 'Cheese'])
+})
+
+test('clicking Luck sorts highest first, clicking it again flips; Name goes back to A-Z', () => {
+  const byName = { by: 'name', dir: 'desc' }
+  const luckDesc = nextLuckSort(byName, 'luck')
+  expect(luckDesc).toEqual({ by: 'luck', dir: 'desc' })
+  expect(nextLuckSort(luckDesc, 'luck')).toEqual({ by: 'luck', dir: 'asc' })
+  expect(nextLuckSort(luckDesc, 'name').by).toEqual('name')
 })
 
 test('the Luck tool is added right after Mojo in the XCC Tools sidebar', () => {

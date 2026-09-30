@@ -823,6 +823,23 @@ body.theme-dark {
   opacity: 0.75;
 }
 
+.xcc-luck-overview .luck-sort {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+}
+
+.xcc-luck-overview .luck-sort button {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.xcc-luck-overview .luck-sort button.active {
+  font-weight: bold;
+  border-color: var(--color-border-highlight, #ff6400);
+}
+
 .xcc-luck-overview .luck-empty {
   margin: 8px;
   text-align: center;
@@ -1288,28 +1305,33 @@ body.theme-dark {
    the chain a height to inherit and hand the list the leftover row: the header
    takes what it needs, `1fr` takes the rest, and `min-height: 0` is what allows
    a grid row to be shorter than its content and therefore to scroll. */
-#fleeting-luck .window-content {
+#fleeting-luck .window-content,
+#xcc-luck-overview .window-content {
   overflow: hidden;
 }
 
-#fleeting-luck .window-content > section {
+#fleeting-luck .window-content > section,
+#xcc-luck-overview .window-content > section {
   height: 100%;
 }
 
-#fleeting-luck .fleeting-luck {
+#fleeting-luck .fleeting-luck,
+#xcc-luck-overview .fleeting-luck {
   grid-template-rows: minmax(40px, auto) 1fr;
   height: 100%;
 }
 
-#fleeting-luck .fleeting-luck .fleeting-luck-users {
+#fleeting-luck .fleeting-luck .fleeting-luck-users,
+#xcc-luck-overview .fleeting-luck .fleeting-luck-users {
   max-height: none;
   min-height: 0;
 }
 
 /* The system sets these names at 2rem, which suited one row per player. One row
    per crawler makes for a longer list of longer names, and at that size they
-   wrapped to two lines apiece. */
-#fleeting-luck .fleeting-luck .fleeting-luck-row .name {
+   wrapped to two lines apiece. The Luck overview uses the same rows. */
+#fleeting-luck .fleeting-luck .fleeting-luck-row .name,
+#xcc-luck-overview .fleeting-luck .fleeting-luck-row .name {
   font-size: 1rem;
   overflow: hidden;
   text-overflow: ellipsis;

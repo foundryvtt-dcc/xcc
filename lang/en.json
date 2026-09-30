@@ -102,6 +102,10 @@
       "Title": "Luck",
       "ValueHint": "Current Luck / natural maximum",
       "ModHint": "Luck modifier",
+      "SortBy": "Sort by:",
+      "SortName": "Name",
+      "SortLuck": "Luck",
+      "SortLuckHint": "Sort by current Luck; click again to flip the order",
       "Empty": "No player characters on this scene."
     },
     "SkillDCs": {
