@@ -56,8 +56,6 @@
     "NotFound": "No result found",
     "ShiftUp": "Shift result up",
     "ShiftDown": "Shift result down",
-    "RollFumbleTwoWeapons": "Roll Fumble (only if both attacks fumbled)",
-    "FumbleTwoWeapons": "Fumble (only if both attacks fumbled)",
     "BenefitsTitle": "Features",
     "RestrictionsTitle": "Limitations",
     "WeaponTrainingTitle": "Weapon Training",
@@ -249,6 +247,8 @@
       "UnarmedRegularNote": "two attacks",
       "UnarmedAttacks": "Unarmed Fighting",
       "UnarmedAttack": "Unarmed Attack",
+      "RollFumbleQuestion": "Roll Fumble?",
+      "OnlyDoubleOnes": "(only double 1s)",
       "UnarmedType": "Option",
       "WeaponTraining": [
         "You are trained in unarmed fighting, all melee weapons, bows (any) and crossbows."

@@ -54,6 +54,39 @@ class XCCActorSheetBrawler extends XCCActorSheet {
       const stringValue = String(value)
       return stringValue.startsWith('-') ? '+0' : stringValue
     })
+
+    Hooks.on('renderChatMessageHTML', (message, html) => XCCActorSheetBrawler.addDoubleOnesFumbleButton(message, html))
+  }
+
+  /**
+   * Under an unarmed (two d16 attacks) attack that rolled a natural 1, offer
+   * the fumble as a button: it only counts if both attacks rolled a 1, which
+   * the judge has to call.
+   */
+  static addDoubleOnesFumbleButton (message, html) {
+    const formula = message.getFlag(globals.id, 'doubleOnesFumble')
+    if (!formula || !message.isContentVisible) return
+    const actor = ChatMessage.getSpeakerActor(message.speaker)
+    if (!actor?.canUserModify(game.user, 'update')) return
+
+    const rolled = message.getFlag(globals.id, 'doubleOnesFumbleRolled') && !game.user.isGM
+    html.querySelector('.message-content')?.insertAdjacentHTML('beforeend',
+      `<div class="xcc-double-ones-fumble">
+        <button type="button" data-action="xccRollDoubleOnesFumble"${rolled ? ' disabled' : ''}>${game.i18n.localize('XCC.Brawler.RollFumbleQuestion')}</button>
+        <span>${game.i18n.localize('XCC.Brawler.OnlyDoubleOnes')}</span>
+      </div>`)
+    html.querySelector('[data-action="xccRollDoubleOnesFumble"]')?.addEventListener('click', async (event) => {
+      event.preventDefault()
+      const roll = await game.dcc.DCCRoll.createRoll([{ type: 'Compound', dieLabel: game.i18n.localize('DCC.Fumble'), formula }])
+      await roll.evaluate()
+      // DCC looks the result up on the fumble table from this flavor
+      await roll.toMessage({
+        speaker: message.speaker,
+        flavor: `${game.i18n.localize('DCC.Fumble')} (Table 4-2: Fumbles)`,
+        flags: { 'dcc.RollType': 'Fumble' }
+      })
+      if (message.isAuthor || game.user.isGM) await message.setFlag(globals.id, 'doubleOnesFumbleRolled', true)
+    })
   }
 
   /** @inheritDoc */
@@ -188,7 +221,9 @@ class XCCActorSheetBrawler extends XCCActorSheet {
       deedSucceed = deedDieRollResult > 2
     }
     /* Check for crit or fumble */
-    const fumble = (actionDieRollResult === 1)
+    // Fighting unarmed (two d16 attacks) only fumbles on double 1s, which a
+    // single attack can't know about - so that option never fumbles on its own
+    const fumble = (actionDieRollResult === 1) && type !== 'xcc.brawler.unarmedRegular'
     const naturalCrit = (actionDieRollResult >= critRange)
     const crit = (naturalCrit) && !this.isArmorTooHeavy()
 
@@ -314,9 +349,9 @@ class XCCActorSheetBrawler extends XCCActorSheet {
     if (attackRollResult.fumble) {
       fumbleRollFormula = `${this.actor.system.attributes.fumble.die}${inverseLuckMod}`
       fumbleInlineRoll = await foundry.applications.ux.TextEditor.enrichHTML(`[[/r ${fumbleRollFormula} # Fumble (${fumbleTableName})]] (${fumbleTableName})`)
-      if (type === 'xcc.brawler.unarmedRegular') { fumblePrompt = game.i18n.localize('XCC.RollFumbleTwoWeapons') } else { fumblePrompt = game.i18n.localize('DCC.RollFumble') }
+      fumblePrompt = game.i18n.localize('DCC.RollFumble')
       if (automateDamageFumblesCrits) {
-        if (type === 'xcc.brawler.unarmedRegular') { fumblePrompt = game.i18n.localize('XCC.FumbleTwoWeapons') } else { fumblePrompt = game.i18n.localize('DCC.Fumble') }
+        fumblePrompt = game.i18n.localize('DCC.Fumble')
         fumbleRoll = game.dcc.DCCRoll.createRoll([
           {
             type: 'Compound',
@@ -346,6 +381,11 @@ class XCCActorSheetBrawler extends XCCActorSheet {
       'dcc.isNaturalCrit': attackRollResult.naturalCrit,
       'dcc.isMelee': true,
       'dcc.isUnarmed': true
+    }
+    // A natural 1 fighting unarmed is only a fumble if the other attack rolls
+    // a 1 too - offer the fumble roll as a button instead (see the hook below)
+    if (actionDieRollResult === 1 && type === 'xcc.brawler.unarmedRegular') {
+      flags[`${globals.id}.doubleOnesFumble`] = `${this.actor.system.attributes.fumble.die}${inverseLuckMod}`
     }
     game.dcc.FleetingLuck.updateFlags(flags, attackRollResult.roll)
 
