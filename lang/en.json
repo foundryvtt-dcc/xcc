@@ -98,6 +98,16 @@
       "Four": "Marker 4",
       "Five": "Marker 5"
     },
+    "LuckOverview": {
+      "Title": "Luck",
+      "ValueHint": "Current Luck / natural maximum",
+      "ModHint": "Luck modifier",
+      "SortBy": "Sort by:",
+      "SortName": "Name",
+      "SortLuck": "Luck",
+      "SortLuckHint": "Sort by current Luck; click again to flip the order",
+      "Empty": "No player characters on this scene."
+    },
     "SkillDCs": {
       "SneakSoft": "soft surfaces such as grass or carpet",
       "SneakNormal": "normal arena floors, including floors of stone or wood",
