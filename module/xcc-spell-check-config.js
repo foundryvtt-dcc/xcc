@@ -2,6 +2,7 @@
 /* eslint-disable import/no-absolute-path */
 
 import { ensurePlus } from '/systems/dcc/module/utilities.js'
+import { addSpellCheckOtherMod } from './xcc-utils.js'
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 
 class XCCSpellCheckConfig extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -129,13 +130,7 @@ class XCCSpellCheckConfig extends HandlebarsApplicationMixin(ApplicationV2) {
     if (actor.system.details.sheetClass === 'sp-elf-trickster') {
       mod = parseInt(mod) + parseInt(actor.system.abilities.lck.mod)
     }
-    if (this.temporaryValues.spellCheckOtherMod) {
-      if (isNaN(parseInt(this.temporaryValues.spellCheckOtherMod))) {
-        mod = ensurePlus(this.temporaryValues.spellCheckOtherMod) + ensurePlus(mod)
-      } else {
-        mod = parseInt(mod) + parseInt(this.temporaryValues.spellCheckOtherMod)
-      }
-    }
+    mod = addSpellCheckOtherMod(mod, this.temporaryValues.spellCheckOtherMod)
     return blasterDie + ensurePlus(mod)
   }
 }

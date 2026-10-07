@@ -472,7 +472,7 @@ class XCCActorSheetAthlete extends XCCActorSheet {
 
     let deedRollHTML = ''
     if (message.system.deedDieRollResult) {
-      const critical = message.system.deedSucceed ? ' critical' : ''
+      const critical = message.system.deedRollSuccess ? ' critical' : ''
       let iconClass = 'fa-dice-d20'
       if (message.system?.deedDieFormula.includes('d4')) {
         iconClass = 'fa-dice-d4'
