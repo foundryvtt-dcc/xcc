@@ -32,6 +32,22 @@ export const getFameModifier = function (fame) {
   return { mod: 0, dieSteps: 0 }
 }
 
+/**
+ * Add the class's extra spell-check modifier to a running bonus. A plain
+ * integer is summed in; anything else ('+1+2', '+1d4', '@ab') is kept whole as
+ * a formula fragment. `parseInt` alone read '+1+2' as 1 and '+1d4' as 1.
+ *
+ * @param {number|string} mod  The bonus so far
+ * @param {*} otherMod         The `spellCheckOtherMod` value
+ * @returns {number|string}    A number, or a formula string when `otherMod` isn't a plain integer
+ */
+export const addSpellCheckOtherMod = function (mod, otherMod) {
+  const text = String(otherMod ?? '').trim()
+  if (!text) return mod
+  if (/^[+-]?\d+$/.test(text)) return parseInt(mod) + parseInt(text)
+  return signedFormula(text) + ensurePlus(mod)
+}
+
 export const calculateSpellCheckBonus = function (actor) {
   const blasterDie = actor.system.class?.blasterDie ? ensurePlus(actor.system.class.blasterDie) : ''
   let mod = actor.system.abilities[actor.system.class.spellCheckAbility]?.mod || 0
@@ -39,12 +55,6 @@ export const calculateSpellCheckBonus = function (actor) {
   if (actor.system.details.sheetClass === 'sp-elf-trickster') {
     mod = parseInt(mod) + parseInt(actor.system.abilities.lck.mod)
   }
-  if (actor.system.class.spellCheckOtherMod) {
-    if (isNaN(parseInt(actor.system.class.spellCheckOtherMod))) {
-      mod = ensurePlus(actor.system.class.spellCheckOtherMod) + ensurePlus(mod)
-    } else {
-      mod = parseInt(mod) + parseInt(actor.system.class.spellCheckOtherMod)
-    }
-  }
+  mod = addSpellCheckOtherMod(mod, actor.system.class.spellCheckOtherMod)
   return blasterDie + ensurePlus(mod)
 }
